@@ -13,6 +13,8 @@ import {
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppComponent, UnauthorizedComponent } from './components';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { FullLayoutComponent } from './components/full-layout/full-layout.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const modules = [
   CommonModule,
@@ -25,24 +27,19 @@ const modules = [
 ];
 
 const components = [
-  AppComponent,
-  UnauthorizedComponent
+  AppComponent, 
+  UnauthorizedComponent,
+  FullLayoutComponent
 ];
 
 @NgModule({
-  declarations: [
-    ...components
-  ],
+  declarations: [...components ],
   imports: [
     ...modules,
     RouterModule.forRoot([]),
-    NbThemeModule.forRoot({ name: 'default' })
+    NbThemeModule.forRoot({ name: 'default' }),
   ],
-  exports: [
-    ...modules,
-    NbThemeModule, 
-    ...components
-  ]
+  exports: [...modules, NbThemeModule, ...components],
 })
 export class NebularModule {
   private static rootRoutes: Routes;
@@ -52,11 +49,30 @@ export class NebularModule {
 
     return {
       ngModule: NebularModule,
-      providers: []
-    }
+      providers: [],
+    };
+  }
+
+  static withSecureFullLayout(routes: Routes): ModuleWithProviders<NebularModule> {
+    console.log(routes);
+    this.rootRoutes = [
+      { 
+        path: '', 
+        component: FullLayoutComponent,
+        canActivate: [ AutoLoginAllRoutesGuard ],
+        children: routes
+      }
+    ];
+    console.log(this.rootRoutes);
+
+    return {
+      ngModule: NebularModule,
+      providers: [],
+    };
   }
 
   constructor(router: Router) {
     router.resetConfig(NebularModule.rootRoutes);
   }
 }
+
