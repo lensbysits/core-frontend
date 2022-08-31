@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/framework/core/ui/nebular/src",
+  "prefix": "frontend",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/framework/core/ui/nebular"],
+      "options": {
+        "project": "libs/framework/core/ui/nebular/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/framework/core/ui/nebular/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/framework/core/ui/nebular/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/framework/core/ui/nebular"],
+      "options": {
+        "jestConfig": "libs/framework/core/ui/nebular/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/framework/core/ui/nebular/**/*.ts",
+          "libs/framework/core/ui/nebular/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
