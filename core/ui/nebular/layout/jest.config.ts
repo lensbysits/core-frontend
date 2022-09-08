@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'framework-core-ui-nebular',
-  preset: '../../../../../jest.preset.js',
+  displayName: 'framework-core-ui-nebular-layout',
+  preset: '../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../../coverage/libs/framework/core/ui/nebular',
+  coverageDirectory: '../../../../../../coverage/libs/framework/core/ui/nebular/layout',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
