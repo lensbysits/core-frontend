@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@lens/security-abstract';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
@@ -9,17 +10,17 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class FullLayoutComponent implements OnInit {
   title = 'console';
   isAuthenticated = false;
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+  constructor(private authenticationService: AuthenticationService, public oidcSecurityService: OidcSecurityService) {}
 
   ngOnInit() { 
-    this.oidcSecurityService.isAuthenticated$.subscribe(a => this.isAuthenticated = a.isAuthenticated);
+    this.authenticationService.isAuthenticated$.subscribe(authenticated => this.isAuthenticated = authenticated);
   }
 
   login() {
-    this.oidcSecurityService.authorize();
+    this.authenticationService.login();
   }
 
   logout() {
-    this.oidcSecurityService.logoff();
+    this.authenticationService.logout();
   }
 }
