@@ -9,9 +9,11 @@ import { map, Observable } from 'rxjs';
 export class OAuthenticationService implements AuthenticationService {
   
   isAuthenticated$!: Observable<boolean>;
+  userData$: Observable<any> = new Observable<any>();
 
   constructor(private oidcSecurityService: OidcSecurityService) { 
     this.isAuthenticated$ = oidcSecurityService.isAuthenticated$.pipe(map(authenticatedResult => authenticatedResult.isAuthenticated ));
+    this.userData$ = oidcSecurityService.userData$.pipe(map(userDataResult => userDataResult.userData));
   }
   
   login(): void {

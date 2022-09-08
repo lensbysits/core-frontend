@@ -10,7 +10,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class FullLayoutComponent implements OnInit {
   title = 'console';
   isAuthenticated = false;
-  constructor(private authenticationService: AuthenticationService, public oidcSecurityService: OidcSecurityService) {}
+  constructor(public authenticationService: AuthenticationService) {}
 
   ngOnInit() { 
     this.authenticationService.isAuthenticated$.subscribe(authenticated => this.isAuthenticated = authenticated);
