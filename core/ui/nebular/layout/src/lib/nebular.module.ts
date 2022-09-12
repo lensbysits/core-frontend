@@ -14,7 +14,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppComponent, UnauthorizedComponent } from './components';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { FullLayoutComponent } from './components/full-layout/full-layout.component';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+// import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const modules = [
   CommonModule,
@@ -59,7 +59,7 @@ export class NebularModule {
       { 
         path: '', 
         component: FullLayoutComponent,
-        canActivate: [ AutoLoginAllRoutesGuard ],
+        // canActivate: [ AutoLoginAllRoutesGuard ],
         children: routes
       }
     ];

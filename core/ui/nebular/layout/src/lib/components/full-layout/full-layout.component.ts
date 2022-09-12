@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@lens/security-abstract';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'frontend-full-layout',
@@ -13,7 +12,7 @@ export class FullLayoutComponent implements OnInit {
   constructor(public authenticationService: AuthenticationService) {}
 
   ngOnInit() { 
-    this.authenticationService.isAuthenticated$.subscribe(authenticated => this.isAuthenticated = authenticated);
+    this.authenticationService.isAuthenticated$.subscribe(authenticated => { console.log('Authenticated: ', authenticated); this.isAuthenticated = authenticated; });
   }
 
   login() {
