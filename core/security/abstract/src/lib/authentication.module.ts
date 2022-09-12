@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { UserInfoComponent } from './components';
 
 @NgModule({
-  imports: [CommonModule]
+  declarations: [UserInfoComponent],
+  imports: [CommonModule],
+  exports: [UserInfoComponent]
 })
 export class AuthenticationModule {}

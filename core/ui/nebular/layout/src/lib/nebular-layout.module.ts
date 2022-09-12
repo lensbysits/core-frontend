@@ -41,20 +41,19 @@ const components = [
   ],
   exports: [...modules, NbThemeModule, ...components],
 })
-export class NebularModule {
+export class NebularLayoutModule {
   private static rootRoutes: Routes;
 
-  static forRoot(routes: Routes): ModuleWithProviders<NebularModule> {
+  static forRoot(routes: Routes): ModuleWithProviders<NebularLayoutModule> {
     this.rootRoutes = routes;
 
     return {
-      ngModule: NebularModule,
+      ngModule: NebularLayoutModule,
       providers: [],
     };
   }
 
-  static withSecureFullLayout(routes: Routes): ModuleWithProviders<NebularModule> {
-    console.log(routes);
+  static withSecureFullLayout(routes: Routes): ModuleWithProviders<NebularLayoutModule> {
     this.rootRoutes = [
       { 
         path: '', 
@@ -66,13 +65,13 @@ export class NebularModule {
     console.log(this.rootRoutes);
 
     return {
-      ngModule: NebularModule,
+      ngModule: NebularLayoutModule,
       providers: [],
     };
   }
 
   constructor(router: Router) {
-    router.resetConfig(NebularModule.rootRoutes);
+    router.resetConfig(NebularLayoutModule.rootRoutes);
   }
 }
 

@@ -1,2 +1,2 @@
-export * from './lib/nebular.module';
+export * from './lib/nebular-layout.module';
 export * from './lib/components';
