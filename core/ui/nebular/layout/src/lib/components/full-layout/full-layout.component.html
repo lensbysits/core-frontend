@@ -1,0 +1,29 @@
+<nb-layout>
+
+    <nb-layout-header fixed>
+    <div>IsAuthenicated: {{ isAuthenticated }}</div>
+    <div>
+      <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+      <button *ngIf="!isAuthenticated" (click)="login()">login</button>
+    </div>
+  
+    </nb-layout-header>
+  
+    <nb-layout-column>
+
+      <nb-card *ngIf="isAuthenticated">
+        <nb-card-body>
+          <pre>{{ (authenticationService.userData$ | async) | json }}</pre>
+        </nb-card-body>
+      </nb-card>
+
+      <router-outlet></router-outlet>
+      
+    </nb-layout-column>
+  
+    <nb-layout-footer fixed>
+    <!-- Insert footer here -->
+    </nb-layout-footer>
+  
+  </nb-layout>
+  
