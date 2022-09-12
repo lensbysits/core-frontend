@@ -6,10 +6,17 @@ The Lens frontend framework is incorporated into your workspace as follows:
 
 1. Adding the Lens framework as a submodule in the Nx workspace structure:
 
-```
-    cd libs
-    git submodule add https://github.com/lensbysits/core-frontend.git
-```
+    ```
+        cd libs
+        git submodule add https://github.com/lensbysits/core-frontend.git
+    ```
+
+    If you would like to contribute to the Lens framework, execute the following commands:
+
+    ```
+        cd libs/framework
+        git checkout develop
+    ```
 
 2. Adding the Lens framework subdependencies to `package.json`:
 
@@ -35,7 +42,7 @@ The Lens frontend framework is incorporated into your workspace as follows:
     ```
 
     Then, to store the configured packages in your local npm repository, please run `npm install`.
-    Unfortunately the @nebular/theme package is not yet updated to support `@angular/animations@14` and higher.
+    Unfortunately the `@nebular/theme` package is not yet updated to support `@angular/animations@14` and higher.
     If you run into problems with this, you could force the packages to be downloaded by - I regret to say this - executing `npm install --force`.
 
 3. Configure the `import` shorthands for the Lens framework in `tsconfig.base.json`:
