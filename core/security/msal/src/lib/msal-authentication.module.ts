@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MsalModule, MsalRedirectComponent, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
+import { MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
 import {
   IPublicClientApplication,
   LogLevel,
@@ -12,6 +12,7 @@ import {
 } from '@lens/security-abstract';
 import { MSalAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -27,17 +28,21 @@ function loggerCallback(logLevel: any, message: any, containsPii: any) {
   bootstrap: []
 })
 export class MsalAuthenticationModule {
-  static config?: IPublicClientApplication;
+  static clientConfiguration?: IPublicClientApplication;
+  static guardConfiguration?: MsalGuardConfiguration;
+  static interceptorConfiguration?: MsalInterceptorConfiguration;
 
   static bootstrap = [
     AuthenticationRedirectComponent 
   ];
 
   static forRoot(
-    clientConfiguration: ClientConfiguration
+    clientConfiguration: ClientConfiguration,
+    guardConfiguration?: MsalGuardConfiguration,
+    interceptorConfiguration?: MsalInterceptorConfiguration
   ): ModuleWithProviders<MsalAuthenticationModule> {
-    this.config = new PublicClientApplication({
-      auth: { ...clientConfiguration },
+    this.clientConfiguration = new PublicClientApplication({
+      auth: clientConfiguration,
       cache: {
         cacheLocation: 'localStorage',
         storeAuthStateInCookie: isIE,
@@ -48,10 +53,10 @@ export class MsalAuthenticationModule {
           logLevel: LogLevel.Verbose,
           piiLoggingEnabled: true,
         },
-      },
+      }
     });
-
-    console.log(this.config);
+    this.guardConfiguration = guardConfiguration;
+    this.interceptorConfiguration = interceptorConfiguration;
 
     return {
       ngModule: MsalAuthenticationModule,
@@ -63,11 +68,28 @@ export class MsalAuthenticationModule {
         {
           provide: MSAL_INSTANCE,
           useFactory: () => {
-            console.log(this.config);
-            return this.config;
+            return this.clientConfiguration;
           },
         },
-        MsalService,
+        {
+          provide: MSAL_GUARD_CONFIG,
+          useFactory: () => {
+            return this.guardConfiguration;
+          }
+        },
+        {
+          provide: MSAL_INTERCEPTOR_CONFIG,
+          useFactory: () => {
+            return this.interceptorConfiguration;
+          },
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: MsalInterceptor,
+          multi: true
+        },
+        MsalGuard,
+        MsalService
       ],
     };
   }
