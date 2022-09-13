@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
 import {
+  InteractionType,
   IPublicClientApplication,
   LogLevel,
   PublicClientApplication,
@@ -13,6 +14,8 @@ import {
 import { MSalAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorConfiguration } from './models/interceptor-configuration.model';
+import { GuardConfiguration } from './models/guard-configuration.model';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -28,9 +31,9 @@ function loggerCallback(logLevel: any, message: any, containsPii: any) {
   bootstrap: []
 })
 export class MsalAuthenticationModule {
-  static clientConfiguration?: IPublicClientApplication;
-  static guardConfiguration?: MsalGuardConfiguration;
-  static interceptorConfiguration?: MsalInterceptorConfiguration;
+  static clientConfiguration: IPublicClientApplication;
+  static guardConfiguration?: GuardConfiguration;
+  static interceptorConfiguration?: InterceptorConfiguration;
 
   static bootstrap = [
     AuthenticationRedirectComponent 
@@ -38,8 +41,8 @@ export class MsalAuthenticationModule {
 
   static forRoot(
     clientConfiguration: ClientConfiguration,
-    guardConfiguration?: MsalGuardConfiguration,
-    interceptorConfiguration?: MsalInterceptorConfiguration
+    guardConfiguration?: GuardConfiguration,
+    interceptorConfiguration?: InterceptorConfiguration
   ): ModuleWithProviders<MsalAuthenticationModule> {
     this.clientConfiguration = new PublicClientApplication({
       auth: clientConfiguration,
@@ -67,20 +70,37 @@ export class MsalAuthenticationModule {
         },
         {
           provide: MSAL_INSTANCE,
-          useFactory: () => {
+          useFactory: (): IPublicClientApplication => {
             return this.clientConfiguration;
           },
         },
         {
           provide: MSAL_GUARD_CONFIG,
-          useFactory: () => {
-            return this.guardConfiguration;
+          useFactory: (): MsalGuardConfiguration | undefined => {
+            if (!this.guardConfiguration) {
+              return undefined;
+            }
+
+            return {
+              interactionType: InteractionType.Redirect,
+              authRequest: {
+                scopes: this.guardConfiguration.scopes
+              },
+              loginFailedRoute: this.guardConfiguration.loginFailedRoute
+            };
           }
         },
         {
           provide: MSAL_INTERCEPTOR_CONFIG,
-          useFactory: () => {
-            return this.interceptorConfiguration;
+          useFactory: (): MsalInterceptorConfiguration | undefined => {
+            if (!this.interceptorConfiguration) {
+              return undefined;
+            }
+
+            return {
+              interactionType: InteractionType.Redirect,
+              protectedResourceMap: this.interceptorConfiguration.protectedResources
+            };
           },
         },
         {
