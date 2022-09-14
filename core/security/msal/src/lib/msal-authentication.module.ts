@@ -10,12 +10,12 @@ import {
 import {
   AuthenticationService,
   ClientConfiguration,
+  GuardConfiguration,
+  InterceptorConfiguration,
 } from '@lens/security-abstract';
 import { MSalAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorConfiguration } from './models/interceptor-configuration.model';
-import { GuardConfiguration } from './models/guard-configuration.model';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
