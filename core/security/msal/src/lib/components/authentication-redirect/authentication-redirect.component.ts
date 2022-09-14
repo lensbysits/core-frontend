@@ -4,7 +4,7 @@ import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'lens-authentication-redirect',
-  template: '<p>redirecting</p>',
+  template: '',
   styles: [],
 })
 export class AuthenticationRedirectComponent implements OnInit {
