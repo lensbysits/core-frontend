@@ -62,7 +62,6 @@ export class NebularLayoutModule {
         children: routes
       }
     ];
-    console.log(this.rootRoutes);
 
     return {
       ngModule: NebularLayoutModule,

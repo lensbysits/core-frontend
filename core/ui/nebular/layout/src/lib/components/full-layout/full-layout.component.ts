@@ -7,12 +7,11 @@ import { AuthenticationService } from '@lens/security-abstract';
   styleUrls: ['./full-layout.component.scss'],
 })
 export class FullLayoutComponent implements OnInit {
-  title = 'console';
   isAuthenticated = false;
   constructor(public authenticationService: AuthenticationService) {}
 
   ngOnInit() { 
-    this.authenticationService.isAuthenticated$.subscribe(authenticated => { console.log('Authenticated: ', authenticated); this.isAuthenticated = authenticated; });
+    this.authenticationService.isAuthenticated$.subscribe(authenticated => this.isAuthenticated = authenticated);
   }
 
   login() {

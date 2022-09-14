@@ -51,8 +51,6 @@ export class MsalAuthenticationModule {
       },
     });
 
-    console.log(this.config);
-
     return {
       ngModule: MsalAuthenticationModule,
       providers: [
