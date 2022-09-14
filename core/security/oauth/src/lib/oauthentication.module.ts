@@ -2,24 +2,27 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AuthModule,
+  LogLevel,
   OpenIdConfiguration,
   StsConfigLoader,
   StsConfigStaticLoader,
 } from 'angular-auth-oidc-client';
-import { OAuthenticationService } from './services/oauthentication.service';
-import { AuthenticationService } from '@lens/security-abstract';
-import { AuthenticationRedirectComponent } from './components/authentication-redirect/authentication-redirect.component';
+import { AuthenticationService, ClientConfiguration, GuardConfiguration, InterceptorConfiguration } from '@lens/security-abstract';
+import { OAuthenticationService } from './services';
+import { AuthenticationRedirectComponent } from './components';
 
 const configFactory = () => {
-  console.log('passedConfig: ', OAuthenticationModule.config);
-  if (!OAuthenticationModule.config) {
+  if (!OAuthenticationModule.clientConfiguration) {
     throw new Error('make sure to pass in a auth-config');
   }
 
-  return new StsConfigStaticLoader(OAuthenticationModule.config);
+  return new StsConfigStaticLoader(OAuthenticationModule.clientConfiguration);
 };
 
 @NgModule({
+  declarations: [
+    AuthenticationRedirectComponent
+  ],
   imports: [
     CommonModule,
     AuthModule.forRoot({
@@ -32,16 +35,30 @@ const configFactory = () => {
   exports: [AuthModule],
 })
 export class OAuthenticationModule {
-  static config?: OpenIdConfiguration;
+  static clientConfiguration?: OpenIdConfiguration;
+  static guardConfiguration?: GuardConfiguration;
+  static interceptorConfiguration?: InterceptorConfiguration;
 
   static bootstrap = [
     AuthenticationRedirectComponent
   ];
 
   static forRoot(
-    passedConfig: OpenIdConfiguration
+    clientConfiguration: ClientConfiguration,
+    guardConfiguration?: GuardConfiguration,
+    interceptorConfiguration?: InterceptorConfiguration
   ): ModuleWithProviders<OAuthenticationModule> {
-    this.config = passedConfig;
+    this.clientConfiguration = {
+      authority: clientConfiguration.authority,
+      redirectUrl: clientConfiguration.redirectUri,
+      postLogoutRedirectUri: clientConfiguration.postLogoutRedirectUri,
+      clientId: clientConfiguration.clientId,
+      scope: guardConfiguration?.scopes.join(' '),
+      responseType: 'code',
+      silentRenew: true,
+      useRefreshToken: true,
+      logLevel: LogLevel.Debug
+    };
     return {
       ngModule: OAuthenticationModule,
       providers: [

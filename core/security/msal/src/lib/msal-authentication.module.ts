@@ -10,6 +10,8 @@ import {
 import {
   AuthenticationService,
   ClientConfiguration,
+  GuardConfiguration,
+  InterceptorConfiguration,
 } from '@lens/security-abstract';
 import { MSalAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
@@ -26,7 +28,7 @@ function loggerCallback(logLevel: any, message: any, containsPii: any) {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [AuthenticationRedirectComponent],
   imports: [CommonModule, MsalModule],
   providers: [ MsalGuard ],
   exports: [MsalModule],
