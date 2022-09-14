@@ -5,7 +5,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'lens-authentication-redirect',
-  template: '<p ngIf="busy">redirecting</p>',
+  template: '<p *ngIf="busy">redirecting</p>',
   styles: [],
 })
 export class AuthenticationRedirectComponent extends MsalRedirectComponent {
@@ -13,7 +13,7 @@ export class AuthenticationRedirectComponent extends MsalRedirectComponent {
   busy = true;
 
   constructor(
-    private msalService: MsalService,
+    msalService: MsalService,
     private readonly authenticationBroadcastService: MsalBroadcastService) {
 
     super(msalService);
@@ -22,7 +22,7 @@ export class AuthenticationRedirectComponent extends MsalRedirectComponent {
         filter(status => status === InteractionStatus.None),
         takeUntil(this.destroy$)
       )
-      .subscribe(_ => {
+      .subscribe(() => {
         this.busy = false;
         this.destroy$.next();
         this.destroy$.complete();

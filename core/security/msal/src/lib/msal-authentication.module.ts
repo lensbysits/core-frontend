@@ -25,7 +25,7 @@ function loggerCallback(logLevel: any, message: any, containsPii: any) {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [AuthenticationRedirectComponent],
   imports: [CommonModule, MsalModule],
   exports: [MsalModule],
   bootstrap: []
