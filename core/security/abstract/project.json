@@ -3,22 +3,6 @@
   "sourceRoot": "libs/framework/core/security/abstract/src",
   "prefix": "frontend",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/framework/core/security/abstract"],
-      "options": {
-        "project": "libs/framework/core/security/abstract/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/framework/core/security/abstract/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/framework/core/security/abstract/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/framework/core/security/abstract"],

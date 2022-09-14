@@ -3,22 +3,6 @@
   "sourceRoot": "libs/framework/core/security/msal/src",
   "prefix": "frontend",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/framework/core/security/msal"],
-      "options": {
-        "project": "libs/framework/core/security/msal/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/framework/core/security/msal/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/framework/core/security/msal/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/framework/core/security/msal"],
