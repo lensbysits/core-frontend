@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
+import { MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
 import {
   InteractionType,
   IPublicClientApplication,
@@ -16,6 +16,7 @@ import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorConfiguration } from './models/interceptor-configuration.model';
 import { GuardConfiguration } from './models/guard-configuration.model';
+import { MsalGuard } from './guards/msal.guard';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -27,6 +28,7 @@ function loggerCallback(logLevel: any, message: any, containsPii: any) {
 @NgModule({
   declarations: [],
   imports: [CommonModule, MsalModule],
+  providers: [ MsalGuard ],
   exports: [MsalModule],
   bootstrap: []
 })
