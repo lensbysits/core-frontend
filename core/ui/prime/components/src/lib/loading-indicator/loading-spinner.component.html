@@ -1,0 +1,6 @@
+<div *ngIf="!isLoading">
+    <ng-content></ng-content>
+</div>
+<div *ngIf="isLoading">
+    <p-progressSpinner></p-progressSpinner>
+</div>
