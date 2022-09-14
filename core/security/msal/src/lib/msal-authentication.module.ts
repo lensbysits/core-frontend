@@ -16,8 +16,6 @@ import {
 import { MSalAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorConfiguration } from './models/interceptor-configuration.model';
-import { GuardConfiguration } from './models/guard-configuration.model';
 import { MsalGuard } from './guards/msal.guard';
 
 const isIE =
