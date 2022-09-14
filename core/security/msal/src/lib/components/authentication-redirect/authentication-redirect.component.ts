@@ -5,7 +5,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'lens-authentication-redirect',
-  template: '<p *ngIf="busy">redirecting</p>',
+  template: '<p *ngIf="busy">Checking authentication status!</p>',
   styles: [],
 })
 export class AuthenticationRedirectComponent extends MsalRedirectComponent {

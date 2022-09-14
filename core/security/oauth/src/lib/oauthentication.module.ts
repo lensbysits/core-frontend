@@ -6,12 +6,11 @@ import {
   StsConfigLoader,
   StsConfigStaticLoader,
 } from 'angular-auth-oidc-client';
-import { OAuthenticationService } from './services/oauthentication.service';
 import { AuthenticationService } from '@lens/security-abstract';
-import { AuthenticationRedirectComponent } from './components/authentication-redirect/authentication-redirect.component';
+import { OAuthenticationService } from './services';
+import { AuthenticationRedirectComponent } from './components';
 
 const configFactory = () => {
-  console.log('passedConfig: ', OAuthenticationModule.config);
   if (!OAuthenticationModule.config) {
     throw new Error('make sure to pass in a auth-config');
   }
@@ -20,6 +19,9 @@ const configFactory = () => {
 };
 
 @NgModule({
+  declarations: [
+    AuthenticationRedirectComponent
+  ],
   imports: [
     CommonModule,
     AuthModule.forRoot({
