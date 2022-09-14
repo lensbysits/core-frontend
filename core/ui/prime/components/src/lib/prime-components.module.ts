@@ -8,4 +8,4 @@ import { LoadingSpinnerModule } from './loading-indicator/loading-spinner.module
     LoadingSpinnerModule
   ],
 })
-export class PrimeCompomentsModule {}
+export class PrimeComponentsModule {}

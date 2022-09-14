@@ -1,30 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {
-  NbThemeModule,
-  NbLayoutModule,
-  NbIconModule,
-  NbCardModule,
-} from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbThemeModule, NbLayoutModule, } from '@nebular/theme';
 import { AppComponent, UnauthorizedComponent } from './components';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { FullLayoutComponent } from './components/full-layout/full-layout.component';
-// import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { NebularComponentsModule } from '@lens/ui-nebular-components';
 
-const modules = [
-  CommonModule,
-  BrowserModule,
-  BrowserAnimationsModule,
-  NbLayoutModule,
-  NbCardModule,
-  NbEvaIconsModule,
-  NbIconModule,
-];
 
 const components = [
   AppComponent, 
@@ -35,11 +15,12 @@ const components = [
 @NgModule({
   declarations: [...components ],
   imports: [
-    ...modules,
-    RouterModule.forRoot([]),
+    NbLayoutModule,
     NbThemeModule.forRoot({ name: 'default' }),
+    RouterModule.forRoot([]),
+    NebularComponentsModule,
   ],
-  exports: [...modules, NbThemeModule, ...components],
+  exports: [NebularComponentsModule, NbThemeModule, ...components],
 })
 export class NebularLayoutModule {
   private static rootRoutes: Routes;
