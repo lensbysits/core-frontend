@@ -43,8 +43,6 @@ export class MSalAuthenticationService implements AuthenticationService, OnDestr
     const accounts = this.msalAuthenticationService.instance.getAllAccounts();
     this.isAuthenticated$.next(accounts.length > 0);
     if (accounts.length === 1) {
-      console.log(accounts);
-      console.log(accounts[0].name);
       this.userData$.next({ username: accounts[0].name });
     } else {
       if (accounts.length > 1) {
