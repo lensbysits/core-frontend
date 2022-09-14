@@ -53,9 +53,14 @@ The Lens frontend framework is incorporated into your workspace as follows:
             "@lens/security-abstract": [
                 "libs/framework/core/security/abstract/src/index.ts"
             ],
-            "@lens/security-msal": ["libs/framework/core/security/msal/src/index.ts"],
+            "@lens/security-msal": [
+                "libs/framework/core/security/msal/src/index.ts"
+            ],
             "@lens/security-oauth": [
                 "libs/framework/core/security/oauth/src/index.ts"
+            ],
+            "@lens/ui-nebular-components": [
+                "libs/framework/core/ui/nebular/components/src/index.ts"
             ],
             "@lens/ui-nebular-layout": [
                 "libs/framework/core/ui/nebular/layout/src/index.ts"
@@ -78,6 +83,7 @@ The Lens frontend framework is incorporated into your workspace as follows:
             "framework-core-security-abstract": "libs/framework/core/security/abstract",
             "framework-core-security-msal": "libs/framework/core/security/msal",
             "framework-core-security-oauth": "libs/framework/core/security/oauth",
+            "framework-core-ui-nebular-components": "libs/framework/core/ui/nebular/components",
             "framework-core-ui-nebular-layout": "libs/framework/core/ui/nebular/layout",
             "framework-core-ui-prime-components": "libs/framework/core/ui/prime/components",
             "framework-core-ui-prime-layout": "libs/framework/core/ui/prime/layout",
