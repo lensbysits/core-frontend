@@ -55,7 +55,7 @@ export class MsalAuthenticationModule {
       system: {
         loggerOptions: {
           loggerCallback,
-          logLevel: LogLevel.Verbose,
+          logLevel: LogLevel.Error,
           piiLoggingEnabled: true,
         },
       }
