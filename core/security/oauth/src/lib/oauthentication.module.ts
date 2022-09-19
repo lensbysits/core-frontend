@@ -2,13 +2,14 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AuthModule,
+  AutoLoginAllRoutesGuard,
   LogLevel,
   OpenIdConfiguration,
   StsConfigLoader,
   StsConfigStaticLoader,
 } from 'angular-auth-oidc-client';
 import { UserContextService } from '@lens/app-abstract';
-import { AuthenticationService, ClientConfiguration, GuardConfiguration, InterceptorConfiguration } from '@lens/security-abstract';
+import { AuthenticationService, AuthGuard, ClientConfiguration, GuardConfiguration, InterceptorConfiguration } from '@lens/security-abstract';
 import { AuthenticationRedirectComponent } from './components';
 import { 
   OAuthenticationService, 
@@ -67,7 +68,9 @@ export class OAuthenticationModule {
       ngModule: OAuthenticationModule,
       providers: [
         { provide: AuthenticationService, useExisting: OAuthenticationService },
-        { provide: UserContextService, useClass: oAuthUserContextService }
+        { provide: UserContextService, useClass: oAuthUserContextService },
+        { provide: AuthGuard, useClass: AutoLoginAllRoutesGuard },
+        AutoLoginAllRoutesGuard
       ],
     };
   }

@@ -48,7 +48,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 
   protected Set(userData: UserData, isAuthenticated: boolean): void {
     this.IsAuthenticated = isAuthenticated;
-    this.UserData = userData
+    this.UserData = { ...this.UserData, ...userData };
     this.Changed$.next();
   }
 
