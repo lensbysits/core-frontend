@@ -50,6 +50,9 @@ The Lens frontend framework is incorporated into your workspace as follows:
     ```json
         "paths": {
             ...
+            "@lens/app-abstract": [
+                "libs/framework/core/app/abstract/src/index.ts"
+            ],      
             "@lens/security-abstract": [
                 "libs/framework/core/security/abstract/src/index.ts"
             ],
@@ -80,6 +83,7 @@ The Lens frontend framework is incorporated into your workspace as follows:
     ```json
         "projects": {
             ...
+            "framework-core-app-abstract": "libs/framework/core/app/abstract",
             "framework-core-security-abstract": "libs/framework/core/security/abstract",
             "framework-core-security-msal": "libs/framework/core/security/msal",
             "framework-core-security-oauth": "libs/framework/core/security/oauth",

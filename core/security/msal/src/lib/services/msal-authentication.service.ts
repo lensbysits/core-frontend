@@ -46,7 +46,7 @@ export class MSalAuthenticationService implements AuthenticationService, OnDestr
       this.userData$.next({ username: accounts[0].name });
     } else {
       if (accounts.length > 1) {
-        alert("Handle multiple logged in accounts");
+        console.log("Handle multiple logged in accounts");
       }
       const username = accounts.map(a => a.name).join(', ');
       this.userData$.next({ username: username });

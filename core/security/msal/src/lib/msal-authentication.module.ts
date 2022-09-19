@@ -13,7 +13,8 @@ import {
   GuardConfiguration,
   InterceptorConfiguration,
 } from '@lens/security-abstract';
-import { MSalAuthenticationService } from './services';
+import { UserContextService } from '@lens/app-abstract';
+import { MSalAuthenticationService, UserContextService as msalUserContextService } from './services';
 import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MsalGuard } from './guards/msal.guard';
@@ -55,7 +56,7 @@ export class MsalAuthenticationModule {
       system: {
         loggerOptions: {
           loggerCallback,
-          logLevel: LogLevel.Verbose,
+          logLevel: LogLevel.Error,
           piiLoggingEnabled: true,
         },
       }
@@ -70,6 +71,9 @@ export class MsalAuthenticationModule {
           provide: AuthenticationService,
           useExisting: MSalAuthenticationService,
         },
+        { 
+          provide: UserContextService, 
+          useClass: msalUserContextService },
         {
           provide: MSAL_INSTANCE,
           useFactory: (): IPublicClientApplication => {
