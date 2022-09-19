@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, OnDestroy, Optional } from '@angular/core';
 import { UserContextService } from './user-context.service';
 import { Observable, map, Subject, BehaviorSubject } from 'rxjs';
 import { UserData } from '../models';
@@ -6,8 +6,9 @@ import { UserData } from '../models';
 export const DEFAULT_USER = new InjectionToken<{UserData: UserData, IsAuthenticated: boolean}>('AppInfo');
 
 @Injectable()
-export class DefaultUserContextService extends UserContextService {
-  
+export class DefaultUserContextService extends UserContextService implements OnDestroy {
+  protected readonly destroy$ = new Subject<void>();
+
   readonly Changed$: Subject<void> = new Subject();
   readonly UserData$: BehaviorSubject<UserData> = new BehaviorSubject(this.UserData);
   readonly IsAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -26,7 +27,7 @@ export class DefaultUserContextService extends UserContextService {
     this.IsAuthenticated$.next(isAuthenticated);
   }
 
-  constructor(@Optional() @Inject(DEFAULT_USER) defaultUser: {UserData: UserData, IsAuthenticated: boolean}) {
+  constructor(@Optional() @Inject(DEFAULT_USER) defaultUser?: {UserData: UserData, IsAuthenticated: boolean}) {
     super();
     if(defaultUser) {
       this.Set(defaultUser.UserData, defaultUser.IsAuthenticated);
@@ -49,6 +50,10 @@ export class DefaultUserContextService extends UserContextService {
     this.IsAuthenticated = isAuthenticated;
     this.UserData = userData
     this.Changed$.next();
-    
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+}
 }

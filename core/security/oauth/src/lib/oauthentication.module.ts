@@ -7,9 +7,13 @@ import {
   StsConfigLoader,
   StsConfigStaticLoader,
 } from 'angular-auth-oidc-client';
+import { UserContextService } from '@lens/app-abstract';
 import { AuthenticationService, ClientConfiguration, GuardConfiguration, InterceptorConfiguration } from '@lens/security-abstract';
-import { OAuthenticationService } from './services';
 import { AuthenticationRedirectComponent } from './components';
+import { 
+  OAuthenticationService, 
+  UserContextService as oAuthUserContextService 
+} from './services';
 
 const configFactory = () => {
   if (!OAuthenticationModule.clientConfiguration) {
@@ -63,6 +67,7 @@ export class OAuthenticationModule {
       ngModule: OAuthenticationModule,
       providers: [
         { provide: AuthenticationService, useExisting: OAuthenticationService },
+        { provide: UserContextService, useClass: oAuthUserContextService }
       ],
     };
   }
