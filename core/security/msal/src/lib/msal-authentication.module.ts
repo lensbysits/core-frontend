@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
+import { MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
 import {
   InteractionType,
   IPublicClientApplication,
@@ -9,6 +9,7 @@ import {
 } from '@azure/msal-browser';
 import {
   AuthenticationService,
+  AuthGuard,
   ClientConfiguration,
   GuardConfiguration,
   InterceptorConfiguration,
@@ -17,7 +18,6 @@ import { UserContextService } from '@lens/app-abstract';
 import { MSalAuthenticationService, UserContextService as msalUserContextService } from './services';
 import { AuthenticationRedirectComponent } from './components';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MsalGuard } from './guards/msal.guard';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -114,6 +114,7 @@ export class MsalAuthenticationModule {
           useClass: MsalInterceptor,
           multi: true
         },
+        { provide: AuthGuard, useClass: MsalGuard },
         MsalGuard,
         MsalService
       ],
