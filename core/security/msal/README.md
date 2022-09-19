@@ -32,7 +32,9 @@ Run `nx test framework-core-security-msal` to execute the unit tests.
         }),
         ...
     ]
-```
+    ```
+
+    If `protectedResources` is configured correctly, bearer tokens are added automatically to the API calls.
 
 2. Add the necessary bootstrap components to your app module:
 
