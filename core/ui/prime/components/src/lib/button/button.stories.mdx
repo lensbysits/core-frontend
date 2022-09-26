@@ -1,0 +1,21 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import meta from "./button.stories";
+import { Default } from "./button.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Button
+
+This is a nice button!
+
+<Story story={Default} />
+
+First import `ButtonModule` from `@lens/shared/ui/button`.
+
+```html
+<od-button label="Click me" type="secondary" (clicked)="buttonClicked()"></od-button>
+```
