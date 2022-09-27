@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/framework/core/app/abstract/src",
-  "prefix": "open-doors",
+  "prefix": "lens",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

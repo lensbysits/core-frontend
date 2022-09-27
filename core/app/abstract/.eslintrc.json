@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "open-doors",
+            "prefix": "lens",
             "style": "kebab-case"
           }
         ]
