@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'od-button',
+  selector: 'lens-button',
   templateUrl: './button.component.html'
 })
 export class ButtonComponent {
