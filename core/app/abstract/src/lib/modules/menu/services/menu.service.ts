@@ -15,8 +15,8 @@ export class MenuService {
   constructor(@Inject(APP_INFO) private appInfo: AppInfo, private userContext: UserContextService) {
     // Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
     //TODO: Make the filter work again
-    userContext.Changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
-    userContext.Changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
+    userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
+    userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
   }
 
   addMenuItems(menuItems: MenuItem | MenuItem[]): void {
