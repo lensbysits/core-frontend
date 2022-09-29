@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { map, Observable, BehaviorSubject } from 'rxjs';
 import { APP_INFO, AppInfo } from '../../app-info';
 import { UserContextService } from '../../user-context';
@@ -44,24 +44,36 @@ export class MenuService {
       return null;
     }
 
-    // if claim-filter is false, don't show
-    if (navItem.claimfilter && !navItem.claimfilter.some(claim => this.userContext.HasClaim(claim))) {
-      return null;
-    }
+    if (this.userContext) {
+      // if claim-filter is false, don't show
+      if (navItem.claimfilter && !navItem.claimfilter.some(claim => this.userContext.HasClaim(claim))) {
+        return null;
+      }
 
-    // if role-filter is false, don't show
-    if (navItem.rolefilter && !navItem.rolefilter.some(role => this.userContext.IsInRole(role))) {
-      return null;
-    }
+      // if role-filter is false, don't show
+      if (navItem.rolefilter && !navItem.rolefilter.some(role => this.userContext.IsInRole(role))) {
+        return null;
+      }
 
-    // if no filter and not authenticated, don't show
-    if (((navItem.claimfilter?.length ?? 0) === 0 || (navItem.rolefilter?.length ?? 0) === 0) && !this.userContext.IsAuthenticated) {
-      return null;
-    }
+      // if no filter and not authenticated, don't show
+      if (((navItem.claimfilter?.length ?? 0) === 0 || (navItem.rolefilter?.length ?? 0) === 0) && !this.userContext.IsAuthenticated) {
+        return null;
+      }
 
-    // if 'only show when NOT authenticated' but is authenticated, don't show
-    if (navItem.unauthorizedonly && this.userContext.IsAuthenticated) {
-      return null;
+      // if 'only show when NOT authenticated' but is authenticated, don't show
+      if (navItem.anonymousonly && this.userContext.IsAuthenticated) {
+        return null;
+      }
+    }
+    else 
+    {
+      if (navItem.claimfilter?.length ?? 0 >= 1) {
+        return null;
+      }
+
+      if (navItem.rolefilter?.length ?? 0 >= 1) {
+        return null;
+      }
     }
 
     // filter possible sub-menu items
