@@ -16,8 +16,8 @@ export class MenuService {
     if (this.userContext) {
       // Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
       //TODO: Make the filter work again
-      userContext.Changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
-      userContext.Changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
+      userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
+      userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
     }
   }
 

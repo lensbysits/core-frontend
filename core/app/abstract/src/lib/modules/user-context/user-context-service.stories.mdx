@@ -1,0 +1,42 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { UserContextService } from "@lens/app-abstract";
+
+<Meta 
+    title="Services/UserContextService" />
+
+# UserContextService
+
+The `UserContextService` provides user information to the application.
+
+Example:
+
+```ts
+  constructor(
+    private readonly userContextService: UserContextService
+  ) {
+    this.userContextService.userData$.subscribe(data => {
+      alert(data.Username);
+
+      // to access synchronously, use:
+      // alert(this.userContextService.UserData.Username);
+    })
+  }
+```
+
+To provide a default `UserContext` to the application, inject the following into your app module:
+
+```ts
+import { DEFAULT_USER } from '@lens/app-abstract';
+
+@NgModule({
+  providers: [
+    ...
+    {
+      provide: DEFAULT_USER,
+      useValue: { UserData: { Username: 'Johan' }, IsAuthenticated: true },
+    }
+    ...
+  ]
+})
+export class AppModule {}
+```
