@@ -16,5 +16,5 @@ export class MenuItem {
     claimfilter?: string[];
     rolefilter?: string[];
     envfilter?: string[];
-    unauthorizedonly?: boolean;
+    anonymousonly?: boolean;
 }
