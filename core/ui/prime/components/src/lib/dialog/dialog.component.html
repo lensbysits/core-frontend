@@ -1,4 +1,4 @@
-<div class="p-dialog-content" #dialogContentContainer>
+<div class="p-dialog-content" [component-loader]="config.data.componentType" [args]="config.data">
 </div>
 <div class="p-dialog-footer">
     <lens-button label="Close" (clicked)="onCloseClick()"></lens-button>

@@ -5,6 +5,7 @@ import { DialogComponent } from "./dialog.component";
 import { LensDialogService } from "./dialog.service";
 import { GlobalErrorDialogComponent } from "./global-error-dialog.component";
 import { GlobalErrorDialogService } from "./global-error-dialog.service";
+import { ComponentLoaderDirective } from "./component-loader.directive";
 
 @NgModule({
     imports: [
@@ -16,6 +17,10 @@ import { GlobalErrorDialogService } from "./global-error-dialog.service";
         LensDialogService,
         GlobalErrorDialogService
     ],
-    declarations: [ DialogComponent, GlobalErrorDialogComponent ]
+    declarations: [
+        DialogComponent,
+        GlobalErrorDialogComponent,
+        ComponentLoaderDirective
+    ]
 })
 export class DialogModule { }
