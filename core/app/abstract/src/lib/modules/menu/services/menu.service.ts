@@ -12,11 +12,13 @@ export class MenuService {
   private allMenuItems: MenuItem[] = [];
   private menuItems$ = new BehaviorSubject<MenuItem[]>(this.allMenuItems);
 
-  constructor(@Inject(APP_INFO) private appInfo: AppInfo, private userContext: UserContextService) {
-    // Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
-    //TODO: Make the filter work again
-    userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
-    userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
+  constructor(@Inject(APP_INFO) private appInfo: AppInfo, @Optional() private userContext: UserContextService) {
+    if (this.userContext) {
+      // Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
+      //TODO: Make the filter work again
+      userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
+      userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
+    }
   }
 
   addMenuItems(menuItems: MenuItem | MenuItem[]): void {
