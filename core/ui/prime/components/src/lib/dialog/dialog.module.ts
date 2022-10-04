@@ -1,26 +1,23 @@
 import { NgModule } from "@angular/core";
 import { DialogService as PrimeNgDialogService, DynamicDialogModule } from "primeng/dynamicdialog";
 import { ButtonModule } from "../button";
-import { DialogComponent } from "./dialog.component";
+import { ComponentLoaderModule } from "@lens/app-core";
 import { LensDialogService } from "./dialog.service";
-import { GlobalErrorDialogComponent } from "./global-error-dialog.component";
-import { GlobalErrorDialogService } from "./global-error-dialog.service";
-import { ComponentLoaderDirective } from "./component-loader.directive";
+import { DialogComponent } from "./dialog.component";
+import { DialogService } from "@lens/app-core";
 
 @NgModule({
     imports: [
         DynamicDialogModule,
-        ButtonModule
+        ButtonModule,
+        ComponentLoaderModule
     ],
     providers: [
         PrimeNgDialogService,
-        LensDialogService,
-        GlobalErrorDialogService
+        { provide: DialogService, useClass: LensDialogService }
     ],
     declarations: [
-        DialogComponent,
-        GlobalErrorDialogComponent,
-        ComponentLoaderDirective
+        DialogComponent
     ]
 })
 export class DialogModule { }

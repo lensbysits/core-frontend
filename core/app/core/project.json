@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/framework/core/app/core/src",
+  "prefix": "tp-frontend",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/framework/core/app/core"],
+      "options": {
+        "jestConfig": "libs/framework/core/app/core/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/framework/core/app/core/**/*.ts",
+          "libs/framework/core/app/core/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,13 +1,11 @@
 import { Inject, Injectable, Injector, Type } from "@angular/core";
-import { DynamicDialogRef, DialogService as PrimeNgDialogService } from "primeng/dynamicdialog";
-import { DialogConfig } from "./dialog-config.class";
-import { DialogRef } from "./dialog-ref.class";
+import { DialogConfig, DialogRef, DialogService } from "@lens/app-core";
+import { DialogService as PrimeNgDialogService } from "primeng/dynamicdialog";
 import { DialogComponent } from "./dialog.component";
 
 @Injectable()
-export class LensDialogService {
+export class LensDialogService implements DialogService {
     constructor(
-        //private readonly dialogService: PrimeNgDialogService
         @Inject(Injector) private readonly injector: Injector
     ) { }
 
@@ -15,7 +13,7 @@ export class LensDialogService {
         return this.injector.get(PrimeNgDialogService);
     }
 
-    public open(config: DialogConfig | undefined = undefined, componentType: Type<any>): DialogRef {
+    public open(componentType: Type<any>, config: DialogConfig | undefined = undefined): DialogRef {
         let defaultConfig: any = {
             width: "25%",
             styleClass: "dynamicDialog",

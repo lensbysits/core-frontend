@@ -1,5 +1,4 @@
 import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { Observable } from "rxjs";
 
 export class DialogRef {
     public onClose = this.dynamicDialogRef.onClose;
