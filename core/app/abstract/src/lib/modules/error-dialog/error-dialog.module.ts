@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from "@angular/core";
+import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { DialogModule } from "@lens/ui-prime-components";
 import { IErrorDialogConfiguration } from "./error-dialog-configuration.interface";
 import { ErrorDialogComponent } from "./error-dialog.component";
@@ -16,5 +16,12 @@ export const ERROR_DIALOG_CONFIGURATION = new InjectionToken<void>("ERROR_DIALOG
     ]
 })
 export class ErrorDialogModule {
-
+    public static forRoot(configuration: IErrorDialogConfiguration): ModuleWithProviders<ErrorDialogModule> {
+        return {
+            ngModule: ErrorDialogModule,
+            providers: [
+                { provide: ERROR_DIALOG_CONFIGURATION, useValue: configuration }
+            ]
+        }
+    }
 }
