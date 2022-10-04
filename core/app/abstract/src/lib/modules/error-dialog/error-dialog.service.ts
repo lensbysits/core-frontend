@@ -1,14 +1,16 @@
-import { Injectable, Type } from "@angular/core";
+import { Inject, Injectable, Type } from "@angular/core";
 import { DialogConfig, DialogRef, DialogService } from "@lens/app-core";
-import { GlobalErrorDialogComponent } from "./error-dialog.component";
+import { IErrorDialogConfiguration } from "./error-dialog-configuration.interface";
+import { ERROR_DIALOG_CONFIGURATION } from "./error-dialog.module";
 
 @Injectable()
 export class ErrorDialogService {
     constructor(
-        private readonly dialogService: DialogService
+        private readonly dialogService: DialogService,
+        @Inject(ERROR_DIALOG_CONFIGURATION) private readonly configuration: IErrorDialogConfiguration
     ) { }
 
-    public open(config: DialogConfig | undefined = undefined, component: Type<any> = GlobalErrorDialogComponent) : DialogRef {
+    public open(config: DialogConfig | undefined = undefined, component: Type<any> | undefined = undefined) : DialogRef {
         let defaultConfig: any = {
             header: "An error has occurred"
         };
@@ -17,6 +19,10 @@ export class ErrorDialogService {
             defaultConfig = Object.assign(defaultConfig, config);
         }
 
-        return this.dialogService.open(component, defaultConfig);
+        if (!component) {
+            component = this.configuration.errorDialogComponent;
+        }
+
+        return this.dialogService.open(component!, defaultConfig);
     }
 }
