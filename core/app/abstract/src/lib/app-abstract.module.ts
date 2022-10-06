@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuModule, LayoutModule, UserContextModule, AppInfoModule, AppConfigurationModule, GlobalErrorHandlerModule } from './modules';
+import { MenuModule, LayoutModule, UserContextModule, AppInfoModule, AppConfigurationModule } from './modules';
+import { ErrorHandlerService } from './services';
 
 const libraryModules = [
   AppInfoModule,
@@ -8,7 +9,6 @@ const libraryModules = [
   LayoutModule,
   UserContextModule,
   AppConfigurationModule,
-  GlobalErrorHandlerModule
 ];
 
 @NgModule({
@@ -16,6 +16,9 @@ const libraryModules = [
     CommonModule,
     ...libraryModules
   ],
-  exports: libraryModules
+  exports: libraryModules,
+  providers: [    
+    { provide: ErrorHandler, useExisting: ErrorHandlerService }
+  ]
 })
 export class AppAbstractModule {}
