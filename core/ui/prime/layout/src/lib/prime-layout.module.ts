@@ -5,8 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, RouterModule, Routes } from '@angular/router';
 
 import {StyleClassModule} from 'primeng/styleclass';
-
-import { AppComponent, FullLayoutComponent } from './components';
+import { FullLayoutComponent } from './components';
 
 const modules = [
   CommonModule,
@@ -16,12 +15,11 @@ const modules = [
 ];
 
 const components = [
-  AppComponent,
   FullLayoutComponent
 ];
 
 @NgModule({
-  declarations: [...components ],
+  declarations: [ ...components ],
   imports: [
     ...modules,
     RouterModule.forRoot([])
