@@ -8,6 +8,7 @@ import { AppAbstractUiModule, DialogService as LensDialogService } from '@lens/a
 import { DialogComponent } from './dialog/dialog.component';
 import { PrimeDialogService } from './dialog';
 import { InputTextModule } from './input-text';
+import { InputTextareaModule } from './input-textarea';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,15 @@ import { InputTextModule } from './input-text';
     IconModule,
     ButtonModule,
     DynamicDialogModule,
-    InputTextModule
+    InputTextModule,
+    InputTextareaModule
   ],
   exports: [
+    LoadingSpinnerModule,
+    IconModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    InputTextareaModule
   ],
   providers: [
     DialogService,
