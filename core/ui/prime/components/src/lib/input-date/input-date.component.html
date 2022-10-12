@@ -8,9 +8,9 @@
             [placeholder]="placeholder!"
             [showTime]="showTime"
             [timeOnly]="timeOnly"
-            [disabled]="disabled" 
-            (onInput)="onInputChanged($event)"
+            [disabled]="isDisabled" 
+            [required]="isRequired" 
+            (onBlur)="onInputBlur()"
             (onSelect)="onDateSelected($event)"
-            [(ngModel)]="value"
             #date>
 </p-calendar>

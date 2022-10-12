@@ -2,7 +2,7 @@ import { Component, forwardRef, Input, ViewChild } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from "@angular/forms";
 import { Calendar } from "primeng/calendar";
 import * as moment from "moment/moment";
-import { InputBaseComponent } from "../input-base/input-base-component.component";
+import { InputBaseComponent } from "../input-base/input-base.component";
 
 @Component({
     selector: "lens-input-date", 
@@ -34,16 +34,19 @@ export class InputDateComponent extends InputBaseComponent {
 
     @ViewChild("date", { read: Calendar, static: true }) private date!: Calendar;
 
-    public onInputChanged($event: Event) {
-        this.onChange(this.date.value);
-        this.onValidationChange();
+    public onInputBlur() {
+        this.writeValue(this.date.value);
     }
 
     public onDateSelected($event: Event) {
-        this.onChange($event);
+        this.writeValue(this.date.value);
     }
 
     override validate(control: AbstractControl<any, any>): ValidationErrors | null {
+        if (!this.isRequired && !control.value) {
+            return null;
+        }
+
         let format = "D-M-YYYY";
         switch (this.mode) {
             case "time":

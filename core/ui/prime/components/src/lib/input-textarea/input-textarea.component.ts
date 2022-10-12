@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
-import { InputBaseComponent } from "../input-base/input-base-component.component";
+import { InputBaseComponent } from "../input-base/input-base.component";
 
 @Component({
     selector: "lens-input-textarea", 
@@ -15,6 +15,6 @@ export class InputTextareaComponent extends InputBaseComponent {
 
     public onInputChanged($event: Event) {
         const value = ($event.target as HTMLInputElement).value;
-        this.onChange(value)
+        this.writeValue(value);
     }
 }
