@@ -9,6 +9,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { PrimeDialogService } from './dialog';
 import { InputTextModule } from './input-text';
 import { InputTextareaModule } from './input-textarea';
+import { InputDateModule } from './input-date';
 
 @NgModule({
   declarations: [
@@ -22,14 +23,16 @@ import { InputTextareaModule } from './input-textarea';
     ButtonModule,
     DynamicDialogModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    InputDateModule
   ],
   exports: [
     LoadingSpinnerModule,
     IconModule,
     ButtonModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    InputDateModule
   ],
   providers: [
     DialogService,

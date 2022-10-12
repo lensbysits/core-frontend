@@ -1,0 +1,15 @@
+<p-calendar [showIcon]="true"
+            [inputId]="id"
+            [showOnFocus]="false"
+            dateFormat="d-m-yy"
+            [showClear]="true"
+            [keepInvalid]="true"
+            [showButtonBar]="showButtonBar"
+            [placeholder]="placeholder!"
+            [showTime]="showTime"
+            [timeOnly]="timeOnly"
+            (onInput)="onInputChanged($event)"
+            (onSelect)="onDateSelected($event)"
+            [(ngModel)]="value"
+            #date>
+</p-calendar>

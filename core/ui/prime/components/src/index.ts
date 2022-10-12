@@ -5,3 +5,4 @@ export * from './lib/loading-indicator';
 export * from './lib/dialog';
 export * from './lib/input-text';
 export * from './lib/input-textarea';
+export * from './lib/input-date';
