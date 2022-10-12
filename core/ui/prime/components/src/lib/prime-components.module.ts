@@ -10,6 +10,7 @@ import { PrimeDialogService } from './dialog';
 import { InputTextModule } from './input-text';
 import { InputTextareaModule } from './input-textarea';
 import { InputDateModule } from './input-date';
+import { DropdownModule } from './dropdown';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { InputDateModule } from './input-date';
     DynamicDialogModule,
     InputTextModule,
     InputTextareaModule,
-    InputDateModule
+    InputDateModule,
+    DropdownModule
   ],
   exports: [
     LoadingSpinnerModule,
@@ -32,7 +34,8 @@ import { InputDateModule } from './input-date';
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
-    InputDateModule
+    InputDateModule,
+    DropdownModule
   ],
   providers: [
     DialogService,
