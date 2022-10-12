@@ -1,7 +1,8 @@
-import { Component, forwardRef, Input, OnInit, ViewChild } from "@angular/core";
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, ValidatorFn } from "@angular/forms";
+import { Component, forwardRef, Input, ViewChild } from "@angular/core";
+import { AbstractControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from "@angular/forms";
 import { Calendar } from "primeng/calendar";
 import * as moment from "moment/moment";
+import { InputBaseComponent } from "../input-base/input-base-component.component";
 
 @Component({
     selector: "lens-input-date", 
@@ -11,10 +12,9 @@ import * as moment from "moment/moment";
         { provide: NG_VALIDATORS, useExisting: forwardRef(() => InputDateComponent), multi: true }
     ]
 })
-export class InputDateComponent implements ControlValueAccessor, Validator {
+export class InputDateComponent extends InputBaseComponent {
     @Input() public id!: string;
     @Input() public placeholder?: string;
-    @Input() public disabled: boolean = false;
 
     private _mode: "time" | "date" | "datetime" = "date";
     @Input() public set mode(value: "time" | "date" | "datetime") {
@@ -34,36 +34,6 @@ export class InputDateComponent implements ControlValueAccessor, Validator {
 
     @ViewChild("date", { read: Calendar, static: true }) private date!: Calendar;
 
-    private _value: any;
-    public set value(value: any) {
-        this._value = value;
-        this.onChange(value);
-    }
-
-    public get value() {
-        return this._value;
-    }
-
-    private onChange = (event: any) => {};
-    private onTouched = () => {};
-    private onValidationChange = () => {};
-
-    public writeValue(value: any): void {
-        this.value = value;
-    }
-
-    public registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-
-    public registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
-
-    public setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-    }
-
     public onInputChanged($event: Event) {
         this.onChange(this.date.value);
         this.onValidationChange();
@@ -73,7 +43,7 @@ export class InputDateComponent implements ControlValueAccessor, Validator {
         this.onChange($event);
     }
 
-    validate(control: AbstractControl<any, any>): ValidationErrors | null {
+    override validate(control: AbstractControl<any, any>): ValidationErrors | null {
         let format = "D-M-YYYY";
         switch (this.mode) {
             case "time":
@@ -89,9 +59,5 @@ export class InputDateComponent implements ControlValueAccessor, Validator {
         }
 
         return null;
-    }
-
-    registerOnValidatorChange?(fn: () => void): void {
-        this.onValidationChange = fn;
     }
 }
