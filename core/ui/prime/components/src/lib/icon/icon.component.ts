@@ -6,4 +6,5 @@ import { Component, Input } from "@angular/core";
 })
 export class IconComponent {
     @Input() public icon: string = "home";
+    @Input() public spinIcon: boolean = false;
 }

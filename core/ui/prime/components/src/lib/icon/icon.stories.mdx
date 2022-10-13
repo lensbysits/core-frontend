@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/addon-docs";
-import meta from "./button.stories";
-import { Default } from "./button.stories";
+import meta from "./icon.stories";
+import { Default, Spinner } from "./icon.stories";
 
 <Meta 
     title={meta.title}
@@ -8,14 +8,22 @@ import { Default } from "./button.stories";
     decorators={meta.decorators}
     argTypes={meta.argTypes} />
 
-# Button
+# Icon
 
-This is a nice button!
+This is a nice icon!
 
 <Story story={Default} />
 
 First import `ButtonModule` from `@lens/ui-prime-components`.
 
 ```html
-<lens-button label="Click me" type="secondary" (clicked)="buttonClicked()"></lens-button>
+<lens-icon icon="search"></lens-icon>
+```
+
+## Spinning icons
+
+<Story story={Spinner} />
+
+```html
+<lens-icon icon="spinner" spinIcon="true"></lens-icon>
 ```
