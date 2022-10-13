@@ -2,13 +2,18 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DropdownComponent } from "./dropdown.component";
 import { DropdownModule } from "primeng/dropdown";
+import { FormsModule } from "@angular/forms";
 
 export default {
     component: DropdownComponent,
     title: "Components/Dropdown",
     decorators: [
         moduleMetadata({
-            imports: [ DropdownModule, BrowserAnimationsModule ]
+            imports: [
+                DropdownModule,
+                BrowserAnimationsModule,
+                FormsModule // FormsModule needs to imported or else writeValue() isn't called, giving unexpected results | https://github.com/storybookjs/storybook/issues/14643
+            ]
         })
     ]
 } as Meta
