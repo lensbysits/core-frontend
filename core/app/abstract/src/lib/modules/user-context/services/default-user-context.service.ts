@@ -39,16 +39,20 @@ export class DefaultUserContextService extends UserContextService implements OnD
   }
 
   IsInRole$(role: string): Observable<boolean> {    
-    return this.userDataSubject.pipe(map(userData => userData?.Roles?.includes(role) ?? false));
+    return this.userDataSubject.pipe(map(userData => this.IsInRoleInternal(userData, role)));
   };
 
-  IsInRole = (role: string) => this.UserData.Roles?.includes(role) ?? false;
+  IsInRole = (role: string): boolean => this.IsInRoleInternal(this.UserData, role);
+
+  private IsInRoleInternal = (userData: UserData, role: string): boolean => this.UserData.Roles?.includes(role) ?? false;
   
   HasClaim$(claim: string): Observable<boolean> {
-    return this.userDataSubject.pipe(map(userData => (userData?.Claims?.findIndex(c => c.name === claim) ?? -1) > -1));
+    return this.userDataSubject.pipe(map(userData => this.HasClaimInternal(userData, claim)));
   };
   
-  HasClaim = (claim: string) => (this.UserData.Claims?.findIndex(c => c.name === claim) ?? -1) > -1
+  HasClaim = (claim: string): boolean => this.HasClaimInternal(this.UserData, claim);
+
+  private HasClaimInternal = (userData: UserData, claim: string): boolean => (userData.Claims?.findIndex(c => c.name === claim) ?? -1) > -1;
 
   protected Set(userData: UserData, isAuthenticated: boolean): void {
     this.IsAuthenticated = isAuthenticated;
