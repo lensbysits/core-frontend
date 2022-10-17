@@ -5,8 +5,15 @@ import { DefaultDialogService, DialogService, ErrorHandlerService } from './serv
 import { ErrorDetailComponent } from './components/error-detail/error-detail.component';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './components';
+import { HasClaimDirective } from './directives/has-claim.directive';
+import { HasRoleDirective } from './directives/has-role.directive';
 
-const components_directives = [AppComponent, ComponentLoaderDirective];
+const components_directives = [
+  AppComponent,
+  ComponentLoaderDirective,
+  HasClaimDirective,
+  HasRoleDirective
+];
 
 @NgModule({
   declarations: [...components_directives, ErrorDetailComponent],

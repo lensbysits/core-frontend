@@ -7,6 +7,10 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AppAbstractUiModule, DialogService as LensDialogService } from '@lens/app-abstract-ui';
 import { DialogComponent } from './dialog/dialog.component';
 import { PrimeDialogService } from './dialog';
+import { InputTextModule } from './input-text';
+import { InputTextareaModule } from './input-textarea';
+import { InputDateModule } from './input-date';
+import { DropdownModule } from './dropdown';
 
 @NgModule({
   declarations: [
@@ -18,10 +22,20 @@ import { PrimeDialogService } from './dialog';
     LoadingSpinnerModule,
     IconModule,
     ButtonModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    InputTextModule,
+    InputTextareaModule,
+    InputDateModule,
+    DropdownModule
   ],
   exports: [
-    ButtonModule
+    LoadingSpinnerModule,
+    IconModule,
+    ButtonModule,
+    InputTextModule,
+    InputTextareaModule,
+    InputDateModule,
+    DropdownModule
   ],
   providers: [
     DialogService,

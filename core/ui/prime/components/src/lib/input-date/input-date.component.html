@@ -1,0 +1,16 @@
+<p-calendar [showIcon]="true"
+            [inputId]="id"
+            [showOnFocus]="false"
+            dateFormat="d-m-yy"
+            [showClear]="true"
+            [keepInvalid]="true"
+            [showButtonBar]="showButtonBar"
+            [placeholder]="placeholder!"
+            [showTime]="showTime"
+            [timeOnly]="timeOnly"
+            [disabled]="isDisabled" 
+            [required]="isRequired" 
+            (onBlur)="onInputBlur()"
+            (onSelect)="onDateSelected($event)"
+            #date>
+</p-calendar>

@@ -1,0 +1,74 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./dropdown.stories";
+import { Default, Grouped, Editable } from "./dropdown.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Icon
+
+This is a nice dropdown!
+
+<Story story={Default} />
+
+First import `DropdownModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-dropdown id="foo" placeholder="test" options="options"></lens-dropdown>
+```
+
+```ts
+const options = [
+    { value: 1, label: "Item 1", disabled: false },
+    { value: 2, label: "Item 2", disabled: false },
+    { value: 3, label: "Item 3", disabled: false },
+    { value: 4, label: "Item 4", disabled: false }
+];
+```
+
+The properties used for `value`, `label` and `disabled` can be changed and are configured using `optionValue`, `optionLabel` and `optionDisabled` respectively.
+
+## Grouped
+
+<Story story={Grouped} />
+
+```html
+<lens-dropdown id="foo" placeholder="test" options="options" [grouped]="true"></lens-dropdown>
+```
+
+```ts
+const options = [
+    { value: "g1", label: "Group 1", items: [
+        { value: 1, label: "Item 1" },
+        { value: 2, label: "Item 2" },
+        { value: 3, label: "Item 3" },
+        { value: 4, label: "Item 4" },
+        { value: 5, label: "Item 5" }
+    ] },
+    { value: "g2", label: "Group 2", items: [
+        { value: 6, label: "Item 6" },
+        { value: 7, label: "Item 7" },
+        { value: 8, label: "Item 8" },
+        { value: 9, label: "Item 9" },
+        { value: 10, label: "Item 10" }
+    ] },
+    { value: "g3", label: "Group 3", items: [
+        { value: 11, label: "Item 11" },
+        { value: 12, label: "Item 12" },
+        { value: 13, label: "Item 13" },
+        { value: 14, label: "Item 14" },
+        { value: 15, label: "Item 15" }
+    ] }
+];
+```
+
+## Editable
+
+<Story story={Editable} />
+
+```html
+<lens-dropdown id="foo" placeholder="test" options="options" [editable]="true"></lens-dropdown>
+```
