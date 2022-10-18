@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/framework/core/ui/prime/components"],
+      "outputs": [
+        "coverage/libs/framework/core/ui/prime/components"
+      ],
       "options": {
         "jestConfig": "libs/framework/core/ui/prime/components/jest.config.ts",
         "passWithNoTests": true
@@ -18,6 +20,15 @@
           "libs/framework/core/ui/prime/components/**/*.ts",
           "libs/framework/core/ui/prime/components/**/*.html"
         ]
+      }
+    },
+    "component-test": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "libs/framework/core/ui/prime/components/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "trusted-platform-poc:build"
       }
     }
   },
