@@ -18,13 +18,10 @@ export default {
     ]
 } as Meta
 
-const Template: Story = args => {
-    return {
-        //template: "<form [formGroup]='form'><lens-dropdown [id]='id' [placeholder]='placeholder' [editable]='editable' [options]='options' [grouped]='grouped' formControlName='dropdown'></lens-dropdown></form>",
-        props: {
-            ...args
-        }
-    };
+const Template: Story = args => ({
+    props: {
+        ...args
+    }
 };
 
 const options: any[] = [
