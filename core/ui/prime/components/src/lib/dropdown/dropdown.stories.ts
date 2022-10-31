@@ -22,7 +22,7 @@ const Template: Story = args => ({
     props: {
         ...args
     }
-};
+});
 
 const options: any[] = [
     { value: 1, label: "Item 1" },
