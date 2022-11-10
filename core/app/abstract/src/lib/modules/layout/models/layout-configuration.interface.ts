@@ -13,5 +13,6 @@ export interface ILayoutConfiguration {
     showNotifications?: boolean;
     showMessages?: boolean;
     showSettings?: boolean;
+    showThemeCustomization?: boolean;
     showFooter?: boolean;
 }

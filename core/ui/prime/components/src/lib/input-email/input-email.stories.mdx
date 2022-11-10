@@ -1,0 +1,29 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-text.stories";
+import { Default, WithIcon } from "./input-text.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputText
+
+This is a nice way to input email adresses!
+
+<Story story={Default} />
+
+First import `InputEmailModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-email id="foo" placeholder="test"></lens-input-email>
+```
+
+## With icon
+
+<Story story={WithIcon} />
+
+```html
+<lens-input-email id="foo" icon="search" iconAlign="left|right" spinIcon="false|true"></lens-input-email>
+```

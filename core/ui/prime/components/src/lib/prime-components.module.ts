@@ -11,35 +11,47 @@ import { InputTextModule } from './input-text';
 import { InputTextareaModule } from './input-textarea';
 import { InputDateModule } from './input-date';
 import { DropdownModule } from './dropdown';
+import { TableModule } from './table';
+import { ToolbarModule } from './toolbar';
+import { ToastModule } from './toast';
+import { InputEmailModule } from './input-email';
 
 @NgModule({
   declarations: [
     DialogComponent
   ],
   imports: [
-    CommonModule,
     AppAbstractUiModule,
-    LoadingSpinnerModule,
-    IconModule,
     ButtonModule,
+    CommonModule,
     DynamicDialogModule,
+    DropdownModule,
+    IconModule,
+    InputDateModule,
+    InputEmailModule,
     InputTextModule,
     InputTextareaModule,
-    InputDateModule,
-    DropdownModule
+    LoadingSpinnerModule,
+    TableModule,
+    ToastModule,
+    ToolbarModule
   ],
   exports: [
-    LoadingSpinnerModule,
-    IconModule,
     ButtonModule,
+    DropdownModule,
+    IconModule,
+    InputDateModule,
+    InputEmailModule,
     InputTextModule,
     InputTextareaModule,
-    InputDateModule,
-    DropdownModule
+    LoadingSpinnerModule,
+    TableModule,
+    ToastModule,
+    ToolbarModule
   ],
   providers: [
     DialogService,
-    { provide: LensDialogService, useExisting: PrimeDialogService}
+    { provide: LensDialogService, useClass: PrimeDialogService}
   ]
 })
 export class PrimeComponentsModule {}

@@ -10,7 +10,6 @@ export class PrimeDialogService implements LensDialogService {
     constructor(private dialogService: DialogService) {
     }
 
-
     public open(componentType: Type<any>, config: DialogConfig | undefined = undefined): LensDialogRef {
         let defaultConfig: any = {
             width: "25%",
