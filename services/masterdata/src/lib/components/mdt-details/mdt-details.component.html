@@ -1,0 +1,13 @@
+<div *ngIf="item">
+  <h2>{{ item.name }} || details page</h2>
+  <div><span>id: </span>{{ item.id }}</div>
+  <div><span>code: </span>{{ item.code }}</div>
+  <div><span>name: </span>{{ item.name }}</div>
+  <div><span>description: </span>{{ item.description }}</div>
+  <div><span>masterdatas count: </span>{{ item.masterdatasCount }}</div>
+  <div>
+    <span>metadata: </span>
+    <pre>{{ item.metadata | json }}</pre>
+  </div>
+  <button type="button" (click)="goBack()">go back</button>
+</div>

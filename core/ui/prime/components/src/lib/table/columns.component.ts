@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, ViewChildren } from "@angular/core";
+import { Component, ContentChildren, QueryList } from "@angular/core";
 import { ColumnComponent } from "./column.component";
 
 @Component({

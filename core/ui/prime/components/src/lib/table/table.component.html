@@ -13,7 +13,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-item>
         <tr>
-            <td *ngFor="let column of columns.columns">{{ item[column.field] }}</td>
+            <td *ngFor="let column of columns.columns">
+                <ng-container *ngIf="column.field">
+                    {{ item[column.field] }}
+                </ng-container>
+                <ng-container *ngIf="!column.field">
+                    Please render column content !!!
+                </ng-container>
+                
+            </td>
         </tr>
     </ng-template>
 </p-table>
