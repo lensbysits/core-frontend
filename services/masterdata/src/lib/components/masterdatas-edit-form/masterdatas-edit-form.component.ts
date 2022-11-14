@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMasterdataCreate, IMasterdataUpdate } from '../../services/interfaces';
+import {
+  IMasterdataCreate,
+  IMasterdataUpdate,
+} from '../../services/interfaces';
 import { MasterdataType } from '../../services/models';
-import { MdtCrudHttpService } from '../../services/services';
+import { MasterdataCrudHttpService } from '../../services/services';
 
 @Component({
-  selector: 'mdata-edit-form',
-  templateUrl: './mdata-edit-form.component.html',
-  styleUrls: ['./mdata-edit-form.component.scss'],
+  selector: 'lens-masterdatas-edit-form',
+  templateUrl: './masterdatas-edit-form.component.html',
+  styleUrls: ['./masterdatas-edit-form.component.scss'],
 })
-export class MdataEditFormComponent implements OnInit {
+export class MasterdatasEditFormComponent implements OnInit {
   isLoading = false;
   id!: string;
   typeId = '';
@@ -24,7 +27,7 @@ export class MdataEditFormComponent implements OnInit {
   mdtList: MasterdataType[] = [];
 
   constructor(
-    private readonly service: MdtCrudHttpService,
+    private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute,
     private readonly formBuilder: FormBuilder
@@ -57,7 +60,6 @@ export class MdataEditFormComponent implements OnInit {
       name: ['', Validators.required],
       description: [''], //['', Validators.required],
     });
-    console.log('gimiiiiiiiiii2', this.formadd);
   }
 
   // convenience getter for easy access to form fields

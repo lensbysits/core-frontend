@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MasterdataType } from '../../services/models';
-import { MdtCrudHttpService } from '../../services/services';
+import { MasterdataCrudHttpService } from '../../services/services';
 
 // import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'mdt-list',
-  templateUrl: './mdt-list.component.html',
-  styleUrls: ['./mdt-list.component.scss'],
+  selector: 'lens-masterdata-type-list',
+  templateUrl: './masterdata-type-list.component.html',
+  styleUrls: ['./masterdata-type-list.component.scss'],
 })
-export class MdtListComponent implements OnInit {
+export class MasterdataTypeListComponent implements OnInit {
   isLoading = false;
   items: MasterdataType[] = [];
   totalSize = 0;
 
   constructor(
-    private readonly service: MdtCrudHttpService,
+    private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute
   ) {}

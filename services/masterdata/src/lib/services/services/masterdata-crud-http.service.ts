@@ -28,8 +28,8 @@ import {
 export const isEmpty = (str: string) => !str || !str.length;
 
 @Injectable()
-export class MdtCrudHttpService {
-  private api_base_url = `${'https://localhost:7249/api'}/Masterdata`;
+export class MasterdataCrudHttpService {
+  private api_base_url = `https://localhost:7249/api/Masterdata`;
 
   private httpOptions = {
     headers: new HttpHeaders({

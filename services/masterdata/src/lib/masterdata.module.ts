@@ -1,25 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MasterdataComponent } from './components/masterdata/masterdata.component';
 import { RouterModule } from '@angular/router';
-import { MenuService } from '@lens/app-abstract';
-import { menu } from './app-menu';
-import { masterdataRoutes } from './routes';
-import { MdataDetailsComponent, MdataEditFormComponent, MdataListComponent, MdtDetailsComponent, MdtEditFormComponent, MdtListComponent } from './components';
-import { AppAbstractUiModule } from '@lens/app-abstract-ui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdtCrudHttpService } from './services/services';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuService } from '@lens/app-abstract';
+import { AppAbstractUiModule } from '@lens/app-abstract-ui';
 import { PrimeComponentsModule } from '@lens/ui-prime-components';
 
+import { menu } from './app-menu';
+import { masterdataRoutes } from './app-routes';
+import { MasterdataCrudHttpService } from './services/services';
+import {
+  MasterdataDashboardComponent,
+  MasterdatasDetailsComponent,
+  MasterdatasEditFormComponent,
+  MasterdatasListComponent,
+  MasterdataTypeDetailsComponent,
+  MasterdataTypeEditFormComponent,
+  MasterdataTypeListComponent,
+} from './components';
+
 const components = [
-  MasterdataComponent,
-  MdataDetailsComponent,
-  MdataEditFormComponent,
-  MdataListComponent,
-  MdtDetailsComponent,
-  MdtListComponent,
-  MdtEditFormComponent
+  MasterdataDashboardComponent,
+  MasterdatasDetailsComponent,
+  MasterdatasEditFormComponent,
+  MasterdatasListComponent,
+  MasterdataTypeDetailsComponent,
+  MasterdataTypeListComponent,
+  MasterdataTypeEditFormComponent,
 ];
 
 @NgModule({
@@ -32,10 +40,8 @@ const components = [
     PrimeComponentsModule,
     RouterModule.forChild(masterdataRoutes),
   ],
-  declarations: [
-    ...components
-  ],
-  providers: [MdtCrudHttpService],
+  declarations: [...components],
+  providers: [MasterdataCrudHttpService],
 })
 export class MasterdataModule {
   constructor(menuService: MenuService) {

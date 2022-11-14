@@ -2,24 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { Masterdata } from '../../services/models';
-import { MdtCrudHttpService } from '../../services/services';
+import { MasterdataCrudHttpService } from '../../services/services';
 
 // import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'mdata-list',
-  templateUrl: './mdata-list.component.html',
-  styleUrls: ['./mdata-list.component.scss'],
+  selector: 'lens-masterdatas-list',
+  templateUrl: './masterdatas-list.component.html',
+  styleUrls: ['./masterdatas-list.component.scss'],
 })
-export class MdataListComponent implements OnInit {
-  
+export class MasterdatasListComponent implements OnInit {
   isLoading = false;
   items$?: Observable<Masterdata[] | undefined>;
   totalSize = 0;
   typeId = '';
 
   constructor(
-    private readonly service: MdtCrudHttpService,
+    private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute
   ) {}
@@ -32,13 +31,12 @@ export class MdataListComponent implements OnInit {
 
   loadItems() {
     this.isLoading = false;
-    this.items$ = this.service.getAllMasterdatas(this.typeId)
-      .pipe(
-        tap(data => {
-           this.totalSize = data.totalSize || 0;
-        }),
-        map(data => data.value)
-      );
+    this.items$ = this.service.getAllMasterdatas(this.typeId).pipe(
+      tap((data) => {
+        this.totalSize = data.totalSize || 0;
+      }),
+      map((data) => data.value)
+    );
   }
 
   public onRowSelect(event: any, item: Masterdata) {

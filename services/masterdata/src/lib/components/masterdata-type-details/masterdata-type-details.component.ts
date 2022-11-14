@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MasterdataType } from '../../services/models';
-import { MdtCrudHttpService } from '../../services/services';
+import { MasterdataCrudHttpService } from '../../services/services';
 
 @Component({
-  selector: 'mdt-details',
-  templateUrl: './mdt-details.component.html',
-  styleUrls: ['./mdt-details.component.scss'],
+  selector: 'lens-masterdata-type-details',
+  templateUrl: './masterdata-type-details.component.html',
+  styleUrls: ['./masterdata-type-details.component.scss'],
 })
-export class MdtDetailsComponent implements OnInit {
+export class MasterdataTypeDetailsComponent implements OnInit {
   isLoading = false;
   itemId = '';
   item?: MasterdataType;
 
   constructor(
-    private readonly service: MdtCrudHttpService,
+    private readonly service: MasterdataCrudHttpService,
     private readonly activeRoute: ActivatedRoute,
     private readonly location: Location
   ) {}

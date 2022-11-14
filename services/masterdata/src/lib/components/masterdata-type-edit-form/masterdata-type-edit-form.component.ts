@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from '../../services/interfaces';
-import { MdtCrudHttpService } from '../../services/services';
+import {
+  IMasterdataTypeCreate,
+  IMasterdataTypeUpdate,
+} from '../../services/interfaces';
+import { MasterdataCrudHttpService } from '../../services/services';
 
 @Component({
-  selector: 'mdt-edit-form',
-  templateUrl: './mdt-edit-form.component.html',
-  styleUrls: ['./mdt-edit-form.component.scss'],
+  selector: 'lens-masterdata-type-edit-form',
+  templateUrl: './masterdata-type-edit-form.component.html',
+  styleUrls: ['./masterdata-type-edit-form.component.scss'],
 })
-export class MdtEditFormComponent implements OnInit {
+export class MasterdataTypeEditFormComponent implements OnInit {
   isLoading = false;
   id!: string;
   formadd!: FormGroup;
@@ -19,7 +22,7 @@ export class MdtEditFormComponent implements OnInit {
   isAddForm = true;
 
   constructor(
-    private readonly service: MdtCrudHttpService,
+    private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute,
     private readonly formBuilder: FormBuilder
