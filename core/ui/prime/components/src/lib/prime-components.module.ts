@@ -16,6 +16,7 @@ import { ToolbarModule } from './toolbar';
 import { ToastModule } from './toast';
 import { InputEmailModule } from './input-email';
 import { PanelModule } from './panel';
+import { AutoCompleteModule } from './autocomplete';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PanelModule } from './panel';
   ],
   imports: [
     AppAbstractUiModule,
+    AutoCompleteModule,
     ButtonModule,
     CommonModule,
     DynamicDialogModule,
@@ -39,6 +41,7 @@ import { PanelModule } from './panel';
     ToolbarModule
   ],
   exports: [
+    AutoCompleteModule,
     ButtonModule,
     DropdownModule,
     IconModule,

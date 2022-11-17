@@ -1,0 +1,10 @@
+<p-autoComplete
+    [suggestions]="filteredOptions"
+    field="value"
+    [ngModel]="selectedOption"
+    [dropdown]="true"
+    (onSelect)="onItemSelected($event)"
+    (onDropdownClick)="onSearched($event)"
+    (completeMethod)="onSearched($event)"
+    dropdownMode="current">
+</p-autoComplete>
