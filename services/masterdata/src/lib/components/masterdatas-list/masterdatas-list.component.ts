@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { ILazyLoadEvent } from '@lens/ui-prime-components';
 import { Masterdata } from '../../services/models';
 import { MasterdataCrudHttpService } from '../../services/services';
 
@@ -11,7 +11,7 @@ import { MasterdataCrudHttpService } from '../../services/services';
 })
 export class MasterdatasListComponent implements OnInit {
   isLoading = false;
-  items$?: Observable<Masterdata[] | undefined>;
+  items: Masterdata[] = [];
   totalSize = 0;
   typeId = '';
 
@@ -24,17 +24,27 @@ export class MasterdatasListComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     this.typeId = this.activeRoute.snapshot.paramMap.get('typeId') ?? '';
-    this.loadItems();
+    //this.loadItems();
   }
 
   loadItems() {
-    this.isLoading = false;
-    this.items$ = this.service.getAllMasterdatas(this.typeId).pipe(
-      tap((data) => {
+    this.isLoading = true;
+    this.service.getAllMasterdatas(this.typeId).subscribe({
+      next: (data) => {
+        console.log('loadItems', data);
+        this.items = data.value || [];
         this.totalSize = data.totalSize || 0;
-      }),
-      map((data) => data.value)
-    );
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+        console.log('isLoading', this.isLoading, 'items', this.items);
+      },
+    });
+  }
+
+  public onLazyLoadData(event: ILazyLoadEvent): void {
+    this.loadItems();
   }
 
   public onRowSelect(event: any, item: Masterdata) {
@@ -56,11 +66,11 @@ export class MasterdatasListComponent implements OnInit {
       return;
     }
 
-    // this.items = this.items.filter((curitem) => item !== curitem);
-    // this.service.deleteMasterdata(item.id).subscribe((data) => {
-    //   console.log('onDelete', data);
-    //   this.totalSize--;
-    //   this.isLoading = false;
-    // });
+    this.items = this.items.filter((curitem) => item !== curitem);
+    this.service.deleteMasterdata(item.id).subscribe((data) => {
+      console.log('onDelete', data);
+      this.totalSize--;
+      this.isLoading = false;
+    });
   }
 }

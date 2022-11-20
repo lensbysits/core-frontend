@@ -1,12 +1,20 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuService } from '@lens/app-abstract';
-import { AppAbstractUiModule } from '@lens/app-abstract-ui';
+import {
+  AppAbstractUiModule,
+  AppComponent,
+  ErrorHandlerService,
+} from '@lens/app-abstract-ui';
 import { PrimeComponentsModule } from '@lens/ui-prime-components';
-import { MasterdataApiClientsModule } from './services';
+import {
+  MasterdataApiClientsModule,
+  ErrorHandlerService as MyErrorHandlerService,
+} from './services';
+import { ErrorDetailsComponent } from './components/error-details/error-details.component';
 
 import { menu } from './app-menu';
 import { masterdataRoutes } from './app-routes';
@@ -21,6 +29,7 @@ import {
 } from './components';
 
 const components = [
+  ErrorDetailsComponent,
   MasterdataDashboardComponent,
   MasterdatasDetailsComponent,
   MasterdatasEditFormComponent,
@@ -42,7 +51,20 @@ const components = [
     MasterdataApiClientsModule.forRoot(),
   ],
   declarations: [...components],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      useFactory: () => () => {},
+      deps: [],
+      multi: true,
+    },
+    {
+      provide: ErrorHandlerService,
+      useClass: MyErrorHandlerService,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class MasterdataModule {
   constructor(menuService: MenuService) {

@@ -1,60 +1,33 @@
-<div *ngIf="!isLoading; else elseBlock">
-  <div class="mdt-table-wrapper mdt-table-masterdatas table-responsive">
-    <div class="table-title">
-      <span>Total masterdatas: {{ totalSize }}</span>
-      <a routerLink="/masterdatas/add" class="btn btn-success">
-        <i class="bi bi-plus"></i>(add)
-      </a>
-    </div>
-    <table class="table table-striped table-hover mb-0">
-      <thead>
-        <tr>
-          <th>Action</th>
-          <th>Id</th>
-          <th>Type Name</th>
-          <th>Key</th>
-          <th>Value</th>
-          <th>Name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items$ | async" (dblclick)="onRowSelect($event, item)">
-          <td class="white-space-nowrap">
-            <a
-              routerLink="/masterdatas/{{ item.masterdataTypeId }}/edit/{{
-                item.id
-              }}"
-              class="btn btn-outline-success"
-              placement="bottom"
-              ngbTooltip="Edit"
-              ><i class="bi bi-pencil"></i
-            ></a>
-            <button
-              (click)="onDelete(item)"
-              class="btn btn-outline-danger"
-              placement="bottom"
-              ngbTooltip="Delete"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-          <td>{{ item.id }}</td>
-          <td>{{ item.masterdataTypeName }}</td>
-          <td>{{ item.key }}</td>
-          <td>{{ item.value }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.description }}</td>
-        </tr>
-        <tr *ngIf="totalSize === 0">
-          <td colspan="10">
-            <div class="alert alert-danger">No items found.</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<ng-template #elseBlock>
-  <strong>loading...</strong>
-</ng-template>
+<lens-table
+  [source]="items"
+  [totalRecords]="totalSize"
+  (onLazyLoad)="onLazyLoadData($event)"
+  [loading]="isLoading"
+>
+  <columns>
+    <column label="Actions">
+      <div>
+        <a
+          routerLink="/masterdatas/???/edit/???"
+          class="btn btn-outline-success"
+          placement="bottom"
+          ngbTooltip="Edit"
+          ><i class="bi bi-pencil"></i
+        ></a>
+        <button
+          class="btn btn-outline-danger"
+          placement="bottom"
+          ngbTooltip="Delete"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </column>
+    <column label="Id" field="id"></column>
+    <column label="Type Name" field="masterdataTypeName"></column>
+    <column label="Key" field="key"></column>
+    <column label="Value" field="value"></column>
+    <column label="Name" field="name"></column>
+    <column label="Description" field="description"></column>
+  </columns>
+</lens-table>
