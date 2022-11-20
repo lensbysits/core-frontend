@@ -6,10 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuService } from '@lens/app-abstract';
 import { AppAbstractUiModule } from '@lens/app-abstract-ui';
 import { PrimeComponentsModule } from '@lens/ui-prime-components';
+import { MasterdataApiClientsModule } from './services';
 
 import { menu } from './app-menu';
 import { masterdataRoutes } from './app-routes';
-import { MasterdataCrudHttpService } from './services/services';
 import {
   MasterdataDashboardComponent,
   MasterdatasDetailsComponent,
@@ -39,9 +39,10 @@ const components = [
     HttpClientModule,
     PrimeComponentsModule,
     RouterModule.forChild(masterdataRoutes),
+    MasterdataApiClientsModule.forRoot(),
   ],
   declarations: [...components],
-  providers: [MasterdataCrudHttpService],
+  providers: [],
 })
 export class MasterdataModule {
   constructor(menuService: MenuService) {
