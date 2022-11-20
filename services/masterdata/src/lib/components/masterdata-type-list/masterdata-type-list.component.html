@@ -1,45 +1,45 @@
-<div *ngIf="isLoading; else elseBlock">
-  <strong>loading...</strong>
-</div>
-<ng-template #elseBlock>
-  <lens-table [source]="items" [totalRecords]="totalSize" >
-    <columns>
-      <column label="Actions">
-        <div>
+<lens-table
+  [source]="items"
+  [totalRecords]="totalSize"
+  (onLazyLoad)="onLazyLoadData($event)"
+  [loading]="isLoading"
+>
+  <columns>
+    <column label="Actions">
+      <div>
         <a
-              routerLink="/masterdatas/"
-              class="btn btn-outline-info"
-              placement="bottom"
-              ngbTooltip="View Masterdatas"
-              ><i class="bi bi-list-ul"></i
-            ></a>
-            <a
-              routerLink="/masterdatas//add"
-              class="btn btn-outline-primary"
-              placement="bottom"
-              ngbTooltip="Add Masterdata"
-              ><i class="bi bi-calendar-plus"></i
-            ></a>
-            <a
-              routerLink="/masterdata/type/edit/"
-              class="btn btn-outline-success"
-              placement="bottom"
-              ngbTooltip="Edit"
-              ><i class="bi bi-pencil"></i
-            ></a>
-            <button
-              class="btn btn-outline-danger"
-              placement="bottom"
-              ngbTooltip="Delete"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-      </column>
-      <column label="Code" field="code"></column>
-      <column label="Name" field="name"></column>
-      <column label="Count" field="masterdatasCount"></column>
-      <column label="Description" field="description"></column>
-    </columns>
-  </lens-table>
-</ng-template>
+          routerLink="/masterdatas/"
+          class="btn btn-outline-info"
+          placement="bottom"
+          ngbTooltip="View Masterdatas"
+          ><i class="bi bi-list-ul"></i
+        ></a>
+        <a
+          routerLink="/masterdatas//add"
+          class="btn btn-outline-primary"
+          placement="bottom"
+          ngbTooltip="Add Masterdata"
+          ><i class="bi bi-calendar-plus"></i
+        ></a>
+        <a
+          routerLink="/masterdata/type/edit/"
+          class="btn btn-outline-success"
+          placement="bottom"
+          ngbTooltip="Edit"
+          ><i class="bi bi-pencil"></i
+        ></a>
+        <button
+          class="btn btn-outline-danger"
+          placement="bottom"
+          ngbTooltip="Delete"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </column>
+    <column label="Code" field="code"></column>
+    <column label="Name" field="name"></column>
+    <column label="Count" field="masterdatasCount"></column>
+    <column label="Description" field="description"></column>
+  </columns>
+</lens-table>

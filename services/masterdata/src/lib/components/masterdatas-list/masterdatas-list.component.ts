@@ -4,8 +4,6 @@ import { map, Observable, tap } from 'rxjs';
 import { Masterdata } from '../../services/models';
 import { MasterdataCrudHttpService } from '../../services/services';
 
-// import { environment } from '../../../environments/environment';
-
 @Component({
   selector: 'lens-masterdatas-list',
   templateUrl: './masterdatas-list.component.html',

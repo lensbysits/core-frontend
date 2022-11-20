@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ILazyLoadEvent } from '@lens/ui-prime-components';
 import { MasterdataType } from '../../services/models';
 import { MasterdataCrudHttpService } from '../../services/services';
-
-// import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'lens-masterdata-type-list',
@@ -23,7 +22,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.loadItems();
+    // this.loadItems();
   }
 
   loadItems() {
@@ -40,6 +39,10 @@ export class MasterdataTypeListComponent implements OnInit {
         console.log('isLoading', this.isLoading, 'items', this.items);
       },
     });
+  }
+
+  public onLazyLoadData(event: ILazyLoadEvent): void {
+    this.loadItems();
   }
 
   public onRowSelect(event: any, item: MasterdataType) {

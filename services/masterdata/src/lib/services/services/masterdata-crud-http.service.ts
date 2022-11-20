@@ -29,7 +29,7 @@ export const isEmpty = (str: string) => !str || !str.length;
 
 @Injectable()
 export class MasterdataCrudHttpService {
-  private api_base_url = `https://localhost:7249/api/Masterdata`;
+  private api_base_url = `https://localhost:7029/api/Masterdata`;
 
   private httpOptions = {
     headers: new HttpHeaders({
