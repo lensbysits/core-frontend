@@ -14,24 +14,22 @@ export const masterdataRoutes: Routes = [
     path: '',
     component: MasterdataDashboardComponent,
   },
+  // masterdata-type
+  { path: 'type', component: MasterdataTypeListComponent },
+  { path: 'type/details/:id', component: MasterdataTypeDetailsComponent },
+  { path: 'type/add', component: MasterdataTypeEditFormComponent },
+  { path: 'type/edit/:id', component: MasterdataTypeEditFormComponent },
+  // masterdatas
+  { path: 'masterdatas', component: MasterdatasListComponent },
+  { path: 'masterdatas/add', component: MasterdatasEditFormComponent },
+  { path: 'masterdatas/:typeId/add', component: MasterdatasEditFormComponent },
+  { path: 'masterdatas/:typeId', component: MasterdatasListComponent },
   {
-    path: 'type',
-    component: MasterdataTypeListComponent,
-    children: [
-      { path: 'details/:id', component: MasterdataTypeDetailsComponent },
-      { path: 'add', component: MasterdataTypeEditFormComponent },
-      { path: 'edit/:id', component: MasterdataTypeEditFormComponent },
-    ],
+    path: 'masterdatas/details/:typeId/:id',
+    component: MasterdatasDetailsComponent,
   },
   {
-    path: 'masterdatas',
-    component: MasterdatasListComponent,
-    children: [
-      { path: 'add', component: MasterdatasEditFormComponent },
-      { path: ':typeId/add', component: MasterdatasEditFormComponent },
-      { path: ':typeId', component: MasterdatasListComponent },
-      { path: 'details/:typeId/:id', component: MasterdatasDetailsComponent },
-      { path: ':typeId/edit/:id', component: MasterdatasEditFormComponent },
-    ],
+    path: 'masterdatas/:typeId/edit/:id',
+    component: MasterdatasEditFormComponent,
   },
 ];
