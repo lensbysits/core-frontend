@@ -34,14 +34,6 @@ export class InputDateComponent extends InputBaseComponent {
 
     @ViewChild("date", { read: Calendar, static: true }) private date!: Calendar;
 
-    public onInputBlur() {
-        this.writeValue(this.date.value);
-    }
-
-    public onDateSelected($event: Event) {
-        this.writeValue(this.date.value);
-    }
-
     override validate(control: AbstractControl<any, any>): ValidationErrors | null {
         if (!this.isRequired && !control.value) {
             return null;

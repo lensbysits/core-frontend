@@ -6,5 +6,5 @@
 </ng-container>
 
 <ng-template #input>
-    <input type="text" pInputText [attr.placeholder]="placeholder" [id]="id" [attr.value]="value" [attr.disabled]="disabled" [attr.required]="required" (change)="onInputChanged($event)" />
+    <input type="text" pInputText [attr.placeholder]="placeholder" [id]="id" [attr.disabled]="disabled" [attr.required]="required" [(ngModel)]="value" />
 </ng-template>

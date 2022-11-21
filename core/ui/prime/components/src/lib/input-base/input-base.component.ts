@@ -33,6 +33,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
     public set value(value: any) {
         this._value = value;
         this.onChange(value);
+        this.onTouched(value);
         this.onValidationChange();
     }
 
@@ -41,11 +42,11 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
     }
 
     protected onChange = (event: any) => {};
-    protected onTouched = () => {};
+    protected onTouched = (event: any) => {};
     protected onValidationChange = () => {};
 
     public writeValue(value: any): void {
-        this.value = value;
+        this._value = value;
     }
 
     public registerOnChange(fn: any): void {
