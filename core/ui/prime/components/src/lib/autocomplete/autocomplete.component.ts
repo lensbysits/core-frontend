@@ -10,9 +10,9 @@ import { InputBaseComponent } from "../input-base/input-base.component";
     ]
 })
 export class AutoCompleteComponent extends InputBaseComponent implements OnInit {
-    @Input() public options: { key: string, value: string }[] = [];
+    @Input() public options: { key: any, value: string }[] = [];
 
-    public filteredOptions: { key: string, value: string }[] = [];
+    public filteredOptions: { key: any, value: string }[] = [];
 
     public ngOnInit(): void {
         this.filteredOptions = this.options;
