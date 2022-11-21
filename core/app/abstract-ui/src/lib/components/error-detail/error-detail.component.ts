@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'tp-frontend-error-detail',
-  template: ` <p>error-detail works!</p> `,
+  template: ` <p>An unexpected error occurred.</p> `,
   styles: [],
 })
-export class ErrorDetailComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class ErrorDetailComponent { }

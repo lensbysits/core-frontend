@@ -15,6 +15,7 @@ import { TableModule } from './table';
 import { ToolbarModule } from './toolbar';
 import { ToastModule } from './toast';
 import { InputEmailModule } from './input-email';
+import { PanelModule } from './panel';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { InputEmailModule } from './input-email';
     InputTextModule,
     InputTextareaModule,
     LoadingSpinnerModule,
+    PanelModule,
     TableModule,
     ToastModule,
     ToolbarModule
@@ -45,6 +47,7 @@ import { InputEmailModule } from './input-email';
     InputTextModule,
     InputTextareaModule,
     LoadingSpinnerModule,
+    PanelModule,
     TableModule,
     ToastModule,
     ToolbarModule

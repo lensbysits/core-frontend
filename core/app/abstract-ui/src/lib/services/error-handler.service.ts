@@ -18,7 +18,7 @@ export class ErrorHandlerService implements OnDestroy {
     )
       .subscribe(error => {
         console.log(error);
-        dialogService.open(ErrorDetailComponent, {});
+        dialogService.open(ErrorDetailComponent, { header: "An error occurred", data: { error: error } });
       });
   }
 

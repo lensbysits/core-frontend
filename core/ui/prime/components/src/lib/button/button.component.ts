@@ -9,4 +9,5 @@ export class ButtonComponent {
   @Input() public type: "primary" | "secondary" | "success" | "info" | "warning" | "danger" = "primary";
   @Output() public clicked = new EventEmitter();
   @Input() public icon = "";
+  @Input() public disabled = false;
 }
