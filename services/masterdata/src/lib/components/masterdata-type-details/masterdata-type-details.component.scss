@@ -1,0 +1,13 @@
+.details-wrapper {
+  width: 50%;
+  .row {
+    display: flex;
+    &:not(:last-child) {
+      border-bottom: 1px solid #eceff1;
+    }
+
+    .col {
+      flex: 1;
+    }
+  }
+}

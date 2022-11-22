@@ -1,15 +1,22 @@
-<div *ngIf="item">
-  <h2>{{ item.name }} || details page</h2>
-  <div><span>id: </span>{{ item.id }}</div>
-  <div><span>type id: </span>{{ item.masterdataTypeId }}</div>
-  <div><span>type name: </span>{{ item.masterdataTypeName }}</div>
-  <div><span>key: </span>{{ item.key }}</div>
-  <div><span>value: </span>{{ item.value }}</div>
-  <div><span>name: </span>{{ item.name }}</div>
-  <div><span>description: </span>{{ item.description }}</div>
-  <div>
-    <span>metadata: </span>
-    <pre>{{ item.metadata | json }}</pre>
-  </div>
-  <button type="button" (click)="goBack()">go back</button>
+<div *ngIf="item$ | async; let item">
+  <lens-panel header="Masterdata Details">
+    <div class="details-wrapper">
+      <div *ngFor="let item of prepareForDisplay(item)" class="row">
+        <div class="col">{{ item[0] | titlecase }}</div>
+        <div class="col">
+          <ng-container *ngIf="item[0] !== 'metadata'; else showPreCode">
+            {{ item[1] }}
+          </ng-container>
+          <ng-template #showPreCode>
+            <pre>{{ item[1] | json }}</pre>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <lens-button
+      type="secondary"
+      label="go back"
+      (click)="goBack()"
+    ></lens-button>
+  </lens-panel>
 </div>

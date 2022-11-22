@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { map, Observable, tap } from 'rxjs';
 import { Masterdata } from '../../services/models';
 import { MasterdataCrudHttpService } from '../../services/services';
 
@@ -13,7 +14,8 @@ export class MasterdatasDetailsComponent implements OnInit {
   isLoading = false;
   itemId = '';
   typeId = '';
-  item?: Masterdata;
+  // item?: Masterdata;
+  item$?: Observable<Masterdata | undefined>;
 
   constructor(
     private readonly service: MasterdataCrudHttpService,
@@ -22,11 +24,6 @@ export class MasterdatasDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.activeRoute.params.subscribe((parameter) => {
-    //   this.itemId = parameter['id'];
-    //   this.loadItem(this.itemId);
-    // });
-
     this.itemId = this.activeRoute.snapshot.paramMap.get('id') ?? '';
     this.typeId = this.activeRoute.snapshot.paramMap.get('typeId') ?? '';
     this.loadItem(this.typeId, this.itemId);
@@ -34,10 +31,27 @@ export class MasterdatasDetailsComponent implements OnInit {
 
   loadItem(typeId: string, id: string) {
     this.isLoading = true;
-    this.service.getMasterdataById(typeId, id).subscribe((data) => {
-      console.log('loadItem', data);
-      this.item = data || {};
-      this.isLoading = false;
+    // this.service.getMasterdataById(typeId, id).subscribe((data) => {
+    //   console.log('loadItem', data);
+    //   this.item = data || {};
+    //   this.isLoading = false;
+    // });
+    this.item$ = this.service.getMasterdataById(typeId, id).pipe(
+      tap((data) => {
+        console.log('loadItem', data);
+        this.isLoading = false;
+      }),
+      map((data) => data)
+    );
+  }
+
+  prepareForDisplay(item: Masterdata) {
+    return Object.entries(item).map((item) => {
+      item[0] = item[0].toLowerCase().replace('masterdata', '');
+      if (['typeid', 'typename'].includes(item[0])) {
+        item[0] = `type ${item[0].replace('type', '')}`;
+      }
+      return item;
     });
   }
 
