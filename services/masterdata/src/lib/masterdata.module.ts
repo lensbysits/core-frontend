@@ -19,6 +19,7 @@ import { ErrorDetailsComponent } from './components/error-details/error-details.
 import { menu } from './app-menu';
 import { masterdataRoutes } from './app-routes';
 import {
+  LoggerMessagesComponent,
   MasterdataDashboardComponent,
   MasterdatasDetailsComponent,
   MasterdatasEditFormComponent,
@@ -30,6 +31,7 @@ import {
 
 const components = [
   ErrorDetailsComponent,
+  LoggerMessagesComponent,
   MasterdataDashboardComponent,
   MasterdatasDetailsComponent,
   MasterdatasEditFormComponent,
