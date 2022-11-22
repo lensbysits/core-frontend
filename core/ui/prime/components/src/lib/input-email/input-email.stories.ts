@@ -4,7 +4,7 @@ import { InputTextModule } from "primeng/inputtext";
 
 export default {
     component: InputEmailComponent,
-    title: "Components/InputText",
+    title: "Components/InputEmail",
     decorators: [
         moduleMetadata({
             imports: [ InputTextModule ]
