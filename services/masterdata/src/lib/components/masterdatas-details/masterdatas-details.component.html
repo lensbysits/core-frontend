@@ -1,9 +1,13 @@
 <div *ngIf="item$ | async; let item">
   <lens-panel header="Masterdata Details">
     <div class="details-wrapper">
-      <div *ngFor="let item of prepareForDisplay(item)" class="row">
-        <div class="col">{{ item[0] | titlecase }}</div>
-        <div class="col">
+      <div class="mb-4" style="color: var(--primary-color)">
+        <lens-icon icon="arrow-left" class="mr-2"></lens-icon>
+        <a routerLink="/masterdatas">Back to list</a>
+      </div>
+      <div *ngFor="let item of prepareForDisplay(item)" class="grid">
+        <div class="col-6">{{ item[0] | titlecase }}</div>
+        <div class="col-6">
           <ng-container *ngIf="item[0] !== 'metadata'; else showPreCode">
             {{ item[1] }}
           </ng-container>
@@ -13,10 +17,5 @@
         </div>
       </div>
     </div>
-    <lens-button
-      type="secondary"
-      label="go back"
-      (click)="goBack()"
-    ></lens-button>
   </lens-panel>
 </div>

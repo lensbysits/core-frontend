@@ -4,11 +4,11 @@
       <div class="card shadow">
         <div class="card-header border-bottom">
           <h4>
-            {{ title }}<span>{{ id ? ' | ' + id : '' }}</span>
+            {{ formTitle }}<span>{{ id ? ' | ' + id : '' }}</span>
           </h4>
         </div>
         <div class="card-body">
-          <form [formGroup]="formadd" (ngSubmit)="onSubmit()">
+          <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <ng-container *ngIf="isAddForm">
                 <ng-container *ngIf="!needsTypeIdSelector">
@@ -25,7 +25,8 @@
                       class="form-control"
                       [ngClass]="{
                         'is-invalid':
-                          submitted && getFormFields['masterdataTypeId'].errors
+                          isFormSubmitted &&
+                          getFormFields['masterdataTypeId'].errors
                       }"
                     >
                       <option [ngValue]="null" selected disabled>
@@ -37,7 +38,8 @@
                     </select>
                     <div
                       *ngIf="
-                        submitted && getFormFields['masterdataTypeId'].errors
+                        isFormSubmitted &&
+                        getFormFields['masterdataTypeId'].errors
                       "
                       class="invalid-feedback"
                     >
@@ -54,11 +56,12 @@
                     formControlName="key"
                     class="form-control"
                     [ngClass]="{
-                      'is-invalid': submitted && getFormFields['key'].errors
+                      'is-invalid':
+                        isFormSubmitted && getFormFields['key'].errors
                     }"
                   />
                   <div
-                    *ngIf="submitted && getFormFields['key'].errors"
+                    *ngIf="isFormSubmitted && getFormFields['key'].errors"
                     class="invalid-feedback"
                   >
                     <div *ngIf="getFormFields['key'].errors">
@@ -80,11 +83,12 @@
                   formControlName="value"
                   class="form-control"
                   [ngClass]="{
-                    'is-invalid': submitted && getFormFields['value'].errors
+                    'is-invalid':
+                      isFormSubmitted && getFormFields['value'].errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && getFormFields['value'].errors"
+                  *ngIf="isFormSubmitted && getFormFields['value'].errors"
                   class="invalid-feedback"
                 >
                   <div *ngIf="getFormFields['value'].errors">
@@ -99,11 +103,12 @@
                   formControlName="name"
                   class="form-control"
                   [ngClass]="{
-                    'is-invalid': submitted && getFormFields['name'].errors
+                    'is-invalid':
+                      isFormSubmitted && getFormFields['name'].errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && getFormFields['name'].errors"
+                  *ngIf="isFormSubmitted && getFormFields['name'].errors"
                   class="invalid-feedback"
                 >
                   <div *ngIf="getFormFields['name'].errors">
@@ -118,12 +123,12 @@
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      submitted && getFormFields['description'].errors
+                      isFormSubmitted && getFormFields['description'].errors
                   }"
                 >
                 </textarea>
                 <div
-                  *ngIf="submitted && getFormFields['description'].errors"
+                  *ngIf="isFormSubmitted && getFormFields['description'].errors"
                   class="invalid-feedback"
                 >
                   <div *ngIf="getFormFields['description'].errors">
@@ -138,7 +143,7 @@
               type="submit"
               class="btn btn-success me-3"
             >
-              {{ btnText }}
+              {{ saveBtnText }}
             </button>
             <button
               type="button"

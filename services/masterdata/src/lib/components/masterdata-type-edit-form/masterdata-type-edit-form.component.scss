@@ -1,13 +1,12 @@
-.form-group label {
-  color: royalblue !important;
-}
+.form-wrapper {
+  width: 50%;
 
-.card {
-  border: none;
-}
+  .form-actions {
+    color: red;
 
-.card-header {
-  padding: 1rem 1.25rem;
-  background-color: white;
-  border: none;
+    > div {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
 }

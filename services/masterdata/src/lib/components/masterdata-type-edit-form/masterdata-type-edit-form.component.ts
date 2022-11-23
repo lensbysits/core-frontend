@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '@lens/ui-prime-components';
+import { MasterdataType } from '../../services/models';
 import {
   IMasterdataTypeCreate,
   IMasterdataTypeUpdate,
 } from '../../services/interfaces';
 import { MasterdataCrudHttpService } from '../../services/services';
-
+import { Observable, of } from 'rxjs';
+import { delay, concatMap } from 'rxjs/operators';
 @Component({
   selector: 'lens-masterdata-type-edit-form',
   templateUrl: './masterdata-type-edit-form.component.html',
@@ -15,17 +18,19 @@ import { MasterdataCrudHttpService } from '../../services/services';
 export class MasterdataTypeEditFormComponent implements OnInit {
   isLoading = false;
   id!: string;
-  formadd!: FormGroup;
-  submitted = false;
-  btnText = 'Save';
-  title = 'New Masterdata-type';
+  dataForm!: FormGroup;
+  isFormSubmitted = false;
   isAddForm = true;
+  saveBtnText = 'Save';
+  formTitle = 'Add';
+  item?: MasterdataType;
 
   constructor(
     private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -34,60 +39,74 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
     if (!this.isAddForm) {
       this.loadData();
-      this.btnText = 'Update';
-      this.title = 'Edit Masterdata-type';
+      this.saveBtnText = 'Update';
+      this.formTitle = 'Edit';
     }
 
-    this.formadd = this.formBuilder.group({
+    this.dataForm = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      description: [''], //['', Validators.required],
+      description: [''],
     });
   }
 
   // convenience getter for easy access to form fields
   get getFormFields() {
-    return this.formadd.controls;
+    return this.dataForm.controls;
   }
 
   loadData() {
+    this.isLoading = true;
     this.service
       .getMasterdataTypeById(this.id)
-      .subscribe((x) => this.formadd.patchValue(x));
+      .pipe(concatMap((item) => of(item).pipe(delay(0))))
+      .subscribe((data) => {
+        this.dataForm.patchValue(data);
+        this.item = data || {};
+        this.isLoading = false;
+      });
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isFormSubmitted = true;
 
-    // stop here if form is invalid
-    if (this.formadd.invalid) {
+    if (this.dataForm.invalid) {
+      // stop here if form is invalid
       return;
     }
 
     this.isLoading = true;
     if (this.isAddForm) {
       this.service
-        .createMasterdataType(this.formadd.value as IMasterdataTypeCreate)
+        .createMasterdataType(this.dataForm.value as IMasterdataTypeCreate)
         .subscribe((data) => {
           console.log('onSubmit create', data);
           this.btnCancel();
           this.isLoading = false;
+          this.toastService.success(
+            'Add masterdata type',
+            'The masterdata type was succesfully added.'
+          );
         });
     } else {
       this.service
         .updateMasterdataType(
           this.id,
-          this.formadd.value as IMasterdataTypeUpdate
+          this.dataForm.value as IMasterdataTypeUpdate
         )
         .subscribe((data) => {
           console.log('onSubmit update', data);
           this.btnCancel();
           this.isLoading = false;
+          this.toastService.success(
+            'Update masterdata type',
+            'The masterdata type was succesfully updated.'
+          );
         });
     }
   }
 
   btnCancel() {
-    this.router.navigate(['masterdata/type']);
+    this.router.navigate(['type']);
   }
 }

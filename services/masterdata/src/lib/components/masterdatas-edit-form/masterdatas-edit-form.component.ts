@@ -17,11 +17,11 @@ export class MasterdatasEditFormComponent implements OnInit {
   isLoading = false;
   id!: string;
   typeId = '';
-  formadd!: FormGroup;
-  submitted = false;
-  btnText = 'Save';
-  title = 'New Masterdata';
+  dataForm!: FormGroup;
+  isFormSubmitted = false;
   isAddForm = true;
+  saveBtnText = 'Save';
+  formTitle = 'Add Masterdata';
   needsTypeIdSelector = false;
   selectedMdt = null;
   mdtList: MasterdataType[] = [];
@@ -39,11 +39,11 @@ export class MasterdatasEditFormComponent implements OnInit {
     this.isAddForm = !(this.id !== undefined);
     this.needsTypeIdSelector = !(this.typeId !== undefined);
 
-    // TODO : set loadDate into a property of this class (so you can remove key from formadd on update)
+    // TODO : set loadDate into a property of this class (so you can remove key from dataForm on update)
     if (!this.isAddForm) {
       this.loadData();
-      this.btnText = 'Update';
-      this.title = 'Edit Masterdata';
+      this.saveBtnText = 'Update';
+      this.formTitle = 'Edit Masterdata';
     }
     if (this.isAddForm && this.needsTypeIdSelector) {
       this.loadMdtList();
@@ -53,7 +53,7 @@ export class MasterdatasEditFormComponent implements OnInit {
       masterdataTypeId: [this.typeId ?? '', Validators.required],
       key: ['', Validators.required],
     };
-    this.formadd = this.formBuilder.group({
+    this.dataForm = this.formBuilder.group({
       key: [''],
       ...whenAddForm,
       value: ['', Validators.required],
@@ -64,27 +64,27 @@ export class MasterdatasEditFormComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get getFormFields() {
-    return this.formadd.controls;
+    return this.dataForm.controls;
   }
 
   loadData() {
     this.service
       .getMasterdataById(this.typeId, this.id)
-      .subscribe((x) => this.formadd.patchValue(x));
+      .subscribe((x) => this.dataForm.patchValue(x));
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isFormSubmitted = true;
 
-    // stop here if form is invalid
-    if (this.formadd.invalid) {
+    if (this.dataForm.invalid) {
+      // stop here if form is invalid
       return;
     }
 
     this.isLoading = true;
     if (this.isAddForm) {
       this.service
-        .createMasterdata(this.formadd.value as IMasterdataCreate)
+        .createMasterdata(this.dataForm.value as IMasterdataCreate)
         .subscribe((data) => {
           console.log('onSubmit create', data);
           this.btnCancel();
@@ -92,7 +92,7 @@ export class MasterdatasEditFormComponent implements OnInit {
         });
     } else {
       this.service
-        .updateMasterdata(this.id, this.formadd.value as IMasterdataUpdate)
+        .updateMasterdata(this.id, this.dataForm.value as IMasterdataUpdate)
         .subscribe((data) => {
           console.log('onSubmit update', data);
           this.btnCancel();

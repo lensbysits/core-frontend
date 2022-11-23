@@ -54,8 +54,4 @@ export class MasterdatasDetailsComponent implements OnInit {
       return item;
     });
   }
-
-  goBack(): void {
-    this.location.back();
-  }
 }
