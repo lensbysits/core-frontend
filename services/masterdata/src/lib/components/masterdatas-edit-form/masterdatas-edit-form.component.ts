@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '@lens/ui-prime-components';
+import { Masterdata, MasterdataType } from '../../services/models';
 import {
   IMasterdataCreate,
   IMasterdataUpdate,
 } from '../../services/interfaces';
-import { MasterdataType } from '../../services/models';
 import { MasterdataCrudHttpService } from '../../services/services';
 
 @Component({
@@ -21,16 +22,18 @@ export class MasterdatasEditFormComponent implements OnInit {
   isFormSubmitted = false;
   isAddForm = true;
   saveBtnText = 'Save';
-  formTitle = 'Add Masterdata';
+  formTitle = 'Add';
   needsTypeIdSelector = false;
-  selectedMdt = null;
-  mdtList: MasterdataType[] = [];
+  item?: Masterdata;
+  typesList: MasterdataType[] = [];
+  selectedTypeId = null;
 
   constructor(
     private readonly service: MasterdataCrudHttpService,
     private readonly router: Router,
     private readonly activeRoute: ActivatedRoute,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -39,14 +42,13 @@ export class MasterdatasEditFormComponent implements OnInit {
     this.isAddForm = !(this.id !== undefined);
     this.needsTypeIdSelector = !(this.typeId !== undefined);
 
-    // TODO : set loadDate into a property of this class (so you can remove key from dataForm on update)
     if (!this.isAddForm) {
       this.loadData();
       this.saveBtnText = 'Update';
-      this.formTitle = 'Edit Masterdata';
+      this.formTitle = 'Edit';
     }
     if (this.isAddForm && this.needsTypeIdSelector) {
-      this.loadMdtList();
+      this.loadTypesList();
     }
 
     const whenAddForm = this.isAddForm && {
@@ -54,7 +56,6 @@ export class MasterdatasEditFormComponent implements OnInit {
       key: ['', Validators.required],
     };
     this.dataForm = this.formBuilder.group({
-      key: [''],
       ...whenAddForm,
       value: ['', Validators.required],
       name: ['', Validators.required],
@@ -68,9 +69,12 @@ export class MasterdatasEditFormComponent implements OnInit {
   }
 
   loadData() {
-    this.service
-      .getMasterdataById(this.typeId, this.id)
-      .subscribe((x) => this.dataForm.patchValue(x));
+    this.isLoading = true;
+    this.service.getMasterdataById(this.typeId, this.id).subscribe((data) => {
+      this.dataForm.patchValue(data);
+      this.item = data || {};
+      this.isLoading = false;
+    });
   }
 
   onSubmit() {
@@ -89,6 +93,10 @@ export class MasterdatasEditFormComponent implements OnInit {
           console.log('onSubmit create', data);
           this.btnCancel();
           this.isLoading = false;
+          this.toastService.success(
+            'Add masterdata',
+            'The masterdatae was succesfully added.'
+          );
         });
     } else {
       this.service
@@ -97,6 +105,10 @@ export class MasterdatasEditFormComponent implements OnInit {
           console.log('onSubmit update', data);
           this.btnCancel();
           this.isLoading = false;
+          this.toastService.success(
+            'Update masterdata',
+            'The masterdata was succesfully updated.'
+          );
         });
     }
   }
@@ -105,17 +117,17 @@ export class MasterdatasEditFormComponent implements OnInit {
     this.router.navigate(['masterdatas']);
   }
 
-  loadMdtList() {
+  loadTypesList() {
     this.isLoading = true;
     this.service.getAllMasterdataTypes().subscribe({
       next: (data) => {
         console.log('loadItems', data);
-        this.mdtList = data.value || [];
+        this.typesList = data.value || [];
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
-        console.log('isLoading', this.isLoading, 'items', this.mdtList);
+        console.log('isLoading', this.isLoading, 'items', this.typesList);
       },
     });
   }

@@ -11,10 +11,9 @@
         <div class="p-fluid mb-4">
           <!-- only for edit form -->
           <ng-container *ngIf="!isAddForm && item">
-            <!-- id -->
-            <div class="field">
-              <label for="id">Id</label>
-              <div id="id">{{ item.id }}</div>
+            <div class="field view-only">
+              <label>Id</label>
+              <span>{{ item.id }}</span>
             </div>
           </ng-container>
           <!-- end only for edit form -->

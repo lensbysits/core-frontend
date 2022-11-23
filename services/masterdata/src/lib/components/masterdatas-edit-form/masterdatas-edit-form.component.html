@@ -1,160 +1,163 @@
-<section>
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-4">
-      <div class="card shadow">
-        <div class="card-header border-bottom">
-          <h4>
-            {{ formTitle }}<span>{{ id ? ' | ' + id : '' }}</span>
-          </h4>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-              <ng-container *ngIf="isAddForm">
-                <ng-container *ngIf="!needsTypeIdSelector">
-                  <div class="form-group mb-3">
-                    <div>MasterdataType Id: {{ typeId }}</div>
-                  </div>
-                </ng-container>
-                <ng-container *ngIf="needsTypeIdSelector">
-                  <div class="form-group mb-3">
-                    <label class="mb-2">MasterdataType Id</label>
-                    <select
-                      formControlName="masterdataTypeId"
-                      [(ngModel)]="selectedMdt"
-                      class="form-control"
-                      [ngClass]="{
-                        'is-invalid':
-                          isFormSubmitted &&
-                          getFormFields['masterdataTypeId'].errors
-                      }"
-                    >
-                      <option [ngValue]="null" selected disabled>
-                        --Choose--
-                      </option>
-                      <option *ngFor="let mdt of mdtList" [ngValue]="mdt.id">
-                        {{ mdt.name }}
-                      </option>
-                    </select>
-                    <div
-                      *ngIf="
-                        isFormSubmitted &&
-                        getFormFields['masterdataTypeId'].errors
-                      "
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="getFormFields['masterdataTypeId'].errors">
-                        MasterdataType Id is required
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-                <div class="form-group mb-3">
-                  <label class="mb-2">Key</label>
-                  <input
-                    type="text"
-                    formControlName="key"
-                    class="form-control"
-                    [ngClass]="{
-                      'is-invalid':
-                        isFormSubmitted && getFormFields['key'].errors
-                    }"
-                  />
+<lens-panel header="{{ formTitle }} Masterdata {{ id ? ' | ' + id : '' }}">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <div class="mb-4" style="color: var(--primary-color)">
+        <lens-icon icon="arrow-left" class="mr-2"></lens-icon>
+        <a routerLink="/masterdatas">Back to list</a>
+      </div>
+    </div>
+    <div class="form-body">
+      <form [formGroup]="dataForm">
+        <div class="p-fluid mb-4">
+          <!-- only for edit form -->
+          <ng-container *ngIf="!isAddForm && item">
+            <div class="field view-only">
+              <label>Id</label>
+              <span>{{ item.id }}</span>
+            </div>
+            <div class="field view-only">
+              <label>Masterdata Type Id</label>
+              <span>{{ typeId }}</span>
+            </div>
+            <div class="field view-only">
+              <label>Key</label>
+              <span>{{ item.key }}</span>
+            </div>
+          </ng-container>
+          <!-- end only for edit form -->
+          <!-- only for add form -->
+          <ng-container *ngIf="isAddForm">
+            <ng-container *ngIf="needsTypeIdSelector; else showTypeIdSelector">
+              <!-- type id -->
+              <div class="field">
+                <label for="masterdataTypeId">Masterdata Type</label>
+                <lens-dropdown
+                  id="masterdataTypeId"
+                  formControlName="masterdataTypeId"
+                  [options]="typesList"
+                  optionValue="id"
+                  optionLabel="name"
+                  required
+                  placeholder="Please choose a masterdata type"
+                ></lens-dropdown>
+                <div
+                  *ngIf="
+                    isFormSubmitted &&
+                    getFormFields['masterdataTypeId']!.invalid
+                  "
+                  class="p-error"
+                >
                   <div
-                    *ngIf="isFormSubmitted && getFormFields['key'].errors"
-                    class="invalid-feedback"
+                    *ngIf="getFormFields['masterdataTypeId']!.errors?.['required']"
                   >
-                    <div *ngIf="getFormFields['key'].errors">
-                      Key is required
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="!isAddForm">
-                <div class="form-group mb-3">
-                  <div>MasterdataType Id: {{ typeId }}</div>
-                  <div>Key: {{ getFormFields['key'].value }}</div>
-                </div>
-              </ng-container>
-              <div class="form-group mb-3">
-                <label class="mb-2">Value</label>
-                <input
-                  type="text"
-                  formControlName="value"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      isFormSubmitted && getFormFields['value'].errors
-                  }"
-                />
-                <div
-                  *ngIf="isFormSubmitted && getFormFields['value'].errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="getFormFields['value'].errors">
-                    Value is required
+                    Masterdata Type is required.
                   </div>
                 </div>
               </div>
-              <div class="form-group mb-3">
-                <label class="mb-2">Name</label>
-                <input
-                  type="text"
-                  formControlName="name"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      isFormSubmitted && getFormFields['name'].errors
-                  }"
-                />
-                <div
-                  *ngIf="isFormSubmitted && getFormFields['name'].errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="getFormFields['name'].errors">
-                    Name is required
-                  </div>
-                </div>
+            </ng-container>
+            <ng-template #showTypeIdSelector>
+              <div class="field view-only">
+                <label>Masterdata Type Id</label>
+                <span>{{ typeId }}</span>
               </div>
-              <div class="form-group mb-3">
-                <label class="mb-2">Description</label>
-                <textarea
-                  formControlName="description"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      isFormSubmitted && getFormFields['description'].errors
-                  }"
-                >
-                </textarea>
-                <div
-                  *ngIf="isFormSubmitted && getFormFields['description'].errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="getFormFields['description'].errors">
-                    Description error!
-                  </div>
+            </ng-template>
+            <!-- key -->
+            <div class="field">
+              <label for="key">Key</label>
+              <lens-input-text
+                id="key"
+                formControlName="key"
+                placeholder="Please enter a valid key"
+                required
+                maxlength="225"
+              ></lens-input-text>
+              <div
+                *ngIf="isFormSubmitted && getFormFields['key']!.invalid"
+                class="p-error"
+              >
+                <div *ngIf="getFormFields['key']!.errors?.['required']">
+                  Key is required.
                 </div>
               </div>
             </div>
+          </ng-container>
+          <!-- end only for add form -->
+          <!-- value -->
+          <div class="field">
+            <label for="value">Value</label>
+            <lens-input-text
+              id="value"
+              formControlName="value"
+              placeholder="Please enter a valid value"
+              required
+              maxlength="225"
+            ></lens-input-text>
+            <div
+              *ngIf="isFormSubmitted && getFormFields['value']!.invalid"
+              class="p-error"
+            >
+              <div *ngIf="getFormFields['value']!.errors?.['required']">
+                Value is required.
+              </div>
+            </div>
+          </div>
+          <!-- name -->
+          <div class="field">
+            <label for="name">Name</label>
+            <lens-input-text
+              id="name"
+              formControlName="name"
+              placeholder="Please enter a valid name"
+              required
+              maxlength="225"
+            ></lens-input-text>
+            <div
+              *ngIf="isFormSubmitted && getFormFields['name']!.invalid"
+              class="p-error"
+            >
+              <div *ngIf="getFormFields['name']!.errors?.['required']">
+                Name is required.
+              </div>
+            </div>
+          </div>
+          <!-- description -->
+          <div class="field">
+            <label for="description">Description</label>
+            <lens-input-text
+              id="description"
+              formControlName="description"
+              placeholder="Please enter a valid description"
+            ></lens-input-text>
+            <div
+              *ngIf="isFormSubmitted && getFormFields['description']!.invalid"
+              class="p-error"
+            >
+              <div *ngIf="getFormFields['description']!.errors?.['required']">
+                Description is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 
-            <button
-              [disabled]="isLoading"
-              type="submit"
-              class="btn btn-success me-3"
-            >
-              {{ saveBtnText }}
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-danger"
-              (click)="btnCancel()"
-            >
-              Cancel
-            </button>
-          </form>
+      <div class="form-actions">
+        <div>
+          <lens-button
+            label="{{ saveBtnText }}"
+            icon="pi-save"
+            type="success"
+            [disabled]="isLoading"
+            (clicked)="onSubmit()"
+          ></lens-button>
+        </div>
+        <div>
+          <lens-button
+            label="Cancel"
+            icon="pi-backward"
+            (clicked)="btnCancel()"
+          ></lens-button>
         </div>
       </div>
     </div>
   </div>
-</section>
+</lens-panel>

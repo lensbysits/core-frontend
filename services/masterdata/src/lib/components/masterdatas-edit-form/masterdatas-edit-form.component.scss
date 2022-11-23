@@ -1,13 +1,26 @@
-.form-group label {
-  color: royalblue !important;
-}
+.form-wrapper {
+  width: 50%;
 
-.card {
-  border: none;
-}
+  .field {
+    &.view-only {
+      &:not(:last-child) {
+        border-bottom: 1px solid #eceff1;
+      }
+      label {
+        min-width: 20%;
+      }
+    }
+    div {
+      font-style: italic;
+    }
+  }
 
-.card-header {
-  padding: 1rem 1.25rem;
-  background-color: white;
-  border: none;
+  .form-actions {
+    color: red;
+
+    > div {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
 }
