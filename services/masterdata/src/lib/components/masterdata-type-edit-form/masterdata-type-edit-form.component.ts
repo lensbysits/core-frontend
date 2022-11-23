@@ -8,8 +8,7 @@ import {
   IMasterdataTypeUpdate,
 } from '../../services/interfaces';
 import { MasterdataCrudHttpService } from '../../services/services';
-import { Observable, of } from 'rxjs';
-import { delay, concatMap } from 'rxjs/operators';
+
 @Component({
   selector: 'lens-masterdata-type-edit-form',
   templateUrl: './masterdata-type-edit-form.component.html',
@@ -57,14 +56,11 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
   loadData() {
     this.isLoading = true;
-    this.service
-      .getMasterdataTypeById(this.id)
-      .pipe(concatMap((item) => of(item).pipe(delay(0))))
-      .subscribe((data) => {
-        this.dataForm.patchValue(data);
-        this.item = data || {};
-        this.isLoading = false;
-      });
+    this.service.getMasterdataTypeById(this.id).subscribe((data) => {
+      this.dataForm.patchValue(data);
+      this.item = data || {};
+      this.isLoading = false;
+    });
   }
 
   onSubmit() {
