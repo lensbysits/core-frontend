@@ -1,0 +1,33 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./dialog.stories";
+import { Default } from "./dialog.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Dialog
+
+This is a nice dialog!
+
+<Story story={Default} />
+
+First import `DialogModule` from `@lens/ui-prime-components`.
+
+Then, define your own dialog component. For example: `FooDialogComponent`.
+
+After that, open the dialog using the generic `DialogService`.
+
+```ts
+import { DialogService } from "@lens/app-abstract-ui";
+
+constructor (
+    private readonly dialogService: DialogService
+) { }
+
+public foo(): void {
+    this.dialogService.open(FooDialogComponent, { header: "My first header" });
+}
+```
