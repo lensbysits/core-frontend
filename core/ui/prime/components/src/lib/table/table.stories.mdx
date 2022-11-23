@@ -1,0 +1,26 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./table.stories";
+import { Default, Spinner } from "./table.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Table
+
+This is a nice table!
+
+<Story story={Default} />
+
+First import `TableModule` from `@lens/ui-prime-components`.
+
+```html
+    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" [loading]="isLoading">
+        <columns>
+            <column label="Name" field="displayName"></column>
+            <column label="Email address" field="emailAddress"></column>
+        </columns>
+    </lens-table>`,
+```
