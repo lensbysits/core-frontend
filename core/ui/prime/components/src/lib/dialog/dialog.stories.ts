@@ -2,6 +2,7 @@ import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DialogModule } from "./dialog.module";
 import { Component } from "@angular/core";
 import { DialogService } from "@lens/app-abstract-ui";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @Component({
     template: `Dialog works!`
@@ -26,7 +27,7 @@ export default {
     title: "Components/Dialog",
     decorators: [
         moduleMetadata({
-            imports: [ DialogModule ]
+            imports: [ DialogModule , BrowserAnimationsModule]
         })
     ]
 } as Meta

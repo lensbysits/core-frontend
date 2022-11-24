@@ -15,8 +15,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         CommonModule,
         PrimeTableModule,
         ButtonModule,
-        TieredMenuModule,
-        BrowserAnimationsModule
+        TieredMenuModule
     ],
     declarations: [
         TableComponent,

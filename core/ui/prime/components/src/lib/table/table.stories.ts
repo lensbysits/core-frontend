@@ -2,13 +2,14 @@ import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { TableComponent } from "./table.component";
 import { TableModule } from "./table.module";
 import { action } from "@storybook/addon-actions";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 export default {
     component: TableComponent,
     title: "Components/Table",
     decorators: [
         moduleMetadata({
-            imports: [ TableModule ]
+            imports: [ TableModule, BrowserAnimationsModule ]
         })
     ]
 } as Meta

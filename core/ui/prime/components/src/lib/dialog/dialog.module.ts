@@ -10,8 +10,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     imports: [
         AppAbstractUiModule,
         DynamicDialogModule,
-        ButtonModule,
-        BrowserAnimationsModule
+        ButtonModule
     ],
     declarations: [
         DialogComponent
