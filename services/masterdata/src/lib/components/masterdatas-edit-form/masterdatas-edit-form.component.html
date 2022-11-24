@@ -18,9 +18,7 @@
           <!-- end only for edit form -->
           <!-- only for add form -->
           <ng-container *ngIf="isAddForm">
-            <ng-container
-              *ngTemplateOutlet="addFormBlock; context: {}"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="addFormBlock"></ng-container>
           </ng-container>
           <!-- end only for add form -->
           <ng-container *ngTemplateOutlet="sharedFormBlock"></ng-container>
@@ -41,7 +39,20 @@
           </ng-template>
 
           <ng-template #addFormBlock>
-            <ng-container *ngIf="needsTypeIdSelector; else showTypeId">
+            <ng-container *ngIf="needsTypeIdSelector; else showTypeIdBlock">
+              <ng-container
+                *ngTemplateOutlet="showTypeIdSelectorBlock"
+              ></ng-container>
+            </ng-container>
+            <ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
+
+            <ng-template #showTypeIdBlock>
+              <div class="field view-only">
+                <label>Masterdata Type Id</label>
+                <span>{{ typeId }}</span>
+              </div>
+            </ng-template>
+            <ng-template #showTypeIdSelectorBlock>
               <!-- type id -->
               <div class="field">
                 <label for="masterdataTypeId">Masterdata Type</label>
@@ -67,33 +78,29 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
-            <ng-template #showTypeId>
-              <div class="field view-only">
-                <label>Masterdata Type Id</label>
-                <span>{{ typeId }}</span>
+            </ng-template>
+            <ng-template #showKeyBlock>
+              <!-- key -->
+              <div class="field">
+                <label for="key">Key</label>
+                <lens-input-text
+                  id="key"
+                  formControlName="key"
+                  placeholder="Please enter a valid key"
+                ></lens-input-text>
+                <div
+                  *ngIf="isFormSubmitted && getFormFields['key']!.invalid"
+                  class="p-error"
+                >
+                  <div *ngIf="getFormFields['key']!.errors?.['required']">
+                    Key is required.
+                  </div>
+                  <div *ngIf="getFormFields['key']!.errors?.['maxlength']">
+                    Key can be max {{ maxLength.key }} characters long.
+                  </div>
+                </div>
               </div>
             </ng-template>
-            <!-- key -->
-            <div class="field">
-              <label for="key">Key</label>
-              <lens-input-text
-                id="key"
-                formControlName="key"
-                placeholder="Please enter a valid key"
-              ></lens-input-text>
-              <div
-                *ngIf="isFormSubmitted && getFormFields['key']!.invalid"
-                class="p-error"
-              >
-                <div *ngIf="getFormFields['key']!.errors?.['required']">
-                  Key is required.
-                </div>
-                <div *ngIf="getFormFields['key']!.errors?.['maxlength']">
-                  Key can be max {{ maxLength.key }} characters long.
-                </div>
-              </div>
-            </div>
           </ng-template>
 
           <ng-template #sharedFormBlock>
