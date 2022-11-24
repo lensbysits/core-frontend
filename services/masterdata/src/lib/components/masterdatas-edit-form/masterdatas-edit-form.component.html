@@ -11,6 +11,21 @@
         <div class="p-fluid mb-4">
           <!-- only for edit form -->
           <ng-container *ngIf="!isAddForm && item">
+            <ng-container
+              *ngTemplateOutlet="editFormBlock; context: { item: item }"
+            ></ng-container>
+          </ng-container>
+          <!-- end only for edit form -->
+          <!-- only for add form -->
+          <ng-container *ngIf="isAddForm">
+            <ng-container
+              *ngTemplateOutlet="addFormBlock; context: {}"
+            ></ng-container>
+          </ng-container>
+          <!-- end only for add form -->
+          <ng-container *ngTemplateOutlet="sharedFormBlock"></ng-container>
+
+          <ng-template #editFormBlock let-item="item">
             <div class="field view-only">
               <label>Id</label>
               <span>{{ item.id }}</span>
@@ -23,22 +38,20 @@
               <label>Key</label>
               <span>{{ item.key }}</span>
             </div>
-          </ng-container>
-          <!-- end only for edit form -->
-          <!-- only for add form -->
-          <ng-container *ngIf="isAddForm">
-            <ng-container *ngIf="needsTypeIdSelector; else showTypeIdSelector">
+          </ng-template>
+
+          <ng-template #addFormBlock>
+            <ng-container *ngIf="needsTypeIdSelector; else showTypeId">
               <!-- type id -->
               <div class="field">
                 <label for="masterdataTypeId">Masterdata Type</label>
                 <lens-dropdown
                   id="masterdataTypeId"
                   formControlName="masterdataTypeId"
+                  placeholder="Please choose a masterdata type"
                   [options]="typesList"
                   optionValue="id"
                   optionLabel="name"
-                  required
-                  placeholder="Please choose a masterdata type"
                 ></lens-dropdown>
                 <div
                   *ngIf="
@@ -55,7 +68,7 @@
                 </div>
               </div>
             </ng-container>
-            <ng-template #showTypeIdSelector>
+            <ng-template #showTypeId>
               <div class="field view-only">
                 <label>Masterdata Type Id</label>
                 <span>{{ typeId }}</span>
@@ -68,8 +81,6 @@
                 id="key"
                 formControlName="key"
                 placeholder="Please enter a valid key"
-                required
-                maxlength="225"
               ></lens-input-text>
               <div
                 *ngIf="isFormSubmitted && getFormFields['key']!.invalid"
@@ -78,65 +89,78 @@
                 <div *ngIf="getFormFields['key']!.errors?.['required']">
                   Key is required.
                 </div>
+                <div *ngIf="getFormFields['key']!.errors?.['maxlength']">
+                  Key can be max {{ maxLength.key }} characters long.
+                </div>
               </div>
             </div>
-          </ng-container>
-          <!-- end only for add form -->
-          <!-- value -->
-          <div class="field">
-            <label for="value">Value</label>
-            <lens-input-text
-              id="value"
-              formControlName="value"
-              placeholder="Please enter a valid value"
-              required
-              maxlength="225"
-            ></lens-input-text>
-            <div
-              *ngIf="isFormSubmitted && getFormFields['value']!.invalid"
-              class="p-error"
-            >
-              <div *ngIf="getFormFields['value']!.errors?.['required']">
-                Value is required.
+          </ng-template>
+
+          <ng-template #sharedFormBlock>
+            <!-- value -->
+            <div class="field">
+              <label for="value">Value</label>
+              <lens-input-text
+                id="value"
+                formControlName="value"
+                placeholder="Please enter a valid value"
+              ></lens-input-text>
+              <div
+                *ngIf="isFormSubmitted && getFormFields['value']!.invalid"
+                class="p-error"
+              >
+                <div *ngIf="getFormFields['value']!.errors?.['required']">
+                  Value is required.
+                </div>
+                <div *ngIf="getFormFields['value']!.errors?.['maxlength']">
+                  Value can be max {{ maxLength.value }} characters long.
+                </div>
               </div>
             </div>
-          </div>
-          <!-- name -->
-          <div class="field">
-            <label for="name">Name</label>
-            <lens-input-text
-              id="name"
-              formControlName="name"
-              placeholder="Please enter a valid name"
-              required
-              maxlength="225"
-            ></lens-input-text>
-            <div
-              *ngIf="isFormSubmitted && getFormFields['name']!.invalid"
-              class="p-error"
-            >
-              <div *ngIf="getFormFields['name']!.errors?.['required']">
-                Name is required.
+            <!-- name -->
+            <div class="field">
+              <label for="name">Name</label>
+              <lens-input-text
+                id="name"
+                formControlName="name"
+                placeholder="Please enter a valid name"
+              ></lens-input-text>
+              <div
+                *ngIf="isFormSubmitted && getFormFields['name']!.invalid"
+                class="p-error"
+              >
+                <div *ngIf="getFormFields['name']!.errors?.['required']">
+                  Name is required.
+                </div>
+                <div *ngIf="getFormFields['name']!.errors?.['maxlength']">
+                  Name can be max {{ maxLength.name }} characters long.
+                </div>
               </div>
             </div>
-          </div>
-          <!-- description -->
-          <div class="field">
-            <label for="description">Description</label>
-            <lens-input-text
-              id="description"
-              formControlName="description"
-              placeholder="Please enter a valid description"
-            ></lens-input-text>
-            <div
-              *ngIf="isFormSubmitted && getFormFields['description']!.invalid"
-              class="p-error"
-            >
-              <div *ngIf="getFormFields['description']!.errors?.['required']">
-                Description is required.
+            <!-- description -->
+            <div class="field">
+              <label for="description">Description</label>
+              <lens-input-text
+                id="description"
+                formControlName="description"
+                placeholder="Please enter a valid description"
+              ></lens-input-text>
+              <div
+                *ngIf="isFormSubmitted && getFormFields['description']!.invalid"
+                class="p-error"
+              >
+                <div *ngIf="getFormFields['description']!.errors?.['required']">
+                  Description is required.
+                </div>
+                <div
+                  *ngIf="getFormFields['description']!.errors?.['maxlength']"
+                >
+                  Description can be max {{ maxLength.description }} characters
+                  long.
+                </div>
               </div>
             </div>
-          </div>
+          </ng-template>
         </div>
       </form>
 

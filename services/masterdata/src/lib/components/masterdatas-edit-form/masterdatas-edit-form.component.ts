@@ -8,6 +8,7 @@ import {
   IMasterdataUpdate,
 } from '../../services/interfaces';
 import { MasterdataCrudHttpService } from '../../services/services';
+import { MasterdataMaxLength } from '../../services/utils';
 
 @Component({
   selector: 'lens-masterdatas-edit-form',
@@ -25,6 +26,7 @@ export class MasterdatasEditFormComponent implements OnInit {
   formTitle = 'Add';
   needsTypeIdSelector = false;
   item?: Masterdata;
+  maxLength = MasterdataMaxLength;
   typesList: MasterdataType[] = [];
   selectedTypeId = null;
 
@@ -52,14 +54,23 @@ export class MasterdatasEditFormComponent implements OnInit {
     }
 
     const whenAddForm = this.isAddForm && {
-      masterdataTypeId: [this.typeId ?? '', Validators.required],
-      key: ['', Validators.required],
+      masterdataTypeId: [this.typeId ?? '', [Validators.required]],
+      key: [
+        '',
+        [Validators.required, Validators.maxLength(this.maxLength.key)],
+      ],
     };
     this.dataForm = this.formBuilder.group({
       ...whenAddForm,
-      value: ['', Validators.required],
-      name: ['', Validators.required],
-      description: [''], //['', Validators.required],
+      value: [
+        '',
+        [Validators.required, Validators.maxLength(this.maxLength.value)],
+      ],
+      name: [
+        '',
+        [Validators.required, Validators.maxLength(this.maxLength.name)],
+      ],
+      description: ['', [Validators.maxLength(this.maxLength.description)]],
     });
   }
 
