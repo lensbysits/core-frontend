@@ -1,5 +1,5 @@
 <p-dropdown [inputId]="id"
-            [(ngModel)]="value"
+            (onChange)="onDropdownChanged($event)"
             [options]="options"
             [placeholder]="placeholder!"
             [showClear]="!required"

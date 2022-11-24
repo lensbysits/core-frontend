@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { InputTextModule as PrimeInputTextModule } from "primeng/inputtext"
 import { InputTextComponent } from "./input-text.component";
 
@@ -8,7 +8,7 @@ import { InputTextComponent } from "./input-text.component";
     imports: [
         CommonModule,
         PrimeInputTextModule,
-        FormsModule
+        ReactiveFormsModule
     ],
     declarations: [
         InputTextComponent

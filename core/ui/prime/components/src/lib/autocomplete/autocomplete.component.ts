@@ -19,6 +19,8 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
     }
 
     public onItemSelected(value: any): void {
+        this.value = value;
+        this.valueChanged();
     }
 
     public onSearched(event: any): void {

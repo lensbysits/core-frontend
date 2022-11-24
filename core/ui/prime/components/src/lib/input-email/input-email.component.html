@@ -6,5 +6,5 @@
 </ng-container>
 
 <ng-template #input>
-    <input type="email" pInputText [attr.placeholder]="placeholder" [id]="id" [attr.disabled]="disabled" [attr.required]="required" [(ngModel)]="value" />
+    <input type="email" pInputText [attr.placeholder]="placeholder" [id]="id" [attr.disabled]="disabled" [attr.required]="required" [formControl]="control" />
 </ng-template>

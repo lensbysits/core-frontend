@@ -18,4 +18,9 @@ export class DropdownComponent extends InputBaseComponent {
     @Input() public optionValue: string = "value";
     @Input() public optionLabel: string = "label";
     @Input() public optionDisabled: string = "disabled";
+
+    public onDropdownChanged(event: any): void {
+        this.value = event.value;
+        this.valueChanged();
+    }
 }
