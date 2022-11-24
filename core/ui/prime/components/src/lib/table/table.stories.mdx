@@ -12,15 +12,37 @@ import { Default, Spinner } from "./table.stories";
 
 This is a nice table!
 
+## Default behavior
+
 <Story story={Default} />
 
 First import `TableModule` from `@lens/ui-prime-components`.
 
 ```html
-    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" [loading]="isLoading">
+    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" (onRowClick)="onRowClicked($event)" [loading]="isLoading">
         <columns>
             <column label="Name" field="displayName"></column>
             <column label="Email address" field="emailAddress"></column>
         </columns>
     </lens-table>`,
 ```
+
+The `$event` object of `onRowClick` contains the data of the clicked row.
+
+## Row actions
+
+It is possible to define actions for each row:
+
+```html
+    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" (onRowClick)="onRowClicked($event)" [loading]="isLoading">
+        <columns>
+            <column label="Name" field="displayName"></column>
+            <column label="Email address" field="emailAddress"></column>
+        </columns>
+        <row-actions>
+            <action icon="pi pi-trash" label="Delete" (clicked)="onDeleteActionClicked($event)"></action>
+        </row-actions>
+    </lens-table>`,
+```
+
+The `$event` object of `onDeleteActionClicked` contains the data of the row the action was performed on.
