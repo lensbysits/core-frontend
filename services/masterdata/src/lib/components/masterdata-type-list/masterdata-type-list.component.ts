@@ -22,7 +22,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.isLoading = false;
+    this.isLoading = true;
     // this.loadItems();
   }
 

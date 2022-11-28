@@ -23,7 +23,7 @@ export class MasterdatasListComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    this.isLoading = false;
+    this.isLoading = true;
     this.typeId = this.activeRoute.snapshot.paramMap.get('typeId') ?? '';
     //this.loadItems();
   }
