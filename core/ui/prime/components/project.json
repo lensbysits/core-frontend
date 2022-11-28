@@ -5,9 +5,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/framework/core/ui/prime/components"
-      ],
+      "outputs": ["coverage/libs/framework/core/ui/prime/components"],
       "options": {
         "jestConfig": "libs/framework/core/ui/prime/components/jest.config.ts",
         "passWithNoTests": true
