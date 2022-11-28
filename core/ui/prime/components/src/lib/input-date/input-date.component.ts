@@ -28,9 +28,9 @@ export class InputDateComponent extends InputBaseComponent {
         return this._mode;
     }
 
-    public showButtonBar: boolean = false;
-    public showTime: boolean = false;
-    public timeOnly: boolean = false;
+    public showButtonBar = false;
+    public showTime = false;
+    public timeOnly = false;
 
     @ViewChild("date", { read: Calendar, static: true }) private date!: Calendar;
 

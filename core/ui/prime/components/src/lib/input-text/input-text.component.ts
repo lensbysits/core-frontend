@@ -13,6 +13,6 @@ export class InputTextComponent extends InputBaseComponent {
     @Input() id!: string;
     @Input() placeholder?: string;
     @Input() icon!: string;
-    @Input() spinIcon: boolean = false;
+    @Input() spinIcon = false;
     @Input() iconAlign: "right" | "left" = "left";
 }

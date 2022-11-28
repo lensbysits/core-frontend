@@ -24,6 +24,6 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
     }
 
     public onSearched(event: any): void {
-        this.filteredOptions = this.options.filter(option => option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0);
+        this.filteredOptions = this.options?.filter(option => option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0);
     }
 }

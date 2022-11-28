@@ -30,7 +30,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         return this._disabled;
     }
 
-    public isDisabled: boolean = false;
+    public isDisabled = false;
 
     private _required!: string;
     @Input() public set required(value: string) {
@@ -42,7 +42,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         return this._required;
     }
 
-    public isRequired: boolean = false;
+    public isRequired = false;
 
     public value: any;
 
