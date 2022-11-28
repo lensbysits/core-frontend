@@ -1,0 +1,9 @@
+<p-autoComplete
+    [suggestions]="filteredOptions"
+    field="value"
+    [dropdown]="true"
+    (onSelect)="onItemSelected($event)"
+    (onDropdownClick)="onSearched($event)"
+    (completeMethod)="onSearched($event)"
+    dropdownMode="current">
+</p-autoComplete>

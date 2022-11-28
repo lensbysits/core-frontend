@@ -1,1 +1,12 @@
-<p-button [label]="label" styleClass="p-button-{{type}}" icon="pi {{ icon }}" (onClick)="clicked.emit()" [disabled]="disabled"></p-button>
+<button pButton
+        [label]="label"
+        class="p-button-{{type}}"
+        [class.p-button-raised]="isRaised()"
+        [class.p-button-rounded]="isRounded()"
+        [class.p-button-text]="isText()"
+        [class.p-button-sm]="size === 'small'"
+        [class.p-button-lg]="size === 'large'"
+        icon="pi {{ icon }}"
+        (click)="clicked.emit($event)"
+        [disabled]="disabled">
+</button>

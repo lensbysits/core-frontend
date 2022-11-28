@@ -1,10 +1,25 @@
-import { Component, Input } from "@angular/core";
-import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from "@angular/forms";
+import { Component, Input, Optional, ViewChild } from "@angular/core";
+import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, FormControlDirective, ValidationErrors, Validator } from "@angular/forms";
 
 @Component({
     template: ""
 })
 export class InputBaseComponent implements ControlValueAccessor, Validator {
+    @Input()
+    public formControl?: FormControl;
+
+    @Input()
+    public formControlName?: string;
+
+    get control(): FormControl<any> {
+        const control = this.controlContainer?.control!.get(this.formControlName!)!;
+        return this.formControl || control as FormControl<any>;
+    }
+
+    constructor (
+        @Optional() private readonly controlContainer: ControlContainer
+    ) { }
+
     private _disabled!: string; 
     @Input() public set disabled(value: string) {
         this.isDisabled = value !== undefined;
@@ -29,19 +44,15 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 
     public isRequired: boolean = false;
 
-    private _value: any;
-    public set value(value: any) {
-        this._value = value;
-        this.onChange(value);
-        this.onValidationChange();
-    }
+    public value: any;
 
-    public get value() {
-        return this._value;
+    public valueChanged(): void {
+        this.onChange(this.value);
+        this.onTouched(this.value);
     }
 
     protected onChange = (event: any) => {};
-    protected onTouched = () => {};
+    protected onTouched = (event: any) => {};
     protected onValidationChange = () => {};
 
     public writeValue(value: any): void {

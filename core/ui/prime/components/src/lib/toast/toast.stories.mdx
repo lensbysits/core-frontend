@@ -1,0 +1,57 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./toast.stories";
+import { Default, Spinner } from "./toast.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Toast
+
+This is a nice toast!
+
+<Story story={Default} />
+
+First import `ToastModule` from `@lens/ui-prime-components`.
+
+Include the following HTML somewhere in your templates. Index.html might be a good place.
+
+```html
+<lens-toast></lens-toast>
+```
+
+If you included above HTML into your index.html file, please add the following to your application module to make sure `lens-toast` is bootstrapped by Angular:
+
+```ts
+import { ToastComponent } from '@lens/ui-prime-components';
+
+@NgModule({
+    bootstrap: [
+        ...
+        ToastComponent
+        ...
+    ],
+})
+export class AppModule {}
+```
+
+After this setup you can show toasters using this code:
+
+```ts
+import { ToastService } from "@lens/ui-prime-components";
+
+@Component({
+    template: "<button (click)='fooButtonClicked()'>Foo!</button>"
+})
+export class FooComponent {
+    constructor (
+        private readonly toastService: ToastService
+    ) { }
+
+    public fooButtonClicked(): void {
+        this.toastService.success("foo", "bar");
+    }
+}
+```

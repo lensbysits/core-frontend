@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { LoadingSpinnerModule } from './loading-indicator/loading-spinner.module';
 import { IconModule } from './icon';
 import { ButtonModule } from './button';
-import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { AppAbstractUiModule, DialogService as LensDialogService } from '@lens/app-abstract-ui';
-import { DialogComponent } from './dialog/dialog.component';
-import { PrimeDialogService } from './dialog';
 import { InputTextModule } from './input-text';
 import { InputTextareaModule } from './input-textarea';
 import { InputDateModule } from './input-date';
@@ -16,16 +12,14 @@ import { ToolbarModule } from './toolbar';
 import { ToastModule } from './toast';
 import { InputEmailModule } from './input-email';
 import { PanelModule } from './panel';
+import { AutoCompleteModule } from './autocomplete';
+import { DialogModule } from './dialog';
 
 @NgModule({
-  declarations: [
-    DialogComponent
-  ],
   imports: [
-    AppAbstractUiModule,
+    AutoCompleteModule,
     ButtonModule,
     CommonModule,
-    DynamicDialogModule,
     DropdownModule,
     IconModule,
     InputDateModule,
@@ -36,9 +30,11 @@ import { PanelModule } from './panel';
     PanelModule,
     TableModule,
     ToastModule,
-    ToolbarModule
+    ToolbarModule,
+    DialogModule
   ],
   exports: [
+    AutoCompleteModule,
     ButtonModule,
     DropdownModule,
     IconModule,
@@ -50,11 +46,8 @@ import { PanelModule } from './panel';
     PanelModule,
     TableModule,
     ToastModule,
-    ToolbarModule
-  ],
-  providers: [
-    DialogService,
-    { provide: LensDialogService, useClass: PrimeDialogService}
+    ToolbarModule,
+    DialogModule
   ]
 })
 export class PrimeComponentsModule {}

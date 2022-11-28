@@ -1,25 +1,35 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { TableModule as PrimeTableModule } from "primeng/table";
-import { LoadingSpinnerModule } from "../loading-indicator";
+import { ButtonModule } from "../button";
 import { ColumnComponent } from "./column.component";
 import { ColumnsComponent } from "./columns.component";
+import { RowActionComponent } from "./row-action.component";
+import { RowActionsComponent } from "./row-actions.component";
 import { TableComponent } from "./table.component";
+import { TieredMenuModule } from "primeng/tieredmenu";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
     imports: [
         CommonModule,
-        PrimeTableModule
+        PrimeTableModule,
+        ButtonModule,
+        TieredMenuModule
     ],
     declarations: [
         TableComponent,
         ColumnsComponent,
-        ColumnComponent
+        ColumnComponent,
+        RowActionsComponent,
+        RowActionComponent
     ],
     exports: [
         TableComponent,
         ColumnsComponent,
-        ColumnComponent
+        ColumnComponent,
+        RowActionsComponent,
+        RowActionComponent
     ]
 })
 export class TableModule { }
