@@ -5,6 +5,6 @@ import { Component, Input } from "@angular/core";
     templateUrl: "icon.component.html"
 })
 export class IconComponent {
-    @Input() public icon: string = "home";
-    @Input() public spinIcon: boolean = false;
+    @Input() public icon = "home";
+    @Input() public spinIcon = false;
 }

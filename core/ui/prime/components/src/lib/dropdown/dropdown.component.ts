@@ -13,11 +13,11 @@ export class DropdownComponent extends InputBaseComponent {
     @Input() public id!: string;
     @Input() public placeholder?: string;
     @Input() public options!: any[];
-    @Input() public grouped: boolean = false;
-    @Input() public editable: boolean = false;
-    @Input() public optionValue: string = "value";
-    @Input() public optionLabel: string = "label";
-    @Input() public optionDisabled: string = "disabled";
+    @Input() public grouped = false;
+    @Input() public editable = false;
+    @Input() public optionValue = "value";
+    @Input() public optionLabel = "label";
+    @Input() public optionDisabled = "disabled";
 
     public onDropdownChanged(event: any): void {
         this.value = event.value;
