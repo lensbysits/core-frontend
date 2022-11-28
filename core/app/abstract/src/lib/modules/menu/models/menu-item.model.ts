@@ -17,4 +17,5 @@ export class MenuItem {
     rolefilter?: string[];
     envfilter?: string[];
     anonymousonly?: boolean;
+    id?: string;
 }

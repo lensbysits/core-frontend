@@ -1,0 +1,23 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./toolbar.stories";
+import { Default, Spinner } from "./toolbar.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Toolbar
+
+This is a nice toolbar!
+
+<Story story={Default} />
+
+First import `ToolbarModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-toolbar>
+    <lens-button icon="pi-user-plus" label="Add new user"></lens-button>
+</lens-toolbar>
+```

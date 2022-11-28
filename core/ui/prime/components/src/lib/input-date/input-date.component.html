@@ -10,7 +10,6 @@
             [timeOnly]="timeOnly"
             [disabled]="isDisabled" 
             [required]="isRequired" 
-            (onBlur)="onInputBlur()"
-            (onSelect)="onDateSelected($event)"
+            [formControl]="control"
             #date>
 </p-calendar>

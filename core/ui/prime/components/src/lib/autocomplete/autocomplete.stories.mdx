@@ -1,0 +1,30 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./autocomplete.stories";
+import { Default } from "./autocomplete.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# AutoComplete
+
+This is a nice way to search items in a list!
+
+<Story story={Default} />
+
+First import `AutoCompleteModule` from `@lens/ui-prime-components`.
+
+```ts
+const options = [
+    { key: 1, value: "Item 1" },
+    { key: 2, value: "Item 2" },
+    { key: 3, value: "Item 3" },
+    { key: 4, value: "Item 4" }
+]; // or load them from a backend, but don't forget to map them to { key: any, value: string }.
+```
+
+```html
+<lens-autocomplete id="foo" [options]="options"></lens-autocomplete>
+```

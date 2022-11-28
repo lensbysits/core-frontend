@@ -15,9 +15,4 @@ export class InputTextComponent extends InputBaseComponent {
     @Input() icon!: string;
     @Input() spinIcon: boolean = false;
     @Input() iconAlign: "right" | "left" = "left";
-
-    public onInputChanged($event: Event) {
-        const value = ($event.target as HTMLInputElement).value;
-        this.writeValue(value);
-    }
 }

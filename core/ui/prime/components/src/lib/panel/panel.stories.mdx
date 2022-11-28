@@ -1,0 +1,21 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./panel.stories";
+import { Default, Spinner } from "./panel.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Panel
+
+This is a nice panel!
+
+<Story story={Default} />
+
+First import `PanelModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-panel header="header" collapsed="true">foo</lens-panel>
+```

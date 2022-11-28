@@ -12,9 +12,4 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 export class InputTextareaComponent extends InputBaseComponent {
     @Input() id!: string;
     @Input() placeholder?: string;
-
-    public onInputChanged($event: Event) {
-        const value = ($event.target as HTMLInputElement).value;
-        this.writeValue(value);
-    }
 }

@@ -1,3 +1,4 @@
+export * from './lib/autocomplete';
 export * from './lib/button';
 export * from './lib/dialog';
 export * from './lib/dropdown';
