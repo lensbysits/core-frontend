@@ -22,6 +22,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
+    this.isLoading = false;
     // this.loadItems();
   }
 
@@ -41,12 +42,12 @@ export class MasterdataTypeListComponent implements OnInit {
     });
   }
 
-  public onLazyLoadData(event: ILazyLoadEvent): void {
+  onLazyLoadData(event: ILazyLoadEvent): void {
     this.loadItems();
   }
 
-  public onRowSelect(event: any, item: MasterdataType) {
-    console.log('onRowSelect', event, item);
+  onRowClicked(item: MasterdataType) {
+    console.log('onRowClicked', item);
     const route = `details/${item.id}`;
     // this.router.navigate([`/masterdata/type/${route}`]);
     this.router.navigate([route], {
@@ -55,24 +56,45 @@ export class MasterdataTypeListComponent implements OnInit {
     });
   }
 
-  public onDelete(item: MasterdataType) {
-    console.log('onDelete item', item);
-    this.isLoading = true;
-    if (!confirm('Are you sure?') === true) {
-      this.isLoading = false;
-      return;
-    }
+  onDeleteActionClicked(item: MasterdataType) {
+    console.log('onDeleteActionClicked item', item);
+    // this.isLoading = true;
+    // if (!confirm('Are you sure?') === true) {
+    //   this.isLoading = false;
+    //   return;
+    // }
 
-    if (!item.id) {
-      this.isLoading = false;
-      return;
-    }
+    // if (!item.id) {
+    //   this.isLoading = false;
+    //   return;
+    // }
 
-    this.items = this.items.filter((curitem) => item !== curitem);
-    this.service.deleteMasterdataType(item.id).subscribe((data) => {
-      console.log('onDelete', data);
-      this.totalSize--;
-      this.isLoading = false;
-    });
+    // this.items = this.items.filter((curitem) => item !== curitem);
+    // this.service.deleteMasterdataType(item.id).subscribe((data) => {
+    //   console.log('onDelete', data);
+    //   this.totalSize--;
+    //   this.isLoading = false;
+    // });
+  }
+
+  onEditActionClicked(item: any) {
+    // route = /masterdata/type/edit/{{ item.id }}
+    console.log('onEditActionClicked', item);
+    // const route = `details/${item.masterdataTypeId}/${item.id}`;
+    // this.router.navigate([`/masterdatas/${route}`]);
+  }
+
+  onAddMasterdataActionClicked(item: any) {
+    // route = /masterdatas/{{ item.id }}/add
+    console.log('onAddMasterdataActionClicked', item);
+    // const route = `details/${item.masterdataTypeId}/${item.id}`;
+    // this.router.navigate([`/masterdatas/${route}`]);
+  }
+
+  onViewMasterdatasActionClicked(item: any) {
+    // route = /masterdatas/{{ item.id }}
+    console.log('onViewMasterdatasActionClicked', item);
+    // const route = `details/${item.masterdataTypeId}/${item.id}`;
+    // this.router.navigate([`/masterdatas/${route}`]);
   }
 }

@@ -2,45 +2,36 @@
   [source]="items"
   [totalRecords]="totalSize"
   (onLazyLoad)="onLazyLoadData($event)"
+  (onRowClick)="onRowClicked($event)"
   [loading]="isLoading"
 >
   <columns>
-    <column label="Actions">
-      <div>
-        <a
-          routerLink="/masterdatas/"
-          class="btn btn-outline-info"
-          placement="bottom"
-          ngbTooltip="View Masterdatas"
-          ><i class="bi bi-list-ul"></i
-        ></a>
-        <a
-          routerLink="/masterdatas/add"
-          class="btn btn-outline-primary"
-          placement="bottom"
-          ngbTooltip="Add Masterdata"
-          ><i class="bi bi-calendar-plus"></i
-        ></a>
-        <a
-          routerLink="/masterdata/type/edit/"
-          class="btn btn-outline-success"
-          placement="bottom"
-          ngbTooltip="Edit"
-          ><i class="bi bi-pencil"></i
-        ></a>
-        <button
-          class="btn btn-outline-danger"
-          placement="bottom"
-          ngbTooltip="Delete"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
-    </column>
     <column label="Id" field="id"></column>
     <column label="Code" field="code"></column>
     <column label="Name" field="name"></column>
     <column label="Count" field="masterdatasCount"></column>
     <column label="Description" field="description"></column>
+    <row-actions>
+      <action
+        icon="pi pi-list"
+        label="View Masterdatas"
+        (clicked)="onViewMasterdatasActionClicked($event)"
+      ></action>
+      <action
+        icon="pi pi-calendar-plus"
+        label="Add Masterdata"
+        (clicked)="onAddMasterdataActionClicked($event)"
+      ></action>
+      <action
+        icon="pi pi-pencil"
+        label="Edit"
+        (clicked)="onEditActionClicked($event)"
+      ></action>
+      <action
+        icon="pi pi-trash"
+        label="Delete"
+        (clicked)="onDeleteActionClicked($event)"
+      ></action>
+    </row-actions>
   </columns>
 </lens-table>

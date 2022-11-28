@@ -23,6 +23,7 @@ export class MasterdatasListComponent implements OnInit {
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
+    this.isLoading = false;
     this.typeId = this.activeRoute.snapshot.paramMap.get('typeId') ?? '';
     //this.loadItems();
   }
@@ -43,34 +44,41 @@ export class MasterdatasListComponent implements OnInit {
     });
   }
 
-  public onLazyLoadData(event: ILazyLoadEvent): void {
+  onLazyLoadData(event: ILazyLoadEvent): void {
     this.loadItems();
   }
 
-  public onRowSelect(event: any, item: Masterdata) {
-    console.log('onRowSelect', event, item);
+  onRowClicked(item: Masterdata) {
+    console.log('onRowClicked', item);
     const route = `details/${item.masterdataTypeId}/${item.id}`;
     this.router.navigate([`/masterdatas/${route}`]);
   }
 
-  public onDelete(item: Masterdata) {
-    console.log('onDelete item', item);
-    this.isLoading = true;
-    if (!confirm('Are you sure?') === true) {
-      this.isLoading = false;
-      return;
-    }
+  onDeleteActionClicked(item: any) {
+    console.log('onDeleteActionClicked item', item);
+    // this.isLoading = true;
+    // if (!confirm('Are you sure?') === true) {
+    //   this.isLoading = false;
+    //   return;
+    // }
 
-    if (!item.id) {
-      this.isLoading = false;
-      return;
-    }
+    // if (!item.id) {
+    //   this.isLoading = false;
+    //   return;
+    // }
 
-    this.items = this.items.filter((curitem) => item !== curitem);
-    this.service.deleteMasterdata(item.id).subscribe((data) => {
-      console.log('onDelete', data);
-      this.totalSize--;
-      this.isLoading = false;
-    });
+    // this.items = this.items.filter((curitem) => item !== curitem);
+    // this.service.deleteMasterdata(item.id).subscribe((data) => {
+    //   console.log('onDelete', data);
+    //   this.totalSize--;
+    //   this.isLoading = false;
+    // });
+  }
+
+  onEditActionClicked(item: any) {
+    // route = /masterdatas/{{ item.masterdataTypeId }}/edit/{{ item.id }}
+    console.log('onEditActionClicked', item);
+    // const route = `details/${item.masterdataTypeId}/${item.id}`;
+    // this.router.navigate([`/masterdatas/${route}`]);
   }
 }
