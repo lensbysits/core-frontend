@@ -6,5 +6,6 @@
     (onDropdownClick)="onSearched($event)"
     (completeMethod)="onSearched($event)"
     (onClear)="onCleared($event)"
-    dropdownMode="current">
+    dropdownMode="current"
+    [(ngModel)]="value">
 </p-autoComplete>
