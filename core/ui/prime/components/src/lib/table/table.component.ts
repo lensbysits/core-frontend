@@ -11,7 +11,7 @@ import { RowActionsComponent } from "./row-actions.component";
     templateUrl: "table.component.html",
     styleUrls: [ "table.component.scss" ]
 })
-export class TableComponent {
+export class TableComponent implements AfterViewInit {
     @Input() public source!: any[];
     @Input() public totalRecords!: number;
     @Input() public loading!: boolean;
@@ -22,15 +22,17 @@ export class TableComponent {
     @ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
     @ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent
 
-    public get contextMenuItems(): MenuItem[] {
-        return this.rowActions?.actions.map((action: RowActionComponent) => ({
+    public itemOfContextMenuClickedRow: any;
+    public rowActionItems!: MenuItem[];
+
+    public ngAfterViewInit(): void {
+        this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
             icon: action.icon,
             label: action.label,
-            command: () => action.clicked.emit(this.itemOfContextMenuClickedRow)
+            command: () => { action.clicked.emit(this.itemOfContextMenuClickedRow); }
         }));
+        
     }
-
-    public itemOfContextMenuClickedRow: any;
 
     public onLazyLoadData(event: any): void {
         this.onLazyLoad.emit({
