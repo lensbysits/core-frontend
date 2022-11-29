@@ -50,35 +50,41 @@ export class MasterdatasListComponent implements OnInit {
 
   onRowClicked(item: Masterdata) {
     console.log('onRowClicked', item);
-    const route = `details/${item.masterdataTypeId}/${item.id}`;
-    this.router.navigate([`/masterdatas/${route}`]);
+    this.router.navigate([
+      `/masterdatas/details/${item.masterdataTypeId}/${item.id}`,
+    ]);
+  }
+
+  onAddAction() {
+    console.log('onAddAction');
+    this.router.navigate([`/masterdatas/add`]);
   }
 
   onDeleteActionClicked(item: any) {
     console.log('onDeleteActionClicked item', item);
-    // this.isLoading = true;
-    // if (!confirm('Are you sure?') === true) {
-    //   this.isLoading = false;
-    //   return;
-    // }
+    this.isLoading = true;
+    if (!confirm('Are you sure?') === true) {
+      this.isLoading = false;
+      return;
+    }
 
-    // if (!item.id) {
-    //   this.isLoading = false;
-    //   return;
-    // }
+    if (!item.id) {
+      this.isLoading = false;
+      return;
+    }
 
-    // this.items = this.items.filter((curitem) => item !== curitem);
-    // this.service.deleteMasterdata(item.id).subscribe((data) => {
-    //   console.log('onDelete', data);
-    //   this.totalSize--;
-    //   this.isLoading = false;
-    // });
+    this.items = this.items.filter((curitem) => item !== curitem);
+    this.service.deleteMasterdata(item.id).subscribe((data) => {
+      console.log('onDeleteActionClicked', data);
+      this.totalSize--;
+      this.isLoading = false;
+    });
   }
 
   onEditActionClicked(item: any) {
-    // route = /masterdatas/{{ item.masterdataTypeId }}/edit/{{ item.id }}
     console.log('onEditActionClicked', item);
-    // const route = `details/${item.masterdataTypeId}/${item.id}`;
-    // this.router.navigate([`/masterdatas/${route}`]);
+    this.router.navigate([
+      `/masterdatas/${item.masterdataTypeId}/edit/${item.id}`,
+    ]);
   }
 }

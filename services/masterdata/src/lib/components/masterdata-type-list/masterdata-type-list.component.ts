@@ -49,52 +49,51 @@ export class MasterdataTypeListComponent implements OnInit {
   onRowClicked(item: MasterdataType) {
     console.log('onRowClicked', item);
     const route = `details/${item.id}`;
-    // this.router.navigate([`/masterdata/type/${route}`]);
     this.router.navigate([route], {
       relativeTo: this.activeRoute,
       // queryParams: { id: item.id },
     });
+    // this.router.navigate([`/type/details/${item.id}`]);
+  }
+
+  onAddAction() {
+    console.log('onAddAction');
+    this.router.navigate([`/type/add`]);
   }
 
   onDeleteActionClicked(item: MasterdataType) {
     console.log('onDeleteActionClicked item', item);
-    // this.isLoading = true;
-    // if (!confirm('Are you sure?') === true) {
-    //   this.isLoading = false;
-    //   return;
-    // }
+    this.isLoading = true;
+    if (!confirm('Are you sure?') === true) {
+      this.isLoading = false;
+      return;
+    }
 
-    // if (!item.id) {
-    //   this.isLoading = false;
-    //   return;
-    // }
+    if (!item.id) {
+      this.isLoading = false;
+      return;
+    }
 
-    // this.items = this.items.filter((curitem) => item !== curitem);
-    // this.service.deleteMasterdataType(item.id).subscribe((data) => {
-    //   console.log('onDelete', data);
-    //   this.totalSize--;
-    //   this.isLoading = false;
-    // });
+    this.items = this.items.filter((curitem) => item !== curitem);
+    this.service.deleteMasterdataType(item.id).subscribe((data) => {
+      console.log('onDeleteActionClicked', data);
+      this.totalSize--;
+      this.isLoading = false;
+    });
   }
 
   onEditActionClicked(item: any) {
-    // route = /masterdata/type/edit/{{ item.id }}
     console.log('onEditActionClicked', item);
-    // const route = `details/${item.masterdataTypeId}/${item.id}`;
-    // this.router.navigate([`/masterdatas/${route}`]);
+    this.router.navigate([`/type/edit/${item.id}`]);
   }
 
   onAddMasterdataActionClicked(item: any) {
-    // route = /masterdatas/{{ item.id }}/add
     console.log('onAddMasterdataActionClicked', item);
-    // const route = `details/${item.masterdataTypeId}/${item.id}`;
-    // this.router.navigate([`/masterdatas/${route}`]);
+    this.router.navigate([`/masterdatas/${item.id}/add`]);
   }
 
   onViewMasterdatasActionClicked(item: any) {
-    // route = /masterdatas/{{ item.id }}
     console.log('onViewMasterdatasActionClicked', item);
-    // const route = `details/${item.masterdataTypeId}/${item.id}`;
-    // this.router.navigate([`/masterdatas/${route}`]);
+    this.router.navigate([`/masterdatas/${item.id}`]);
   }
 }
