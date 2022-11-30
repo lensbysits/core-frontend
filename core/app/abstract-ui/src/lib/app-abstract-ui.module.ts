@@ -7,10 +7,12 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components';
 import { HasClaimDirective } from './directives/has-claim.directive';
 import { HasRoleDirective } from './directives/has-role.directive';
+import { TemplateRendererComponent } from './components/template-renderer.component';
 
 const components_directives = [
   AppComponent,
   ComponentLoaderDirective,
+  TemplateRendererComponent,
   HasClaimDirective,
   HasRoleDirective
 ];

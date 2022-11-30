@@ -4,13 +4,14 @@ import { DialogComponent } from './dialog.component';
 import { AppAbstractUiModule, DialogService as LensDialogService } from '@lens/app-abstract-ui';
 import { PrimeDialogService } from './dialog.service';
 import { ButtonModule } from "../button";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [
         AppAbstractUiModule,
         DynamicDialogModule,
-        ButtonModule
+        ButtonModule,
+        CommonModule
     ],
     declarations: [
         DialogComponent
