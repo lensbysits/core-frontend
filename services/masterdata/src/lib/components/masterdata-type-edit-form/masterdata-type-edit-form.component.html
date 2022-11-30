@@ -18,6 +18,11 @@
             <ng-container *ngTemplateOutlet="editFormBlock; context: { item: item }"></ng-container>
           </ng-container>
           <!-- end only for edit form -->
+          <!-- only for add form -->
+          <ng-container *ngIf="isAddForm">
+            <ng-container *ngTemplateOutlet="addFormBlock"></ng-container>
+          </ng-container>
+          <!-- end only for add form -->
           <ng-container *ngTemplateOutlet="sharedFormBlock"></ng-container>
 
           <ng-template
@@ -27,9 +32,13 @@
               <label>Id</label>
               <span>{{ item.id }}</span>
             </div>
+            <div class="field view-only">
+              <label>Code</label>
+              <span>{{ item.code }}</span>
+            </div>
           </ng-template>
 
-          <ng-template #sharedFormBlock>
+          <ng-template #addFormBlock>
             <!-- code -->
             <div class="field">
               <label for="code">Code</label>
@@ -46,6 +55,9 @@
                 </div>
               </div>
             </div>
+          </ng-template>
+
+          <ng-template #sharedFormBlock>
             <!-- name -->
             <div class="field">
               <label for="name">Name</label>

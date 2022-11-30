@@ -26,7 +26,6 @@ export class MasterdatasEditFormComponent implements OnInit {
   item?: Masterdata;
   maxLength = MasterdataMaxLength;
   typesList: MasterdataType[] = [];
-  selectedTypeId = null;
 
   constructor(
     private readonly service: MasterdataCrudHttpService,
@@ -91,6 +90,10 @@ export class MasterdatasEditFormComponent implements OnInit {
     this.isLoading = true;
     if (this.isAddForm) {
       const key = getRequiredFieldValue<string>(this.dataForm, "key");
+      const masterdataTypeIdSelector = getRequiredFieldValue<KeyValuePair<string, string>>(
+        this.dataForm,
+        "masterdataTypeId"
+      ).key;
       const masterdataTypeId = getRequiredFieldValue<string>(this.dataForm, "masterdataTypeId");
       const value = getRequiredFieldValue<string>(this.dataForm, "value");
       const name = getRequiredFieldValue<string>(this.dataForm, "name");
@@ -98,7 +101,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 
       const model = {} as IMasterdataCreate;
       model.key = key;
-      model.masterdataTypeId = masterdataTypeId;
+      model.masterdataTypeId = masterdataTypeIdSelector ?? masterdataTypeId ?? undefined;
       model.value = value;
       model.name = name;
       model.description = description;
