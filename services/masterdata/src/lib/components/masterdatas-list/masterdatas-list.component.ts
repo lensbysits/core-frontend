@@ -28,9 +28,9 @@ export class MasterdatasListComponent implements OnInit {
     //this.loadItems();
   }
 
-  loadItems() {
+  loadItems(offset: number, rows: number) {
     this.isLoading = true;
-    this.service.getAllMasterdatas(this.typeId).subscribe({
+    this.service.getAllMasterdatas(this.typeId, offset, rows).subscribe({
       next: (data) => {
         console.log('loadItems', data);
         this.items = data.value || [];
@@ -45,7 +45,7 @@ export class MasterdatasListComponent implements OnInit {
   }
 
   onLazyLoadData(event: ILazyLoadEvent): void {
-    this.loadItems();
+    this.loadItems(event.offset, event.rows);
   }
 
   onRowClicked(item: Masterdata) {

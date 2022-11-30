@@ -130,7 +130,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 
   loadTypesList() {
     this.isLoading = true;
-    this.service.getAllMasterdataTypes().subscribe({
+    this.service.getAllMasterdataTypes(0, 0).subscribe({
       next: (data) => {
         console.log('loadItems', data);
         this.typesList = data.value || [];

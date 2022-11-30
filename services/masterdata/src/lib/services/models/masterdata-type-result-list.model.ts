@@ -1,6 +1,4 @@
 import { Result } from './result.model';
 import { MasterdataType } from './masterdata-type.model';
 
-export class MasterdataTypeResultList extends Result<MasterdataType[]> {
-  totalSize?: number | undefined;
-}
+export class MasterdataTypeResultList extends Result<MasterdataType[]> {}
