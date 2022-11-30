@@ -6,7 +6,7 @@
         [class.p-button-text]="isText()"
         [class.p-button-sm]="size === 'small'"
         [class.p-button-lg]="size === 'large'"
-        icon="pi {{ icon }}"
+        [icon]="icon"
         (click)="clicked.emit($event)"
         [disabled]="disabled">
 </button>
