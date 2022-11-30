@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastService } from "@lens/ui-prime-components";
+import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core";
 import { MasterdataType } from "../../services/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../services/interfaces";
 import { MasterdataCrudHttpService } from "../../services/services";
@@ -68,7 +69,6 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
   onSubmit() {
     this.isFormSubmitted = true;
-
     if (this.dataForm.invalid) {
       // stop here if form is invalid
       return;
@@ -76,29 +76,43 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
     this.isLoading = true;
     if (this.isAddForm) {
-      this.service
-        .createMasterdataType(this.dataForm.value as IMasterdataTypeCreate)
-        .subscribe((data) => {
-          console.log("onSubmit create", data);
-          this.btnCancel();
-          this.isLoading = false;
-          this.toastService.success(
-            "Add masterdata type",
-            "The masterdata type was succesfully added."
-          );
-        });
+      const code = getRequiredFieldValue<string>(this.dataForm, "code");
+      const name = getRequiredFieldValue<string>(this.dataForm, "name");
+      const description = getFieldValue<string>(this.dataForm, "description");
+
+      const model = {} as IMasterdataTypeCreate;
+      model.code = code;
+      model.name = name;
+      model.description = description;
+
+      // const model = this.dataForm.value as IMasterdataTypeCreate;
+      this.service.createMasterdataType(model).subscribe((data) => {
+        console.log("onSubmit create", data);
+        this.btnCancel();
+        this.isLoading = false;
+        this.toastService.success(
+          "Add masterdata type",
+          "The masterdata type was succesfully added."
+        );
+      });
     } else {
-      this.service
-        .updateMasterdataType(this.id, this.dataForm.value as IMasterdataTypeUpdate)
-        .subscribe((data) => {
-          console.log("onSubmit update", data);
-          this.btnCancel();
-          this.isLoading = false;
-          this.toastService.success(
-            "Update masterdata type",
-            "The masterdata type was succesfully updated."
-          );
-        });
+      const name = getRequiredFieldValue<string>(this.dataForm, "name");
+      const description = getFieldValue<string>(this.dataForm, "description");
+
+      const model = {} as IMasterdataTypeUpdate;
+      model.name = name;
+      model.description = description;
+
+      // const model = this.dataForm.value as IMasterdataTypeUpdate;
+      this.service.updateMasterdataType(this.id, model).subscribe((data) => {
+        console.log("onSubmit update", data);
+        this.btnCancel();
+        this.isLoading = false;
+        this.toastService.success(
+          "Update masterdata type",
+          "The masterdata type was succesfully updated."
+        );
+      });
     }
   }
 

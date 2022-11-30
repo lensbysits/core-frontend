@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastService } from "@lens/ui-prime-components";
+import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core";
 import { Masterdata, MasterdataType } from "../../services/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../services/interfaces";
 import { MasterdataCrudHttpService } from "../../services/services";
@@ -82,7 +83,6 @@ export class MasterdatasEditFormComponent implements OnInit {
 
   onSubmit() {
     this.isFormSubmitted = true;
-
     if (this.dataForm.invalid) {
       // stop here if form is invalid
       return;
@@ -90,21 +90,43 @@ export class MasterdatasEditFormComponent implements OnInit {
 
     this.isLoading = true;
     if (this.isAddForm) {
-      this.service.createMasterdata(this.dataForm.value as IMasterdataCreate).subscribe((data) => {
+      const key = getRequiredFieldValue<string>(this.dataForm, "key");
+      const masterdataTypeId = getRequiredFieldValue<string>(this.dataForm, "masterdataTypeId");
+      const value = getRequiredFieldValue<string>(this.dataForm, "value");
+      const name = getRequiredFieldValue<string>(this.dataForm, "name");
+      const description = getFieldValue<string>(this.dataForm, "description");
+
+      const model = {} as IMasterdataCreate;
+      model.key = key;
+      model.masterdataTypeId = masterdataTypeId;
+      model.value = value;
+      model.name = name;
+      model.description = description;
+
+      // const model = this.dataForm.value as IMasterdataCreate;
+      this.service.createMasterdata(model).subscribe((data) => {
         console.log("onSubmit create", data);
         this.btnCancel();
         this.isLoading = false;
         this.toastService.success("Add masterdata", "The masterdatae was succesfully added.");
       });
     } else {
-      this.service
-        .updateMasterdata(this.id, this.dataForm.value as IMasterdataUpdate)
-        .subscribe((data) => {
-          console.log("onSubmit update", data);
-          this.btnCancel();
-          this.isLoading = false;
-          this.toastService.success("Update masterdata", "The masterdata was succesfully updated.");
-        });
+      const value = getRequiredFieldValue<string>(this.dataForm, "value");
+      const name = getRequiredFieldValue<string>(this.dataForm, "name");
+      const description = getFieldValue<string>(this.dataForm, "description");
+
+      const model = {} as IMasterdataUpdate;
+      model.value = value;
+      model.name = name;
+      model.description = description;
+
+      // const model = this.dataForm.value as IMasterdataUpdate;
+      this.service.updateMasterdata(this.id, model).subscribe((data) => {
+        console.log("onSubmit update", data);
+        this.btnCancel();
+        this.isLoading = false;
+        this.toastService.success("Update masterdata", "The masterdata was succesfully updated.");
+      });
     }
   }
 
