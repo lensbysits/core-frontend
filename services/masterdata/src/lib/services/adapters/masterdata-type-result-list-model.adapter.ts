@@ -1,6 +1,6 @@
-import { IAdapter } from '../interfaces';
-import { MasterdataType, MasterdataTypeResultList } from '../models';
-import { MasterdataTypeModelAdapter } from './';
+import { IAdapter } from "../interfaces";
+import { MasterdataType, MasterdataTypeResultList } from "../models";
+import { MasterdataTypeModelAdapter } from "./";
 
 export class MasterdataTypeResultListModelAdapter
   implements IAdapter<any, MasterdataTypeResultList>
@@ -15,9 +15,7 @@ export class MasterdataTypeResultListModelAdapter
     }
     return {
       totalSize: source.valueSize,
-      value: source.value?.map((item: MasterdataType) =>
-        masterdataTypeModelAdapter.adapt(item)
-      ),
+      value: source.value?.map((item: MasterdataType) => masterdataTypeModelAdapter.adapt(item)),
     };
   }
 }

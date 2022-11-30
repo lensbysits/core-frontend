@@ -1,9 +1,11 @@
 <div class="card p-fluid mb-4">
   <p>An unexpected error occurred.</p>
-  <lens-panel header="Error details" [collapsed]="true">
+  <lens-panel
+    header="Error details"
+    [collapsed]="true">
     <p *ngFor="let item of config.data.error | keyvalue">
-      <strong>{{ item.key }}</strong
-      >: {{ item.value }}
+      <strong>{{ item.key }}</strong>
+      : {{ item.value }}
     </p>
   </lens-panel>
 </div>

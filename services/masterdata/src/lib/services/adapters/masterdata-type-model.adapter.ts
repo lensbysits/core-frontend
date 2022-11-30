@@ -1,10 +1,8 @@
 //import { MasterdataType as MasterdataTypeApiModel } from '../../api-clients';
-import { IAdapter } from '../interfaces';
-import { MasterdataType } from '../models';
+import { IAdapter } from "../interfaces";
+import { MasterdataType } from "../models";
 
-export class MasterdataTypeModelAdapter
-  implements IAdapter<any, MasterdataType>
-{
+export class MasterdataTypeModelAdapter implements IAdapter<any, MasterdataType> {
   adapt(source: any): MasterdataType {
     return {
       id: source?.id,

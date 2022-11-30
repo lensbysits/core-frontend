@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ILazyLoadEvent } from '@lens/ui-prime-components';
-import { MasterdataType } from '../../services/models';
-import { MasterdataCrudHttpService } from '../../services/services';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ILazyLoadEvent } from "@lens/ui-prime-components";
+import { MasterdataType } from "../../services/models";
+import { MasterdataCrudHttpService } from "../../services/services";
 
 @Component({
-  selector: 'lens-masterdata-type-list',
-  templateUrl: './masterdata-type-list.component.html',
-  styleUrls: ['./masterdata-type-list.component.scss'],
+  selector: "lens-masterdata-type-list",
+  templateUrl: "./masterdata-type-list.component.html",
+  styleUrls: ["./masterdata-type-list.component.scss"],
 })
 export class MasterdataTypeListComponent implements OnInit {
   isLoading = false;
@@ -30,14 +30,14 @@ export class MasterdataTypeListComponent implements OnInit {
     this.isLoading = true;
     this.service.getAllMasterdataTypes(offset, rows).subscribe({
       next: (data) => {
-        console.log('loadItems', data);
+        console.log("loadItems", data);
         this.items = data.value || [];
         this.totalSize = data.totalSize || 0;
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
-        console.log('isLoading', this.isLoading, 'items', this.items);
+        console.log("isLoading", this.isLoading, "items", this.items);
       },
     });
   }
@@ -47,7 +47,7 @@ export class MasterdataTypeListComponent implements OnInit {
   }
 
   onRowClicked(item: MasterdataType) {
-    console.log('onRowClicked', item);
+    console.log("onRowClicked", item);
     const route = `details/${item.id}`;
     this.router.navigate([route], {
       relativeTo: this.activeRoute,
@@ -57,14 +57,14 @@ export class MasterdataTypeListComponent implements OnInit {
   }
 
   onAddAction() {
-    console.log('onAddAction');
+    console.log("onAddAction");
     this.router.navigate([`/type/add`]);
   }
 
   onDeleteActionClicked(item: MasterdataType) {
-    console.log('onDeleteActionClicked item', item);
+    console.log("onDeleteActionClicked item", item);
     this.isLoading = true;
-    if (!confirm('Are you sure?') === true) {
+    if (!confirm("Are you sure?") === true) {
       this.isLoading = false;
       return;
     }
@@ -76,24 +76,24 @@ export class MasterdataTypeListComponent implements OnInit {
 
     this.items = this.items.filter((curitem) => item !== curitem);
     this.service.deleteMasterdataType(item.id).subscribe((data) => {
-      console.log('onDeleteActionClicked', data);
+      console.log("onDeleteActionClicked", data);
       this.totalSize--;
       this.isLoading = false;
     });
   }
 
   onEditActionClicked(item: any) {
-    console.log('onEditActionClicked', item);
+    console.log("onEditActionClicked", item);
     this.router.navigate([`/type/edit/${item.id}`]);
   }
 
   onAddMasterdataActionClicked(item: any) {
-    console.log('onAddMasterdataActionClicked', item);
+    console.log("onAddMasterdataActionClicked", item);
     this.router.navigate([`/masterdatas/${item.id}/add`]);
   }
 
   onViewMasterdatasActionClicked(item: any) {
-    console.log('onViewMasterdatasActionClicked', item);
+    console.log("onViewMasterdatasActionClicked", item);
     this.router.navigate([`/masterdatas/${item.id}`]);
   }
 }

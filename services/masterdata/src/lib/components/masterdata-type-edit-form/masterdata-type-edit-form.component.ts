@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService } from '@lens/ui-prime-components';
-import { MasterdataType } from '../../services/models';
-import {
-  IMasterdataTypeCreate,
-  IMasterdataTypeUpdate,
-} from '../../services/interfaces';
-import { MasterdataCrudHttpService } from '../../services/services';
-import { MasterdataTypeMaxLength } from '../../services/utils';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ToastService } from "@lens/ui-prime-components";
+import { MasterdataType } from "../../services/models";
+import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../services/interfaces";
+import { MasterdataCrudHttpService } from "../../services/services";
+import { MasterdataTypeMaxLength } from "../../services/utils";
 
 @Component({
-  selector: 'lens-masterdata-type-edit-form',
-  templateUrl: './masterdata-type-edit-form.component.html',
-  styleUrls: ['./masterdata-type-edit-form.component.scss'],
+  selector: "lens-masterdata-type-edit-form",
+  templateUrl: "./masterdata-type-edit-form.component.html",
+  styleUrls: ["./masterdata-type-edit-form.component.scss"],
 })
 export class MasterdataTypeEditFormComponent implements OnInit {
   isLoading = false;
@@ -21,8 +18,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
   dataForm!: FormGroup;
   isFormSubmitted = false;
   isAddForm = true;
-  saveBtnText = 'Save';
-  formTitle = 'Add';
+  saveBtnText = "Save";
+  formTitle = "Add";
   item?: MasterdataType;
   maxLength = MasterdataTypeMaxLength;
 
@@ -35,25 +32,19 @@ export class MasterdataTypeEditFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params['id'];
+    this.id = this.activeRoute.snapshot.params["id"];
     this.isAddForm = !(this.id !== undefined);
 
     if (!this.isAddForm) {
       this.loadData();
-      this.saveBtnText = 'Update';
-      this.formTitle = 'Edit';
+      this.saveBtnText = "Update";
+      this.formTitle = "Edit";
     }
 
     this.dataForm = this.formBuilder.group({
-      code: [
-        '',
-        [Validators.required, Validators.maxLength(this.maxLength.code)],
-      ],
-      name: [
-        '',
-        [Validators.required, Validators.maxLength(this.maxLength.name)],
-      ],
-      description: ['', [Validators.maxLength(this.maxLength.description)]],
+      code: ["", [Validators.required, Validators.maxLength(this.maxLength.code)]],
+      name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
+      description: ["", [Validators.maxLength(this.maxLength.description)]],
     });
   }
 
@@ -65,7 +56,11 @@ export class MasterdataTypeEditFormComponent implements OnInit {
   loadData() {
     this.isLoading = true;
     this.service.getMasterdataTypeById(this.id).subscribe((data) => {
-      this.dataForm.patchValue(data);
+      this.dataForm.patchValue({
+        code: data.code,
+        name: data.name,
+        description: data.description,
+      });
       this.item = data || {};
       this.isLoading = false;
     });
@@ -84,33 +79,30 @@ export class MasterdataTypeEditFormComponent implements OnInit {
       this.service
         .createMasterdataType(this.dataForm.value as IMasterdataTypeCreate)
         .subscribe((data) => {
-          console.log('onSubmit create', data);
+          console.log("onSubmit create", data);
           this.btnCancel();
           this.isLoading = false;
           this.toastService.success(
-            'Add masterdata type',
-            'The masterdata type was succesfully added.'
+            "Add masterdata type",
+            "The masterdata type was succesfully added."
           );
         });
     } else {
       this.service
-        .updateMasterdataType(
-          this.id,
-          this.dataForm.value as IMasterdataTypeUpdate
-        )
+        .updateMasterdataType(this.id, this.dataForm.value as IMasterdataTypeUpdate)
         .subscribe((data) => {
-          console.log('onSubmit update', data);
+          console.log("onSubmit update", data);
           this.btnCancel();
           this.isLoading = false;
           this.toastService.success(
-            'Update masterdata type',
-            'The masterdata type was succesfully updated.'
+            "Update masterdata type",
+            "The masterdata type was succesfully updated."
           );
         });
     }
   }
 
   btnCancel() {
-    this.router.navigate(['type']);
+    this.router.navigate(["type"]);
   }
 }

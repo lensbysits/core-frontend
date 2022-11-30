@@ -6,34 +6,42 @@
       icon="pi-plus"
       type="success"
       [disabled]="isLoading"
-      (clicked)="onAddAction()"
-    ></lens-button>
+      (clicked)="onAddAction()"></lens-button>
   </div>
   <lens-table
     [source]="items"
     [totalRecords]="totalSize"
     (onLazyLoad)="onLazyLoadData($event)"
     (onRowClick)="onRowClicked($event)"
-    [loading]="isLoading"
-  >
+    [loading]="isLoading">
     <columns>
-      <column label="Id" field="id"></column>
-      <column label="Type Name" field="masterdataTypeName"></column>
-      <column label="Key" field="key"></column>
-      <column label="Value" field="value"></column>
-      <column label="Name" field="name"></column>
-      <column label="Description" field="description"></column>
+      <column
+        label="Id"
+        field="id"></column>
+      <column
+        label="Type Name"
+        field="masterdataTypeName"></column>
+      <column
+        label="Key"
+        field="key"></column>
+      <column
+        label="Value"
+        field="value"></column>
+      <column
+        label="Name"
+        field="name"></column>
+      <column
+        label="Description"
+        field="description"></column>
       <row-actions>
         <action
           icon="pi pi-pencil"
           label="Edit"
-          (clicked)="onEditActionClicked($event)"
-        ></action>
+          (clicked)="onEditActionClicked($event)"></action>
         <action
           icon="pi pi-trash"
           label="Delete"
-          (clicked)="onDeleteActionClicked($event)"
-        ></action>
+          (clicked)="onDeleteActionClicked($event)"></action>
       </row-actions>
     </columns>
   </lens-table>

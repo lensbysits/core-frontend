@@ -1,23 +1,19 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MenuService } from '@lens/app-abstract';
-import {
-  AppAbstractUiModule,
-  AppComponent,
-  ErrorHandlerService,
-} from '@lens/app-abstract-ui';
-import { PrimeComponentsModule } from '@lens/ui-prime-components';
+import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { MenuService } from "@lens/app-abstract";
+import { AppAbstractUiModule, AppComponent, ErrorHandlerService } from "@lens/app-abstract-ui";
+import { PrimeComponentsModule } from "@lens/ui-prime-components";
 import {
   MasterdataApiClientsModule,
   ErrorHandlerService as MyErrorHandlerService,
-} from './services';
-import { ErrorDetailsComponent } from './components/error-details/error-details.component';
+} from "./services";
+import { ErrorDetailsComponent } from "./components/error-details/error-details.component";
 
-import { menu } from './app-menu';
-import { masterdataRoutes } from './app-routes';
+import { menu } from "./app-menu";
+import { masterdataRoutes } from "./app-routes";
 import {
   LoggerMessagesComponent,
   MasterdataDashboardComponent,
@@ -27,7 +23,7 @@ import {
   MasterdataTypeDetailsComponent,
   MasterdataTypeEditFormComponent,
   MasterdataTypeListComponent,
-} from './components';
+} from "./components";
 
 const components = [
   ErrorDetailsComponent,

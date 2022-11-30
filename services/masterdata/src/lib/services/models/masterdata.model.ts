@@ -1,4 +1,4 @@
-import { IMasterdataCreate, IMasterdataUpdate } from '../interfaces';
+import { IMasterdataCreate, IMasterdataUpdate } from "../interfaces";
 
 export class Masterdata implements IMasterdataCreate, IMasterdataUpdate {
   id!: string;

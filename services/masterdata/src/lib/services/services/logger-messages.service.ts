@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { ILoggerMessage } from '../interfaces';
+import { ILoggerMessage } from "../interfaces";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 // @Injectable()
 export class LoggerMessagesService {

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
-import { Masterdata } from '../../services/models';
-import { MasterdataCrudHttpService } from '../../services/services';
+import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { map, Observable, tap } from "rxjs";
+import { Masterdata } from "../../services/models";
+import { MasterdataCrudHttpService } from "../../services/services";
 
 @Component({
-  selector: 'lens-masterdatas-details',
-  templateUrl: './masterdatas-details.component.html',
-  styleUrls: ['./masterdatas-details.component.scss'],
+  selector: "lens-masterdatas-details",
+  templateUrl: "./masterdatas-details.component.html",
+  styleUrls: ["./masterdatas-details.component.scss"],
 })
 export class MasterdatasDetailsComponent implements OnInit {
   isLoading = false;
-  itemId = '';
-  typeId = '';
+  itemId = "";
+  typeId = "";
   // item?: Masterdata;
   item$?: Observable<Masterdata | undefined>;
 
@@ -24,8 +24,8 @@ export class MasterdatasDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.itemId = this.activeRoute.snapshot.paramMap.get('id') ?? '';
-    this.typeId = this.activeRoute.snapshot.paramMap.get('typeId') ?? '';
+    this.itemId = this.activeRoute.snapshot.paramMap.get("id") ?? "";
+    this.typeId = this.activeRoute.snapshot.paramMap.get("typeId") ?? "";
     this.loadItem(this.typeId, this.itemId);
   }
 
@@ -38,7 +38,7 @@ export class MasterdatasDetailsComponent implements OnInit {
     // });
     this.item$ = this.service.getMasterdataById(typeId, id).pipe(
       tap((data) => {
-        console.log('loadItem', data);
+        console.log("loadItem", data);
         this.isLoading = false;
       }),
       map((data) => data)
@@ -47,9 +47,9 @@ export class MasterdatasDetailsComponent implements OnInit {
 
   prepareForDisplay(item: Masterdata) {
     return Object.entries(item).map((item) => {
-      item[0] = item[0].toLowerCase().replace('masterdata', '');
-      if (['typeid', 'typename'].includes(item[0])) {
-        item[0] = `type ${item[0].replace('type', '')}`;
+      item[0] = item[0].toLowerCase().replace("masterdata", "");
+      if (["typeid", "typename"].includes(item[0])) {
+        item[0] = `type ${item[0].replace("type", "")}`;
       }
       return item;
     });
