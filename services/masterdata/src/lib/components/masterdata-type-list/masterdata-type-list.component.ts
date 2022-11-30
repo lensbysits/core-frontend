@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
-import { MasterdataType } from "../../services/models";
-import { MasterdataCrudHttpService } from "../../services/services";
+import { MasterdataType } from "../../core/models";
+import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
   selector: "lens-masterdata-type-list",

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { LoggerMessagesService } from "../../services/services";
+import { LoggerMessagesService } from "../../core/services";
 
 @Component({
   selector: "logger-messages",

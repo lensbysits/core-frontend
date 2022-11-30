@@ -58,13 +58,10 @@
               <!-- type id -->
               <div class="field">
                 <label for="masterdataTypeId">Masterdata Type</label>
-                <lens-dropdown
+                <lens-services-masterdata-type-selector
                   id="masterdataTypeId"
                   formControlName="masterdataTypeId"
-                  placeholder="Please choose a masterdata type"
-                  [options]="typesList"
-                  optionValue="id"
-                  optionLabel="name"></lens-dropdown>
+                  [masterdataTypes]="typesList"></lens-services-masterdata-type-selector>
                 <div
                   *ngIf="isFormSubmitted && getFormFields['masterdataTypeId']!.invalid"
                   class="p-error">

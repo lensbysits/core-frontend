@@ -6,10 +6,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { MenuService } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent, ErrorHandlerService } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
+import { MasterdataTypeSelectorModule } from "./core/ui";
 import {
   MasterdataApiClientsModule,
   ErrorHandlerService as MyErrorHandlerService,
-} from "./services";
+} from "./core/services";
 import { ErrorDetailsComponent } from "./components/error-details/error-details.component";
 
 import { menu } from "./app-menu";
@@ -45,6 +46,7 @@ const components = [
     ReactiveFormsModule,
     HttpClientModule,
     PrimeComponentsModule,
+    MasterdataTypeSelectorModule,
     RouterModule.forChild(masterdataRoutes),
     MasterdataApiClientsModule.forRoot(),
   ],
@@ -62,6 +64,7 @@ const components = [
       useClass: MyErrorHandlerService,
     },
   ],
+  exports: [MasterdataTypeSelectorModule],
   bootstrap: [AppComponent],
 })
 export class MasterdataModule {

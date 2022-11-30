@@ -1,6 +1,6 @@
 import { IAdapter } from "../interfaces";
 import { Masterdata, MasterdataResultList } from "../models";
-import { MasterdataModelAdapter } from "./";
+import { MasterdataModelAdapter } from ".";
 
 export class MasterdataResultListModelAdapter implements IAdapter<any, MasterdataResultList> {
   adapt(source: any): MasterdataResultList {

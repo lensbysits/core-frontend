@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { map, Observable, tap } from "rxjs";
-import { Masterdata } from "../../services/models";
-import { MasterdataCrudHttpService } from "../../services/services";
+import { Masterdata } from "../../core/models";
+import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
   selector: "lens-masterdatas-details",

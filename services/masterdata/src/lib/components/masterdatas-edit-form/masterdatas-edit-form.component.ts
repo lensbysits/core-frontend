@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastService } from "@lens/ui-prime-components";
-import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core";
-import { Masterdata, MasterdataType } from "../../services/models";
-import { IMasterdataCreate, IMasterdataUpdate } from "../../services/interfaces";
-import { MasterdataCrudHttpService } from "../../services/services";
-import { MasterdataMaxLength } from "../../services/utils";
+import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
+import { Masterdata, MasterdataType } from "../../core/models";
+import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
+import { MasterdataCrudHttpService } from "../../core/services";
+import { MasterdataMaxLength } from "../../core/utils";
 
 @Component({
   selector: "lens-masterdatas-edit-form",

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { AppConfigurationService } from "@lens/app-abstract";
 
-import { API_BASE_URL, MasterdataCrudHttpService } from "./services";
+import { API_BASE_URL, MasterdataCrudHttpService } from "./";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
   const result = appConfigurationService.getSettings("api.baseUrl");
