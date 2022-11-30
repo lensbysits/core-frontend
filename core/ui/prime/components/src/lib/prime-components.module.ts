@@ -14,6 +14,7 @@ import { InputEmailModule } from './input-email';
 import { PanelModule } from './panel';
 import { AutoCompleteModule } from './autocomplete';
 import { DialogModule } from './dialog';
+import { InputChipsModule } from './input-chips';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { DialogModule } from './dialog';
     CommonModule,
     DropdownModule,
     IconModule,
+    InputChipsModule,
     InputDateModule,
     InputEmailModule,
     InputTextModule,
@@ -31,13 +33,14 @@ import { DialogModule } from './dialog';
     TableModule,
     ToastModule,
     ToolbarModule,
-    DialogModule
+    DialogModule,
   ],
   exports: [
     AutoCompleteModule,
     ButtonModule,
     DropdownModule,
     IconModule,
+    InputChipsModule,
     InputDateModule,
     InputEmailModule,
     InputTextModule,
