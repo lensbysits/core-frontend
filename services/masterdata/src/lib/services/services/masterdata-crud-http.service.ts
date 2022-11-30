@@ -49,12 +49,20 @@ export class MasterdataCrudHttpService {
   }
 
   //#region Get
-  getAllMasterdataTypes(): Observable<MasterdataTypeResultList> {
+  getAllMasterdataTypes(
+    offset: number,
+    rows: number
+  ): Observable<MasterdataTypeResultList> {
     const masterdataTypeResultListModelAdapter =
       new MasterdataTypeResultListModelAdapter();
 
+    const url = this.genericListUriMasterdata(
+      `${this.baseUrl}/type`,
+      offset,
+      rows
+    );
     return this.client
-      .get<MasterdataTypeResultList>(`${this.baseUrl}/type`) //.pipe(first());
+      .get<MasterdataTypeResultList>(url) //.pipe(first());
       .pipe(
         tap((_) => this.log(null, 'getAllMasterdataTypes', 'success')),
         map((input) => masterdataTypeResultListModelAdapter.adapt(input)),
@@ -86,11 +94,19 @@ export class MasterdataCrudHttpService {
       );
   }
 
-  getAllMasterdatas(typeId = ''): Observable<MasterdataResultList> {
+  getAllMasterdatas(
+    typeId: string,
+    offset: number,
+    rows: number
+  ): Observable<MasterdataResultList> {
     const masterdataResultListModelAdapter =
       new MasterdataResultListModelAdapter();
-    const url = `${this.baseUrl}${!isEmpty(typeId) ? '/' + typeId : ''}`;
 
+    const url = this.genericListUriMasterdata(
+      `${this.baseUrl}${!isEmpty(typeId) ? '/' + typeId : ''}`,
+      offset,
+      rows
+    );
     return this.client.get<MasterdataResultList>(url).pipe(
       tap((_) => this.log(null, 'getAllMasterdatas', 'success')),
       map((input) => masterdataResultListModelAdapter.adapt(input)),
@@ -283,6 +299,99 @@ export class MasterdataCrudHttpService {
     msg.push(status);
     message && msg.push(message);
     this.logger.add({ status, message: msg.join(' | ') } as ILoggerMessage);
+  }
+
+  /**
+   * @param baseUrl (optional)
+   * @param offset (optional)
+   * @param limit (optional)
+   * @return Success
+   */
+  genericListUriMasterdata(
+    baseUrl: string | null | undefined,
+    offset: number | null | undefined,
+    limit: number | null | undefined
+  ): string {
+    return this.genericListUri(
+      baseUrl,
+      offset,
+      limit,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+  }
+
+  /**
+   * @param baseUrl (optional)
+   * @param offset (optional)
+   * @param limit (optional)
+   * @param noLimit (optional)
+   * @param tag (optional)
+   * @param createdBy (optional)
+   * @param createdSince (optional)
+   * @param updatedBy (optional)
+   * @param updatedSince (optional)
+   * @param searchTerm (optional)
+   * @param orderBy (optional)
+   * @param queryString (optional)
+   * @return Success
+   */
+  genericListUri(
+    baseUrl: string | null | undefined,
+    offset: number | null | undefined,
+    limit: number | null | undefined,
+    noLimit: boolean | null | undefined,
+    tag: string | null | undefined,
+    createdBy: string | null | undefined,
+    createdSince: Date | null | undefined,
+    updatedBy: string | null | undefined,
+    updatedSince: Date | null | undefined,
+    searchTerm: string | null | undefined,
+    orderBy: string | null | undefined,
+    queryString: string | null | undefined
+  ): string {
+    let url_ = `${baseUrl}?`;
+    if (offset !== undefined && offset !== null)
+      url_ += 'Offset=' + encodeURIComponent('' + offset) + '&';
+    if (limit !== undefined && limit !== null)
+      url_ += 'Limit=' + encodeURIComponent('' + limit) + '&';
+    if (noLimit !== undefined && noLimit !== null)
+      url_ += 'NoLimit=' + encodeURIComponent('' + noLimit) + '&';
+    if (tag !== undefined && tag !== null)
+      url_ += 'Tag=' + encodeURIComponent('' + tag) + '&';
+    if (createdBy !== undefined && createdBy !== null)
+      url_ += 'CreatedBy=' + encodeURIComponent('' + createdBy) + '&';
+    if (createdSince !== undefined && createdSince !== null)
+      url_ +=
+        'CreatedSince=' +
+        encodeURIComponent(
+          createdSince ? '' + createdSince.toISOString() : ''
+        ) +
+        '&';
+    if (updatedBy !== undefined && updatedBy !== null)
+      url_ += 'UpdatedBy=' + encodeURIComponent('' + updatedBy) + '&';
+    if (updatedSince !== undefined && updatedSince !== null)
+      url_ +=
+        'UpdatedSince=' +
+        encodeURIComponent(
+          updatedSince ? '' + updatedSince.toISOString() : ''
+        ) +
+        '&';
+    if (searchTerm !== undefined && searchTerm !== null)
+      url_ += 'SearchTerm=' + encodeURIComponent('' + searchTerm) + '&';
+    if (orderBy !== undefined && orderBy !== null)
+      url_ += 'OrderBy=' + encodeURIComponent('' + orderBy) + '&';
+    if (queryString !== undefined && queryString !== null)
+      url_ += 'QueryString=' + encodeURIComponent('' + queryString) + '&';
+    url_ = url_.replace(/[?&]$/, '');
+    return url_;
   }
   //#endregion
 }
