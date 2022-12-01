@@ -14,7 +14,7 @@ export class MasterdataTypeResultListModelAdapter
       };
     }
     return {
-      totalSize: source.valueSize,
+      totalSize: source.totalSize,
       value: source.value?.map((item: MasterdataType) => masterdataTypeModelAdapter.adapt(item)),
     };
   }

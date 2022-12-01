@@ -12,7 +12,7 @@
     [source]="items"
     [totalRecords]="totalSize"
     (onLazyLoad)="onLazyLoadData($event)"
-    (onRowClick)="onRowClicked($event)"
+    (onRowDblClick)="onRowClicked($event)"
     [loading]="isLoading">
     <columns>
       <column

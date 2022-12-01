@@ -12,7 +12,7 @@ export class MasterdataResultListModelAdapter implements IAdapter<any, Masterdat
       };
     }
     return {
-      totalSize: source.valueSize,
+      totalSize: source.totalSize,
       value: source.value?.map((item: Masterdata) => masterdataModelAdapter.adapt(item)),
     };
   }
