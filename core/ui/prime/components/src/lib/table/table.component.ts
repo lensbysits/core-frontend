@@ -15,6 +15,7 @@ export class TableComponent implements AfterViewInit {
     @Input() public source!: any[];
     @Input() public totalRecords!: number;
     @Input() public loading!: boolean;
+    @Input() public rows = 10;
 
     @Output() public onLazyLoad = new EventEmitter<ILazyLoadEvent>();
     @Output() public onRowClick = new EventEmitter<any>();

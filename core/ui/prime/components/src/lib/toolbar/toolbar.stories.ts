@@ -15,7 +15,7 @@ export default {
 
 const Template: Story = args => ({
     template: `<lens-toolbar>
-                    <lens-button icon="pi-user-plus" label="Add new user"></lens-button>
+                    <lens-button icon="pi pi-user-plus" label="Add new user"></lens-button>
                </lens-toolbar>`,
     props: {
         ...args
