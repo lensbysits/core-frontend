@@ -259,14 +259,14 @@ export class MasterdataCrudHttpService {
    */
   genericListUriMasterdata(
     baseUrl: string | null | undefined,
-    offset: number | null | undefined,
-    limit: number | null | undefined
+    offset: number,
+    limit: number
   ): string {
     return this.genericListUri(
       baseUrl,
-      offset,
-      limit,
-      null,
+      limit > 0 ? offset : undefined,
+      limit > 0 ? limit : undefined,
+      limit > 0 ? undefined : true,
       null,
       null,
       null,
