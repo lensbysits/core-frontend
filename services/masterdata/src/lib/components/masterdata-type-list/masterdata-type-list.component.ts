@@ -48,8 +48,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
   onRowClicked(item: MasterdataType) {
     console.log("onRowClicked", item);
-    const route = `details/${item.id}`;
-    this.router.navigate([route], {
+    this.router.navigate([`${item.id}`, "details"], {
       relativeTo: this.activeRoute,
       // queryParams: { id: item.id },
     });
@@ -58,7 +57,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
   onAddAction() {
     console.log("onAddAction");
-    this.router.navigate([`/type/add`]);
+    this.router.navigate([`/add`]);
   }
 
   onDeleteActionClicked(item: MasterdataType) {
@@ -84,16 +83,16 @@ export class MasterdataTypeListComponent implements OnInit {
 
   onEditActionClicked(item: any) {
     console.log("onEditActionClicked", item);
-    this.router.navigate([`/type/edit/${item.id}`]);
+    this.router.navigate([`/${item.id}/edit`]);
   }
 
   onAddMasterdataActionClicked(item: any) {
     console.log("onAddMasterdataActionClicked", item);
-    this.router.navigate([`/masterdatas/${item.id}/add`]);
+    this.router.navigate([`/${item.id}/add`]);
   }
 
   onViewMasterdatasActionClicked(item: any) {
     console.log("onViewMasterdatasActionClicked", item);
-    this.router.navigate([`/masterdatas/${item.id}`]);
+    this.router.navigate([`/${item.id}`]);
   }
 }

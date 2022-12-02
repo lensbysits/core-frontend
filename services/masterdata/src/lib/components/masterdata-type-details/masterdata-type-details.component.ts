@@ -23,7 +23,7 @@ export class MasterdataTypeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.itemId = this.activeRoute.snapshot.paramMap.get("id") ?? "";
+    this.itemId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
     this.loadItem(this.itemId);
   }
 

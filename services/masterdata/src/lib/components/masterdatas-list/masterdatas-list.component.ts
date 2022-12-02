@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
-import { Masterdata } from "../../core/models";
+import { Observable } from "rxjs";
+import { Masterdata, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
@@ -14,6 +15,7 @@ export class MasterdatasListComponent implements OnInit {
   items: Masterdata[] = [];
   totalSize = 0;
   typeId = "";
+  masterdataType$?: Observable<MasterdataType>;
 
   constructor(
     private readonly service: MasterdataCrudHttpService,
@@ -24,22 +26,23 @@ export class MasterdatasListComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     this.isLoading = true;
-    this.typeId = this.activeRoute.snapshot.paramMap.get("typeId") ?? "";
+    this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
     //this.loadItems();
   }
 
   loadItems(offset: number, rows: number) {
     this.isLoading = true;
+
+    if(this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
+
     this.service.getAllMasterdatas(this.typeId, offset, rows).subscribe({
       next: (data) => {
-        console.log("loadItems", data);
         this.items = data.value || [];
         this.totalSize = data.totalSize || 0;
         this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
-        console.log("isLoading", this.isLoading, "items", this.items);
       },
     });
   }
@@ -49,17 +52,14 @@ export class MasterdatasListComponent implements OnInit {
   }
 
   onRowClicked(item: Masterdata) {
-    console.log("onRowClicked", item);
-    this.router.navigate([`/masterdatas/details/${item.masterdataTypeId}/${item.id}`]);
+    this.router.navigate([`${item.id}`], { relativeTo: this.activeRoute });
   }
 
   onAddAction() {
-    console.log("onAddAction");
-    this.router.navigate([`/masterdatas/add`]);
+    this.router.navigate(["add"], { relativeTo: this.activeRoute });
   }
 
   onDeleteActionClicked(item: any) {
-    console.log("onDeleteActionClicked item", item);
     this.isLoading = true;
     if (!confirm("Are you sure?") === true) {
       this.isLoading = false;
@@ -72,15 +72,13 @@ export class MasterdatasListComponent implements OnInit {
     }
 
     this.items = this.items.filter((curitem) => item !== curitem);
-    this.service.deleteMasterdata(item.id).subscribe((data) => {
-      console.log("onDeleteActionClicked", data);
+    this.service.deleteMasterdata(this.typeId, item.id).subscribe(() => {
       this.totalSize--;
       this.isLoading = false;
     });
   }
 
   onEditActionClicked(item: any) {
-    console.log("onEditActionClicked", item);
-    this.router.navigate([`/masterdatas/${item.masterdataTypeId}/edit/${item.id}`]);
+    this.router.navigate([`${item.id}`, "edit"], { relativeTo: this.activeRoute });
   }
 }

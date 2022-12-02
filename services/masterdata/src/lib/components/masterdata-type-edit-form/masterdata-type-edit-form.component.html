@@ -1,4 +1,4 @@
-<lens-panel header="{{ formTitle }} Masterdata-type {{ id ? ' | ' + id : '' }}">
+<lens-panel header="{{ formTitle }} Masterdata-type '{{ item?.name }}'">
   <div class="form-wrapper">
     <div class="form-header">
       <div
@@ -28,10 +28,6 @@
           <ng-template
             #editFormBlock
             let-item="item">
-            <div class="field view-only">
-              <label>Id</label>
-              <span>{{ item.id }}</span>
-            </div>
             <div class="field view-only">
               <label>Code</label>
               <span>{{ item.code }}</span>

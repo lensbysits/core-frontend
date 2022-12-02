@@ -33,7 +33,7 @@ export class MasterdataTypeEditFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params["id"];
+    this.id = this.activeRoute.snapshot.params["masterdatatype"];
     this.isAddForm = !(this.id !== undefined);
 
     if (!this.isAddForm) {
@@ -117,6 +117,6 @@ export class MasterdataTypeEditFormComponent implements OnInit {
   }
 
   btnCancel() {
-    this.router.navigate(["type"]);
+    this.router.navigate(["/"]);
   }
 }

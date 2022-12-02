@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastService } from "@lens/ui-prime-components";
 import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
@@ -7,6 +7,7 @@ import { Masterdata, MasterdataType } from "../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataMaxLength } from "../../core/utils";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "lens-masterdatas-edit-form",
@@ -17,6 +18,7 @@ export class MasterdatasEditFormComponent implements OnInit {
   isLoading = false;
   id!: string;
   typeId = "";
+  masterdataType$?: Observable<MasterdataType>;
   dataForm!: FormGroup;
   isFormSubmitted = false;
   isAddForm = true;
@@ -33,13 +35,15 @@ export class MasterdatasEditFormComponent implements OnInit {
     private readonly activeRoute: ActivatedRoute,
     private readonly formBuilder: FormBuilder,
     private readonly toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params["id"];
-    this.typeId = this.activeRoute.snapshot.params["typeId"];
+    this.id = this.activeRoute.snapshot.params["masterdata"];
+    this.typeId = this.activeRoute.snapshot.params["masterdatatype"];
     this.isAddForm = !(this.id !== undefined);
     this.needsTypeIdSelector = !(this.typeId !== undefined);
+
+    if (this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
 
     if (!this.isAddForm) {
       this.loadData();
@@ -124,7 +128,7 @@ export class MasterdatasEditFormComponent implements OnInit {
       model.description = description;
 
       // const model = this.dataForm.value as IMasterdataUpdate;
-      this.service.updateMasterdata(this.id, model).subscribe((data) => {
+      this.service.updateMasterdata(this.typeId, this.id, model).subscribe((data) => {
         console.log("onSubmit update", data);
         this.btnCancel();
         this.isLoading = false;
@@ -134,7 +138,7 @@ export class MasterdatasEditFormComponent implements OnInit {
   }
 
   btnCancel() {
-    this.router.navigate(["masterdatas"]);
+    this.router.navigate([".."], { relativeTo: this.activeRoute });
   }
 
   loadTypesList() {

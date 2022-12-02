@@ -1,4 +1,4 @@
-<lens-panel header="{{ formTitle }} Masterdata {{ id ? ' | ' + id : '' }}">
+<lens-panel header="{{ formTitle }} Masterdata to type '{{ (masterdataType$ | async)?.name }}'">
   <div class="form-wrapper">
     <div class="form-header">
       <div
@@ -7,7 +7,7 @@
         <lens-icon
           icon="pi-arrow-left"
           class="mr-2"></lens-icon>
-        <a routerLink="/masterdatas">Back to list</a>
+        <a routerLink="..">Back to list</a>
       </div>
     </div>
     <div class="form-body">
@@ -29,31 +29,17 @@
             #editFormBlock
             let-item="item">
             <div class="field view-only">
-              <label>Id</label>
-              <span>{{ item.id }}</span>
-            </div>
-            <div class="field view-only">
-              <label>Masterdata Type Id</label>
-              <span>{{ typeId }}</span>
-            </div>
-            <div class="field view-only">
               <label>Key</label>
               <span>{{ item.key }}</span>
             </div>
           </ng-template>
 
           <ng-template #addFormBlock>
-            <ng-container *ngIf="needsTypeIdSelector; else showTypeIdBlock">
+            <ng-container *ngIf="needsTypeIdSelector">
               <ng-container *ngTemplateOutlet="showTypeIdSelectorBlock"></ng-container>
             </ng-container>
             <ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
 
-            <ng-template #showTypeIdBlock>
-              <div class="field view-only">
-                <label>Masterdata Type Id</label>
-                <span>{{ typeId }}</span>
-              </div>
-            </ng-template>
             <ng-template #showTypeIdSelectorBlock>
               <!-- type id -->
               <div class="field">
