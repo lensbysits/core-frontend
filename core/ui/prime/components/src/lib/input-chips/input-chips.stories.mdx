@@ -1,0 +1,27 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-chips.stories";
+import { Default } from "./input-chips.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputChips
+
+This is a nice way to input chips!
+
+The user can add chips by separating input with `,` or `ENTER`.
+
+Using the `search` event the list of items a user can select from is filtered. The list of items is not part of the chips component.
+
+Using `fieldLabel` the label property of an object can be specified.
+
+<Story story={Default} />
+
+First import `InputChipsModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-chips id="foo" (search)="onSearch($event)"></lens-input-chips>
+```
