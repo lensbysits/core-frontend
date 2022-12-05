@@ -11,10 +11,13 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 })
 export class InputChipsComponent extends InputBaseComponent implements AfterViewInit {
     @Input() public fieldLabel?: string;
+    @Input() public addOnEnter = false;
 
     @Output() search = new EventEmitter<string>();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Output() remove = new EventEmitter<any>();
+
+    private cachedSearchTerm = "";
 
     constructor (
         controlContainer: ControlContainer,
@@ -24,12 +27,31 @@ export class InputChipsComponent extends InputBaseComponent implements AfterView
     }
 
     public ngAfterViewInit(): void {
-        const searchElement = document.getElementById("search") as HTMLInputElement;
+        const searchElement = this.getSearchElement();
         this.renderer.listen(searchElement, "input", () => this.search.emit(searchElement.value));
+        if (!this.addOnEnter) {
+            this.renderer.listen(searchElement, "keydown", (event: KeyboardEvent) => { 
+                if (event.key === "Enter") {
+                    const arr = this.value as [];
+                    arr.pop();
+                    this.value = [...arr];
+                    searchElement.value = this.cachedSearchTerm;
+                }
+            });
+        }
+    }
+
+    private getSearchElement(): HTMLInputElement {
+        return document.getElementById("search") as HTMLInputElement
+    }
+
+    public onAddChip(): void {
+        const searchElement = this.getSearchElement();
+        this.cachedSearchTerm = searchElement.value;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public onRemoveChip(event: any) {
+    public onRemoveChip(event: any): void {
         this.remove.emit(event.value);
     }
 }

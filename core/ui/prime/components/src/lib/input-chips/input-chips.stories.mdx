@@ -12,7 +12,14 @@ import { Default } from "./input-chips.stories";
 
 This is a nice way to input chips!
 
-The user can add chips by separating input with `,` or `ENTER`.
+Chips can only be added programatically by modifying the array bound to the form control.
+
+```
+IMPORTANT: when the array bound to the form control is changed, nothing will happen until a new instance of the array is created.
+
+<lens-input-chips [(ngModel)]="array"></lens-input-chips>
+array = [...array];
+```
 
 Using the `search` event the list of items a user can select from is filtered. The list of items is not part of the chips component.
 

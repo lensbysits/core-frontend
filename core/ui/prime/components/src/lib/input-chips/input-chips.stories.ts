@@ -4,6 +4,7 @@ import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { InputChipsComponent } from "./input-chips.component";
 import { InputChipsModule } from "./input-chips.module";
 import { action } from "@storybook/addon-actions";
+import { v4 as uuidv4 } from 'uuid';
 
 const form: FormGroup = new FormGroup({
     chips: new FormControl("", []),
@@ -29,12 +30,19 @@ const Template: Story = args => ({
                     (search)="search($event)"
                     (remove)="remove($event)">
                 </lens-input-chips>
+                <button (click)="addChipButtonClicked()">Add chip</button>
                 </form>`,
     props: {
         ...args,
         form: form,
         remove: action("remove"),
-        search: action("search")
+        search: action("search"),
+        addChipButtonClicked: () => {
+            const chips = form.get("chips");
+            if (!chips) return;
+
+            chips.setValue([ ...chips.value, uuidv4() ]);
+        }
     }
 });
 
