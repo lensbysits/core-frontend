@@ -12,6 +12,7 @@ export class MSalAuthenticationService implements AuthenticationService, OnDestr
   private destroy$ = new Subject<void>();
 
   isAuthenticated$ = new Subject<boolean>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userData$ = new BehaviorSubject<any>({});
 
   constructor(
@@ -22,7 +23,7 @@ export class MSalAuthenticationService implements AuthenticationService, OnDestr
         filter(status => status === InteractionStatus.None),
         takeUntil(this.destroy$)
       )
-      .subscribe(_ => {
+      .subscribe(() => {
         this.setLoginDisplay()
       });
   }
@@ -46,7 +47,7 @@ export class MSalAuthenticationService implements AuthenticationService, OnDestr
       this.userData$.next({ username: accounts[0].name });
     } else {
       if (accounts.length > 1) {
-        console.log("Handle multiple logged in accounts");
+        console.warn("Multiple logged in accounts not supported.");
       }
       const username = accounts.map(a => a.name).join(', ');
       this.userData$.next({ username: username });

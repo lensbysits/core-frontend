@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/framework/core/app/core/src",
-  "prefix": "tp-frontend",
+  "sourceRoot": "libs/framework/core/app/abstract-ui/src",
+  "prefix": "lens",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/framework/core/app/core"],
+      "outputs": ["coverage/libs/framework/core/app/abstract-ui"],
       "options": {
-        "jestConfig": "libs/framework/core/app/core/jest.config.ts",
+        "jestConfig": "libs/framework/core/app/abstract-ui/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/framework/core/app/core/**/*.ts",
-          "libs/framework/core/app/core/**/*.html"
+          "libs/framework/core/app/abstract-ui/**/*.ts",
+          "libs/framework/core/app/abstract-ui/**/*.html"
         ]
       }
     }

@@ -18,7 +18,7 @@ export class HasRoleGuard implements CanActivate {
 
     private hasRequiredRole(roles: string[]) {
         let found = false;
-        for (let role in roles) {
+        for (const role in roles) {
             found = this.userContextService.IsInRole(role);
             if (found) break;
         }

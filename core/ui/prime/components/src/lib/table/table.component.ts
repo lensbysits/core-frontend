@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { TieredMenu } from "primeng/tieredmenu";
 import { ColumnsComponent } from "./columns.component";
@@ -12,17 +12,20 @@ import { RowActionsComponent } from "./row-actions.component";
     styleUrls: [ "table.component.scss" ]
 })
 export class TableComponent implements AfterViewInit {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() public source!: any[];
     @Input() public totalRecords!: number;
     @Input() public loading!: boolean;
     @Input() public rows = 10;
 
-    @Output() public onLazyLoad = new EventEmitter<ILazyLoadEvent>();
-    @Output() public onRowClick = new EventEmitter<any>();
+    @Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @Output() public rowClicked = new EventEmitter<any>();
 
     @ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
     @ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public itemOfContextMenuClickedRow: any;
     public rowActionItems!: MenuItem[];
 
@@ -35,21 +38,24 @@ export class TableComponent implements AfterViewInit {
         
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onLazyLoadData(event: any): void {
-        this.onLazyLoad.emit({
+        this.lazyLoad.emit({
             offset: event.first,
             rows: event.rows
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onRowClicked(item: any): void {
-        this.onRowClick.emit(item);
+        this.rowClicked.emit(item);
     }
 
     public hasRowActions(): boolean {
         return this.rowActions?.actions.length > 0;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onRowActionButtonClicked(menu: TieredMenu, event: MouseEvent, item: any): void {
         this.itemOfContextMenuClickedRow = item;
         menu.toggle(event);

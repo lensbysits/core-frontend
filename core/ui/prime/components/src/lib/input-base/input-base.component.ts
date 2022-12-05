@@ -11,9 +11,20 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
     @Input()
     public formControlName?: string;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     get control(): FormControl<any> {
-        const control = this.controlContainer?.control!.get(this.formControlName!)!;
-        return this.formControl || control as FormControl<any>;
+        if (this.formControl) {
+            return this.formControl;
+        }
+
+        if (!this.controlContainer || !this.controlContainer.control || !this.formControlName) {
+            throw "Eiter controlContainer, controlContainer.control or formControlName is empty. Please check your configuration.";
+        }
+
+        const control = this.controlContainer.control.get(this.formControlName);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return control as FormControl<any>;
     }
 
     constructor (
@@ -44,6 +55,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 
     public isRequired = false;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public value: any;
 
     public valueChanged(): void {
@@ -51,18 +63,24 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         this.onTouched(this.value);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     protected onChange = (event: any) => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     protected onTouched = (event: any) => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     protected onValidationChange = () => {};
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public writeValue(value: any): void {
         this.value = value;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public registerOnChange(fn: any): void {
         this.onChange = fn;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public registerOnTouched(fn: any): void {
         this.onTouched = fn;
     }
@@ -71,6 +89,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         this.isDisabled = isDisabled;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     public validate(control: AbstractControl<any, any>): ValidationErrors | null {
         return null;
     }

@@ -12,7 +12,7 @@ class CustomDialogComponent { }
 @Component({
     template: `<button (click)="foo()">Show dialog</button>`
 })
-class DialogComponentHost {
+class DialogHostComponent {
     constructor (
         private readonly dialogService: DialogService
     ) { }
@@ -23,7 +23,7 @@ class DialogComponentHost {
 }
 
 export default {
-    component: DialogComponentHost,
+    component: DialogHostComponent,
     title: "Components/Dialog",
     decorators: [
         moduleMetadata({
@@ -33,7 +33,7 @@ export default {
 } as Meta
 
 export const Default: Story = args => ({
-    component: DialogComponentHost,
+    component: DialogHostComponent,
     props: {
         ...args
     }

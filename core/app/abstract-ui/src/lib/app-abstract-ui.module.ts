@@ -32,6 +32,7 @@ const components_directives = [
     {
       provide: APP_INITIALIZER,
       multi: true,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       useFactory: () => () => {},
       deps: [ErrorHandlerService],
     },

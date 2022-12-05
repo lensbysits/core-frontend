@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 @Component({
     template: `<lens-toast></lens-toast><button (click)="foo()">Show toaster</button>`
 })
-class ToastComponentHost {
+class ToastHostComponent {
     constructor (
         private readonly toastService: ToastService
     ) { }
@@ -19,12 +19,12 @@ class ToastComponentHost {
 }
 
 export default {
-    component: ToastComponentHost,
+    component: ToastHostComponent,
     title: "Components/Toast",
     decorators: [
         moduleMetadata({
             declarations: [
-                ToastComponentHost
+                ToastHostComponent
             ],
             imports: [
                 ToastModule,
@@ -36,7 +36,7 @@ export default {
 } as Meta
 
 export const Default: Story = args => ({
-    component: ToastComponentHost,
+    component: ToastHostComponent,
     props: {
         ...args,
         foo: () => null

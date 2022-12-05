@@ -1,5 +1,4 @@
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { action } from "@storybook/addon-actions";
 import { LoadingSpinnerComponent } from "./loading-spinner.component";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 

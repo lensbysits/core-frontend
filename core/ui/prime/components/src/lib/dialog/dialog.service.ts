@@ -10,8 +10,9 @@ export class PrimeDialogService implements LensDialogService {
     constructor(private dialogService: DialogService) {
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public open(componentType: Type<any>, config: DialogConfig | undefined = undefined): LensDialogRef {
-        let defaultConfig: any = {
+        let defaultConfig: DialogConfig = {
             width: "25%",
             styleClass: "dynamicDialog",
             data: {}

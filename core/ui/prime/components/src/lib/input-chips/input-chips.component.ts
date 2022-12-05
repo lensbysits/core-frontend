@@ -13,6 +13,7 @@ export class InputChipsComponent extends InputBaseComponent implements AfterView
     @Input() public fieldLabel?: string;
 
     @Output() search = new EventEmitter<string>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Output() remove = new EventEmitter<any>();
 
     constructor (
@@ -27,6 +28,7 @@ export class InputChipsComponent extends InputBaseComponent implements AfterView
         this.renderer.listen(searchElement, "input", () => this.search.emit(searchElement.value));
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onRemoveChip(event: any) {
         this.remove.emit(event.value);
     }

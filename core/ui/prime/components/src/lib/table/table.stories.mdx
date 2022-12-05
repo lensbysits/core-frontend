@@ -19,7 +19,7 @@ This is a nice table!
 First import `TableModule` from `@lens/ui-prime-components`.
 
 ```html
-    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" (onRowClick)="onRowClicked($event)" [loading]="isLoading">
+    <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData($event)" (rowClicked)="onRowClicked($event)" [loading]="isLoading">
         <columns>
             <column label="Name" field="displayName"></column>
             <column label="Email address" field="emailAddress"></column>
@@ -27,14 +27,14 @@ First import `TableModule` from `@lens/ui-prime-components`.
     </lens-table>`,
 ```
 
-The `$event` object of `onRowClick` contains the data of the clicked row.
+The `$event` object of `rowClicked` contains the data of the clicked row.
 
 ## Row actions
 
 It is possible to define actions for each row:
 
 ```html
-    <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData($event)" (onRowClick)="onRowClicked($event)" [loading]="isLoading">
+    <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData($event)" (rowClicked)="onRowClicked($event)" [loading]="isLoading">
         <columns>
             <column label="Name" field="displayName"></column>
             <column label="Email address" field="emailAddress"></column>

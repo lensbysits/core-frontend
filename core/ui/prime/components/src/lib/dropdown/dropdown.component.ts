@@ -12,6 +12,7 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 export class DropdownComponent extends InputBaseComponent {
     @Input() public id!: string;
     @Input() public placeholder?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() public options!: any[];
     @Input() public grouped = false;
     @Input() public editable = false;
@@ -19,6 +20,7 @@ export class DropdownComponent extends InputBaseComponent {
     @Input() public optionLabel = "label";
     @Input() public optionDisabled = "disabled";
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public onDropdownChanged(event: any): void {
         this.value = event.value;
         this.valueChanged();

@@ -17,7 +17,7 @@ export class UserContextService extends DefaultUserContextService {
         filter(status => status === InteractionStatus.None),
         takeUntil(this.destroy$)
       )
-      .subscribe(status => {
+      .subscribe(() => {
         const accounts = msalAuthenticationService.instance.getAllAccounts();
         const isAuthenticated = accounts.length > 0;
         const username = accounts.map(a => a.name).join(', ');

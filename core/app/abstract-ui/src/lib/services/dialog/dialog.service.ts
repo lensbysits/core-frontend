@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable, Type } from "@angular/core";
 import { DialogConfig } from "./dialog-config.class";
 import { DialogRef } from "./dialog-ref.class";

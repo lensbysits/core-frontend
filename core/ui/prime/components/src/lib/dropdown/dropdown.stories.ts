@@ -24,7 +24,9 @@ const Template: Story = args => ({
     }
 });
 
-const options: any[] = [
+type Option = { value: string | number, label: string, items?: Option[] }
+
+const options: Option[] = [
     { value: 1, label: "Item 1" },
     { value: 2, label: "Item 2" },
     { value: 3, label: "Item 3" },
@@ -32,7 +34,7 @@ const options: any[] = [
     { value: 5, label: "Item 5" }
 ];
 
-const groupedOptions: any = [
+const groupedOptions: Option[] = [
     { value: "group1", label: "Group 1", items: [
         { value: 1, label: "Item 1" },
         { value: 2, label: "Item 2" },

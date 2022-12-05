@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
-import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { IPublicClientApplication, LogLevel, PublicClientApplication } from '@azure/msal-browser';
 import { AuthenticationService, AuthGuard } from '@lens/security-abstract';
 import { AppConfigurationService, UserContextService } from '@lens/app-abstract';
 import { MSalAuthenticationService, UserContextService as msalUserContextService } from './services';
@@ -40,7 +40,8 @@ function msalInterceptorConfigFactory(appConfigurationService: AppConfigurationS
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
   window.navigator.userAgent.indexOf('Trident/') > -1;
-function loggerCallback(logLevel: any, message: any, containsPii: any) {
+function loggerCallback(logLevel: LogLevel, message: string, containsPii: boolean) {
+  // eslint-disable-next-line no-console
   console.log(logLevel, message, containsPii);
 }
 

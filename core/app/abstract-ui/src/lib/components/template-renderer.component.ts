@@ -5,8 +5,10 @@ import { Component, EmbeddedViewRef, Input, OnDestroy, OnInit, TemplateRef, View
     template: ''
 })
 export class TemplateRendererComponent implements OnInit, OnDestroy {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() template!: TemplateRef<any>;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private view!: EmbeddedViewRef<any>;
 
     constructor(
