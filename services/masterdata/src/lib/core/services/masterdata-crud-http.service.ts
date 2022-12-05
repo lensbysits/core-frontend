@@ -67,32 +67,34 @@ export class MasterdataCrudHttpService {
       );
   }
 
-  getMasterdataTypeById(id: string): Observable<MasterdataType> {
+  getMasterdataTypeById(masterdatatype: string): Observable<MasterdataType> {
     const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
-    return this.client.get<Result<MasterdataType>>(`${this.baseUrl}/${id}/details`).pipe(
-      tap((_) => this.log(`id #${id}`, `getMasterdataTypeById`, "success")),
-      map((input) => {
-        return masterdataTypeModelAdapter.adapt(input.value);
-      }),
-      catchError(
-        this.handleError<MasterdataType>(
-          "getMasterdataTypeById",
-          masterdataTypeModelAdapter.adapt(null)
+    return this.client
+      .get<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`)
+      .pipe(
+        tap((_) => this.log(`id #${masterdatatype}`, `getMasterdataTypeById`, "success")),
+        map((input) => {
+          return masterdataTypeModelAdapter.adapt(input.value);
+        }),
+        catchError(
+          this.handleError<MasterdataType>(
+            "getMasterdataTypeById",
+            masterdataTypeModelAdapter.adapt(null)
+          )
         )
-      )
-    );
+      );
   }
 
   getAllMasterdatas(
-    typeId: string,
+    masterdatatype: string,
     offset: number,
     rows: number
   ): Observable<MasterdataResultList> {
     const masterdataResultListModelAdapter = new MasterdataResultListModelAdapter();
 
     const url = this.genericListUriMasterdata(
-      `${this.baseUrl}${!isEmpty(typeId) ? "/" + typeId : ""}`,
+      `${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`,
       offset,
       rows
     );
@@ -108,10 +110,10 @@ export class MasterdataCrudHttpService {
     );
   }
 
-  getMasterdataById(typeId: string, id: string): Observable<Masterdata> {
+  getMasterdataById(masterdatatype: string, id: string): Observable<Masterdata> {
     const masterdataModelAdapter = new MasterdataModelAdapter();
 
-    return this.client.get<Result<Masterdata>>(`${this.baseUrl}/${typeId}/${id}`).pipe(
+    return this.client.get<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`).pipe(
       tap(() => this.log(`id #${id}`, `getMasterdataById`, "success")),
       map((input) => {
         return masterdataModelAdapter.adapt(input.value);
@@ -127,49 +129,56 @@ export class MasterdataCrudHttpService {
   createMasterdataType(item: IMasterdataTypeCreate): Observable<MasterdataType> {
     const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
-    return this.client
-      .post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions)
-      .pipe(
-        tap((newItem) => {
-          this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success"); //JSON.parse(newItem)
-        }),
-        map((input) => {
-          return masterdataTypeModelAdapter.adapt(input.value);
-        }),
-        catchError(
-          this.handleError<MasterdataType>(
-            "createMasterdataType",
-            masterdataTypeModelAdapter.adapt(null)
-          )
+    return this.client.post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions).pipe(
+      tap((newItem) => {
+        this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success"); //JSON.parse(newItem)
+      }),
+      map((input) => {
+        return masterdataTypeModelAdapter.adapt(input.value);
+      }),
+      catchError(
+        this.handleError<MasterdataType>(
+          "createMasterdataType",
+          masterdataTypeModelAdapter.adapt(null)
         )
-      );
+      )
+    );
   }
 
   createMasterdata(item: IMasterdataCreate): Observable<Masterdata> {
     const masterdataModelAdapter = new MasterdataModelAdapter();
 
-    return this.client.post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions).pipe(
-      tap((newItem) => {
-        this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success"); //JSON.parse(newItem)
-      }),
-      map((input) => {
-        return masterdataModelAdapter.adapt(input.value);
-      }),
-      catchError(
-        this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null))
-      )
-    );
+    return this.client
+      .post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions)
+      .pipe(
+        tap((newItem) => {
+          this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success"); //JSON.parse(newItem)
+        }),
+        map((input) => {
+          return masterdataModelAdapter.adapt(input.value);
+        }),
+        catchError(
+          this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null))
+        )
+      );
   }
   //#endregion
 
   //#region Update/Put
-  updateMasterdataType(id: string, item: IMasterdataTypeUpdate): Observable<MasterdataType> {
+  updateMasterdataType(
+    masterdatatype: string,
+    item: IMasterdataTypeUpdate
+  ): Observable<MasterdataType> {
     const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
     return this.client
-      .put<Result<MasterdataType>>(`${this.baseUrl}/${id}/details`, item, this.httpOptions)
+      .put<Result<MasterdataType>>(
+        `${this.baseUrl}/${masterdatatype}/details`,
+        item,
+        this.httpOptions
+      )
       .pipe(
-        tap(() => this.log(`id #${id}`, `updateMasterdataType`, "success")),
+        tap(() => this.log(`id #${masterdatatype}`, `updateMasterdataType`, "success")),
         map((input) => {
           return masterdataTypeModelAdapter.adapt(input.value);
         }),
@@ -182,7 +191,11 @@ export class MasterdataCrudHttpService {
       );
   }
 
-  updateMasterdata(masterdatatype: string, id: string, item: IMasterdataUpdate): Observable<Masterdata> {
+  updateMasterdata(
+    masterdatatype: string,
+    id: string,
+    item: IMasterdataUpdate
+  ): Observable<Masterdata> {
     const masterdataModelAdapter = new MasterdataModelAdapter();
 
     return this.client
@@ -208,10 +221,12 @@ export class MasterdataCrudHttpService {
   }
 
   deleteMasterdata(masterdatatype: string, masterdata: string): Observable<any> {
-    return this.client.delete(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions).pipe(
-      tap((_) => this.log(`id #${masterdata}`, `deleteMasterdata`, "success")),
-      catchError(this.handleError<any>("deleteMasterdata", null))
-    );
+    return this.client
+      .delete(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions)
+      .pipe(
+        tap((_) => this.log(`id #${masterdata}`, `deleteMasterdata`, "success")),
+        catchError(this.handleError<any>("deleteMasterdata", null))
+      );
   }
   //#endregion
 
