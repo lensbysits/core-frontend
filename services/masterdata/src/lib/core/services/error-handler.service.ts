@@ -1,18 +1,19 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { ErrorHandlerService as BaseErrorHandlerService } from "@lens/app-abstract";
+import { DialogService } from "@lens/app-abstract-ui";
 import { Subject, takeUntil } from "rxjs";
-import { DialogService } from ".";
-import { ErrorDetailComponent } from "../components";
+import { ErrorHandlerService as BaseErrorHandlerService } from "@lens/app-abstract";
+import { ErrorDetailsComponent } from "../../components/error-details/error-details.component";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class ErrorHandlerService implements OnDestroy {
   private readonly destroy$ = new Subject<void>();
   constructor(errorHandlerService: BaseErrorHandlerService, dialogService: DialogService) {
     errorHandlerService.OnError.pipe(takeUntil(this.destroy$)).subscribe((error) => {
-      console.log(error);
-      //dialogService.open(ErrorDetailComponent, { header: "An error occurred", data: { error: error } });
+      console.error(error);
+      dialogService.open(ErrorDetailsComponent, {
+        header: "An error occurred",
+        data: { error: error },
+      });
     });
   }
 

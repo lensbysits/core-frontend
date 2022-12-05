@@ -1,23 +1,39 @@
-<p-table [value]="source"
-         [lazy]="true"
-         (onLazyLoad)="onLazyLoadData($event)"
-         selectionMode="single"
-         [paginator]="true"
-         [rows]="10"
-         [totalRecords]="totalRecords"
-         [loading]="loading">
-    <ng-template pTemplate="header">
-        <tr>
-            <th *ngFor="let column of columns.columns">{{ column.label }}</th>
-            <th *ngIf="hasRowActions()" style="width: 32px"></th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item>
-        <tr (click)="onRowClicked(item)">
-            <td *ngFor="let column of columns.columns">{{ item[column.field] }}</td>
-            <td *ngIf="hasRowActions()"><lens-button icon="pi-ellipsis-v" appearance="text" size="small" (clicked)="onRowActionButtonClicked(menu, $event, item)"></lens-button></td>
-        </tr>
-    </ng-template>
+<p-table
+  [value]="source"
+  [lazy]="true"
+  (onLazyLoad)="onLazyLoadData($event)"
+  selectionMode="single"
+  [paginator]="true"
+  [rows]="10"
+  [totalRecords]="totalRecords"
+  [loading]="loading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of columns.columns">{{ column.label }}</th>
+      <th
+        *ngIf="hasRowActions()"
+        style="width: 32px"></th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-item>
+    <tr
+      (click)="onRowClicked(item)"
+      (dblclick)="onRowDblClicked(item)">
+      <td *ngFor="let column of columns.columns">{{ item[column.field] }}</td>
+      <td *ngIf="hasRowActions()">
+        <lens-button
+          icon="pi-ellipsis-v"
+          appearance="text"
+          size="small"
+          (clicked)="onRowActionButtonClicked(menu, $event, item)"></lens-button>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
 
-<p-tieredMenu [model]="rowActionItems" [popup]="true" #menu></p-tieredMenu>
+<p-tieredMenu
+  [model]="rowActionItems"
+  [popup]="true"
+  #menu></p-tieredMenu>

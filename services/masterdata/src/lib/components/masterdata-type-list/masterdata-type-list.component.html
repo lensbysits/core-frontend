@@ -1,0 +1,50 @@
+<div class="masterdata-table-wrapper">
+  <div class="mb-4">
+    <span>Total masterdata types: {{ totalSize }}</span>
+    <lens-button
+      label="Add masterdata type"
+      icon="pi-plus"
+      type="success"
+      [disabled]="isLoading"
+      (clicked)="onAddAction()"></lens-button>
+  </div>
+  <lens-table
+    [source]="items"
+    [totalRecords]="totalSize"
+    (onLazyLoad)="onLazyLoadData($event)"
+    (onRowDblClick)="onRowClicked($event)"
+    [loading]="isLoading">
+    <columns>
+      <column
+        label="Code"
+        field="code"></column>
+      <column
+        label="Name"
+        field="name"></column>
+      <column
+        label="Count"
+        field="masterdatasCount"></column>
+      <column
+        label="Description"
+        field="description"></column>
+      <row-actions>
+        <action
+          icon="pi pi-list"
+          label="View Masterdatas"
+          (clicked)="onViewMasterdatasActionClicked($event)"></action>
+        <action
+          icon="pi pi-calendar-plus"
+          label="Add Masterdata"
+          (clicked)="onAddMasterdataActionClicked($event)"></action>
+        <action
+          icon="pi pi-pencil"
+          label="Edit"
+          (clicked)="onEditActionClicked($event)"></action>
+        <action
+          icon="pi pi-trash"
+          label="Delete"
+          (clicked)="onDeleteActionClicked($event)"></action>
+      </row-actions>
+    </columns>
+  </lens-table>
+</div>
