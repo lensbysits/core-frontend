@@ -1,3 +1,10 @@
 ::ng-deep .dynamicDialog > .p-dialog-content {
     padding: 0;
 }
+
+::ng-deep .p-dialog-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

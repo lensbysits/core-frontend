@@ -12,6 +12,7 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 export class InputChipsComponent extends InputBaseComponent implements AfterViewInit {
     @Input() public fieldLabel?: string;
     @Input() public addOnEnter = false;
+    @Input() public placeholder = "";
 
     @Output() search = new EventEmitter<string>();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -18,7 +18,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         }
 
         if (!this.controlContainer || !this.controlContainer.control || !this.formControlName) {
-            throw "Eiter controlContainer, controlContainer.control or formControlName is empty. Please check your configuration.";
+            throw "Either controlContainer, controlContainer.control or formControlName is empty. Please check your configuration.";
         }
 
         const control = this.controlContainer.control.get(this.formControlName);
@@ -31,13 +31,20 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         @Optional() private readonly controlContainer: ControlContainer
     ) { }
 
-    private _disabled!: string; 
-    @Input() public set disabled(value: string) {
+    private _disabled?: string; 
+    @Input() public set disabled(value: string | undefined | boolean) {
         this.isDisabled = value !== undefined;
-        this._disabled = value;
+        if (typeof value === "boolean" && !value) {
+            this.isDisabled = false;
+        }
+        if (this.isDisabled) {
+            this._disabled = "disabled";
+        } else {
+            this._disabled = undefined;
+        }
     }
 
-    public get disabled(): string {
+    public get disabled(): string | undefined | boolean {
         return this._disabled;
     }
 
