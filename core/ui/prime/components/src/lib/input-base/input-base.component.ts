@@ -1,5 +1,5 @@
-import { Component, Input, Optional, ViewChild } from "@angular/core";
-import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, FormControlDirective, ValidationErrors, Validator } from "@angular/forms";
+import { Component, Input, Optional } from "@angular/core";
+import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, ValidationErrors, Validator } from "@angular/forms";
 
 @Component({
     template: ""
