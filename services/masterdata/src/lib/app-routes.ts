@@ -11,6 +11,7 @@ import {
 
 export const masterdataRoutes: Routes = [
   { path: "", component: MasterdataTypeListComponent },
+  { path: "logs", component: LoggerMessagesComponent },
   // masterdata-type
   { path: "add", component: MasterdataTypeEditFormComponent },
   {
@@ -26,10 +27,9 @@ export const masterdataRoutes: Routes = [
         path: ":masterdata",
         children: [
           { path: "", component: MasterdatasDetailsComponent },
-          { path: "edit", component: MasterdatasEditFormComponent }
-        ]
+          { path: "edit", component: MasterdatasEditFormComponent },
+        ],
       },
-    ]
+    ],
   },
-  { path: "logs", component: LoggerMessagesComponent }
 ];
