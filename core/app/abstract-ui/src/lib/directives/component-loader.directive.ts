@@ -1,10 +1,13 @@
-import { Directive, Input, Type, ViewContainerRef } from "@angular/core";
+import { Directive, Input, OnInit, Type, ViewContainerRef } from "@angular/core";
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: "[component-loader]"
 })
-export class ComponentLoaderDirective {
+export class ComponentLoaderDirective implements OnInit {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input("component-loader") type!: Type<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Input() args: any;
 
     constructor(

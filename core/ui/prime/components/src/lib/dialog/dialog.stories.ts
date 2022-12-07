@@ -1,40 +1,63 @@
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DialogModule } from "./dialog.module";
-import { Component } from "@angular/core";
-import { DialogService } from "@lens/app-abstract-ui";
+import { Component, EventEmitter, Inject, Output } from "@angular/core";
+import { DialogConfig, DialogRef, DialogService } from "@lens/app-abstract-ui";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DialogComponent } from "@lens/app-abstract-ui";
+import { ButtonModule } from "../button";
 
 @Component({
-    template: `Dialog works!`
+	template: `
+		<ng-template #body>Dialog works!</ng-template>
+		<ng-template #footer>
+			<button (click)="onSomeCustomActionButtonClicked()">Some custom action</button>
+			<button (click)="onCloseButtonClicked()">Close</button>
+		</ng-template>
+	`,
 })
-class CustomDialogComponent { }
+class CustomDialogComponent extends DialogComponent {
+	constructor(@Inject("LensDialogRef") private readonly ref: DialogRef, @Inject("LensDialogConfig") public readonly config: DialogConfig) {
+		super();
+	}
+
+	public onSomeCustomActionButtonClicked() {
+		this.ref.close({ foo: "bar" });
+	}
+
+	public onCloseButtonClicked() {
+		this.ref.close();
+	}
+}
 
 @Component({
-    template: `<button (click)="foo()">Show dialog</button>`
+	template: `
+		<lens-button
+			(clicked)="foo()"
+			label="Show dialog"></lens-button>
+	`,
 })
-class DialogComponentHost {
-    constructor (
-        private readonly dialogService: DialogService
-    ) { }
+class DialogHostComponent {
+	constructor(private readonly dialogService: DialogService) {}
 
-    public foo(): void {
-        this.dialogService.open(CustomDialogComponent, { header: "In a galaxy far, far away..." })
-    }
+	public foo(): void {
+		const dialogRef = this.dialogService.open(CustomDialogComponent, { header: "In a galaxy far, far away..." });
+		dialogRef.onClose.subscribe((result) => alert(`Received from the dialog:\n\n${JSON.stringify(result)}`));
+	}
 }
 
 export default {
-    component: DialogComponentHost,
-    title: "Components/Dialog",
-    decorators: [
-        moduleMetadata({
-            imports: [ DialogModule , BrowserAnimationsModule]
-        })
-    ]
-} as Meta
+	component: DialogHostComponent,
+	title: "Services/Dialog",
+	decorators: [
+		moduleMetadata({
+			imports: [DialogModule, ButtonModule, BrowserAnimationsModule],
+		}),
+	],
+} as Meta;
 
-export const Default: Story = args => ({
-    component: DialogComponentHost,
-    props: {
-        ...args
-    }
+export const Default: Story = (args) => ({
+	component: DialogHostComponent,
+	props: {
+		...args,
+	},
 });

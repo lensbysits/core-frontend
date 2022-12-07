@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, OnInit } from "@angular/core";
 import { UserContextService } from "@lens/app-abstract";
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: "[lens-has-role]"
 })
 export class HasRoleDirective implements OnInit {

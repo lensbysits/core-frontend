@@ -3,22 +3,6 @@
   "sourceRoot": "libs/framework/core/ui/prime/layout/src",
   "prefix": "lens",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/framework/core/ui/prime/layout/prime-layout"],
-      "options": {
-        "project": "libs/framework/core/ui/prime/layout/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/framework/core/ui/prime/layout/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/framework/core/ui/prime/layout/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/framework/core/ui/prime/layout/prime-layout"],

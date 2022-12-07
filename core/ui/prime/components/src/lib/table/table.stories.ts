@@ -29,7 +29,7 @@ const users = [
 
 const Template: Story = args => ({
     template: `
-        <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData()" (onRowClick)="onRowClicked()" [loading]="isLoading">
+        <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData()" (rowClicked)="onRowClicked()" [loading]="isLoading">
             <columns>
                 <column label="Name" field="displayName"></column>
                 <column label="Email address" field="emailAddress"></column>
@@ -37,8 +37,8 @@ const Template: Story = args => ({
         </lens-table>`,
     props: {
         ...args,
-        onLazyLoadData: action("onLazyLoad"),
-        onRowClicked: action("onRowClicked")
+        onLazyLoadData: action("lazyLoad"),
+        onRowClicked: action("rowClicked")
     }
 });
 
@@ -51,7 +51,7 @@ Default.args = {
 
 const RowActionsTemplate: Story = args => ({
     template: `
-        <lens-table [source]="users" [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoadData()" (onRowClick)="onRowClicked()" [loading]="isLoading">
+        <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData()" (rowClicked)="onRowClicked()" [loading]="isLoading">
             <columns>
                 <column label="Name" field="displayName"></column>
                 <column label="Email address" field="emailAddress"></column>
@@ -62,9 +62,9 @@ const RowActionsTemplate: Story = args => ({
         </lens-table>`,
     props: {
         ...args,
-        onLazyLoadData: action("onLazyLoad"),
+        onLazyLoadData: action("lazyLoad"),
         onDeleteActionClicked: action("onDeleteActionClicked"),
-        onRowClicked: action("onRowClicked")
+        onRowClicked: action("rowClicked")
     }
 });
 

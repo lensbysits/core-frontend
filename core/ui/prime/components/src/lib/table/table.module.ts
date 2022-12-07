@@ -8,7 +8,6 @@ import { RowActionComponent } from "./row-action.component";
 import { RowActionsComponent } from "./row-actions.component";
 import { TableComponent } from "./table.component";
 import { TieredMenuModule } from "primeng/tieredmenu";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
     imports: [

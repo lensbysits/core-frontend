@@ -1,6 +1,7 @@
 import { Component, ContentChild, Input, ViewChild } from "@angular/core";
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: "lens-table > columns > column",
     template: ""
 })

@@ -16,9 +16,44 @@ This is a nice dialog!
 
 First import `DialogModule` from `@lens/ui-prime-components`.
 
-Then, define your own dialog component. For example: `FooDialogComponent`.
+Then, define your own dialog component. For example: `MyCustomDialogComponent`. Please make sure it extends `DialogComponent` from `@lens/app-abstract-ui`;
 
-After that, open the dialog using the generic `DialogService`.
+```html
+<ng-template #body>Dialog works!</ng-template>
+<ng-template #footer>
+    <button (click)="onSomeCustomActionButtonClicked()">Some custom action</button>
+    <button (click)="onCloseButtonClicked()">Close</button>
+</ng-template>
+```
+
+If `<ng-template #footer>` is not present, a default Close button is shown.
+
+You can return a response from the dialog like so:
+
+```ts
+import { DialogComponent, DialogConfig, DialogRef } from "@lens/app-abstract-ui";
+
+export class MyCustomDialogComponent extends DialogComponent {
+    constructor(
+        @Inject("LensDialogRef") private readonly ref: DialogRef,
+		@Inject("LensDialogConfig") public readonly config: DialogConfig
+    ) {
+        super();
+    }
+
+    public onSomeCustomActionButtonClicked(): void {
+		this.ref.close({
+            foo: "bar"
+        });
+    }
+
+    public onCloseButtonClicked(): void {
+		this.ref.close();
+    }
+}
+```
+
+After that, open the dialog using the generic `DialogService` and process the result if needed.
 
 ```ts
 import { DialogService } from "@lens/app-abstract-ui";
@@ -28,6 +63,7 @@ constructor (
 ) { }
 
 public foo(): void {
-    this.dialogService.open(FooDialogComponent, { header: "My first header" });
+    const dialogRef = this.dialogService.open(MyCustomDialogComponent, { header: "In a galaxy far, far away..." });
+    dialogRef.onClose.subscribe(result => alert(`Received from the dialog:\n\n${JSON.stringify(result)}`));
 }
 ```

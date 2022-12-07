@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/framework/core/security/oauth/src",
-  "prefix": "frontend",
+  "prefix": "lens",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

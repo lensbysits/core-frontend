@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from "@angular/core";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { TieredMenu } from "primeng/tieredmenu";
 import { ColumnsComponent } from "./columns.component";
@@ -15,57 +7,66 @@ import { RowActionComponent } from "./row-action.component";
 import { RowActionsComponent } from "./row-actions.component";
 
 @Component({
-  selector: "lens-table",
-  templateUrl: "table.component.html",
-  styleUrls: ["table.component.scss"],
+	selector: "lens-table",
+	templateUrl: "table.component.html",
+	styleUrls: ["table.component.scss"],
 })
 export class TableComponent implements AfterViewInit {
-  @Input() public source!: any[];
-  @Input() public totalRecords!: number;
-  @Input() public loading!: boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@Input() public source!: any[];
+	@Input() public totalRecords!: number;
+	@Input() public loading!: boolean;
+	@Input() public rows = 10;
 
-  @Output() public onLazyLoad = new EventEmitter<ILazyLoadEvent>();
-  @Output() public onRowClick = new EventEmitter<any>();
-  @Output() public onRowDblClick = new EventEmitter<any>();
+	@Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@Output() public rowClicked = new EventEmitter<any>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@Output() public rowDblClick = new EventEmitter<any>();
 
-  @ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
-  @ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent;
+	@ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
+	@ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent;
 
-  public itemOfContextMenuClickedRow: any;
-  public rowActionItems!: MenuItem[];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public itemOfContextMenuClickedRow: any;
+	public rowActionItems!: MenuItem[];
 
-  public ngAfterViewInit(): void {
-    this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
-      icon: action.icon,
-      label: action.label,
-      command: () => {
-        action.clicked.emit(this.itemOfContextMenuClickedRow);
-      },
-    }));
-  }
+	public ngAfterViewInit(): void {
+		this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
+			icon: action.icon,
+			label: action.label,
+			command: () => {
+				action.clicked.emit(this.itemOfContextMenuClickedRow);
+			},
+		}));
+	}
 
-  public onLazyLoadData(event: any): void {
-    this.onLazyLoad.emit({
-      offset: event.first,
-      rows: event.rows,
-    });
-  }
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public onLazyLoadData(event: any): void {
+		this.lazyLoad.emit({
+			offset: event.first,
+			rows: event.rows,
+		});
+	}
 
-  public onRowClicked(item: any): void {
-    this.onRowClick.emit(item);
-  }
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public onRowClicked(item: any): void {
+		this.rowClicked.emit(item);
+	}
 
-  public onRowDblClicked(item: any): void {
-    this.onRowDblClick.emit(item);
-  }
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public onRowDblClicked(item: any): void {
+		this.rowDblClick.emit(item);
+	}
 
-  public hasRowActions(): boolean {
-    return this.rowActions?.actions.length > 0;
-  }
+	public hasRowActions(): boolean {
+		return this.rowActions?.actions.length > 0;
+	}
 
-  public onRowActionButtonClicked(menu: TieredMenu, event: MouseEvent, item: any): void {
-    this.itemOfContextMenuClickedRow = item;
-    menu.toggle(event);
-    event.stopPropagation();
-  }
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public onRowActionButtonClicked(menu: TieredMenu, event: MouseEvent, item: any): void {
+		this.itemOfContextMenuClickedRow = item;
+		menu.toggle(event);
+		event.stopPropagation();
+	}
 }

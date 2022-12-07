@@ -2,8 +2,8 @@
 
 import { mount } from 'cypress/angular'
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface Chainable {
@@ -12,4 +12,5 @@ declare global {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 Cypress.Commands.add('mount', (component: any, config) => mount(component, config));

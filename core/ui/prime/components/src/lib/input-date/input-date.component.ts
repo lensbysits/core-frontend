@@ -34,6 +34,7 @@ export class InputDateComponent extends InputBaseComponent {
 
     @ViewChild("date", { read: Calendar, static: true }) private date!: Calendar;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     override validate(control: AbstractControl<any, any>): ValidationErrors | null {
         if (!this.isRequired && !control.value) {
             return null;

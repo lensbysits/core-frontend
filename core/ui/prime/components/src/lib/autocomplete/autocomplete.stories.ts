@@ -1,7 +1,6 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { AutoCompleteComponent } from "./autocomplete.component"
-import { CalendarModule } from "primeng/calendar";
 import { AutoCompleteModule } from "./autocomplete.module";
 
 export default {

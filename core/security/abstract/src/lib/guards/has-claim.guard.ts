@@ -18,7 +18,7 @@ export class HasClaimGuard implements CanActivate {
 
     private hasRequiredClaim(claims: string[]) {
         let found = false;
-        for (let claim in claims) {
+        for (const claim in claims) {
             found = this.userContextService.HasClaim(claim);
             if (found) break;
         }

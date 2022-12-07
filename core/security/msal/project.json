@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/framework/core/security/msal/src",
-  "prefix": "frontend",
+  "prefix": "lens",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
