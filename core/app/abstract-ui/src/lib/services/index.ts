@@ -1,2 +1,1 @@
-export * from './error-handler.service';
-export * from './dialog';
+export * from "./dialog";
