@@ -1,0 +1,27 @@
+<div *ngIf="item$ | async; let item">
+  <lens-panel header="Masterdata-type Details">
+    <div class="details-wrapper">
+      <div
+        class="mb-4"
+        style="color: var(--primary-color)">
+        <lens-icon
+          icon="pi-arrow-left"
+          class="mr-2"></lens-icon>
+        <a routerLink="/">Back to list</a>
+      </div>
+      <div
+        *ngFor="let item of prepareForDisplay(item)"
+        class="grid">
+        <div class="col-6">{{ item[0] | titlecase }}</div>
+        <div class="col-6">
+          <ng-container *ngIf="item[0] !== 'metadata'; else showPreCode">
+            {{ item[1] }}
+          </ng-container>
+          <ng-template #showPreCode>
+            <pre>{{ item[1] | json }}</pre>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </lens-panel>
+</div>
