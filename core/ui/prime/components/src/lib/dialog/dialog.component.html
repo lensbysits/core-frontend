@@ -1,14 +1,22 @@
-<div class="p-dialog-content">
-    <ng-template [ngIf]="component.bodyTemplate">
-        <lens-template-renderer [template]="component.bodyTemplate"></lens-template-renderer>
-    </ng-template>
-</div>
-<div class="p-dialog-footer">
-    <ng-template #defaultFooterTemplate>
-        <lens-button label="Close" (clicked)="onCloseClick()"></lens-button>
-    </ng-template>
+<div class="dialog-container">
+	<div class="p-dialog-content">
+		<ng-template [ngIf]="component.bodyTemplate">
+			<lens-template-renderer
+				[template]="component.bodyTemplate"></lens-template-renderer>
+		</ng-template>
+	</div>
+	<div class="p-dialog-footer">
+		<ng-template #defaultFooterTemplate>
+			<lens-button
+				label="Close"
+				(clicked)="onCloseClick()"></lens-button>
+		</ng-template>
 
-    <ng-template [ngIf]="component.footerTemplate" [ngIfElse]="defaultFooterTemplate">
-        <lens-template-renderer [template]="component.footerTemplate"></lens-template-renderer>
-    </ng-template>
+		<ng-template
+			[ngIf]="component.footerTemplate"
+			[ngIfElse]="defaultFooterTemplate">
+			<lens-template-renderer
+				[template]="component.footerTemplate"></lens-template-renderer>
+		</ng-template>
+	</div>
 </div>
