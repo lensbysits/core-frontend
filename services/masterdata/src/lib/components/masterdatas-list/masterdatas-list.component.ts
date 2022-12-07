@@ -33,7 +33,7 @@ export class MasterdatasListComponent implements OnInit {
   loadItems(offset: number, rows: number) {
     this.isLoading = true;
 
-    if(this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
+    if (this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
 
     this.service.getAllMasterdatas(this.typeId, offset, rows).subscribe({
       next: (data) => {

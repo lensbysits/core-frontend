@@ -11,8 +11,8 @@
   <lens-table
     [source]="items"
     [totalRecords]="totalSize"
-    (onLazyLoad)="onLazyLoadData($event)"
-    (onRowDblClick)="onRowClicked($event)"
+    (lazyLoad)="onLazyLoadData($event)"
+    (rowDblClick)="onRowClicked($event)"
     [loading]="isLoading">
     <columns>
       <column
