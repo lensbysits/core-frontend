@@ -16,7 +16,7 @@ This is a nice dialog!
 
 First import `DialogModule` from `@lens/ui-prime-components`.
 
-Then, define your own dialog component. For example: `FooDialogComponent`.
+Then, define your own dialog component. For example: `MyCustomDialogComponent`. Please make sure it extends `DialogComponent` from `@lens/app-abstract-ui`;
 
 ```html
 <ng-template #body>Dialog works!</ng-template>
@@ -31,7 +31,9 @@ If `<ng-template #footer>` is not present, a default Close button is shown.
 You can return a response from the dialog like so:
 
 ```ts
-export class MyCustomDialogComponent {
+import { DialogComponent, DialogConfig, DialogRef } from "@lens/app-abstract-ui";
+
+export class MyCustomDialogComponent extends DialogComponent {
     constructor(
         @Inject("LensDialogRef") private readonly ref: DialogRef,
 		@Inject("LensDialogConfig") public readonly config: DialogConfig

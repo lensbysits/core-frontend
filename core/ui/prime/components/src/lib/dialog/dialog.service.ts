@@ -4,25 +4,24 @@ import { DialogService } from "primeng/dynamicdialog";
 import { DialogComponent } from "./dialog.component";
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: "root",
 })
 export class PrimeDialogService implements LensDialogService {
-    constructor(private dialogService: DialogService) {
-    }
+	constructor(private dialogService: DialogService) {}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public open(componentType: Type<any>, config: DialogConfig | undefined = undefined): LensDialogRef {
-        let defaultConfig: DialogConfig = {
-            width: "25%",
-            styleClass: "dynamicDialog",
-            data: {}
-        };
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public open(componentType: Type<any>, config: DialogConfig | undefined = undefined): LensDialogRef {
+		let defaultConfig: DialogConfig = {
+			width: "25%",
+			styleClass: "dynamicDialog",
+			data: {},
+		};
 
-        if (config) {
-            defaultConfig = Object.assign(defaultConfig, config);
-        }
+		if (config) {
+			defaultConfig = Object.assign(defaultConfig, config);
+		}
 
-        defaultConfig.data.componentType = componentType;
-        return this.dialogService.open(DialogComponent, defaultConfig);
-    }
+		defaultConfig.data.componentType = componentType;
+		return this.dialogService.open(DialogComponent, defaultConfig);
+	}
 }
