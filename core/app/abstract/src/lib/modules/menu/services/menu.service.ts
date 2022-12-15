@@ -5,7 +5,7 @@ import { UserContextService } from "../../user-context";
 import { MenuItem } from "../models";
 
 @Injectable({
-	providedIn: "root",
+	providedIn: "root"
 })
 export class MenuService {
 	private allMenuItems: MenuItem[] = [];
@@ -37,6 +37,7 @@ export class MenuService {
 		return this.getMenuItems().pipe(map((menuItems) => menuItems.length === 0));
 	}
 
+	// eslint-disable-next-line complexity
 	filter(navItem: MenuItem): MenuItem | null {
 		// if environment-filter is false, don't show
 		if (navItem.envfilter && navItem.envfilter?.indexOf(this.appInfo.environment ?? "") < 0) {

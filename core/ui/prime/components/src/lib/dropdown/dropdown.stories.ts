@@ -14,21 +14,22 @@ export default {
 			imports: [
 				DropdownModule,
 				BrowserAnimationsModule,
-				FormsModule, // FormsModule needs to imported or else writeValue() isn't called, giving unexpected results | https://github.com/storybookjs/storybook/issues/14643
-			],
-		}),
-	],
+				FormsModule // FormsModule needs to imported or else writeValue() isn't called, giving unexpected results | https://github.com/storybookjs/storybook/issues/14643
+			]
+		})
+	]
 } as Meta;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const form = new FormGroup({
-	dropdown: new FormControl(),
+	dropdown: new FormControl()
 });
 
 const Template: Story = (args) => {
 	return {
 		props: {
-			...args,
-		},
+			...args
+		}
 	};
 };
 
@@ -39,7 +40,7 @@ const options: Option[] = [
 	{ value: 2, label: "Item 2" },
 	{ value: 3, label: "Item 3" },
 	{ value: 4, label: "Item 4" },
-	{ value: 5, label: "Item 5" },
+	{ value: 5, label: "Item 5" }
 ];
 
 const groupedOptions: Option[] = [
@@ -51,8 +52,8 @@ const groupedOptions: Option[] = [
 			{ value: 2, label: "Item 2" },
 			{ value: 3, label: "Item 3" },
 			{ value: 4, label: "Item 4" },
-			{ value: 5, label: "Item 5" },
-		],
+			{ value: 5, label: "Item 5" }
+		]
 	},
 	{
 		value: "group2",
@@ -62,8 +63,8 @@ const groupedOptions: Option[] = [
 			{ value: 7, label: "Item 7" },
 			{ value: 8, label: "Item 8" },
 			{ value: 9, label: "Item 9" },
-			{ value: 10, label: "Item 10" },
-		],
+			{ value: 10, label: "Item 10" }
+		]
 	},
 	{
 		value: "group3",
@@ -73,16 +74,16 @@ const groupedOptions: Option[] = [
 			{ value: 12, label: "Item 12" },
 			{ value: 13, label: "Item 13" },
 			{ value: 14, label: "Item 14" },
-			{ value: 15, label: "Item 15" },
-		],
-	},
+			{ value: 15, label: "Item 15" }
+		]
+	}
 ];
 
 export const Default = Template.bind({});
 Default.args = {
 	id: "foo",
 	options: options,
-	placeholder: "test",
+	placeholder: "test"
 };
 
 export const Grouped = Template.bind({});
@@ -90,7 +91,7 @@ Grouped.args = {
 	id: "foo",
 	options: groupedOptions,
 	placeholder: "test",
-	grouped: true,
+	grouped: true
 };
 
 export const Editable = Template.bind({});
@@ -98,7 +99,7 @@ Editable.args = {
 	id: "foo",
 	options: options,
 	placeholder: "test",
-	editable: true,
+	editable: true
 };
 
 Editable.play = async (context) => {

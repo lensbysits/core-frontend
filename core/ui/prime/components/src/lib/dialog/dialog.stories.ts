@@ -1,6 +1,6 @@
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DialogModule } from "./dialog.module";
-import { Component, EventEmitter, Inject, Output } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { DialogConfig, DialogRef, DialogService } from "@lens/app-abstract-ui";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DialogComponent } from "@lens/app-abstract-ui";
@@ -13,7 +13,7 @@ import { ButtonModule } from "../button";
 			<button (click)="onSomeCustomActionButtonClicked()">Some custom action</button>
 			<button (click)="onCloseButtonClicked()">Close</button>
 		</ng-template>
-	`,
+	`
 })
 class CustomDialogComponent extends DialogComponent {
 	constructor(@Inject("LensDialogRef") private readonly ref: DialogRef, @Inject("LensDialogConfig") public readonly config: DialogConfig) {
@@ -34,7 +34,7 @@ class CustomDialogComponent extends DialogComponent {
 		<lens-button
 			(clicked)="foo()"
 			label="Show dialog"></lens-button>
-	`,
+	`
 })
 class DialogHostComponent {
 	constructor(private readonly dialogService: DialogService) {}
@@ -50,14 +50,14 @@ export default {
 	title: "Services/Dialog",
 	decorators: [
 		moduleMetadata({
-			imports: [DialogModule, ButtonModule, BrowserAnimationsModule],
-		}),
-	],
+			imports: [DialogModule, ButtonModule, BrowserAnimationsModule]
+		})
+	]
 } as Meta;
 
 export const Default: Story = (args) => ({
 	component: DialogHostComponent,
 	props: {
-		...args,
-	},
+		...args
+	}
 });
