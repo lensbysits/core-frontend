@@ -4,8 +4,8 @@ import { AutoCompleteModule } from "@lens/ui-prime-components";
 import { MasterdataTypeSelectorComponent } from "./masterdata-type-selector.component";
 
 @NgModule({
-  imports: [AutoCompleteModule, FormsModule],
-  declarations: [MasterdataTypeSelectorComponent],
-  exports: [MasterdataTypeSelectorComponent],
+	imports: [AutoCompleteModule, FormsModule],
+	declarations: [MasterdataTypeSelectorComponent],
+	exports: [MasterdataTypeSelectorComponent]
 })
 export class MasterdataTypeSelectorModule {}
