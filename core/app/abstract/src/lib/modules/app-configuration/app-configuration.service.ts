@@ -12,9 +12,10 @@ export class AppConfigurationService {
 		this.configuration = configuration;
 	}
 
-	getSettings(key?: string | Array<string>): unknown {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getSettings<T>(key?: string | Array<string>): T {
 		if (!key || (Array.isArray(key) && !key[0])) {
-			return this.configuration;
+			return this.configuration as T;
 		}
 
 		if (!Array.isArray(key)) {
@@ -24,6 +25,6 @@ export class AppConfigurationService {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const result = key.reduce((acc: any, current: string) => acc && acc[current], this.configuration);
 
-		return result;
+		return result as T;
 	}
 }
