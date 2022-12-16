@@ -5,14 +5,15 @@ import { DialogService } from ".";
 import { ErrorDetailComponent } from "../components";
 
 @Injectable({
-	providedIn: "root",
+	providedIn: "root"
 })
 export class ErrorHandlerService implements OnDestroy {
 	private readonly destroy$ = new Subject<void>();
 	constructor(errorHandlerService: BaseErrorHandlerService, dialogService: DialogService) {
 		errorHandlerService.OnError.pipe(takeUntil(this.destroy$)).subscribe((error) => {
 			console.error(error);
-			dialogService.open(ErrorDetailComponent, { header: "An error occurred", data: { error: error } });
+			//Fix in story #3386
+			//dialogService.open(ErrorDetailComponent, { header: "An error occurred", data: { error: error } });
 		});
 	}
 
