@@ -53,8 +53,8 @@ function msalInterceptorConfigFactory(appConfigurationService: AppConfigurationS
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 function loggerCallback(logLevel: LogLevel, message: string, containsPii: boolean) {
-	// eslint-disable-next-line no-console
-	console.log(logLevel, message, containsPii);
+	// eslint-disable-next-line no-console, no-restricted-syntax
+	console.debug(logLevel, message, containsPii);
 }
 
 @NgModule({
