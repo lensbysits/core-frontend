@@ -6,7 +6,7 @@ import { AppConfigurationService } from "@lens/app-abstract";
 import { API_BASE_URL, MasterdataCrudHttpService } from "./";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
-	const result = appConfigurationService.getSettings("api.baseUrl");
+	const result = appConfigurationService.getSettings<string>("api.baseUrl");
 	return result;
 }
 

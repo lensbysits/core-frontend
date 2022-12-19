@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { LoggerMessagesService } from "../../core/services";
 
 @Component({
@@ -6,9 +6,6 @@ import { LoggerMessagesService } from "../../core/services";
 	templateUrl: "./logger-messages.component.html",
 	styleUrls: ["./logger-messages.component.scss"]
 })
-export class LoggerMessagesComponent implements OnInit {
+export class LoggerMessagesComponent {
 	constructor(public readonly logger: LoggerMessagesService) {}
-
-	// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
-	ngOnInit(): void {}
 }
