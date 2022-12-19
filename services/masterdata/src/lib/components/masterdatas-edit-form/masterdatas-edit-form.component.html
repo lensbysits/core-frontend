@@ -150,6 +150,27 @@
 								</div>
 							</div>
 						</div>
+						<!-- metadata -->
+						<div class="field">
+							<label for="metadata">Metadata</label>
+              <json-editor
+                [options]="makeMetadataEditorOptions()"
+                formControlName="metadata"
+              >
+              </json-editor>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['metadata']!.errors?.['required']">
+									Metadata is required.
+								</div>
+								<div
+									*ngIf="getFormFields['metadata']!.errors?.['maxlength']">
+									Metadata can be max {{ maxLength.metadata }} characters
+									long.
+								</div>
+							</div>
+						</div>
 					</ng-template>
 				</div>
 			</form>

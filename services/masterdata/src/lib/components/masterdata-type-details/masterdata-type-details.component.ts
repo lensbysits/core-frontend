@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { map, Observable, tap } from "rxjs";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
@@ -16,6 +17,8 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	// item?: MasterdataType;
 	item$?: Observable<MasterdataType | undefined>;
 
+	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
+
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
 		private readonly activeRoute: ActivatedRoute,
@@ -25,6 +28,13 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	ngOnInit(): void {
 		this.itemId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
 		this.loadItem(this.itemId);
+	}
+
+	makeMetadataEditorOptions(): JsonEditorOptions {
+		const opt = new JsonEditorOptions();
+		opt.mode = "view";
+		opt.modes = ["text", "view"];
+		return opt;
 	}
 
 	loadItem(id: string) {

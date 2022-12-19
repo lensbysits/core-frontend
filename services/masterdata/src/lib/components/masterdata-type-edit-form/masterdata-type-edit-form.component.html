@@ -7,7 +7,7 @@
 				<lens-icon
 					icon="pi-arrow-left"
 					class="mr-2"></lens-icon>
-				<a routerLink="/type">Back to list</a>
+				<a routerLink="/">Back to list</a>
 			</div>
 		</div>
 		<div class="form-body">
@@ -94,6 +94,27 @@
 								<div
 									*ngIf="getFormFields['description']!.errors?.['maxlength']">
 									Description can be max {{ maxLength.description }} characters
+									long.
+								</div>
+							</div>
+						</div>
+						<!-- metadata -->
+						<div class="field">
+							<label for="metadata">Metadata</label>
+              <json-editor
+                [options]="makeMetadataEditorOptions()"
+                formControlName="metadata"
+              >
+              </json-editor>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['metadata']!.errors?.['required']">
+									Metadata is required.
+								</div>
+								<div
+									*ngIf="getFormFields['metadata']!.errors?.['maxlength']">
+									Metadata can be max {{ maxLength.metadata }} characters
 									long.
 								</div>
 							</div>

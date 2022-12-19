@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { ToastService } from "@lens/ui-prime-components";
 import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
@@ -24,6 +25,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	item?: MasterdataType;
 	maxLength = MasterdataTypeMaxLength;
 
+	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
+
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
 		private readonly router: Router,
@@ -45,8 +48,16 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 		this.dataForm = this.formBuilder.group({
 			code: ["", [Validators.required, Validators.maxLength(this.maxLength.code)]],
 			name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
-			description: ["", [Validators.maxLength(this.maxLength.description)]]
+			description: ["", [Validators.maxLength(this.maxLength.description)]],
+			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]]
 		});
+	}
+
+	makeMetadataEditorOptions(): JsonEditorOptions {
+		const opt = new JsonEditorOptions();
+		opt.mode = "tree";
+		opt.modes = ["code", "text", "tree", "view"];
+		return opt;
 	}
 
 	// convenience getter for easy access to form fields
@@ -60,7 +71,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			this.dataForm.patchValue({
 				code: data.code,
 				name: data.name,
-				description: data.description
+				description: data.description,
+				metadata: data.metadata
 			});
 			this.item = data || {};
 			this.isLoading = false;
@@ -79,11 +91,13 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			const code = getRequiredFieldValue<string>(this.dataForm, "code");
 			const name = getRequiredFieldValue<string>(this.dataForm, "name");
 			const description = getFieldValue<string>(this.dataForm, "description");
+			const metadata = getFieldValue<string>(this.dataForm, "metadata");
 
 			const model = {} as IMasterdataTypeCreate;
 			model.code = code;
 			model.name = name;
 			model.description = description;
+			model.metadata = metadata;
 
 			// const model = this.dataForm.value as IMasterdataTypeCreate;
 			this.service.createMasterdataType(model).subscribe(() => {
@@ -94,10 +108,12 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 		} else {
 			const name = getRequiredFieldValue<string>(this.dataForm, "name");
 			const description = getFieldValue<string>(this.dataForm, "description");
+			const metadata = getFieldValue<string>(this.dataForm, "metadata");
 
 			const model = {} as IMasterdataTypeUpdate;
 			model.name = name;
 			model.description = description;
+			model.metadata = metadata;
 
 			// const model = this.dataForm.value as IMasterdataTypeUpdate;
 			this.service.updateMasterdataType(this.id, model).subscribe(() => {
