@@ -81,10 +81,10 @@
 						<!-- description -->
 						<div class="field">
 							<label for="description">Description</label>
-							<lens-input-text
+							<lens-input-textarea
 								id="description"
 								formControlName="description"
-								placeholder="Please enter a valid description"></lens-input-text>
+								placeholder="Please enter a valid description"></lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
