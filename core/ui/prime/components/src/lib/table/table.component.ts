@@ -9,7 +9,7 @@ import { RowActionsComponent } from "./row-actions.component";
 @Component({
 	selector: "lens-table",
 	templateUrl: "table.component.html",
-	styleUrls: ["table.component.scss"],
+	styleUrls: ["table.component.scss"]
 })
 export class TableComponent implements AfterViewInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,11 +33,12 @@ export class TableComponent implements AfterViewInit {
 
 	public ngAfterViewInit(): void {
 		this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
+            id:action.id,
 			icon: action.icon,
 			label: action.label,
 			command: () => {
 				action.clicked.emit(this.itemOfContextMenuClickedRow);
-			},
+			}
 		}));
 	}
 
@@ -45,7 +46,7 @@ export class TableComponent implements AfterViewInit {
 	public onLazyLoadData(event: any): void {
 		this.lazyLoad.emit({
 			offset: event.first,
-			rows: event.rows,
+			rows: event.rows
 		});
 	}
 
