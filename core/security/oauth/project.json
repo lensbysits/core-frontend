@@ -3,22 +3,6 @@
   "sourceRoot": "libs/framework/core/security/oauth/src",
   "prefix": "lens",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/framework/core/security/oauth"],
-      "options": {
-        "project": "libs/framework/core/security/oauth/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/framework/core/security/oauth/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/framework/core/security/oauth/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/framework/core/security/oauth"],
