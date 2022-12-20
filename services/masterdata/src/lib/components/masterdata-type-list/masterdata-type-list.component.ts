@@ -19,13 +19,12 @@ export class MasterdataTypeListComponent implements OnInit {
 	// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
 	ngOnInit(): void {
 		this.isLoading = true;
-		// this.loadItems();
 	}
 
 	loadItems(offset: number, rows: number) {
 		this.isLoading = true;
 		this.service.getAllMasterdataTypes(offset, rows).subscribe({
-			next: (data) => {
+			next: data => {
 				this.items = data.value || [];
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
@@ -43,9 +42,7 @@ export class MasterdataTypeListComponent implements OnInit {
 	onRowClicked(item: MasterdataType) {
 		this.router.navigate([`${item.id}`, "details"], {
 			relativeTo: this.activeRoute
-			// queryParams: { id: item.id },
 		});
-		// this.router.navigate([`/type/details/${item.id}`]);
 	}
 
 	onAddAction() {
@@ -64,7 +61,7 @@ export class MasterdataTypeListComponent implements OnInit {
 			return;
 		}
 
-		this.items = this.items.filter((curitem) => item !== curitem);
+		this.items = this.items.filter(curitem => item !== curitem);
 		this.service.deleteMasterdataType(item.id).subscribe(() => {
 			this.totalSize--;
 			this.isLoading = false;

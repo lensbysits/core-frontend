@@ -16,7 +16,7 @@ import { MasterdataType } from "../../models";
 })
 export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	@Input() public set masterdataTypes(value: MasterdataType[]) {
-		this.options = value?.map((masterdataType) => ({
+		this.options = value?.map(masterdataType => ({
 			key: masterdataType.id,
 			value: masterdataType.name
 		}));

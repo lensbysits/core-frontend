@@ -50,12 +50,12 @@ export class MasterdatasDetailsComponent implements OnInit {
 			tap(() => {
 				this.isLoading = false;
 			}),
-			map((data) => data)
+			map(data => data)
 		);
 	}
 
 	prepareForDisplay(item: Masterdata) {
-		return Object.entries(item).map((item) => {
+		return Object.entries(item).map(item => {
 			item[0] = item[0].toLowerCase().replace("masterdata", "");
 			if (["typeid", "typename"].includes(item[0])) {
 				item[0] = `type ${item[0].replace("type", "")}`;

@@ -14,7 +14,6 @@ import { MasterdataCrudHttpService } from "../../core/services";
 export class MasterdataTypeDetailsComponent implements OnInit {
 	isLoading = false;
 	itemId = "";
-	// item?: MasterdataType;
 	item$?: Observable<MasterdataType | undefined>;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
@@ -39,21 +38,16 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 
 	loadItem(id: string) {
 		this.isLoading = true;
-		// this.service.getMasterdataTypeById(id).subscribe((data) => {
-		//   console.log('loadItem', data);
-		//   this.item = data || {};
-		//   this.isLoading = false;
-		// });
 		this.item$ = this.service.getMasterdataTypeById(id).pipe(
 			tap(() => {
 				this.isLoading = false;
 			}),
-			map((data) => data)
+			map(data => data)
 		);
 	}
 
 	prepareForDisplay(item: MasterdataType) {
-		return Object.entries(item).map((item) => {
+		return Object.entries(item).map(item => {
 			item[0] = item[0].toLowerCase();
 			if (item[0] === "masterdatascount") {
 				item[0] = `masterdatas ${item[0].replace("masterdatas", "")}`;

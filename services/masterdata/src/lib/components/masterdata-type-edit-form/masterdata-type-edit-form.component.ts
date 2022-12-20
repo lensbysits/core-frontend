@@ -67,7 +67,7 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
 	loadData() {
 		this.isLoading = true;
-		this.service.getMasterdataTypeById(this.id).subscribe((data) => {
+		this.service.getMasterdataTypeById(this.id).subscribe(data => {
 			this.dataForm.patchValue({
 				code: data.code,
 				name: data.name,
@@ -87,11 +87,13 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 		}
 
 		this.isLoading = true;
+
+		const name = getRequiredFieldValue<string>(this.dataForm, "name");
+		const description = getFieldValue<string>(this.dataForm, "description");
+		const metadata = getFieldValue<string>(this.dataForm, "metadata");
+
 		if (this.isAddForm) {
 			const code = getRequiredFieldValue<string>(this.dataForm, "code");
-			const name = getRequiredFieldValue<string>(this.dataForm, "name");
-			const description = getFieldValue<string>(this.dataForm, "description");
-			const metadata = getFieldValue<string>(this.dataForm, "metadata");
 
 			const model = {} as IMasterdataTypeCreate;
 			model.code = code;
@@ -99,25 +101,19 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			model.description = description;
 			model.metadata = metadata;
 
-			// const model = this.dataForm.value as IMasterdataTypeCreate;
 			this.service.createMasterdataType(model).subscribe(() => {
-				this.btnCancel();
+				this.navigateToListView();
 				this.isLoading = false;
 				this.toastService.success("Add masterdata type", "The masterdata type was succesfully added.");
 			});
 		} else {
-			const name = getRequiredFieldValue<string>(this.dataForm, "name");
-			const description = getFieldValue<string>(this.dataForm, "description");
-			const metadata = getFieldValue<string>(this.dataForm, "metadata");
-
 			const model = {} as IMasterdataTypeUpdate;
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
 
-			// const model = this.dataForm.value as IMasterdataTypeUpdate;
 			this.service.updateMasterdataType(this.id, model).subscribe(() => {
-				this.btnCancel();
+				this.navigateToListView();
 				this.isLoading = false;
 				this.toastService.success("Update masterdata type", "The masterdata type was succesfully updated.");
 			});
@@ -125,6 +121,10 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	}
 
 	btnCancel() {
+		this.navigateToListView();
+	}
+
+	navigateToListView() {
 		this.router.navigate(["/"]);
 	}
 }

@@ -46,7 +46,7 @@ export class MasterdataCrudHttpService {
 			.get<MasterdataTypeResultList>(url) //.pipe(first());
 			.pipe(
 				tap(() => this.log(null, "getAllMasterdataTypes", "success")),
-				map((input) => masterdataTypeResultListModelAdapter.adapt(input)),
+				map(input => masterdataTypeResultListModelAdapter.adapt(input)),
 				catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
 			);
 	}
@@ -56,7 +56,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`).pipe(
 			tap(() => this.log(`id #${masterdatatype}`, `getMasterdataTypeById`, "success")),
-			map((input) => {
+			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<MasterdataType>("getMasterdataTypeById", masterdataTypeModelAdapter.adapt(null)))
@@ -69,7 +69,7 @@ export class MasterdataCrudHttpService {
 		const url = this.genericListUriMasterdata(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, offset, rows);
 		return this.client.get<MasterdataResultList>(url).pipe(
 			tap(() => this.log(null, "getAllMasterdatas", "success")),
-			map((input) => masterdataResultListModelAdapter.adapt(input)),
+			map(input => masterdataResultListModelAdapter.adapt(input)),
 			catchError(this.handleError<MasterdataResultList>("getAllMasterdatas", masterdataResultListModelAdapter.adapt(null)))
 		);
 	}
@@ -79,7 +79,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`).pipe(
 			tap(() => this.log(`id #${id}`, `getMasterdataById`, "success")),
-			map((input) => {
+			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("getMasterdataById", masterdataModelAdapter.adapt(null)))
@@ -92,10 +92,10 @@ export class MasterdataCrudHttpService {
 		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
 		return this.client.post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions).pipe(
-			tap((newItem) => {
+			tap(newItem => {
 				this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success"); //JSON.parse(newItem)
 			}),
-			map((input) => {
+			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<MasterdataType>("createMasterdataType", masterdataTypeModelAdapter.adapt(null)))
@@ -106,10 +106,10 @@ export class MasterdataCrudHttpService {
 		const masterdataModelAdapter = new MasterdataModelAdapter();
 
 		return this.client.post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions).pipe(
-			tap((newItem) => {
+			tap(newItem => {
 				this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success"); //JSON.parse(newItem)
 			}),
-			map((input) => {
+			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null)))
@@ -123,7 +123,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`, item, this.httpOptions).pipe(
 			tap(() => this.log(`id #${masterdatatype}`, `updateMasterdataType`, "success")),
-			map((input) => {
+			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<MasterdataType>("updateMasterdataType", masterdataTypeModelAdapter.adapt(null)))
@@ -135,7 +135,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`, item, this.httpOptions).pipe(
 			tap(() => this.log(`id #${id}`, `updateMasterdata`, "success")),
-			map((input) => {
+			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("updateMasterdata", masterdataModelAdapter.adapt(null)))

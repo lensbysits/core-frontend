@@ -84,7 +84,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 	loadData() {
 		this.isLoading = true;
-		this.service.getMasterdataById(this.typeId, this.id).subscribe((data) => {
+		this.service.getMasterdataById(this.typeId, this.id).subscribe(data => {
 			this.dataForm.patchValue({
 				value: data.value,
 				name: data.name,
@@ -104,14 +104,16 @@ export class MasterdatasEditFormComponent implements OnInit {
 		}
 
 		this.isLoading = true;
+
+		const value = getRequiredFieldValue<string>(this.dataForm, "value");
+		const name = getRequiredFieldValue<string>(this.dataForm, "name");
+		const description = getFieldValue<string>(this.dataForm, "description");
+		const metadata = getFieldValue<string>(this.dataForm, "metadata");
+
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
 			const masterdataTypeIdSelector = getRequiredFieldValue<KeyValuePair<string, string>>(this.dataForm, "masterdataTypeId").key;
 			const masterdataTypeId = getRequiredFieldValue<string>(this.dataForm, "masterdataTypeId");
-			const value = getRequiredFieldValue<string>(this.dataForm, "value");
-			const name = getRequiredFieldValue<string>(this.dataForm, "name");
-			const description = getFieldValue<string>(this.dataForm, "description");
-			const metadata = getFieldValue<string>(this.dataForm, "metadata");
 
 			const model = {} as IMasterdataCreate;
 			model.key = key;
@@ -121,27 +123,20 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.description = description;
 			model.metadata = metadata;
 
-			// const model = this.dataForm.value as IMasterdataCreate;
 			this.service.createMasterdata(model).subscribe(() => {
-				this.btnCancel();
+				this.navigateToListView();
 				this.isLoading = false;
 				this.toastService.success("Add masterdata", "The masterdata was succesfully added.");
 			});
 		} else {
-			const value = getRequiredFieldValue<string>(this.dataForm, "value");
-			const name = getRequiredFieldValue<string>(this.dataForm, "name");
-			const description = getFieldValue<string>(this.dataForm, "description");
-			const metadata = getFieldValue<string>(this.dataForm, "metadata");
-
 			const model = {} as IMasterdataUpdate;
 			model.value = value;
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
 
-			// const model = this.dataForm.value as IMasterdataUpdate;
 			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
-				this.btnCancel();
+				this.navigateToListView();
 				this.isLoading = false;
 				this.toastService.success("Update masterdata", "The masterdata was succesfully updated.");
 			});
@@ -149,13 +144,17 @@ export class MasterdatasEditFormComponent implements OnInit {
 	}
 
 	btnCancel() {
+		this.navigateToListView();
+	}
+
+	navigateToListView() {
 		this.router.navigate([".."], { relativeTo: this.activeRoute });
 	}
 
 	loadTypesList() {
 		this.isLoading = true;
 		this.service.getAllMasterdataTypes(0, 0).subscribe({
-			next: (data) => {
+			next: data => {
 				this.typesList = data.value || [];
 				this.isLoading = false;
 			},

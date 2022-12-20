@@ -23,7 +23,6 @@ export class MasterdatasListComponent implements OnInit {
 	ngOnInit(): void {
 		this.isLoading = true;
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
-		//this.loadItems();
 	}
 
 	loadItems(offset: number, rows: number) {
@@ -32,7 +31,7 @@ export class MasterdatasListComponent implements OnInit {
 		if (this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
 
 		this.service.getAllMasterdatas(this.typeId, offset, rows).subscribe({
-			next: (data) => {
+			next: data => {
 				this.items = data.value || [];
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
@@ -67,7 +66,7 @@ export class MasterdatasListComponent implements OnInit {
 			return;
 		}
 
-		this.items = this.items.filter((curitem) => item !== curitem);
+		this.items = this.items.filter(curitem => item !== curitem);
 		this.service.deleteMasterdata(this.typeId, item.id).subscribe(() => {
 			this.totalSize--;
 			this.isLoading = false;
