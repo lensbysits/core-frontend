@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { map, Observable, tap } from "rxjs";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { Masterdata } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
@@ -17,6 +18,8 @@ export class MasterdatasDetailsComponent implements OnInit {
 	// item?: Masterdata;
 	item$?: Observable<Masterdata | undefined>;
 
+	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
+
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
 		private readonly activeRoute: ActivatedRoute,
@@ -29,6 +32,13 @@ export class MasterdatasDetailsComponent implements OnInit {
 		this.loadItem(this.typeId, this.itemId);
 	}
 
+	makeMetadataEditorOptions(): JsonEditorOptions {
+		const opt = new JsonEditorOptions();
+		opt.mode = "view";
+		opt.modes = ["text", "view"];
+		return opt;
+	}
+
 	loadItem(typeId: string, id: string) {
 		this.isLoading = true;
 		// this.service.getMasterdataById(typeId, id).subscribe((data) => {
@@ -37,16 +47,15 @@ export class MasterdatasDetailsComponent implements OnInit {
 		//   this.isLoading = false;
 		// });
 		this.item$ = this.service.getMasterdataById(typeId, id).pipe(
-			tap((data) => {
-				console.log("loadItem", data);
+			tap(() => {
 				this.isLoading = false;
 			}),
-			map((data) => data)
+			map(data => data)
 		);
 	}
 
 	prepareForDisplay(item: Masterdata) {
-		return Object.entries(item).map((item) => {
+		return Object.entries(item).map(item => {
 			item[0] = item[0].toLowerCase().replace("masterdata", "");
 			if (["typeid", "typename"].includes(item[0])) {
 				item[0] = `type ${item[0].replace("type", "")}`;

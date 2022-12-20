@@ -17,8 +17,8 @@ export class ErrorHandlerService implements OnDestroy {
 		});
 	}
 
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
-	}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

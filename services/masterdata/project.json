@@ -2,7 +2,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/framework/services/masterdata/src",
-  "prefix": "tp-frontend",
+  "prefix": "lens",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

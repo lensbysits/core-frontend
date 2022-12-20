@@ -3,19 +3,20 @@ import { Injectable } from "@angular/core";
 import { ILoggerMessage } from "../interfaces";
 
 @Injectable({
-  providedIn: "root",
+	providedIn: "root"
 })
 // @Injectable()
 export class LoggerMessagesService {
-  constructor() {}
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	constructor() {}
 
-  messages: ILoggerMessage[] = [];
+	messages: ILoggerMessage[] = [];
 
-  add(message: ILoggerMessage) {
-    this.messages.push(message);
-  }
+	add(message: ILoggerMessage) {
+		this.messages.push(message);
+	}
 
-  clear() {
-    this.messages = [];
-  }
+	clear() {
+		this.messages = [];
+	}
 }

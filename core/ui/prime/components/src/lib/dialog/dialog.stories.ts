@@ -5,8 +5,6 @@ import { DialogConfig, DialogRef, DialogService } from "@lens/app-abstract-ui";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DialogComponent } from "@lens/app-abstract-ui";
 import { ButtonModule } from "../button";
-import { DialogComponent } from "@lens/app-abstract-ui";
-import { ButtonModule } from "../button";
 
 @Component({
 	template: `
@@ -30,19 +28,6 @@ class CustomDialogComponent extends DialogComponent {
 		this.ref.close();
 	}
 }
-class CustomDialogComponent extends DialogComponent {
-	constructor(@Inject("LensDialogRef") private readonly ref: DialogRef, @Inject("LensDialogConfig") public readonly config: DialogConfig) {
-		super();
-	}
-
-	public onSomeCustomActionButtonClicked() {
-		this.ref.close({ foo: "bar" });
-	}
-
-	public onCloseButtonClicked() {
-		this.ref.close();
-	}
-}
 
 @Component({
 	template: `
@@ -53,16 +38,10 @@ class CustomDialogComponent extends DialogComponent {
 })
 class DialogHostComponent {
 	constructor(private readonly dialogService: DialogService) {}
-class DialogHostComponent {
-	constructor(private readonly dialogService: DialogService) {}
 
 	public foo(): void {
 		const dialogRef = this.dialogService.open(CustomDialogComponent, { header: "In a galaxy far, far away..." });
-		dialogRef.onClose.subscribe((result) => alert(`Received from the dialog:\n\n${JSON.stringify(result)}`));
-	}
-	public foo(): void {
-		const dialogRef = this.dialogService.open(CustomDialogComponent, { header: "In a galaxy far, far away..." });
-		dialogRef.onClose.subscribe((result) => alert(`Received from the dialog:\n\n${JSON.stringify(result)}`));
+		dialogRef.onClose.subscribe(result => alert(`Received from the dialog:\n\n${JSON.stringify(result)}`));
 	}
 }
 
@@ -76,7 +55,7 @@ export default {
 	]
 } as Meta;
 
-export const Default: Story = (args) => ({
+export const Default: Story = args => ({
 	component: DialogHostComponent,
 	props: {
 		...args

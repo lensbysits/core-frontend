@@ -6,25 +6,25 @@ import { AppConfigurationService } from "@lens/app-abstract";
 import { API_BASE_URL, MasterdataCrudHttpService } from "./";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
-  const result = appConfigurationService.getSettings("api.baseUrl");
-  return result;
+	const result = appConfigurationService.getSettings<string>("api.baseUrl");
+	return result;
 }
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule],
+	imports: [CommonModule, HttpClientModule]
 })
 export class MasterdataApiClientsModule {
-  public static forRoot(): ModuleWithProviders<MasterdataApiClientsModule> {
-    return {
-      ngModule: MasterdataApiClientsModule,
-      providers: [
-        MasterdataCrudHttpService,
-        {
-          provide: API_BASE_URL,
-          useFactory: apiBaseUrlFactory,
-          deps: [AppConfigurationService],
-        },
-      ],
-    };
-  }
+	public static forRoot(): ModuleWithProviders<MasterdataApiClientsModule> {
+		return {
+			ngModule: MasterdataApiClientsModule,
+			providers: [
+				MasterdataCrudHttpService,
+				{
+					provide: API_BASE_URL,
+					useFactory: apiBaseUrlFactory,
+					deps: [AppConfigurationService]
+				}
+			]
+		};
+	}
 }

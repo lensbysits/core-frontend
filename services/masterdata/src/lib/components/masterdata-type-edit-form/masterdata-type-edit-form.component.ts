@@ -1,122 +1,130 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { ToastService } from "@lens/ui-prime-components";
-import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
+import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataTypeMaxLength } from "../../core/utils";
 
 @Component({
-  selector: "lens-masterdata-type-edit-form",
-  templateUrl: "./masterdata-type-edit-form.component.html",
-  styleUrls: ["./masterdata-type-edit-form.component.scss"],
+	selector: "lens-masterdata-type-edit-form",
+	templateUrl: "./masterdata-type-edit-form.component.html",
+	styleUrls: ["./masterdata-type-edit-form.component.scss"]
 })
 export class MasterdataTypeEditFormComponent implements OnInit {
-  isLoading = false;
-  id!: string;
-  dataForm!: FormGroup;
-  isFormSubmitted = false;
-  isAddForm = true;
-  saveBtnText = "Save";
-  formTitle = "Add";
-  item?: MasterdataType;
-  maxLength = MasterdataTypeMaxLength;
+	isLoading = false;
+	id!: string;
+	dataForm!: FormGroup;
+	isFormSubmitted = false;
+	isAddForm = true;
+	saveBtnText = "Save";
+	formTitle = "Add";
+	item?: MasterdataType;
+	maxLength = MasterdataTypeMaxLength;
 
-  constructor(
-    private readonly service: MasterdataCrudHttpService,
-    private readonly router: Router,
-    private readonly activeRoute: ActivatedRoute,
-    private readonly formBuilder: FormBuilder,
-    private readonly toastService: ToastService
-  ) {}
+	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
-  ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params["masterdatatype"];
-    this.isAddForm = !(this.id !== undefined);
+	constructor(
+		private readonly service: MasterdataCrudHttpService,
+		private readonly router: Router,
+		private readonly activeRoute: ActivatedRoute,
+		private readonly formBuilder: FormBuilder,
+		private readonly toastService: ToastService
+	) {}
 
-    if (!this.isAddForm) {
-      this.loadData();
-      this.saveBtnText = "Update";
-      this.formTitle = "Edit";
-    }
+	ngOnInit(): void {
+		this.id = this.activeRoute.snapshot.params["masterdatatype"];
+		this.isAddForm = !(this.id !== undefined);
 
-    this.dataForm = this.formBuilder.group({
-      code: ["", [Validators.required, Validators.maxLength(this.maxLength.code)]],
-      name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
-      description: ["", [Validators.maxLength(this.maxLength.description)]],
-    });
-  }
+		if (!this.isAddForm) {
+			this.loadData();
+			this.saveBtnText = "Update";
+			this.formTitle = "Edit";
+		}
 
-  // convenience getter for easy access to form fields
-  get getFormFields() {
-    return this.dataForm.controls;
-  }
+		this.dataForm = this.formBuilder.group({
+			code: ["", [Validators.required, Validators.maxLength(this.maxLength.code)]],
+			name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
+			description: ["", [Validators.maxLength(this.maxLength.description)]],
+			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]]
+		});
+	}
 
-  loadData() {
-    this.isLoading = true;
-    this.service.getMasterdataTypeById(this.id).subscribe((data) => {
-      this.dataForm.patchValue({
-        code: data.code,
-        name: data.name,
-        description: data.description,
-      });
-      this.item = data || {};
-      this.isLoading = false;
-    });
-  }
+	makeMetadataEditorOptions(): JsonEditorOptions {
+		const opt = new JsonEditorOptions();
+		opt.mode = "tree";
+		opt.modes = ["code", "text", "tree", "view"];
+		return opt;
+	}
 
-  onSubmit() {
-    this.isFormSubmitted = true;
-    if (this.dataForm.invalid) {
-      // stop here if form is invalid
-      return;
-    }
+	// convenience getter for easy access to form fields
+	get getFormFields() {
+		return this.dataForm.controls;
+	}
 
-    this.isLoading = true;
-    if (this.isAddForm) {
-      const code = getRequiredFieldValue<string>(this.dataForm, "code");
-      const name = getRequiredFieldValue<string>(this.dataForm, "name");
-      const description = getFieldValue<string>(this.dataForm, "description");
+	loadData() {
+		this.isLoading = true;
+		this.service.getMasterdataTypeById(this.id).subscribe(data => {
+			this.dataForm.patchValue({
+				code: data.code,
+				name: data.name,
+				description: data.description,
+				metadata: data.metadata
+			});
+			this.item = data || {};
+			this.isLoading = false;
+		});
+	}
 
-      const model = {} as IMasterdataTypeCreate;
-      model.code = code;
-      model.name = name;
-      model.description = description;
+	onSubmit() {
+		this.isFormSubmitted = true;
+		if (this.dataForm.invalid) {
+			// stop here if form is invalid
+			return;
+		}
 
-      // const model = this.dataForm.value as IMasterdataTypeCreate;
-      this.service.createMasterdataType(model).subscribe((data) => {
-        console.log("onSubmit create", data);
-        this.btnCancel();
-        this.isLoading = false;
-        this.toastService.success(
-          "Add masterdata type",
-          "The masterdata type was succesfully added."
-        );
-      });
-    } else {
-      const name = getRequiredFieldValue<string>(this.dataForm, "name");
-      const description = getFieldValue<string>(this.dataForm, "description");
+		this.isLoading = true;
 
-      const model = {} as IMasterdataTypeUpdate;
-      model.name = name;
-      model.description = description;
+		const name = getRequiredFieldValue<string>(this.dataForm, "name");
+		const description = getFieldValue<string>(this.dataForm, "description");
+		const metadata = getFieldValue<string>(this.dataForm, "metadata");
 
-      // const model = this.dataForm.value as IMasterdataTypeUpdate;
-      this.service.updateMasterdataType(this.id, model).subscribe((data) => {
-        console.log("onSubmit update", data);
-        this.btnCancel();
-        this.isLoading = false;
-        this.toastService.success(
-          "Update masterdata type",
-          "The masterdata type was succesfully updated."
-        );
-      });
-    }
-  }
+		if (this.isAddForm) {
+			const code = getRequiredFieldValue<string>(this.dataForm, "code");
 
-  btnCancel() {
-    this.router.navigate(["/"]);
-  }
+			const model = {} as IMasterdataTypeCreate;
+			model.code = code;
+			model.name = name;
+			model.description = description;
+			model.metadata = metadata;
+
+			this.service.createMasterdataType(model).subscribe(() => {
+				this.navigateToListView();
+				this.isLoading = false;
+				this.toastService.success("Add masterdata type", "The masterdata type was succesfully added.");
+			});
+		} else {
+			const model = {} as IMasterdataTypeUpdate;
+			model.name = name;
+			model.description = description;
+			model.metadata = metadata;
+
+			this.service.updateMasterdataType(this.id, model).subscribe(() => {
+				this.navigateToListView();
+				this.isLoading = false;
+				this.toastService.success("Update masterdata type", "The masterdata type was succesfully updated.");
+			});
+		}
+	}
+
+	btnCancel() {
+		this.navigateToListView();
+	}
+
+	navigateToListView() {
+		this.router.navigate(["/"]);
+	}
 }

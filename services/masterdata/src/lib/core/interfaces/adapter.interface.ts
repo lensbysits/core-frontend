@@ -1,3 +1,4 @@
 export interface IAdapter<TSource, TDestination> {
-  adapt(source: TSource, extra: any): TDestination;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	adapt(source: TSource, extra: any): TDestination;
 }
