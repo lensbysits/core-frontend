@@ -8,6 +8,7 @@ export * from "./lib/input-date";
 export * from "./lib/input-email";
 export * from "./lib/input-text";
 export * from "./lib/input-textarea";
+export * from "./lib/input-checkbox";
 export * from "./lib/loading-indicator";
 export * from "./lib/panel";
 export * from "./lib/table";

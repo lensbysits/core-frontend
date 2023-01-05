@@ -15,6 +15,7 @@ import { PanelModule } from './panel';
 import { AutoCompleteModule } from './autocomplete';
 import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
+import { InputCheckboxModule } from './input-checkbox';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { InputChipsModule } from './input-chips';
     InputEmailModule,
     InputTextModule,
     InputTextareaModule,
+    InputCheckboxModule,
     LoadingSpinnerModule,
     PanelModule,
     TableModule,
