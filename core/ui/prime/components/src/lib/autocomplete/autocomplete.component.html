@@ -8,5 +8,7 @@
     (completeMethod)="onSearched($event)"
     (onClear)="onCleared()"
     dropdownMode="current"
-    [(ngModel)]="value">
+    [(ngModel)]="value"
+    [forceSelection]="true"
+    [disabled]="isDisabled">
 </p-autoComplete>
