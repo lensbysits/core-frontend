@@ -16,6 +16,7 @@ import { AutoCompleteModule } from './autocomplete';
 import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
 import { LanguageSelectorModule } from './language-selector';
+import { MultilingualModule } from '@lens/app-abstract';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { LanguageSelectorModule } from './language-selector';
     ToastModule,
     ToolbarModule,
     DialogModule,
+    MultilingualModule.forRoot(),
     LanguageSelectorModule,
   ],
   exports: [
