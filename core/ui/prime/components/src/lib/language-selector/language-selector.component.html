@@ -1,0 +1,12 @@
+<!-- <select #langselect (change)="translateService.use(langselect.value)">
+        <option *ngFor="let lang of translateService.getLangs()" [value]="lang">
+          {{ lang }}
+        </option>
+      </select> -->
+<p-dropdown inputId="languageSelector"
+      (onChange)="onLanguageChanged($event)"
+      [options]="translateService.getLangs()">
+    <ng-template let-option pTemplate="item">
+    {{ option }}
+    </ng-template>
+</p-dropdown>

@@ -8,13 +8,26 @@ import { HasClaimDirective } from "./directives/has-claim.directive";
 import { HasRoleDirective } from "./directives/has-role.directive";
 import { DialogModule } from "./services/dialog/dialog.module";
 import { ErrorHandlerService } from "./services/error-handler.service";
+import { TranslateModule } from "@ngx-translate/core";
 
 const components_directives = [AppComponent, ComponentLoaderDirective, HasClaimDirective, HasRoleDirective];
 
 @NgModule({
-	declarations: [...components_directives, ErrorDetailComponent],
-	imports: [CommonModule, RouterModule, DialogModule],
-	exports: [...components_directives, RouterModule],
+	declarations: [
+        ...components_directives, 
+        ErrorDetailComponent
+    ],
+	imports: [
+        CommonModule, 
+        RouterModule, 
+        DialogModule, 
+        TranslateModule
+    ],
+	exports: [
+        ...components_directives, 
+        RouterModule, 
+        TranslateModule
+    ],
 	providers: [
 		/**** 
       JST - 10-10-2022
