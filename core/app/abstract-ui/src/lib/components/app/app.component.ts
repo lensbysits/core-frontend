@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppConfigurationService } from '@lens/app-abstract';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,21 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   providers: [TranslateService]
 })
 export class AppComponent {
-
-    constructor(
-		private translateService: TranslateService
-	) {
-		this.InitLanguageConfiguration();
-	}
-
-    private InitLanguageConfiguration() {
-		//todo: should come from the app itself
-        const supportedLanguages = ["En", "Nl"];
-        const fallbackLanguage = "En";
-
-        this.translateService.addLangs(supportedLanguages);
-        this.translateService.setDefaultLang(fallbackLanguage);
-        const browserLang = this.translateService.getBrowserLang() ?? "";
-        this.translateService.use(supportedLanguages.indexOf(browserLang) !== -1 ? browserLang : fallbackLanguage);
+    constructor(appConfiguration: AppConfigurationService){
+    appConfiguration.InitLanguageConfiguration() //question: Circular DI error when we do this in the appconfig service ctor
     }
 }
