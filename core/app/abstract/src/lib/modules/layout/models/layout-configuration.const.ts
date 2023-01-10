@@ -10,7 +10,8 @@ export function CreateLayout(args: ILayoutConfiguration = {
     showNotifications: false,
     showMessages: false,
     showSettings: false,
-    showFooter: false}
+    showFooter: false,
+    showLanguagePicker:false}
 ): ILayoutConfiguration {
     return {
         menuMode: args.menuMode,
@@ -22,7 +23,8 @@ export function CreateLayout(args: ILayoutConfiguration = {
         showNotifications: args.showNotifications,
         showMessages: args.showMessages,
         showSettings: args.showSettings,
-        showFooter: args.showFooter
+        showFooter: args.showFooter,
+        showLanguagePicker: args.showLanguagePicker
     };
 }
 
