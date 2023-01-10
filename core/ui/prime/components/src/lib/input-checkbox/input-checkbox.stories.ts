@@ -1,6 +1,7 @@
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { InputCheckboxComponent } from "./input-checkbox.component";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { InputCheckboxModule } from "./input-checkbox.module";
 
 const form: FormGroup = new FormGroup({
     checkbox: new FormControl("", []),
@@ -11,7 +12,7 @@ export default {
     title: "Components/InputCheckbox",
     decorators: [
         moduleMetadata({
-            imports: [ FormsModule, ReactiveFormsModule ]
+            imports: [ FormsModule, ReactiveFormsModule, InputCheckboxModule ]
         })
     ]
 } as Meta
@@ -19,9 +20,9 @@ export default {
 const Template: Story = args => ({
     template:  `<form [formGroup]="form">
                 <lens-input-checkbox
-                    id="id"
+                    [id]="id"
                     formControlName="checkbox"
-                    label="label">
+                    [label]="label">
                 </lens-input-checkbox>
                 </form>`,
     props: {
