@@ -14,7 +14,7 @@ const libraryModules = [
 @NgModule({
   imports: [
     CommonModule,
-    MultilingualModule.forRoot(),
+    MultilingualModule,
     ...libraryModules
 
   ],
