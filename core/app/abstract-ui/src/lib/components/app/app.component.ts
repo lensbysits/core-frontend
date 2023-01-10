@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppConfigurationService } from '@lens/app-abstract';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -8,8 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
   template: '<router-outlet></router-outlet>',
   providers: [TranslateService]
 })
-export class AppComponent {
-    constructor(appConfiguration: AppConfigurationService){
-        appConfiguration.initLanguageConfiguration() //question: Circular DI error when we do this in the appconfig service ctor
+export class AppComponent implements OnInit {
+    constructor(
+        private readonly appConfiguration: AppConfigurationService
+    ) { }
+
+    public ngOnInit(): void {
+        this.appConfiguration.initLanguageConfiguration();
     }
 }
