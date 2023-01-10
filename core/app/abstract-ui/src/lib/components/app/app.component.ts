@@ -10,6 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
     constructor(appConfiguration: AppConfigurationService){
-    appConfiguration.InitLanguageConfiguration() //question: Circular DI error when we do this in the appconfig service ctor
+        appConfiguration.initLanguageConfiguration() //question: Circular DI error when we do this in the appconfig service ctor
     }
 }

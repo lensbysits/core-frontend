@@ -1,5 +1,6 @@
 import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { LanguageConfiguration } from "./languageConfiguration";
 
 export const APP_CONFIGURATION = new InjectionToken("APP_CONFIGURATION");
 
@@ -31,7 +32,7 @@ export class AppConfigurationService {
 		return result as T;
 	}
 
-    public InitLanguageConfiguration() {
+    public initLanguageConfiguration() {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const config = this.getSettings<LanguageConfiguration>("languageConfiguration");
         this.translateService.addLangs(config.supportedLanguages);
@@ -39,9 +40,4 @@ export class AppConfigurationService {
         const browserLang = this.translateService.getBrowserLang() ?? "";
         this.translateService.use(config.supportedLanguages.indexOf(browserLang) !== -1 ? browserLang : config.fallbackLanguage);
     }
-}
-
-class LanguageConfiguration{
-    public fallbackLanguage!: string;
-    public supportedLanguages!:string[]
 }
