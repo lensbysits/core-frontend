@@ -1,7 +1,8 @@
-<p-dropdown inputId="languageSelector"
-      (onChange)="onLanguageChanged($event)"
-      [options]="translateService.getLangs()">
-    <ng-template let-option pTemplate="item">
-    {{ option }}
-    </ng-template>
+<p-dropdown *ngIf="translationsLoaded" 
+    inputId="languageSelector"
+    (onChange)="onLanguageChanged($event)"
+    [options]="languages"
+    [(ngModel)]="selectedLanguage"
+    optionLabel="displayName"
+    dataKey="value">
 </p-dropdown>
