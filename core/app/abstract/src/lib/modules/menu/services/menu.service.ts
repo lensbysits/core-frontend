@@ -1,4 +1,5 @@
 import { Injectable, Inject, Optional } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, BehaviorSubject } from "rxjs";
 import { APP_INFO, AppInfo } from "../../app-info";
 import { UserContextService } from "../../user-context";
@@ -11,7 +12,11 @@ export class MenuService {
 	private allMenuItems: MenuItem[] = [];
 	private menuItems$ = new BehaviorSubject<MenuItem[]>(this.allMenuItems);
 
-	constructor(@Inject(APP_INFO) private appInfo: AppInfo, @Optional() private userContext: UserContextService) {
+	constructor(
+        @Inject(APP_INFO) private appInfo: AppInfo, 
+        @Optional() private userContext: UserContextService,
+        @Optional() private translateService: TranslateService
+        ) {
 		if (this.userContext) {
 			// Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
 			//TODO: Make the filter work again
@@ -20,16 +25,20 @@ export class MenuService {
 		}
 	}
 
-	addMenuItems(menuItems: MenuItem | MenuItem[]): void {
-		if (Array.isArray(menuItems)) this.allMenuItems.push(...menuItems);
-		else this.allMenuItems.push(menuItems);
+	public addMenuItems(menuItems: MenuItem | MenuItem[]): void {
+		const menus = Array.isArray(menuItems) ? menuItems : [menuItems];
+        if(this.translateService){
+            this.applyTranslations(menus);
+        }
 
+        this.allMenuItems.push(...menus)
+ 
 		//TODO: Make the filter work again
 		this.menuItems$.next(this.allMenuItems);
 		// this.menuItems$.next(this.allMenuItems.filter(this.filter, this));
 	}
 
-	getMenuItems(): Observable<MenuItem[]> {
+	public getMenuItems(): Observable<MenuItem[]> {
 		return this.menuItems$;
 	}
 
@@ -38,7 +47,7 @@ export class MenuService {
 	}
 
 	// eslint-disable-next-line complexity
-	filter(navItem: MenuItem): MenuItem | null {
+	private filter(navItem: MenuItem): MenuItem | null {
 		// if environment-filter is false, don't show
 		if (navItem.envfilter && navItem.envfilter?.indexOf(this.appInfo.environment ?? "") < 0) {
 			return null;
@@ -82,4 +91,49 @@ export class MenuService {
 		// show the menu-item
 		return navItem;
 	}
+
+    
+    private applyTranslations(menus: MenuItem[]) {
+        //flatten menu structure to easily process the translations
+        const items = this.flattenMenuItems(menus);
+        items.push(...menus);
+
+        const isMultilingualMenu = items.find(i => i.translationKey !== undefined) !== undefined;
+        if(!isMultilingualMenu){
+            return;
+        }
+
+        this.translateService.onLangChange.subscribe(() => this.translateMenuItems(items));
+        
+        this.translateMenuItems(items);
+    }
+
+    private flattenMenuItems(menuItems:MenuItem[], foundItems?:MenuItem[], failsave:number = 100): MenuItem[]{
+        if(failsave === 0){
+            throw `Max menu dept of ${failsave} items reached`
+        }
+        foundItems = foundItems ?? [];
+        
+        for(const item of menuItems){
+            foundItems.push(item)
+
+            if(item.items){
+                this.flattenMenuItems(item.items, foundItems, failsave - 1)
+            }
+        }
+        
+        return foundItems;   
+    }
+
+    private translateMenuItems(items: MenuItem[]) {
+        for (const item of items ?? []) {
+            if (!item.label && !item.translationKey) {
+                throw "Label or translation key is required for a menu item";
+            }
+
+            if (item.translationKey) {
+                item.label = this.translateService.instant(item.translationKey);
+            }
+        }
+    }
 }
