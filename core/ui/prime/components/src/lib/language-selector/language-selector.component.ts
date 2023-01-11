@@ -7,8 +7,8 @@ import { TranslateService } from "@ngx-translate/core";
 	templateUrl: "./language-selector.component.html"
 })
 export class LanguageSelectorComponent implements OnInit {
-	public languages!: Language[];
-	public selectedLanguage!: Language;
+	public languages!: ILanguage[];
+	public selectedLanguage!: ILanguage;
     public translationsLoaded = false
 
 	constructor(
@@ -48,7 +48,7 @@ export class LanguageSelectorComponent implements OnInit {
     }
 }
 
-class Language {
-	displayName!: string;
-	value!: string;
+interface ILanguage {
+	displayName: string;
+	value: string;
 }

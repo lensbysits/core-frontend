@@ -19,9 +19,11 @@ export class LanguageService {
         this.translateService.addLangs(config.supportedLanguages);
         this.translateService.setDefaultLang(config.fallbackLanguage);
         const browserLang = this.translateService.getBrowserLang() ?? "";
-        this.translateService.use(
-            config.supportedLanguages.find(l => l.toLocaleLowerCase() === browserLang.toLocaleLowerCase()) !== undefined 
-            ? browserLang 
-            : config.fallbackLanguage).subscribe(() => this.languagesLoaded.next());
+        this.translateService
+            .use(
+                config.supportedLanguages.find(l => l.toLocaleLowerCase() === browserLang.toLocaleLowerCase()) !== undefined 
+                ? browserLang 
+                : config.fallbackLanguage)
+            .subscribe(() => this.languagesLoaded.next());
     }
 }
