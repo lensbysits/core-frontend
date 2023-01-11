@@ -13,10 +13,10 @@ export class MenuService {
 	private menuItems$ = new BehaviorSubject<MenuItem[]>(this.allMenuItems);
 
 	constructor(
-        @Inject(APP_INFO) private appInfo: AppInfo, 
-        @Optional() private userContext: UserContextService,
-        @Optional() private translateService: TranslateService
-        ) {
+		@Inject(APP_INFO) private appInfo: AppInfo,
+		@Optional() private userContext: UserContextService,
+		@Optional() private translateService: TranslateService
+	) {
 		if (this.userContext) {
 			// Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
 			//TODO: Make the filter work again
@@ -27,12 +27,12 @@ export class MenuService {
 
 	public addMenuItems(menuItems: MenuItem | MenuItem[]): void {
 		const menus = Array.isArray(menuItems) ? menuItems : [menuItems];
-        if(this.translateService){
-            this.applyTranslations(menus);
-        }
+		if (this.translateService) {
+			this.applyTranslations(menus);
+		}
 
-        this.allMenuItems.push(...menus)
- 
+		this.allMenuItems.push(...menus);
+
 		//TODO: Make the filter work again
 		this.menuItems$.next(this.allMenuItems);
 		// this.menuItems$.next(this.allMenuItems.filter(this.filter, this));
@@ -43,7 +43,7 @@ export class MenuService {
 	}
 
 	public get isEmpty(): Observable<boolean> {
-		return this.getMenuItems().pipe(map((menuItems) => menuItems.length === 0));
+		return this.getMenuItems().pipe(map(menuItems => menuItems.length === 0));
 	}
 
 	// eslint-disable-next-line complexity
@@ -55,12 +55,12 @@ export class MenuService {
 
 		if (this.userContext) {
 			// if claim-filter is false, don't show
-			if (navItem.claimfilter && !navItem.claimfilter.some((claim) => this.userContext.HasClaim(claim))) {
+			if (navItem.claimfilter && !navItem.claimfilter.some(claim => this.userContext.HasClaim(claim))) {
 				return null;
 			}
 
 			// if role-filter is false, don't show
-			if (navItem.rolefilter && !navItem.rolefilter.some((role) => this.userContext.IsInRole(role))) {
+			if (navItem.rolefilter && !navItem.rolefilter.some(role => this.userContext.IsInRole(role))) {
 				return null;
 			}
 
@@ -92,48 +92,47 @@ export class MenuService {
 		return navItem;
 	}
 
-    
-    private applyTranslations(menus: MenuItem[]) {
-        //flatten menu structure to easily process the translations
-        const items = this.flattenMenuItems(menus);
-        items.push(...menus);
+	private applyTranslations(menus: MenuItem[]) {
+		//flatten menu structure to easily process the translations
+		const items = this.flattenMenuItems(menus);
+		items.push(...menus);
 
-        const isMultilingualMenu = items.find(i => i.translationKey !== undefined) !== undefined;
-        if(!isMultilingualMenu){
-            return;
-        }
+		const isMultilingualMenu = items.find(i => i.translationKey !== undefined) !== undefined;
+		if (!isMultilingualMenu) {
+			return;
+		}
 
-        this.translateService.onLangChange.subscribe(() => this.translateMenuItems(items));
-        
-        this.translateMenuItems(items);
-    }
+		this.translateService.onLangChange.subscribe(() => this.translateMenuItems(items));
 
-    private flattenMenuItems(menuItems:MenuItem[], foundItems?:MenuItem[], failsave:number = 100): MenuItem[]{
-        if(failsave === 0){
-            throw `Max menu dept of ${failsave} items reached`
-        }
-        foundItems = foundItems ?? [];
-        
-        for(const item of menuItems){
-            foundItems.push(item)
+		this.translateMenuItems(items);
+	}
 
-            if(item.items){
-                this.flattenMenuItems(item.items, foundItems, failsave - 1)
-            }
-        }
-        
-        return foundItems;   
-    }
+	private flattenMenuItems(menuItems: MenuItem[], foundItems?: MenuItem[], failsave: number = 100): MenuItem[] {
+		if (failsave === 0) {
+			throw `Max menu dept of ${failsave} items reached`;
+		}
+		foundItems = foundItems ?? [];
 
-    private translateMenuItems(items: MenuItem[]) {
-        for (const item of items ?? []) {
-            if (!item.label && !item.translationKey) {
-                throw "Label or translation key is required for a menu item";
-            }
+		for (const item of menuItems) {
+			foundItems.push(item);
 
-            if (item.translationKey) {
-                item.label = this.translateService.instant(item.translationKey);
-            }
-        }
-    }
+			if (item.items) {
+				this.flattenMenuItems(item.items, foundItems, failsave - 1);
+			}
+		}
+
+		return foundItems;
+	}
+
+	private translateMenuItems(items: MenuItem[]) {
+		for (const item of items ?? []) {
+			if (!item.label && !item.translationKey) {
+				throw "Label or translation key is required for a menu item";
+			}
+
+			if (item.translationKey) {
+				item.label = this.translateService.instant(item.translationKey);
+			}
+		}
+	}
 }

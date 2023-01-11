@@ -9,21 +9,21 @@ import { TranslateService } from "@ngx-translate/core";
 export class LanguageSelectorComponent implements OnInit {
 	public languages!: ILanguage[];
 	public selectedLanguage!: ILanguage;
-    public translationsLoaded = false
+	public translationsLoaded = false;
 
 	constructor(
-        private translateService: TranslateService, 
-        private languageService: LanguageService) {}
+		private translateService: TranslateService, 
+		private languageService: LanguageService) {}
 
 	public ngOnInit(): void {
 		this.languageService.languagesLoaded.subscribe(() => {
-            this.translationsLoaded = true;
+			this.translationsLoaded = true;
 
-			this.createAvailableLanguageList()
-            const curLang = this.languages.find(l => l.value === this.translateService.currentLang)
-            if(curLang){
-                this.selectedLanguage = curLang;
-            }
+			this.createAvailableLanguageList();
+			const curLang = this.languages.find(l => l.value === this.translateService.currentLang);
+			if (curLang) {
+				this.selectedLanguage = curLang;
+			}
 		});
 	}
 
@@ -34,18 +34,18 @@ export class LanguageSelectorComponent implements OnInit {
 			this.translateService.use(lang.value);
 		}
 
-        this.createAvailableLanguageList()
+		this.createAvailableLanguageList();
 	}
 
-    private createAvailableLanguageList(){
-        this.languages = [];
-        for (const lang of this.translateService.getLangs()) {
-            this.languages.push({
-                displayName: this.translateService.instant(`availableLanguages.${lang}`),
-                value: lang
-            });
-        }
-    }
+	private createAvailableLanguageList() {
+		this.languages = [];
+		for (const lang of this.translateService.getLangs()) {
+			this.languages.push({
+				displayName: this.translateService.instant(`availableLanguages.${lang}`),
+				value: lang
+			});
+		}
+	}
 }
 
 interface ILanguage {
