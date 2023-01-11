@@ -1,6 +1,6 @@
 export class MenuItem {
 	label?:string;
-    translationKey?: string;
+	translationKey?: string;
 	url?: string;
 	routerLink?: string[];
 	command?: (event: MenuItemCommandEvent) => void;
