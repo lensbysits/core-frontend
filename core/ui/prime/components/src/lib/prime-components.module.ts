@@ -15,6 +15,7 @@ import { PanelModule } from './panel';
 import { AutoCompleteModule } from './autocomplete';
 import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
+import { LanguageSelectorModule } from './language-selector';
 import { InputCheckboxModule } from './input-checkbox';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { InputCheckboxModule } from './input-checkbox';
     ToastModule,
     ToolbarModule,
     DialogModule,
+    LanguageSelectorModule,
   ],
   exports: [
     AutoCompleteModule,
@@ -52,7 +54,8 @@ import { InputCheckboxModule } from './input-checkbox';
     TableModule,
     ToastModule,
     ToolbarModule,
-    DialogModule
+    DialogModule,
+    LanguageSelectorModule
   ]
 })
 export class PrimeComponentsModule {}

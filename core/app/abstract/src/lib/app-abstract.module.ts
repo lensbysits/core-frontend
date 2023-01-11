@@ -1,6 +1,6 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuModule, LayoutModule, UserContextModule, AppInfoModule, AppConfigurationModule } from './modules';
+import { MenuModule, LayoutModule, UserContextModule, AppInfoModule, AppConfigurationModule, MultilingualModule } from './modules';
 import { ErrorHandlerService } from './services';
 
 const libraryModules = [
@@ -14,7 +14,9 @@ const libraryModules = [
 @NgModule({
   imports: [
     CommonModule,
+    MultilingualModule,
     ...libraryModules
+
   ],
   exports: libraryModules,
   providers: [    

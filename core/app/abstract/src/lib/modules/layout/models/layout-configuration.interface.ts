@@ -15,4 +15,5 @@ export interface ILayoutConfiguration {
     showSettings?: boolean;
     showThemeCustomization?: boolean;
     showFooter?: boolean;
+    showLanguagePicker?:boolean;
 }
