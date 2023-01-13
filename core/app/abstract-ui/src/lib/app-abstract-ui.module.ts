@@ -9,6 +9,7 @@ import { HasRoleDirective } from "./directives/has-role.directive";
 import { DialogModule } from "./services/dialog/dialog.module";
 import { ErrorHandlerService } from "./services/error-handler.service";
 import { TranslateModule } from "@ngx-translate/core";
+import { MultilingualModule } from "../../../abstract/src/lib/modules";
 
 const components_directives = [AppComponent, ComponentLoaderDirective, HasClaimDirective, HasRoleDirective];
 
@@ -20,13 +21,12 @@ const components_directives = [AppComponent, ComponentLoaderDirective, HasClaimD
 	imports: [
         CommonModule, 
         RouterModule, 
-        DialogModule, 
-        TranslateModule
+        DialogModule
     ],
 	exports: [
         ...components_directives, 
         RouterModule, 
-        TranslateModule
+        MultilingualModule
     ],
 	providers: [
 		/**** 
