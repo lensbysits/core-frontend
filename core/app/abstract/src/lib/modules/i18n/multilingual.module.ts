@@ -19,7 +19,10 @@ export function HttpLoaderFactory(http: HttpClient) {
             },
             missingTranslationHandler: {provide: MissingTranslationHandler, useClass:LensMissingTranslationHandler}
         })
-    ]
+    ],
+	exports:[
+		TranslateModule
+	]
   })
 
   export class MultilingualModule { }
