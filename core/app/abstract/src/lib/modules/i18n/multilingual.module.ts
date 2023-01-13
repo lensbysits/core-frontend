@@ -16,13 +16,8 @@ import {
 	USE_STORE
 } from "@ngx-translate/core";
 import { MULTILINGUAL_MODULES } from "./services";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { LensMissingTranslationHandler } from "./missing-translation.handler";
 import { CombinedFileLoader } from "./combined-translation-file.loader";
-
-export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http);
-}
 
 @NgModule({
 	exports: [TranslateModule]
@@ -50,6 +45,7 @@ export class MultilingualModule {
 	}
 
 	static forChild(multilingualModuleName: string): ModuleWithProviders<MultilingualModule> {
+		console.log("adding module: ", multilingualModuleName)
 		return {
 			ngModule: MultilingualModule,
 			providers: [{ provide: MULTILINGUAL_MODULES, multi: true, useValue: multilingualModuleName }]

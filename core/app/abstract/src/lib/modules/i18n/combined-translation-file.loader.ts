@@ -18,8 +18,8 @@ export class CombinedFileLoader extends TranslateLoader {
 	getTranslation(lang: string): Observable<any> {
 		// get the translation file for each module that has called the MultilingualModule.forChild()
 		const files = this.multilingualModules.map(m => {
-			const modulePath = m !== "/" ? `${m}/` : m;
-			return this.httpClient.get(`${this.basePath}/${modulePath}${lang}.json`);
+			const modulePath = m !== "/" ? `/${m}/` : m;
+			return this.httpClient.get(`${this.basePath}${modulePath}${lang}.json`);
 		});
 
 		return forkJoin(files)
