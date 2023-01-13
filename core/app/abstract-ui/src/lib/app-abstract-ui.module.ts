@@ -8,8 +8,7 @@ import { HasClaimDirective } from "./directives/has-claim.directive";
 import { HasRoleDirective } from "./directives/has-role.directive";
 import { DialogModule } from "./services/dialog/dialog.module";
 import { ErrorHandlerService } from "./services/error-handler.service";
-import { TranslateModule } from "@ngx-translate/core";
-import { MultilingualModule } from "../../../abstract/src/lib/modules";
+import { MultilingualModule } from "@lens/app-abstract";
 
 const components_directives = [AppComponent, ComponentLoaderDirective, HasClaimDirective, HasRoleDirective];
 

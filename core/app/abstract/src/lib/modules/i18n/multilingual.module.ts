@@ -1,28 +1,58 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import {
+	DEFAULT_LANGUAGE,
+	MissingTranslationHandler,
+	TranslateCompiler,
+	TranslateDefaultParser,
+	TranslateFakeCompiler,
+	TranslateLoader,
+	TranslateModule,
+	TranslateParser,
+	TranslateService,
+	TranslateStore,
+	USE_DEFAULT_LANG,
+	USE_EXTEND,
+	USE_STORE
+} from "@ngx-translate/core";
+import { MULTILINGUAL_MODULES } from "./services";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { LensMissingTranslationHandler } from "./handlers/missingTranslationHandler";
+import { LensMissingTranslationHandler } from "./missing-translation.handler";
+import { CombinedFileLoader } from "./combined-translation-file.loader";
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-    declarations: [],
-    imports: [
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient],
-            },
-            missingTranslationHandler: {provide: MissingTranslationHandler, useClass:LensMissingTranslationHandler}
-        })
-    ],
-	exports:[
-		TranslateModule
-	]
-  })
+	exports: [TranslateModule]
+})
+export class MultilingualModule {
+	static forRoot(): ModuleWithProviders<MultilingualModule> {
+		const rootTranslationFileLocation = "/"; // app translation file is in the root of the i18n folder in the published assets
 
-  export class MultilingualModule { }
+		return {
+			ngModule: MultilingualModule,
+			providers: [
+				{ provide: MULTILINGUAL_MODULES, multi: true, useValue: rootTranslationFileLocation },
+				{ provide: TranslateLoader, useClass: CombinedFileLoader, deps: [HttpClient, MULTILINGUAL_MODULES] },
+				{ provide: TranslateCompiler, useClass: TranslateFakeCompiler },
+				{ provide: TranslateParser, useClass: TranslateDefaultParser },
+				{ provide: MissingTranslationHandler, useClass: LensMissingTranslationHandler },
+				{ provide: USE_STORE, useValue: undefined },
+				{ provide: USE_DEFAULT_LANG, useValue: undefined },
+				{ provide: USE_EXTEND, useValue: undefined },
+				{ provide: DEFAULT_LANGUAGE, useValue: undefined },
+				TranslateService,
+				TranslateStore
+			]
+		};
+	}
+
+	static forChild(multilingualModuleName: string): ModuleWithProviders<MultilingualModule> {
+		return {
+			ngModule: MultilingualModule,
+			providers: [{ provide: MULTILINGUAL_MODULES, multi: true, useValue: multilingualModuleName }]
+		};
+	}
+}

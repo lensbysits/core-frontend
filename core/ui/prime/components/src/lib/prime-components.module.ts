@@ -17,6 +17,7 @@ import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
 import { LanguageSelectorModule } from './language-selector';
 import { InputCheckboxModule } from './input-checkbox';
+import { MultilingualModule } from '@lens/app-abstract';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { InputCheckboxModule } from './input-checkbox';
     ToolbarModule,
     DialogModule,
     LanguageSelectorModule,
+	MultilingualModule.forChild("prime")
   ],
   exports: [
     AutoCompleteModule,

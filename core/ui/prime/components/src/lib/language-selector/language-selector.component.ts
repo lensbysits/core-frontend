@@ -16,7 +16,7 @@ export class LanguageSelectorComponent implements OnInit {
 		private languageService: LanguageService) {}
 
 	public ngOnInit(): void {
-		this.languageService.languagesLoaded.subscribe(() => {
+		this.languageService.onTranslationsLoaded(() => {
 			this.translationsLoaded = true;
 
 			this.createAvailableLanguageList();
