@@ -45,7 +45,6 @@ export class MultilingualModule {
 	}
 
 	static forChild(multilingualModuleName: string): ModuleWithProviders<MultilingualModule> {
-		console.log("adding module: ", multilingualModuleName)
 		return {
 			ngModule: MultilingualModule,
 			providers: [{ provide: MULTILINGUAL_MODULES, multi: true, useValue: multilingualModuleName }]

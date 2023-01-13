@@ -28,7 +28,6 @@ export class CombinedFileLoader extends TranslateLoader {
 					data.forEach(translationPart => {
 						Object.assign(combinedTranslations, translationPart)
 					})
-					console.log(combinedTranslations)
 					return combinedTranslations;
 				}));
 	}
