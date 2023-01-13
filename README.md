@@ -94,3 +94,79 @@ The Lens frontend framework is incorporated into your workspace as follows:
             ...
         }
     ```
+    
+    
+## Configure multi language for your app and the used components
+### Create you own resource files
+Create the JSON files for your app in `<my app>/src/assets/i18n'.
+Create a file per supported language. Currently the modules support EN and NL
+
+### Copy the i18n assets for the used modules
+Update you project .json to copy the files from /src/assets/i18n to the dist folder
+  ```json
+    {
+        "glob": "**/*",
+        "input": "libs/<the lib I wanted to copy the i18n files from>/assets/i18n",
+        "output": "assets/i18n/<module-name>" < the foldername must match the configured value in the MultilingualModule.forChild(<name>) method of the corresponding module
+    },
+```
+            
+**Example**
+```typescript
+    MultilingualModule.forChild("prime"),
+    MultilingualModule.forChild("user-management")
+```
+
+
+```json
+    {
+        "glob": "**/*",
+        "input": "libs/framework/core/ui/prime/layout/src/assets/i18n",
+        "output": "assets/i18n/prime"
+    },
+    {
+        "glob": "**/*",
+        "input": "libs/user-management/domain/src/assets/i18n",
+        "output": "assets/i18n/user-management"
+    }
+```
+
+Run `nx build <my project>` and check whether the dist folder contains an `assets\i18n` folder containing all translation files per module (a folder per module). If there are files missing, you probably made mistakes in the configuration of the assets section in the project.json
+Your structure with the above configuration should look like the following:
+- assets
+  - i18n
+    - en.json
+    - nl.json
+    - prime
+      - en.json
+      - nl.json
+    - user-management
+      - en.json
+      - nl.json
+  
+
+## Create your own translation file
+Please keep the format of the JSON in line with the one that's created for the user management module
+
+## Use the languages in your code
+### html
+```html
+<h1>{{"usermgmt.pages.editGroup.header" | translate}}</h1>
+
+<my-input-component
+[label]="'usermgmt.pages.editGroup.myComponent.label' | translate" >
+</my-input-component>
+
+```
+
+### typescript
+
+```typescript
+constructor(private translateService: TranslateService){}
+
+public myMethod(): void {
+    const translation = this.translationService.instant("<my key>")
+    const translationWithParams = this.translationService.instant("<my key with params>", { "paramName": paramValue })
+    // to use params in your translation, use {{paramName}} in your translated tekst. E.g. "{{memberCount}} members are updated"
+}
+```
