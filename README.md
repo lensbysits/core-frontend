@@ -165,8 +165,8 @@ Please keep the format of the JSON in line with the one that's created for the u
 constructor(private translateService: TranslateService){}
 
 public myMethod(): void {
-    const translation = this.translationService.instant("<my key>")
-    const translationWithParams = this.translationService.instant("<my key with params>", { "paramName": paramValue })
+    const translation = this.translateService.instant("<my key>")
+    const translationWithParams = this.translateService.instant("<my key with params>", { "paramName": paramValue })
     // to use params in your translation, use {{paramName}} in your translated tekst. E.g. "{{memberCount}} members are updated"
 }
 ```
