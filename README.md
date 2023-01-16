@@ -149,7 +149,7 @@ Your structure with the above configuration should look like the following:
 Please keep the format of the JSON in line with the one that's created for the user management module
 
 ## Use the languages in your code
-### html
+### Html
 ```html
 <h1>{{"usermgmt.pages.editGroup.header" | translate}}</h1>
 
@@ -159,7 +159,7 @@ Please keep the format of the JSON in line with the one that's created for the u
 
 ```
 
-### typescript
+### Typescript
 
 ```typescript
 constructor(private translateService: TranslateService){}
