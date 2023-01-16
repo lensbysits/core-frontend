@@ -1,0 +1,21 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-checkbox.stories";
+import { Default, WithIcon } from "./input-checkbox.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputCheckbox
+
+This is a nice way to check a checkbox!
+
+<Story story={Default} />
+
+First import `InputTextModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-checkbox id="foo" formControlName="<MyBooleanTypeProperty>" label="My label"></lens-input-checkbox>
+```

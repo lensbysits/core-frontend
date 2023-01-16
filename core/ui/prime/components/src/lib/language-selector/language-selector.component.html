@@ -1,0 +1,8 @@
+<p-dropdown *ngIf="translationsLoaded" 
+    inputId="languageSelector"
+    (onChange)="onLanguageChanged($event)"
+    [options]="languages"
+    [(ngModel)]="selectedLanguage"
+    optionLabel="displayName"
+    dataKey="value">
+</p-dropdown>

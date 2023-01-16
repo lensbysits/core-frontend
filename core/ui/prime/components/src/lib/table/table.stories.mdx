@@ -1,0 +1,48 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./table.stories";
+import { Default, Spinner } from "./table.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Table
+
+This is a nice table!
+
+## Default behavior
+
+<Story story={Default} />
+
+First import `TableModule` from `@lens/ui-prime-components`.
+
+```html
+    <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData($event)" (rowClicked)="onRowClicked($event)" [loading]="isLoading">
+        <columns>
+            <column label="Name" field="displayName"></column>
+            <column label="Email address" field="emailAddress"></column>
+        </columns>
+    </lens-table>`,
+```
+
+The `$event` object of `rowClicked` contains the data of the clicked row.
+
+## Row actions
+
+It is possible to define actions for each row:
+
+```html
+    <lens-table [source]="users" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoadData($event)" (rowClicked)="onRowClicked($event)" [loading]="isLoading">
+        <columns>
+            <column label="Name" field="displayName"></column>
+            <column label="Email address" field="emailAddress"></column>
+        </columns>
+        <row-actions>
+            <action icon="pi pi-trash" label="Delete" (clicked)="onDeleteActionClicked($event)"></action>
+        </row-actions>
+    </lens-table>`,
+```
+
+The `$event` object of `onDeleteActionClicked` contains the data of the row the action was performed on.

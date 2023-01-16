@@ -1,0 +1,21 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-textarea.stories";
+import { Default } from "./input-textarea.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputTextArea
+
+This is a nice way to input multiline text!
+
+<Story story={Default} />
+
+First import `InputTextareaModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-textarea id="foo" placeholder="test"></lens-input-textarea>
+```

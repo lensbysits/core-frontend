@@ -1,0 +1,16 @@
+<p-dropdown [inputId]="id"
+            (onChange)="onDropdownChanged($event)"
+            [options]="options"
+            [placeholder]="placeholder!"
+            [showClear]="!required"
+            [group]="grouped"
+            [editable]="editable"
+            [optionValue]="optionValue"
+            [optionLabel]="optionLabel"
+            [optionDisabled]="optionDisabled"
+            [required]="isRequired"
+            [disabled]="isDisabled">
+    <ng-template let-option pTemplate="item">
+        {{ option[this.optionLabel] || "&nbsp;" }}
+    </ng-template>
+</p-dropdown>

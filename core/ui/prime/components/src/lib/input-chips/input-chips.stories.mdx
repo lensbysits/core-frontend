@@ -1,0 +1,34 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-chips.stories";
+import { Default } from "./input-chips.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputChips
+
+This is a nice way to input chips!
+
+Chips can only be added programatically by modifying the array bound to the form control.
+
+```
+IMPORTANT: when the array bound to the form control is changed, nothing will happen until a new instance of the array is created.
+
+<lens-input-chips [(ngModel)]="array"></lens-input-chips>
+array = [...array];
+```
+
+Using the `search` event the list of items a user can select from is filtered. The list of items is not part of the chips component.
+
+Using `fieldLabel` the label property of an object can be specified.
+
+<Story story={Default} />
+
+First import `InputChipsModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-chips id="foo" (search)="onSearch($event)"></lens-input-chips>
+```

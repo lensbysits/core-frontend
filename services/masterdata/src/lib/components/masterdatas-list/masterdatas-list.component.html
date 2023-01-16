@@ -1,0 +1,47 @@
+<div class="masterdata-table-wrapper">
+	<div class="mb-4">
+		<ng-container *ngIf="masterdataType$ | async as masterdataType">
+			<h3>
+				{{ masterdataType?.name }}
+				<small>({{ masterdataType?.masterdatasCount }})</small>
+			</h3>
+			<lens-button
+				label="Add masterdata"
+				icon="pi pi-plus"
+				type="success"
+				[disabled]="isLoading"
+				(clicked)="onAddAction()"></lens-button>
+		</ng-container>
+	</div>
+	<lens-table
+		[source]="items"
+		[totalRecords]="totalSize"
+		(lazyLoad)="onLazyLoadData($event)"
+		(rowDblClick)="onRowClicked($event)"
+		[loading]="isLoading">
+		<columns>
+			<column
+				label="Key"
+				field="key"></column>
+			<column
+				label="Value"
+				field="value"></column>
+			<column
+				label="Name"
+				field="name"></column>
+			<column
+				label="Description"
+				field="description"></column>
+			<row-actions>
+				<action
+					icon="pi pi-pencil"
+					label="Edit"
+					(clicked)="onEditActionClicked($event)"></action>
+				<action
+					icon="pi pi-trash"
+					label="Delete"
+					(clicked)="onDeleteActionClicked($event)"></action>
+			</row-actions>
+		</columns>
+	</lens-table>
+</div>

@@ -1,0 +1,10 @@
+<ng-container *ngIf="icon else input">
+    <span class="p-input-icon-{{ iconAlign }}">
+        <i class="pi pi-{{ icon }}" [class.pi-spin]="spinIcon"></i>
+        <ng-container *ngTemplateOutlet="input"></ng-container>
+    </span>
+</ng-container>
+
+<ng-template #input>
+    <input type="email" pInputText [attr.placeholder]="placeholder" [id]="id" [attr.disabled]="disabled" [attr.required]="required" [formControl]="control" />
+</ng-template>

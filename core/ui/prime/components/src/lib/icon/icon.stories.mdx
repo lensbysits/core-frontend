@@ -1,0 +1,31 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./icon.stories";
+import { Default, Spinner } from "./icon.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Icon
+
+This is a nice icon!
+
+Please check https://www.primefaces.org/primeng/icons for the list of supported icons.
+
+<Story story={Default} />
+
+First import `ButtonModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-icon icon="pi-search"></lens-icon>
+```
+
+## Spinning icons
+
+<Story story={Spinner} />
+
+```html
+<lens-icon icon="pi-spinner" spinIcon="true"></lens-icon>
+```
