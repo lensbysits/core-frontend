@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input, Optional } from "@angular/core";
-import { ControlContainer, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, forwardRef, Input } from "@angular/core";
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { InputBaseComponent } from "../input-base/input-base.component";
 
 @Component({
@@ -10,15 +10,10 @@ import { InputBaseComponent } from "../input-base/input-base.component";
     ]
 })
 export class InputTextareaComponent extends InputBaseComponent {
-    @Input() id!: string;
+	@Input() id!: string;
     @Input() placeholder?: string;
-    @Input() autoResize: boolean;
     @Input() cols?: number;
     @Input() rows?: number;
     @Input() style!: string;
-
-	constructor(@Optional() controlContainer: ControlContainer){
-		super(controlContainer);
-		this.autoResize = false;
-	}
+    @Input() autoResize = false;
 }
