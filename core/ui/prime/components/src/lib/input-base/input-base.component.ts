@@ -1,5 +1,6 @@
-import { Component, Input, Optional } from "@angular/core";
+import { Component, EventEmitter, Input, Optional, Output } from "@angular/core";
 import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, ValidationErrors, Validator } from "@angular/forms";
+
 
 @Component({
     template: ""
@@ -10,6 +11,10 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 
     @Input()
     public formControlName?: string;
+
+	@Output()
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public inputValueChanged: EventEmitter<any> = new EventEmitter();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     get control(): FormControl<any> {
@@ -68,6 +73,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
     public valueChanged(): void {
         this.onChange(this.value);
         this.onTouched(this.value);
+		this.inputValueChanged.emit(this.value);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
