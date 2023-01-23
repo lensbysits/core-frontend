@@ -8,7 +8,7 @@ import { MenuService } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 
-import { MasterdataTypeSelectorModule } from "./core/ui";
+import { MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
 import { MasterdataApiClientsModule } from "./core/services";
 import {
 	LoggerMessagesComponent,
@@ -44,11 +44,12 @@ const components = [
 		HttpClientModule,
 		PrimeComponentsModule,
 		MasterdataTypeSelectorModule,
+    TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataApiClientsModule.forRoot()
 	],
 	declarations: [...components],
-	exports: [MasterdataTypeSelectorModule],
+	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {

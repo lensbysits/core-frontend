@@ -150,6 +150,27 @@
 								</div>
 							</div>
 						</div>
+            <!-- tags -->
+            <div class="field">
+              <label for="tags">Tags</label>
+              <lens-services-tags-selector
+                id="tags"
+                formControlName="tags"
+                [tags]="
+                  tagsList
+                "></lens-services-tags-selector>
+              <div
+                *ngIf="
+                  isFormSubmitted &&
+                  getFormFields['tags']!.invalid
+                "
+                class="p-error">
+                <div
+                  *ngIf="getFormFields['tags']!.errors?.['required']">
+                  Tags is required.
+                </div>
+              </div>
+            </div>
 						<!-- metadata -->
 						<div class="field">
 							<label for="metadata">Metadata</label>
