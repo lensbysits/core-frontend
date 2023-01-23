@@ -1,4 +1,5 @@
 {
+  "name": "framework-core-ui-nebular-layout",
   "projectType": "library",
   "sourceRoot": "libs/framework/core/ui/nebular/layout/src",
   "prefix": "lens",
