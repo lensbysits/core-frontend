@@ -1,4 +1,5 @@
 export * from "./adapter.interface";
+export * from "./query-model.interface";
 export * from "./logger-message.interface";
 export * from "./masterdata-type-create.interface";
 export * from "./masterdata-type-update.interface";

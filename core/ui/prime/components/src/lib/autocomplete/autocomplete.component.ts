@@ -17,6 +17,7 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
   @Input() public dropdown = true;
   @Input() public modeType: "default" | "tags" = "default";
   @Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
+  @Input() public placeholder = "";
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public filteredOptions: { key: any, value: string }[] = [];
@@ -107,12 +108,16 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (this.value.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
+    if (this.value && this.value.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
       // don't add a value already used
       return;
     }
+    if (!this.value) {
+      this.value = [];
+    }
     this.value.push({ key: _value, value: _value });
     tokenInput.value = "";
+    this.valueChanged();
   }
 
   private removeTrailingSeparator(str: string, separator: string, extraChars = "\\s") {

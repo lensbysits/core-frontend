@@ -5,12 +5,23 @@
 				{{ masterdataType?.name }}
 				<small>({{ masterdataType?.masterdatasCount }})</small>
 			</h3>
-			<lens-button
-				label="Add masterdata"
-				icon="pi pi-plus"
-				type="success"
-				[disabled]="isLoading"
-				(clicked)="onAddAction()"></lens-button>
+      <div class="masterdata-table-toolbar p-fluid">
+        <div class="masterdata-table-toolbar-item">
+          <lens-button
+            label="Add masterdata"
+            icon="pi pi-plus"
+            type="success"
+            [disabled]="isLoading"
+            (clicked)="onAddAction()"></lens-button>
+        </div>
+        <div class="masterdata-table-toolbar-item">
+          <lens-services-tags-selector
+            id="tags"
+            [(ngModel)]="tagsSelected"
+            [tags]="tagsList"
+            (tagsChanged)="onTagsChangedFilter($event)"></lens-services-tags-selector>
+        </div>
+      </div>
 		</ng-container>
 	</div>
 	<lens-table
@@ -18,7 +29,8 @@
 		[totalRecords]="totalSize"
 		(lazyLoad)="onLazyLoadData($event)"
 		(rowDblClick)="onRowClicked($event)"
-		[loading]="isLoading">
+		[loading]="isLoading"
+    #table>
 		<columns>
 			<column
 				label="Key"

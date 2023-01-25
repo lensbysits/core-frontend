@@ -24,7 +24,7 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 
 	public options!: KeyValuePair<string, string>[];
 
-	private _value?: KeyValuePair<number, string>;
+	private _value?: KeyValuePair<string, string>;
 	private _disabled!: string;
 
 	public isDisabled = false;
@@ -43,17 +43,17 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected onTouched = () => {};
 
-	public set value(value: KeyValuePair<number, string> | undefined) {
+	public set value(value: KeyValuePair<string, string> | undefined) {
 		this._value = value;
 		this.onChange(value);
 		this.onTouched();
 	}
 
-	public get value(): KeyValuePair<number, string> | undefined {
+	public get value(): KeyValuePair<string, string> | undefined {
 		return this._value;
 	}
 
-	public writeValue(obj: KeyValuePair<number, string> | undefined): void {
+	public writeValue(obj: KeyValuePair<string, string> | undefined): void {
 		this._value = obj;
 	}
 

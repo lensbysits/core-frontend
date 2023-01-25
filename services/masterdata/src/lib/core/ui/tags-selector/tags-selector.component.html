@@ -1,5 +1,7 @@
 <lens-autocomplete
   [options]="options"
   [(ngModel)]="value"
+  placeholder="Here you can filter by tags"
   modeType="tags"
-  separator=","></lens-autocomplete>
+  separator=","
+  (inputValueChanged)="onTagsChanged($event)"></lens-autocomplete>
