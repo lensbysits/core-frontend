@@ -101,24 +101,3 @@ Editable.args = {
 	placeholder: "test",
 	editable: true
 };
-
-// Editable.play = async (context) => {
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-trigger")[0]);
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-item")[1]);
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-label")[0]);
-// 	userEvent.type(context.canvasElement.getElementsByClassName("p-dropdown-label")[0], "{backspace}".repeat(6));
-// 	userEvent.type(context.canvasElement.getElementsByClassName("p-dropdown-label")[0], "This is a test");
-// 	await expect(
-// 		// form.values.dropdown.value
-// 		(context.canvasElement.getElementsByClassName("p-dropdown-label")[0] as HTMLInputElement).value
-// 	).toBe("This is a test");
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-trigger")[0]);
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-item")[1]);
-// 	userEvent.click(context.canvasElement.getElementsByClassName("p-dropdown-label")[0]);
-// 	userEvent.type(context.canvasElement.getElementsByClassName("p-dropdown-label")[0], "{backspace}".repeat(6));
-// 	userEvent.type(context.canvasElement.getElementsByClassName("p-dropdown-label")[0], "This is a test");
-// 	await expect(
-// 		// form.values.dropdown.value
-// 		(context.canvasElement.getElementsByClassName("p-dropdown-label")[0] as HTMLInputElement).value
-// 	).toBe("This is a test");
-// };
