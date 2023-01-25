@@ -1,14 +1,14 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { AutoCompleteComponent } from "./autocomplete-tags.component"
-import { AutoCompleteModule } from "./autocomplete-tags.module";
+import { AutoCompleteTagsComponent } from "./autocomplete-tags.component"
+import { AutoCompleteTagsModule } from "./autocomplete-tags.module";
 
 export default {
-    component: AutoCompleteComponent,
-    title: "Components/AutoComplete",
+    component: AutoCompleteTagsComponent,
+    title: "Components/AutoCompleteTags",
     decorators: [
         moduleMetadata({
-            imports: [ AutoCompleteModule, BrowserAnimationsModule ]
+            imports: [ AutoCompleteTagsModule, BrowserAnimationsModule ]
         })
     ]
 } as Meta
@@ -26,5 +26,7 @@ Default.args = {
         { key: 2, value: "Item 2" },
         { key: 3, value: "Item 3" },
         { key: 4, value: "Item 4" }
-    ]
+    ],
+    separator: ",",
+    allowAddNewTag: true
 }

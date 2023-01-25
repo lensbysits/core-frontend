@@ -1,20 +1,20 @@
 import { Meta, Story } from "@storybook/addon-docs";
-import meta from "./autocomplete.stories";
-import { Default } from "./autocomplete.stories";
+import meta from "./autocomplete-tags.stories";
+import { Default } from "./autocomplete-tags.stories";
 
-<Meta 
+<Meta
     title={meta.title}
     component={meta.component}
     decorators={meta.decorators}
     argTypes={meta.argTypes} />
 
-# AutoComplete
+# AutoCompleteTags
 
-This is a nice way to search items in a list!
+This is a nice way to manage tags from a list!
 
 <Story story={Default} />
 
-First import `AutoCompleteModule` from `@lens/ui-prime-components`.
+First import `AutoCompleteTagsModule` from `@lens/ui-prime-components`.
 
 ```ts
 const options = [
@@ -26,5 +26,5 @@ const options = [
 ```
 
 ```html
-<lens-autocomplete id="foo" [options]="options"></lens-autocomplete>
+<lens-autocomplete-tags id="foo" [options]="options" separator="," allowAddNewTag="true"></lens-autocomplete-tags>
 ```
