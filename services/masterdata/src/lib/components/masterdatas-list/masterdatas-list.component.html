@@ -19,7 +19,9 @@
             id="tags"
             [(ngModel)]="tagsSelected"
             [tags]="tagsList"
-            (tagsChanged)="onTagsChangedFilter($event)"></lens-services-tags-selector>
+            (tagsChanged)="onTagsChangedFilter($event)"
+            [allowAddNewTag]="false"
+            placeholder="Here you can filter by tags"></lens-services-tags-selector>
         </div>
       </div>
 		</ng-container>

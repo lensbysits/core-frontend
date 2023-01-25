@@ -23,6 +23,9 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		}));
 	}
 
+  @Input() public placeholder = "";
+  @Input() public allowAddNewTag = true;
+
 	public options!: KeyValuePair<string, string>[];
 
 	private _value?: KeyValuePair<string, string>;

@@ -55,9 +55,7 @@
 								<lens-services-masterdata-type-selector
 									id="masterdataTypeId"
 									formControlName="masterdataTypeId"
-									[masterdataTypes]="
-										typesList
-									"></lens-services-masterdata-type-selector>
+									[masterdataTypes]="typesList"></lens-services-masterdata-type-selector>
 								<div
 									*ngIf="
 										isFormSubmitted &&
@@ -156,9 +154,8 @@
               <lens-services-tags-selector
                 id="tags"
                 formControlName="tags"
-                [tags]="
-                  tagsList
-                "></lens-services-tags-selector>
+                [tags]="tagsList"
+                placeholder="Here you can insert tags"></lens-services-tags-selector>
               <div
                 *ngIf="
                   isFormSubmitted &&

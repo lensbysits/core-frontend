@@ -16,6 +16,7 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
   @Input() public forceSelection = true;
   @Input() public dropdown = true;
   @Input() public modeType: "default" | "tags" = "default";
+  @Input() public allowAddNewTag = true; // allows adding of new tags when modeType=tags
   @Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
   @Input() public placeholder = "";
 
@@ -81,6 +82,9 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
   public onKeyUp(event: any): void {
     if (this.modeType !== "tags") {
       // TODO: implement this functionality for other mode types!
+      return;
+    }
+    if (!this.allowAddNewTag) {
       return;
     }
     if (event.key.toLowerCase() !== "enter" && event.key !== this.separator) {
