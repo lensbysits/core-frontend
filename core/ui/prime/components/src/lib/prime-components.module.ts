@@ -13,6 +13,7 @@ import { ToastModule } from './toast';
 import { InputEmailModule } from './input-email';
 import { PanelModule } from './panel';
 import { AutoCompleteModule } from './autocomplete';
+import { AutoCompleteTagsModule } from './autocomplete-tags';
 import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
 import { LanguageSelectorModule } from './language-selector';
@@ -22,6 +23,7 @@ import { MultilingualModule } from '@lens/app-abstract';
 @NgModule({
   imports: [
     AutoCompleteModule,
+    AutoCompleteTagsModule,
     ButtonModule,
     CommonModule,
     DropdownModule,
@@ -42,6 +44,7 @@ import { MultilingualModule } from '@lens/app-abstract';
   ],
   exports: [
     AutoCompleteModule,
+    AutoCompleteTagsModule,
     ButtonModule,
     DropdownModule,
     IconModule,

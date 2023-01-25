@@ -1,4 +1,5 @@
 export * from "./lib/autocomplete";
+export * from "./lib/autocomplete-tags";
 export * from "./lib/button";
 export * from "./lib/input-chips";
 export * from "./lib/dialog";

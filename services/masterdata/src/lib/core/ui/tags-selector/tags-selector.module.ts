@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { AutoCompleteModule } from "@lens/ui-prime-components";
+import { AutoCompleteTagsModule } from "@lens/ui-prime-components";
 import { TagsSelectorComponent } from "./tags-selector.component";
 
 @NgModule({
-	imports: [AutoCompleteModule, FormsModule],
+	imports: [AutoCompleteTagsModule, FormsModule],
 	declarations: [TagsSelectorComponent],
 	exports: [TagsSelectorComponent]
 })
