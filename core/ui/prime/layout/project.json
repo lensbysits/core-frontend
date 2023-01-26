@@ -1,4 +1,5 @@
 {
+  "name": "framework-core-ui-prima-layout",
   "projectType": "library",
   "sourceRoot": "libs/framework/core/ui/prime/layout/src",
   "prefix": "lens",
