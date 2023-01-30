@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
+import { ToastService } from "@lens/app-abstract";
 import { MessageService } from "primeng/api";
 import { ToastModule as PrimeToastModule } from "primeng/toast";
 import { MessageWindow } from "./message-window.interface";
 import { ToastComponent } from "./toast.component";
-import { ToastService } from "./toast.service";
 
 declare let window: MessageWindow;
 
