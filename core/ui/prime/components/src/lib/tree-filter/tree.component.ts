@@ -25,14 +25,18 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	public nodeUnselected = new EventEmitter<TreeNode<unknown>>();
 
 	ngOnInit(): void {
+		if(!this.nodes){
+			return;
+		}
+		
 		for (const node of this.nodes) {
-			// if (!node.expandedIcon) {
-			// 	node.expandedIcon = "pi pi-folder-open";
-			// }
+			if (!node.expandedIcon) {
+				node.expandedIcon = "pi pi-folder-open";
+			}
 
-			// if (!node.collapsedIcon) {
-			// 	node.collapsedIcon = "pi pi-folder";
-			// }
+			if (!node.collapsedIcon) {
+				node.collapsedIcon = "pi pi-folder";
+			}
 			node.selectable = !this.isDisabled;
 		}
 	}
