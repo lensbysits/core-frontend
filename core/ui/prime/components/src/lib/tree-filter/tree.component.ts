@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { TreeNode } from "primeng/api";
 import { InputBaseComponent } from "../input-base/input-base.component";
@@ -10,7 +10,7 @@ import { InputBaseComponent } from "../input-base/input-base.component";
         { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TreeComponent), multi: true }
     ]
 })
-export class TreeComponent extends InputBaseComponent {
+export class TreeComponent extends InputBaseComponent implements OnInit {
 	@Input()
 	public nodes!: TreeNode<unknown>[]
 	@Input()
@@ -26,6 +26,11 @@ export class TreeComponent extends InputBaseComponent {
 	public nodeSelected = new EventEmitter<TreeNode<unknown>>()
 	public nodeUnselected = new EventEmitter<TreeNode<unknown>>()
 
+	ngOnInit(): void {
+		for(const node of this.nodes){
+			node.selectable = !this.isDisabled
+		}
+	}
 
 	public selectedNodes():TreeNode<unknown>[]{
 		return [];
