@@ -6,7 +6,11 @@ describe('DefaultUserContextService', () => {
   let service: DefaultUserContextService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+		providers: [
+			DefaultUserContextService
+		]
+	});
     service = TestBed.inject(DefaultUserContextService);
   });
 

@@ -1,4 +1,5 @@
 {
+  "name": "framework-core-ui-prime-components",
   "projectType": "library",
   "sourceRoot": "libs/framework/core/ui/prime/components/src",
   "prefix": "lens",
