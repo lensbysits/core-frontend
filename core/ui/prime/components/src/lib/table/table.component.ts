@@ -32,14 +32,16 @@ export class TableComponent implements AfterViewInit {
 	public rowActionItems!: MenuItem[];
 
 	public ngAfterViewInit(): void {
-		this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
-            id:action.id,
-			icon: action.icon,
-			label: action.label,
-			command: () => {
-				action.clicked.emit(this.itemOfContextMenuClickedRow);
-			}
-		}));
+		setTimeout(() => {
+			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
+				id:action.id,
+				icon: action.icon,
+				label: action.label,
+				command: () => {
+					action.clicked.emit(this.itemOfContextMenuClickedRow);
+				}
+			}));
+		});
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
