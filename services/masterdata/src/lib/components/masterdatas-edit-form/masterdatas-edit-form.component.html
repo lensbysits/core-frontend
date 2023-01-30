@@ -9,7 +9,8 @@
 				style="color: var(--primary-color)">
 				<lens-icon
 					icon="pi-arrow-left"
-					class="mr-2"></lens-icon>
+					class="mr-2">
+        </lens-icon>
 				<a routerLink="..">Back to list</a>
 			</div>
 		</div>
@@ -22,7 +23,8 @@
 							*ngTemplateOutlet="
 								editFormBlock;
 								context: { item: item }
-							"></ng-container>
+							">
+            </ng-container>
 					</ng-container>
 					<!-- end only for edit form -->
 					<!-- only for add form -->
@@ -44,7 +46,8 @@
 					<ng-template #addFormBlock>
 						<ng-container *ngIf="needsTypeIdSelector">
 							<ng-container
-								*ngTemplateOutlet="showTypeIdSelectorBlock"></ng-container>
+								*ngTemplateOutlet="showTypeIdSelectorBlock">
+              </ng-container>
 						</ng-container>
 						<ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
 
@@ -55,7 +58,8 @@
 								<lens-services-masterdata-type-selector
 									id="masterdataTypeId"
 									formControlName="masterdataTypeId"
-									[masterdataTypes]="typesList"></lens-services-masterdata-type-selector>
+									[masterdataTypes]="typesList">
+                </lens-services-masterdata-type-selector>
 								<div
 									*ngIf="
 										isFormSubmitted &&
@@ -76,7 +80,8 @@
 								<lens-input-text
 									id="key"
 									formControlName="key"
-									placeholder="Please enter a valid key"></lens-input-text>
+									placeholder="Please enter a valid key">
+                </lens-input-text>
 								<div
 									*ngIf="isFormSubmitted && getFormFields['key']!.invalid"
 									class="p-error">
@@ -98,7 +103,8 @@
 							<lens-input-text
 								id="value"
 								formControlName="value"
-								placeholder="Please enter a valid value"></lens-input-text>
+								placeholder="Please enter a valid value">
+              </lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['value']!.invalid"
 								class="p-error">
@@ -116,7 +122,8 @@
 							<lens-input-text
 								id="name"
 								formControlName="name"
-								placeholder="Please enter a valid name"></lens-input-text>
+								placeholder="Please enter a valid name">
+              </lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
 								class="p-error">
@@ -134,7 +141,8 @@
 							<lens-input-textarea
 								id="description"
 								formControlName="description"
-								placeholder="Please enter a valid description"></lens-input-textarea>
+								placeholder="Please enter a valid description">
+              </lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
@@ -201,13 +209,15 @@
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"
-						(clicked)="onSubmit()"></lens-button>
+						(clicked)="onSubmit()">
+          </lens-button>
 				</div>
 				<div>
 					<lens-button
 						label="Cancel"
 						icon="pi pi-backward"
-						(clicked)="btnCancel()"></lens-button>
+						(clicked)="btnCancel()">
+          </lens-button>
 				</div>
 			</div>
 		</div>

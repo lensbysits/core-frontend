@@ -36,13 +36,16 @@
 		<columns>
 			<column
 				label="Key"
-				field="key"></column>
+				field="key">
+      </column>
 			<column
 				label="Value"
-				field="value"></column>
+				field="value">
+      </column>
 			<column
 				label="Name"
-				field="name"></column>
+				field="name">
+      </column>
 			<column
 				label="Description"
 				field="description"></column>
@@ -53,11 +56,13 @@
 				<action
 					icon="pi pi-pencil"
 					label="Edit"
-					(clicked)="onEditActionClicked($event)"></action>
+					(clicked)="onEditActionClicked($event)">
+        </action>
 				<action
 					icon="pi pi-trash"
 					label="Delete"
-					(clicked)="onDeleteActionClicked($event)"></action>
+					(clicked)="onDeleteActionClicked($event)">
+        </action>
 			</row-actions>
 		</columns>
 	</lens-table>
