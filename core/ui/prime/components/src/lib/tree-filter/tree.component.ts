@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { TreeNode } from "primeng/api";
 import { InputBaseComponent } from "../input-base/input-base.component";
@@ -19,8 +19,15 @@ export class TreeComponent extends InputBaseComponent {
 	public filterMode = "strict"
 	@Input()
 	public selectionMode = "single"
-
 	@Input()
-	public selectedNodes?: TreeNode<unknown>[]
+	public selectedKeys?: string[]|number[]
 
+	@Output()
+	public nodeSelected = new EventEmitter<TreeNode<unknown>>()
+	public nodeUnselected = new EventEmitter<TreeNode<unknown>>()
+
+
+	public selectedNodes():TreeNode<unknown>[]{
+		return [];
+	}
 }
