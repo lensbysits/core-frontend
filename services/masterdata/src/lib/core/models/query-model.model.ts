@@ -6,7 +6,7 @@ export class QueryModel implements IQueryModel {
   limit?: number | null | undefined;
   noLimit?: boolean | null | undefined;
   tag?: string | null | undefined;
-  tags: string[] | null | undefined;
+  tags?: string | null | undefined;
   createdBy?: string | null | undefined;
   createdSince?: Date | null | undefined;
   updatedBy?: string | null | undefined;
@@ -54,9 +54,7 @@ export class QueryModel implements IQueryModel {
       queryParams = queryParams.append("Tag", this.tag);
     }
     if (this.tags !== undefined && this.tags !== null) {
-      if (Array.isArray(this.tags)) {
-        this.tags.forEach((tag, idx) => queryParams = queryParams.append(`Tags[${idx}]`, tag));
-      }
+      queryParams = queryParams.append("Tags", this.tags);
     }
 		if (this.createdBy !== undefined && this.createdBy !== null) {
       queryParams = queryParams.append("CreatedBy", this.createdBy);

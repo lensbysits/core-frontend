@@ -69,7 +69,7 @@ export class MasterdataCrudHttpService {
 	getAllMasterdatas(masterdatatype: string, offset: number, rows: number, tags: string[]): Observable<MasterdataResultList> {
 		const masterdataResultListModelAdapter = new MasterdataResultListModelAdapter();
 
-    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tag: tags.join(''), tags }));
+    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tags: tags.join(",") }));
 		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, queryParams.toString());
 
 		return this.client.get<MasterdataResultList>(url).pipe(
