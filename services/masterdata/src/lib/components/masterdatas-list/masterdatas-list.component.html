@@ -10,7 +10,8 @@
 				icon="pi pi-plus"
 				type="success"
 				[disabled]="isLoading"
-				(clicked)="onAddAction()"></lens-button>
+				(clicked)="onAddAction()">
+      </lens-button>
 		</ng-container>
 	</div>
 	<lens-table
@@ -22,28 +23,35 @@
 		<columns>
 			<column
 				label="Key"
-				field="key"></column>
+				field="key">
+      </column>
 			<column
 				label="Value"
-				field="value"></column>
+				field="value">
+      </column>
 			<column
 				label="Name"
-				field="name"></column>
+				field="name">
+      </column>
 			<column
 				label="Description"
-				field="description"></column>
+				field="description">
+      </column>
       <column
 				label="Tags"
-				field="tags"></column>
+				field="tags">
+      </column>
 			<row-actions>
 				<action
 					icon="pi pi-pencil"
 					label="Edit"
-					(clicked)="onEditActionClicked($event)"></action>
+					(clicked)="onEditActionClicked($event)">
+        </action>
 				<action
 					icon="pi pi-trash"
 					label="Delete"
-					(clicked)="onDeleteActionClicked($event)"></action>
+					(clicked)="onDeleteActionClicked($event)">
+        </action>
 			</row-actions>
 		</columns>
 	</lens-table>
