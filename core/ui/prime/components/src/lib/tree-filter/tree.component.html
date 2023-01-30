@@ -1,9 +1,10 @@
 <p-tree 
+[disa]
 	[value]="nodes" 
 	[filter]="filter" 
 	[filterMode]="filterMode"
 	[selectionMode]="selectionMode"
 	[(selection)] = "selectedNodes"
-	(onNodeSelect)=""
-	(onNodeUnselect)=""
+	(onNodeSelect)="nodeSelected"
+	(onNodeUnselect)="nodeUnselected"
 	></p-tree>
