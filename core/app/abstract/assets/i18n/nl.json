@@ -1,0 +1,6 @@
+{
+	"errorHandling": {
+		"title": "Foutmelding",
+		"unexpected": "Er is een onverwachte fout opgetreden. Probeert u het alstublieft opnieuw. Details: '{{details}}'"
+	}
+}

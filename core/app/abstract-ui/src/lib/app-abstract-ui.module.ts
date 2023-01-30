@@ -20,7 +20,8 @@ const components_directives = [AppComponent, ComponentLoaderDirective, HasClaimD
 	imports: [
         CommonModule, 
         RouterModule, 
-        DialogModule
+        DialogModule,
+        MultilingualModule.forChild("framework-core")
     ],
 	exports: [
         ...components_directives, 

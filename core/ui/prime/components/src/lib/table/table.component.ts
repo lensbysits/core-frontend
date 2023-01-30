@@ -32,7 +32,7 @@ export class TableComponent implements AfterViewInit {
 	public rowActionItems!: MenuItem[];
 
 	public ngAfterViewInit(): void {
-		setTimeout(() => {
+		setTimeout(() => { // to circumvent the ecaihbce exception https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
 			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
 				id:action.id,
 				icon: action.icon,

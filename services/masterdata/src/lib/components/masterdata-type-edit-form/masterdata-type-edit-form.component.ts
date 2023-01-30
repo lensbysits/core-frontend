@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService } from "@lens/ui-prime-components";
 import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataTypeMaxLength } from "../../core/utils";
+import { ToastService } from "@lens/app-abstract";
 
 @Component({
 	selector: "lens-masterdata-type-edit-form",
