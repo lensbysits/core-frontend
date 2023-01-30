@@ -36,36 +36,8 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
         @Optional() private readonly controlContainer: ControlContainer
     ) { }
 
-    private _disabled?: string; 
-    @Input() public set disabled(value: string | undefined | boolean) {
-        this.isDisabled = value !== undefined;
-        if (typeof value === "boolean" && !value) {
-            this.isDisabled = false;
-        }
-        if (this.isDisabled) {
-            this._disabled = "disabled";
-        } else {
-            this._disabled = undefined;
-        }
-    }
-
-    public get disabled(): string | undefined | boolean {
-        return this._disabled;
-    }
-
-    public isDisabled = false;
-
-    private _required!: string;
-    @Input() public set required(value: string) {
-        this.isRequired = value !== undefined;
-        this._required = value;
-    }
-
-    public get required(): string {
-        return this._required;
-    }
-
-    public isRequired = false;
+	@Input() public disabled = false;
+    @Input() public required = false;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public value: any;
@@ -99,7 +71,7 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
     }
 
     public setDisabledState?(isDisabled: boolean): void {
-        this.isDisabled = isDisabled;
+        this.disabled = isDisabled;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
