@@ -1,5 +1,5 @@
-import { Injectable, Inject, Optional, InjectionToken, Query } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 
@@ -14,7 +14,6 @@ import {
 	MasterdataResultListModelAdapter,
   TagsResultListModelAdapter
 } from "../adapters";
-import { query } from "@angular/animations";
 
 const isEmpty = (str: string) => !str || !str.length;
 
@@ -43,10 +42,9 @@ export class MasterdataCrudHttpService {
 	getAllMasterdataTypes(offset: number, rows: number): Observable<MasterdataTypeResultList> {
 		const masterdataTypeResultListModelAdapter = new MasterdataTypeResultListModelAdapter();
 
-		const url = this.genericListUriMasterdata(
-      `${this.baseUrl}`,
-      new QueryModel({ offset, limit: rows })
-    );
+    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const url = this.buildListUri(this.baseUrl, queryParams.toString());
+
 		return this.client
 			.get<MasterdataTypeResultList>(url) //.pipe(first());
 			.pipe(
@@ -71,10 +69,9 @@ export class MasterdataCrudHttpService {
 	getAllMasterdatas(masterdatatype: string, offset: number, rows: number, tags: string[]): Observable<MasterdataResultList> {
 		const masterdataResultListModelAdapter = new MasterdataResultListModelAdapter();
 
-		const url = this.genericListUriMasterdata(
-      `${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`,
-      new QueryModel({ offset, limit: rows, tag: tags.join('') })
-    );
+    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tag: tags.join(''), tags }));
+		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, queryParams.toString());
+
 		return this.client.get<MasterdataResultList>(url).pipe(
 			tap(() => this.log(null, "getAllMasterdatas", "success")),
 			map(input => masterdataResultListModelAdapter.adapt(input)),
@@ -97,10 +94,9 @@ export class MasterdataCrudHttpService {
 	getAllTags(masterdatatype: string, offset: number, rows: number): Observable<TagsResultList> {
 		const tagsResultListModelAdapter = new TagsResultListModelAdapter();
 
-		const url = this.genericListUriMasterdata(
-      `${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`,
-      new QueryModel({ offset, limit: rows })
-    );
+    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`, queryParams.toString());
+
 		return this.client.get<TagsResultList>(url).pipe(
 			tap(() => this.log(null, "getAllTags", "success")),
 			map(input => tagsResultListModelAdapter.adapt(input)),
@@ -218,30 +214,25 @@ export class MasterdataCrudHttpService {
 		this.logger.add({ status, message: msg.join(" | ") } as ILoggerMessage);
 	}
 
-	/**
-	 * @param baseUrl (optional)
-	 * @param offset (optional)
-	 * @param limit (optional)
-	 * @return Success
-	 */
-	private genericListUriMasterdata(baseUrl: string | undefined, queryModel?: QueryModel): string {
-    let urlQuery = "";
-    if (queryModel) {
-      const { offset, limit } = queryModel;
-
-      queryModel.offset = undefined;
-      queryModel.limit = undefined;
-      queryModel.noLimit = true;
-      if (limit && limit > 0) {
-        queryModel.offset = offset;
-        queryModel.limit = limit;
-        queryModel.noLimit = undefined;
-      }
-
-      urlQuery = queryModel?.toUriQuery();
-    }
-    const url = removeTrailingCharsFromUri(`${baseUrl}?${urlQuery}`);
+  private buildListUri(baseUrl: string | undefined, queryString?: string) {
+    const url = removeTrailingCharsFromUri(`${baseUrl}?${queryString}`);
     return url;
+  }
+
+	private buildListQueryModelParams(queryModel?: QueryModel): HttpParams {
+    if (!queryModel) {
+      return new HttpParams();
+    }
+    const { offset, limit } = queryModel;
+    queryModel.offset = undefined;
+    queryModel.limit = undefined;
+    queryModel.noLimit = true;
+    if (limit && limit > 0) {
+      queryModel.offset = offset;
+      queryModel.limit = limit;
+      queryModel.noLimit = undefined;
+    }
+    return queryModel.asParams();
 	}
 	//#endregion
 }

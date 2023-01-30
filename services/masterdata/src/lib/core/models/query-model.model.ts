@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { IQueryModel } from "../interfaces";
 
 export class QueryModel implements IQueryModel {
@@ -28,49 +29,57 @@ export class QueryModel implements IQueryModel {
     }
   }
 
+  asParams() {
+    return this.buildQueryParams();
+  }
+
+  asString() {
+    return this.asParams().toString();
+  }
+
 	// eslint-disable-next-line complexity
-	toUriQuery(): string {
-		let url_ = '';
+	private buildQueryParams(): HttpParams {
+		let queryParams = new HttpParams();
 
 		if (this.offset !== undefined && this.offset !== null) {
-      url_ += "Offset=" + encodeURIComponent("" + this.offset) + "&";
+      queryParams = queryParams.append("Offset", ""+this.offset);
     }
 		if (this.limit !== undefined && this.limit !== null) {
-      url_ += "Limit=" + encodeURIComponent("" + this.limit) + "&";
+      queryParams = queryParams.append("Limit", this.limit);
     }
 		if (this.noLimit !== undefined && this.noLimit !== null) {
-      url_ += "NoLimit=" + encodeURIComponent("" + this.noLimit) + "&";
+      queryParams = queryParams.append("NoLimit", this.noLimit);
     }
 		if (this.tag !== undefined && this.tag !== null) {
-      url_ += "Tag=" + encodeURIComponent("" + this.tag) + "&";
+      queryParams = queryParams.append("Tag", this.tag);
     }
     if (this.tags !== undefined && this.tags !== null) {
-      // TODO: tags as array?
-      url_ += "Tags=" + encodeURIComponent("" + this.tags) + "&";
+      if (Array.isArray(this.tags)) {
+        this.tags.forEach((tag, idx) => queryParams = queryParams.append(`Tags[${idx}]`, tag));
+      }
     }
 		if (this.createdBy !== undefined && this.createdBy !== null) {
-      url_ += "CreatedBy=" + encodeURIComponent("" + this.createdBy) + "&";
+      queryParams = queryParams.append("CreatedBy", this.createdBy);
     }
 		if (this.createdSince !== undefined && this.createdSince !== null) {
-			url_ += "CreatedSince=" + encodeURIComponent(this.createdSince ? "" + this.createdSince.toISOString() : "") + "&";
+      queryParams = queryParams.append("CreatedSince", (this.createdSince as Date).toISOString());
     }
 		if (this.updatedBy !== undefined && this.updatedBy !== null) {
-      url_ += "UpdatedBy=" + encodeURIComponent("" + this.updatedBy) + "&";
+      queryParams = queryParams.append("UpdatedBy", this.updatedBy);
     }
 		if (this.updatedSince !== undefined && this.updatedSince !== null) {
-      url_ += "UpdatedSince=" + encodeURIComponent(this.updatedSince ? "" + this.updatedSince.toISOString() : "") + "&";
+      queryParams = queryParams.append("UpdatedSince", (this.updatedSince as Date).toISOString());
     }
 		if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      url_ += "SearchTerm=" + encodeURIComponent("" + this.searchTerm) + "&";
+      queryParams = queryParams.append("SearchTerm", this.searchTerm);
     }
 		if (this.orderBy !== undefined && this.orderBy !== null) {
-      url_ += "OrderBy=" + encodeURIComponent("" + this.orderBy) + "&";
+      queryParams = queryParams.append("OrderBy", this.orderBy);
     }
 		if (this.queryString !== undefined && this.queryString !== null) {
-      url_ += "QueryString=" + encodeURIComponent("" + this.queryString) + "&";
+      queryParams = queryParams.append("QueryString", this.queryString);
     }
 
-    url_ = url_.replace(/[?&]$/, "");
-		return url_;
+    return queryParams;
 	}
 }
