@@ -8,8 +8,8 @@
             [optionValue]="optionValue"
             [optionLabel]="optionLabel"
             [optionDisabled]="optionDisabled"
-            [required]="isRequired"
-            [disabled]="isDisabled">
+            [required]="required"
+            [disabled]="disabled">
     <ng-template let-option pTemplate="item">
         {{ option[this.optionLabel] || "&nbsp;" }}
     </ng-template>
