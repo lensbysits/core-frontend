@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService } from "@lens/ui-prime-components";
+import { ToastService } from "@lens/app-abstract";
 import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";

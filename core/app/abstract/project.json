@@ -1,4 +1,5 @@
 {
+  "name": "framework-core-app-abstract",
   "projectType": "library",
   "sourceRoot": "libs/framework/core/app/abstract/src",
   "prefix": "lens",
