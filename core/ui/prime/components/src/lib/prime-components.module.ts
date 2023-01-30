@@ -18,6 +18,7 @@ import { InputChipsModule } from './input-chips';
 import { LanguageSelectorModule } from './language-selector';
 import { InputCheckboxModule } from './input-checkbox';
 import { MultilingualModule } from '@lens/app-abstract';
+import { TreeFilterModule } from './tree-filter';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { MultilingualModule } from '@lens/app-abstract';
     ToolbarModule,
     DialogModule,
     LanguageSelectorModule,
+	TreeFilterModule,
 	MultilingualModule.forChild("prime")
   ],
   exports: [
@@ -57,7 +59,8 @@ import { MultilingualModule } from '@lens/app-abstract';
     ToastModule,
     ToolbarModule,
     DialogModule,
-    LanguageSelectorModule
-  ]
+    LanguageSelectorModule,
+	TreeFilterModule
+]
 })
 export class PrimeComponentsModule {}
