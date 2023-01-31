@@ -29,7 +29,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 	item?: Masterdata;
 	maxLength = MasterdataMaxLength;
 	typesList: MasterdataType[] = [];
-  tagsList: string[] = [];
+	tagsList: string[] = [];
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
@@ -48,9 +48,9 @@ export class MasterdatasEditFormComponent implements OnInit {
 		this.needsTypeIdSelector = !(this.typeId !== undefined);
 
 		if (this.typeId) {
-      this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
-    }
-    this.loadTagsList();
+			this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
+		}
+		this.loadTagsList();
 
 		if (!this.isAddForm) {
 			this.loadData();
@@ -71,7 +71,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
 			description: ["", [Validators.maxLength(this.maxLength.description)]],
 			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]],
-      tags: [[] as KeyValuePair<string, string>[]]
+			tags: [[] as KeyValuePair<string, string>[]]
 		});
 	}
 
@@ -90,17 +90,17 @@ export class MasterdatasEditFormComponent implements OnInit {
 	loadData() {
 		this.isLoading = true;
 		this.service.getMasterdataById(this.typeId, this.id).subscribe(data => {
-      if (!data) {
-        this.router.navigateByUrl("/not-found");
-        return;
-      }
+			if (!data) {
+				this.router.navigateByUrl("/not-found");
+				return;
+			}
 
 			this.dataForm.patchValue({
 				value: data.value,
 				name: data.name,
 				description: data.description,
 				metadata: data.metadata,
-        tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
+				tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
 			});
 			this.item = data || {};
 			this.isLoading = false;
@@ -114,13 +114,13 @@ export class MasterdatasEditFormComponent implements OnInit {
 			return;
 		}
 
-		//this.isLoading = true;
+		this.isLoading = true;
 
 		const value = getRequiredFieldValue<string>(this.dataForm, "value");
 		const name = getRequiredFieldValue<string>(this.dataForm, "name");
 		const description = getFieldValue<string>(this.dataForm, "description");
 		const metadata = getFieldValue<string>(this.dataForm, "metadata");
-    const tags = getFieldValue<KeyValuePair<string, string>[]>(this.dataForm, "tags").map(item => item.key);
+		const tags = getFieldValue<KeyValuePair<string, string>[]>(this.dataForm, "tags").map(item => item.key);
 
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
@@ -134,7 +134,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
-      model.tags = tags;
+			model.tags = tags;
 
 			this.service.createMasterdata(model).subscribe(() => {
 				this.navigateToListView();
@@ -147,7 +147,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
-      model.tags = tags;
+			model.tags = tags;
 
 			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
 				this.navigateToListView();

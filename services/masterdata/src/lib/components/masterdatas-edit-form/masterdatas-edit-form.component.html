@@ -10,7 +10,7 @@
 				<lens-icon
 					icon="pi-arrow-left"
 					class="mr-2">
-        </lens-icon>
+				</lens-icon>
 				<a routerLink="..">Back to list</a>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 								editFormBlock;
 								context: { item: item }
 							">
-            </ng-container>
+						</ng-container>
 					</ng-container>
 					<!-- end only for edit form -->
 					<!-- only for add form -->
@@ -47,7 +47,7 @@
 						<ng-container *ngIf="needsTypeIdSelector">
 							<ng-container
 								*ngTemplateOutlet="showTypeIdSelectorBlock">
-              </ng-container>
+							</ng-container>
 						</ng-container>
 						<ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
 
@@ -59,7 +59,7 @@
 									id="masterdataTypeId"
 									formControlName="masterdataTypeId"
 									[masterdataTypes]="typesList">
-                </lens-services-masterdata-type-selector>
+								</lens-services-masterdata-type-selector>
 								<div
 									*ngIf="
 										isFormSubmitted &&
@@ -81,7 +81,7 @@
 									id="key"
 									formControlName="key"
 									placeholder="Please enter a valid key">
-                </lens-input-text>
+								</lens-input-text>
 								<div
 									*ngIf="isFormSubmitted && getFormFields['key']!.invalid"
 									class="p-error">
@@ -104,7 +104,7 @@
 								id="value"
 								formControlName="value"
 								placeholder="Please enter a valid value">
-              </lens-input-text>
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['value']!.invalid"
 								class="p-error">
@@ -123,7 +123,7 @@
 								id="name"
 								formControlName="name"
 								placeholder="Please enter a valid name">
-              </lens-input-text>
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
 								class="p-error">
@@ -142,7 +142,7 @@
 								id="description"
 								formControlName="description"
 								placeholder="Please enter a valid description">
-              </lens-input-textarea>
+							</lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
@@ -156,35 +156,31 @@
 								</div>
 							</div>
 						</div>
-            <!-- tags -->
-            <div class="field">
-              <label for="tags">Tags</label>
-              <lens-services-tags-selector
-                id="tags"
-                formControlName="tags"
-                [tags]="tagsList"
-                placeholder="Here you can insert tags"></lens-services-tags-selector>
-              <div
-                *ngIf="
-                  isFormSubmitted &&
-                  getFormFields['tags']!.invalid
-                "
-                class="p-error">
-                <div
-                  *ngIf="getFormFields['tags']!.errors?.['required']">
-                  Tags is required.
-                </div>
-              </div>
-            </div>
+						<!-- tags -->
+						<div class="field">
+							<label for="tags">Tags</label>
+							<lens-services-tags-selector
+								id="tags"
+								formControlName="tags"
+								[tags]="tagsList"
+								placeholder="Here you can insert tags">
+							</lens-services-tags-selector>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['tags']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['tags']!.errors?.['required']">
+									Tags is required.
+								</div>
+							</div>
+						</div>
 						<!-- metadata -->
 						<div class="field">
 							<label for="metadata">Metadata</label>
-              <json-editor
-                [options]="makeMetadataEditorOptions()"
-                formControlName="metadata"
-              >
-              </json-editor>
-              <div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
+							<json-editor
+								[options]="makeMetadataEditorOptions()"
+								formControlName="metadata">
+							</json-editor>
+							<div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
 								class="p-error">
@@ -210,14 +206,14 @@
 						type="success"
 						[disabled]="isLoading"
 						(clicked)="onSubmit()">
-          </lens-button>
+					</lens-button>
 				</div>
 				<div>
 					<lens-button
 						label="Cancel"
 						icon="pi pi-backward"
 						(clicked)="btnCancel()">
-          </lens-button>
+					</lens-button>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,6 @@ import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
-
 import { LoggerMessagesService } from "./logger-messages.service";
 import { removeTrailingCharsFromUri } from "../utils";
 import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList, TagsResultList, QueryModel } from "../models";
@@ -42,11 +41,11 @@ export class MasterdataCrudHttpService {
 	getAllMasterdataTypes(offset: number, rows: number): Observable<MasterdataTypeResultList> {
 		const masterdataTypeResultListModelAdapter = new MasterdataTypeResultListModelAdapter();
 
-    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(this.baseUrl, queryParams.toString());
 
 		return this.client
-			.get<MasterdataTypeResultList>(url) //.pipe(first());
+			.get<MasterdataTypeResultList>(url)
 			.pipe(
 				tap(() => this.log(null, "getAllMasterdataTypes", "success")),
 				map(input => masterdataTypeResultListModelAdapter.adapt(input)),
@@ -69,7 +68,7 @@ export class MasterdataCrudHttpService {
 	getAllMasterdatas(masterdatatype: string, offset: number, rows: number, tags: string[]): Observable<MasterdataResultList> {
 		const masterdataResultListModelAdapter = new MasterdataResultListModelAdapter();
 
-    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tags: tags.join(",") }));
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tags: tags.join(",") }));
 		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, queryParams.toString());
 
 		return this.client.get<MasterdataResultList>(url).pipe(
@@ -94,7 +93,7 @@ export class MasterdataCrudHttpService {
 	getAllTags(masterdatatype: string, offset: number, rows: number): Observable<TagsResultList> {
 		const tagsResultListModelAdapter = new TagsResultListModelAdapter();
 
-    const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`, queryParams.toString());
 
 		return this.client.get<TagsResultList>(url).pipe(
@@ -111,7 +110,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions).pipe(
 			tap(newItem => {
-				this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success"); //JSON.parse(newItem)
+				this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success");
 			}),
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
@@ -125,7 +124,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions).pipe(
 			tap(newItem => {
-				this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success"); //JSON.parse(newItem)
+				this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success");
 			}),
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
@@ -214,25 +213,25 @@ export class MasterdataCrudHttpService {
 		this.logger.add({ status, message: msg.join(" | ") } as ILoggerMessage);
 	}
 
-  private buildListUri(baseUrl: string | undefined, queryString?: string) {
-    const url = removeTrailingCharsFromUri(`${baseUrl}?${queryString}`);
-    return url;
-  }
+	private buildListUri(baseUrl: string | undefined, queryString?: string) {
+		const url = removeTrailingCharsFromUri(`${baseUrl}?${queryString}`);
+		return url;
+	}
 
 	private buildListQueryModelParams(queryModel?: QueryModel): HttpParams {
-    if (!queryModel) {
-      return new HttpParams();
-    }
-    const { offset, limit } = queryModel;
-    queryModel.offset = undefined;
-    queryModel.limit = undefined;
-    queryModel.noLimit = true;
-    if (limit && limit > 0) {
-      queryModel.offset = offset;
-      queryModel.limit = limit;
-      queryModel.noLimit = undefined;
-    }
-    return queryModel.asParams();
+		if (!queryModel) {
+			return new HttpParams();
+		}
+		const { offset, limit } = queryModel;
+		queryModel.offset = undefined;
+		queryModel.limit = undefined;
+		queryModel.noLimit = true;
+		if (limit && limit > 0) {
+			queryModel.offset = offset;
+			queryModel.limit = limit;
+			queryModel.noLimit = undefined;
+		}
+		return queryModel.asParams();
 	}
 	//#endregion
 }

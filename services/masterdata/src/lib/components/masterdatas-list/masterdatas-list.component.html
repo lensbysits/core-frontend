@@ -5,25 +5,27 @@
 				{{ masterdataType?.name }}
 				<small>({{ masterdataType?.masterdatasCount }})</small>
 			</h3>
-      <div class="masterdata-table-toolbar p-fluid">
-        <div class="masterdata-table-toolbar-item">
-          <lens-button
-            label="Add masterdata"
-            icon="pi pi-plus"
-            type="success"
-            [disabled]="isLoading"
-            (clicked)="onAddAction()"></lens-button>
-        </div>
-        <div class="masterdata-table-toolbar-item">
-          <lens-services-tags-selector
-            id="tags"
-            [(ngModel)]="tagsSelected"
-            [tags]="tagsList"
-            (tagsChanged)="onTagsChangedFilter($event)"
-            [allowAddNewTag]="false"
-            placeholder="Here you can filter by tags"></lens-services-tags-selector>
-        </div>
-      </div>
+			<div class="masterdata-table-toolbar p-fluid">
+				<div class="masterdata-table-toolbar-item">
+					<lens-button
+						label="Add masterdata"
+						icon="pi pi-plus"
+						type="success"
+						[disabled]="isLoading"
+						(clicked)="onAddAction()">
+					</lens-button>
+				</div>
+				<div class="masterdata-table-toolbar-item">
+					<lens-services-tags-selector
+						id="tags"
+						[(ngModel)]="tagsSelected"
+						[tags]="tagsList"
+						(tagsChanged)="onTagsChangedFilter($event)"
+						[allowAddNewTag]="false"
+						placeholder="Here you can filter by tags">
+					</lens-services-tags-selector>
+				</div>
+			</div>
 		</ng-container>
 	</div>
 	<lens-table
@@ -32,38 +34,39 @@
 		(lazyLoad)="onLazyLoadData($event)"
 		(rowDblClick)="onRowClicked($event)"
 		[loading]="isLoading"
-    [rows]="1"
-    #table>
+		#table>
 		<columns>
 			<column
 				label="Key"
 				field="key">
-      </column>
+			</column>
 			<column
 				label="Value"
 				field="value">
-      </column>
+			</column>
 			<column
 				label="Name"
 				field="name">
-      </column>
+			</column>
 			<column
 				label="Description"
-				field="description"></column>
-      <column
+				field="description">
+			</column>
+			<column
 				label="Tags"
-				field="tags"></column>
+				field="tags">
+			</column>
 			<row-actions>
 				<action
 					icon="pi pi-pencil"
 					label="Edit"
 					(clicked)="onEditActionClicked($event)">
-        </action>
+				</action>
 				<action
 					icon="pi pi-trash"
 					label="Delete"
 					(clicked)="onDeleteActionClicked($event)">
-        </action>
+				</action>
 			</row-actions>
 		</columns>
 	</lens-table>

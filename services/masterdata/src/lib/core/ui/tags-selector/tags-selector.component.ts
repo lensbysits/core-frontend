@@ -23,8 +23,8 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		}));
 	}
 
-  @Input() public placeholder = "";
-  @Input() public allowAddNewTag = true;
+	@Input() public placeholder = "";
+	@Input() public allowAddNewTag = true;
 
 	public options!: KeyValuePair<string, string>[];
 
@@ -75,7 +75,7 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		this.isDisabled = isDisabled;
 	}
 
-  public onTagsChanged(tags: KeyValuePair<string, string>[]) {
+	public onTagsChanged(tags: KeyValuePair<string, string>[]) {
 		this.tagsChanged.emit(tags);
 	}
 }

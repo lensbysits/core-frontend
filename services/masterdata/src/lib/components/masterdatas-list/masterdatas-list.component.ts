@@ -17,11 +17,11 @@ export class MasterdatasListComponent implements OnInit {
 	totalSize = 0;
 	typeId = "";
 	masterdataType$?: Observable<MasterdataType>;
-  tagsList: string[] = [];
-  tagsSelected: KeyValuePair<string, string>[] = [];
+	tagsList: string[] = [];
+	tagsSelected: KeyValuePair<string, string>[] = [];
 
-  private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
-  @ViewChild("table", { read: TableComponent }) private table!: TableComponent;
+	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
+	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
 
 	constructor(private readonly service: MasterdataCrudHttpService, private readonly router: Router, private readonly activeRoute: ActivatedRoute) {}
 
@@ -30,9 +30,9 @@ export class MasterdatasListComponent implements OnInit {
 		this.isLoading = true;
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
 
-    this.loadTagsList();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    this.searchTermChange.pipe(debounceTime(500)).subscribe((selectedTags) => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
+		this.loadTagsList();
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		this.searchTermChange.pipe(debounceTime(500)).subscribe((selectedTags) => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
 	}
 
 	loadItems(offset: number, rows: number, tags: string[]) {
@@ -100,11 +100,11 @@ export class MasterdatasListComponent implements OnInit {
 		this.router.navigate([`${item.id}`, "edit"], { relativeTo: this.activeRoute });
 	}
 
-  onTagsChangedFilter(selectedTags: KeyValuePair<string, string>[]) {
-    this.searchTermChange.next(selectedTags);
+	onTagsChangedFilter(selectedTags: KeyValuePair<string, string>[]) {
+		this.searchTermChange.next(selectedTags);
 	}
 
-  private convertTagsToValue(tags: KeyValuePair<string, string>[]) {
-    return tags.map(item => item.value);
-  }
+	private convertTagsToValue(tags: KeyValuePair<string, string>[]) {
+		return tags.map(item => item.value);
+	}
 }

@@ -68,10 +68,10 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	loadData() {
 		this.isLoading = true;
 		this.service.getMasterdataTypeById(this.id).subscribe(data => {
-      if (!data) {
-        this.router.navigateByUrl("/not-found");
-        return;
-      }
+			if (!data) {
+				this.router.navigateByUrl("/not-found");
+				return;
+			}
 
 			this.dataForm.patchValue({
 				code: data.code,
