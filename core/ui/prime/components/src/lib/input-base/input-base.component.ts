@@ -15,27 +15,10 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 	public formControl?: FormControl;
 	@Input()
 	public formControlName?: string;
-	@Input() public set disabled(value: string | undefined | boolean) {
-		this.isDisabled = value !== undefined;
-		if (typeof value === "boolean" && !value) {
-			this.isDisabled = false;
-		}
-		if (this.isDisabled) {
-			this._disabled = "disabled";
-		} else {
-			this._disabled = undefined;
-		}
-	}
-	public get disabled(): string | undefined | boolean {
-		return this._disabled;
-	}
-	@Input() public set required(value: string) {
-		this.isRequired = value !== undefined;
-		this._required = value;
-	}
-	public get required(): string {
-		return this._required;
-	}
+	@Input() 
+	public disabled = false;
+	@Input() 
+	public required = false;
 
 	@Output()
 	public inputValueChanged: EventEmitter<any> = new EventEmitter();
