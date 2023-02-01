@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TreeComponent } from "./tree.component";
 import {TreeModule as PrimeTreeModule} from 'primeng/tree';
 
@@ -8,7 +8,8 @@ import {TreeModule as PrimeTreeModule} from 'primeng/tree';
     imports: [
         CommonModule,
         PrimeTreeModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+		FormsModule
     ],
     declarations: [
         TreeComponent
