@@ -8,9 +8,6 @@ import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, V
 	template: ""
 })
 export class InputBaseComponent implements ControlValueAccessor, Validator {
-	private _disabled?: string;
-	private _required!: string;
-
 	@Input()
 	public formControl?: FormControl;
 	@Input()
@@ -58,6 +55,8 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 
 	public writeValue(value: any): void {
 		this.value = value;
+		// trigger the value changed handler, so the input control knows when a value is written and can execute specific logic
+		this.onValueChanged(value);
 	}
 
 	public registerOnChange(fn: any): void {

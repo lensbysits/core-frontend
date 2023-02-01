@@ -25,21 +25,21 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	public filterMode = "strict";
 	@Input()
 	public selectionMode = this._defaultSelectionMode;
-	@Input()
-	public nodes!: TreeNode<unknown>[];
-
 	// @Input()
-	// public get nodes(): TreeNode<unknown>[] {
-	// 	return this._nodes;
-	// }	
-	// public set nodes(nodes: TreeNode<unknown>[]) {
-	// 	this._nodes = nodes;
-	// 	if (!nodes) {
-	// 		return;
-	// 	}
+	// public nodes!: TreeNode<unknown>[];
+
+	@Input()
+	public get nodes(): TreeNode<unknown>[] {
+		return this._nodes;
+	}	
+	public set nodes(nodes: TreeNode<unknown>[]) {
+		this._nodes = nodes;
+		if (!nodes) {
+			return;
+		}
 		
-		
-	// }
+		this.searchNodes();		
+	}
 	
 	@Output()
 	public nodeSelected = new EventEmitter<TreeNode<unknown>>();
@@ -55,8 +55,12 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	}
 
 	
-	protected override onValueChanged(): void {
-		console.log("value changed. Searching nodes")
+	protected override onValueChanged(value?: number): void {
+		if(!value ||  value <= 0){
+			return;
+		}
+
+		console.log("value changed. Searching nodes. Value: ", value)
 		this.searchNodes();
 	}
 
@@ -85,7 +89,7 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	}
 
 	private searchNodes() {
-		if (this._initialized) {
+		if (this._initialized || !this.nodes || this.nodes.length === 0) {
 			return;
 		}
 
