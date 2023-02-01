@@ -5,13 +5,14 @@ import { catchError, map, tap } from "rxjs/operators";
 
 import { LoggerMessagesService } from "./logger-messages.service";
 import { ILoggerMessage } from "../interfaces";
-import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList } from "../models";
+import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList, TagsResultList } from "../models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataCreate, IMasterdataUpdate } from "../interfaces";
 import {
 	MasterdataTypeModelAdapter,
 	MasterdataTypeResultListModelAdapter,
 	MasterdataModelAdapter,
-	MasterdataResultListModelAdapter
+	MasterdataResultListModelAdapter,
+  TagsResultListModelAdapter
 } from "../adapters";
 
 const isEmpty = (str: string) => !str || !str.length;
@@ -83,6 +84,17 @@ export class MasterdataCrudHttpService {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("getMasterdataById", masterdataModelAdapter.adapt(null)))
+		);
+	}
+
+	getAllTags(masterdatatype: string, offset: number, rows: number): Observable<TagsResultList> {
+		const tagsResultListModelAdapter = new TagsResultListModelAdapter();
+
+		const url = this.genericListUriMasterdata(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`, offset, rows);
+		return this.client.get<TagsResultList>(url).pipe(
+			tap(() => this.log(null, "getAllTags", "success")),
+			map(input => tagsResultListModelAdapter.adapt(input)),
+			catchError(this.handleError<TagsResultList>("getAllTags", tagsResultListModelAdapter.adapt(null)))
 		);
 	}
 	//#endregion

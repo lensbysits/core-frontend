@@ -85,9 +85,9 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 		this.onTouched = fn;
 	}
 
-	public setDisabledState?(isDisabled: boolean): void {
-		this.isDisabled = isDisabled;
-	}
+    public setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
 
 	public validate(control: AbstractControl<any, any>): ValidationErrors | null {
 		return null;
