@@ -9,12 +9,12 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TreeComponent), multi: true }]
 })
 export class TreeComponent extends InputBaseComponent implements OnInit {
-
 	// private _selectedNodes: TreeNode<unknown>[] = [];
 	private _nodes: TreeNode<unknown>[] = [];
 	private _searchFailsafe = 2500;
-	private _initialized = false;
-	private _defaultSelectionMode = "single";
+	private _searchKey:string|number = "";
+
+	private _defaultSelectionMode: "single" | "multiple" | "Checkbox" = "single";
 
 	private selectedNode: TreeNode<unknown> | undefined;
 	private selectedNodes: TreeNode<unknown>[] = [];
@@ -22,45 +22,44 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	@Input()
 	public filter = false;
 	@Input()
-	public filterMode = "strict";
+	public filterMode: "lenient" | "strict" = "lenient";
 	@Input()
-	public selectionMode = this._defaultSelectionMode;
+	public selectionMode: "single" | "multiple" | "Checkbox" = this._defaultSelectionMode;
 	// @Input()
 	// public nodes!: TreeNode<unknown>[];
 
 	@Input()
 	public get nodes(): TreeNode<unknown>[] {
 		return this._nodes;
-	}	
+	}
 	public set nodes(nodes: TreeNode<unknown>[]) {
 		this._nodes = nodes;
 		if (!nodes) {
 			return;
 		}
-		
-		this.searchNodes();		
+
+		this.searchNodes();
 	}
-	
+
 	@Output()
 	public nodeSelected = new EventEmitter<TreeNode<unknown>>();
 	@Output()
 	public nodeUnselected = new EventEmitter<TreeNode<unknown>>();
-	
+
 	public get selection(): TreeNode<unknown> | TreeNode<unknown>[] | undefined {
 		return this.selectionMode === this._defaultSelectionMode ? this.selectedNode : this.selectedNodes;
 	}
-	
+
 	public get selectedKeys(): string[] | number[] {
-		return this.selectionMode === this._defaultSelectionMode ? [this.value] : (this.value as []);
+		return this.selectionMode === this._defaultSelectionMode ? [this.value] : [...this.value];
 	}
 
-	
 	protected override onValueChanged(value?: number): void {
-		if(!value ||  value <= 0){
+		if (!value || value <= 0) {
 			return;
 		}
 
-		console.log("value changed. Searching nodes. Value: ", value)
+		console.log("value changed. Searching nodes. Value: ", value);
 		this.searchNodes();
 	}
 
@@ -77,7 +76,6 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	// 	this._selectedNodes = nodes;
 	// }
 
-
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onNodeSelected(event: any) {
 		this.nodeSelected.emit(event.node);
@@ -89,15 +87,15 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	}
 
 	private searchNodes() {
-		if (this._initialized || !this.nodes || this.nodes.length === 0) {
+		if (this._searchKey === this.value || !this.nodes || this.nodes.length === 0 || !this.selectedKeys) {
 			return;
 		}
 
-		this._initialized = true;
+		this._searchKey = this.value;
 
 		console.log("searching nodes...");
-		
-		console.log("SelectedKeys: ", this.selectedKeys)
+
+		console.log("SelectedKeys: ", this.selectedKeys);
 		for (const selectedKey of this.selectedKeys) {
 			const node = this.executeDfsSearch(selectedKey, this.nodes);
 			if (node) {
@@ -159,7 +157,7 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 			throw "TreeComponent: Max depth reached while searching for selected keys";
 		}
 	}
-	
+
 	private updateSelection(node: TreeNode<unknown>) {
 		if (this.selectionMode === this._defaultSelectionMode) {
 			this.selectedNode = node;
