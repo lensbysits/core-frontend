@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { TreeNode } from "primeng/api";
 import { InputBaseComponent } from "../input-base/input-base.component";
@@ -8,8 +8,7 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 	templateUrl: "tree.component.html",
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TreeComponent), multi: true }]
 })
-export class TreeComponent extends InputBaseComponent implements OnInit {
-	// private _selectedNodes: TreeNode<unknown>[] = [];
+export class TreeComponent extends InputBaseComponent {
 	private _nodes: TreeNode<unknown>[] = [];
 	private _searchFailsafe = 2500;
 	private _searchKey: string | number = "";
@@ -25,8 +24,6 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	public filterMode: "lenient" | "strict" = "lenient";
 	@Input()
 	public selectionMode: "single" | "multiple" | "Checkbox" = this._singleSelectionMode;
-	// @Input()
-	// public nodes!: TreeNode<unknown>[];
 
 	@Input()
 	public get nodes(): TreeNode<unknown>[] {
@@ -59,22 +56,8 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 			return;
 		}
 
-		console.log("value changed. Searching nodes. Value: ", value);
 		this.searchNodes();
 	}
-
-	public ngOnInit(): void {
-		//this.registerOnChange
-	}
-
-	// public get selectedNodes(): TreeNode<unknown>[] {
-	// 		console.log("get", this._nodes)
-	// 		return this._selectedNodes;
-	// }
-
-	// public set selectedNodes(nodes: TreeNode<unknown>[]) {
-	// 	this._selectedNodes = nodes;
-	// }
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onNodeSelected(event: any) {
@@ -89,15 +72,11 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	}
 
 	private searchNodes() {
-		if (this._searchKey === this.value || !this.nodes || this.nodes.length === 0 || !this.selectedKeys || !this.value) {
+		if (this.shouldExecuteSearch()) {
 			return;
 		}
 
 		this._searchKey = this.value;
-
-		console.log("searching nodes...");
-
-		console.log("SelectedKeys: ", this.selectedKeys);
 		for (const selectedKey of this.selectedKeys) {
 			const node = this.executeDfsSearch(selectedKey, this.nodes);
 			if (node) {
@@ -106,32 +85,17 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 		}
 	}
 
-	// eslint-disable-next-line complexity
 	private executeDfsSearch(nodeKey: string | number, nodes: TreeNode<unknown>[], curDepth: number = 0): TreeNode<unknown> | undefined {
-		//search tree depth first
 		let foundNode: TreeNode<unknown> | undefined = undefined;
 
 		for (const node of nodes) {
-			this.checkFailsafe();
+			this.checkRecursiveFailsafe();
 
 			if (foundNode) {
 				this.expandParents(foundNode);
 				break;
 			}
 
-			console.log(
-				"".padEnd(curDepth, "---"),
-				"searching node (Key=",
-				node.key,
-				"searchKey=",
-				nodeKey,
-				") ",
-				node.label,
-				"with ",
-				node.children?.length ?? 0,
-				" children. Failsave: ",
-				this._searchFailsafe
-			);
 			if (node.key === nodeKey.toLocaleString()) {
 				foundNode = node;
 			} else if (node.children && node.children.length > 0) {
@@ -144,16 +108,8 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 
 	private expandParents(node: TreeNode<unknown>) {
 		if (node.parent) {
-			console.log("Expanding node ", node.label);
 			node.parent.expanded = true;
 			this.expandParents(node.parent);
-		}
-	}
-
-	private checkFailsafe() {
-		this._searchFailsafe = this._searchFailsafe - 1;
-		if (this._searchFailsafe <= 0) {
-			throw "TreeComponent: Max depth reached while searching for selected keys";
 		}
 	}
 
@@ -163,10 +119,21 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 		} else {
 			if (isSelected) {
 				this.selectedNodes.push(node);
-			}
-			else{
-				this.selectedNodes = this.selectedNodes.filter(n => n.key !== node.key)
+			} else {
+				this.selectedNodes = this.selectedNodes.filter(n => n.key !== node.key);
 			}
 		}
+	}
+
+	private checkRecursiveFailsafe() {
+		this._searchFailsafe = this._searchFailsafe - 1;
+		if (this._searchFailsafe <= 0) {
+			throw "TreeComponent: Max depth reached while searching for selected keys";
+		}
+	}
+
+	private shouldExecuteSearch() {
+		// we only should search the tree if we have all data in place and its usefull to search the tree (current search key deviates from the previous search)
+		return this._searchKey === this.value || !this.nodes || this.nodes.length === 0 || !this.selectedKeys || !this.value;
 	}
 }
