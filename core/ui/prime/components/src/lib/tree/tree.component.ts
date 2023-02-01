@@ -12,9 +12,9 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	// private _selectedNodes: TreeNode<unknown>[] = [];
 	private _nodes: TreeNode<unknown>[] = [];
 	private _searchFailsafe = 2500;
-	private _searchKey:string|number = "";
+	private _searchKey: string | number = "";
 
-	private _defaultSelectionMode: "single" | "multiple" | "Checkbox" = "single";
+	private _singleSelectionMode: "single" | "multiple" | "Checkbox" = "single";
 
 	private selectedNode: TreeNode<unknown> | undefined;
 	private selectedNodes: TreeNode<unknown>[] = [];
@@ -24,7 +24,7 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	@Input()
 	public filterMode: "lenient" | "strict" = "lenient";
 	@Input()
-	public selectionMode: "single" | "multiple" | "Checkbox" = this._defaultSelectionMode;
+	public selectionMode: "single" | "multiple" | "Checkbox" = this._singleSelectionMode;
 	// @Input()
 	// public nodes!: TreeNode<unknown>[];
 
@@ -47,11 +47,11 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 	public nodeUnselected = new EventEmitter<TreeNode<unknown>>();
 
 	public get selection(): TreeNode<unknown> | TreeNode<unknown>[] | undefined {
-		return this.selectionMode === this._defaultSelectionMode ? this.selectedNode : this.selectedNodes;
+		return this.selectionMode === this._singleSelectionMode ? this.selectedNode : this.selectedNodes;
 	}
 
 	public get selectedKeys(): string[] | number[] {
-		return this.selectionMode === this._defaultSelectionMode ? [this.value] : [...this.value];
+		return this.selectionMode === this._singleSelectionMode ? [this.value] : [...this.value];
 	}
 
 	protected override onValueChanged(value?: number): void {
@@ -78,16 +78,18 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onNodeSelected(event: any) {
+		this.updateSelection(event.node, true);
 		this.nodeSelected.emit(event.node);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onNodeUnselected(event: any) {
+		this.updateSelection(event.node, false);
 		this.nodeUnselected.emit(event.node);
 	}
 
 	private searchNodes() {
-		if (this._searchKey === this.value || !this.nodes || this.nodes.length === 0 || !this.selectedKeys) {
+		if (this._searchKey === this.value || !this.nodes || this.nodes.length === 0 || !this.selectedKeys || !this.value) {
 			return;
 		}
 
@@ -99,10 +101,7 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 		for (const selectedKey of this.selectedKeys) {
 			const node = this.executeDfsSearch(selectedKey, this.nodes);
 			if (node) {
-				// if(node.parent){
-				// 	node.parent.expanded = true
-				// };
-				this.updateSelection(node);
+				this.updateSelection(node, true);
 			}
 		}
 	}
@@ -158,11 +157,16 @@ export class TreeComponent extends InputBaseComponent implements OnInit {
 		}
 	}
 
-	private updateSelection(node: TreeNode<unknown>) {
-		if (this.selectionMode === this._defaultSelectionMode) {
-			this.selectedNode = node;
+	private updateSelection(node: TreeNode<unknown>, isSelected: boolean) {
+		if (this.selectionMode === this._singleSelectionMode) {
+			this.selectedNode = isSelected ? node : undefined;
 		} else {
-			this.selectedNodes.push(node);
+			if (isSelected) {
+				this.selectedNodes.push(node);
+			}
+			else{
+				this.selectedNodes = this.selectedNodes.filter(n => n.key !== node.key)
+			}
 		}
 	}
 }
