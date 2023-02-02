@@ -28,6 +28,7 @@ export class TreeComponent extends InputBaseComponent {
 
 	@Input()
 	public set nodes(nodes: ITreeNode[]) {
+		console.log("Setting nodes: ", nodes)
 		if (!nodes) {
 			return;
 		}
