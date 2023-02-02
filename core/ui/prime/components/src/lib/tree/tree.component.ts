@@ -4,11 +4,9 @@ import { TreeNode } from "primeng/api";
 import { InputBaseComponent } from "../input-base/input-base.component";
 import { ITreeNode } from "./models";
 
-
 interface INodeMap {
 	[id: string]: TreeNode<ITreeNode>;
 }
-
 
 @Component({
 	selector: "lens-tree",
@@ -16,15 +14,10 @@ interface INodeMap {
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TreeComponent), multi: true }]
 })
 export class TreeComponent extends InputBaseComponent {
-	public  hierarchicalNodes: TreeNode<ITreeNode>[] = [];
-
-	private _searchFailsafe = 2500;
-	private _searchKey: string | number = "";
-
-	private _singleSelectionMode: "single" | "multiple" | "Checkbox" = "single";
-
-	private selectedNode: TreeNode<ITreeNode> | undefined;
+	private _flatMap: INodeMap = {};
 	private selectedNodes: TreeNode<ITreeNode>[] = [];
+	private selectedNode: TreeNode<ITreeNode> | undefined;
+	private _singleSelectionMode: "single" | "multiple" | "Checkbox" = "single";
 
 	@Input()
 	public filter = false;
@@ -39,10 +32,10 @@ export class TreeComponent extends InputBaseComponent {
 			return;
 		}
 
-		const flatNodes = this.createFlatNodeMap(nodes);
-		this.hierarchicalNodes = this.createNodeHierarchy(flatNodes);
+		this._flatMap = this.createFlatNodeMap(nodes);
+		this.hierarchicalNodes = this.createNodeHierarchy(this._flatMap);
 
-		this.searchNodes();
+		this.setSelectedNodes(this.value);
 	}
 
 	@Output()
@@ -58,12 +51,14 @@ export class TreeComponent extends InputBaseComponent {
 		return this.selectionMode === this._singleSelectionMode ? [this.value] : [...this.value];
 	}
 
-	protected override onValueChanged(value?: number): void {
-		if (!value || value <= 0) {
+	public hierarchicalNodes: TreeNode<ITreeNode>[] = [];
+
+	protected override onValueChanged(value?: number | number[]): void {
+		if (!value) {
 			return;
 		}
 
-		this.searchNodes();
+		this.setSelectedNodes(value);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,7 +103,7 @@ export class TreeComponent extends InputBaseComponent {
 				let curChildren = nodeMap[node.data?.parent].children ?? [];
 				curChildren.push(node);
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				curChildren = curChildren.sort((a, b) => a.label!.localeCompare(b.label!))
+				curChildren = curChildren.sort((a, b) => a.label!.localeCompare(b.label!));
 
 				nodeMap[node.data?.parent].children = curChildren;
 			}
@@ -117,44 +112,29 @@ export class TreeComponent extends InputBaseComponent {
 		return rootNodes;
 	}
 
+	private setSelectedNodes(value: number | number[]) {
+		if (this.selectionMode === this._singleSelectionMode) {
+			if (Array.isArray(value)) {
+				throw "Tree is in single select mode, cannot use array to set selected values";
+			}
 
-	private searchNodes() {
-		if (!this.shouldExecuteSearch()) {
-			return;
-		}
+			this.selectedNode = this._flatMap[value];
+			this.expandParents(this._flatMap[value]);
+		} else {
+			if (!Array.isArray(value)) {
+				value = [value];
+			}
 
-		this._searchKey = this.value;
-		for (const selectedKey of this.selectedKeys) {
-			const node = this.executeDfsSearch(selectedKey, this.hierarchicalNodes);
-			if (node) {
-				this.updateSelection(node, true);
+			this.selectedNodes = [];
+			for (const v of value) {
+				this.selectedNodes.push(this._flatMap[v]);
+				this.expandParents(this._flatMap[v]);
 			}
 		}
 	}
 
-	private executeDfsSearch(nodeKey: string | number, nodes: TreeNode<ITreeNode>[], curDepth: number = 0): TreeNode<ITreeNode> | undefined {
-		let foundNode: TreeNode<ITreeNode> | undefined = undefined;
-
-		for (const node of nodes) {
-			this.checkRecursiveFailsafe();
-
-			if (foundNode) {
-				this.expandParents(foundNode);
-				break;
-			}
-
-			if (node.key === nodeKey.toLocaleString()) {
-				foundNode = node;
-			} else if (node.children && node.children.length > 0) {
-				foundNode = this.executeDfsSearch(nodeKey, node.children, curDepth + 1);
-			}
-		}
-
-		return foundNode;
-	}
-
-	private expandParents(node: TreeNode<ITreeNode>) {
-		if (node.parent) {
+	private expandParents(node?: TreeNode<ITreeNode>) {
+		if (node?.parent) {
 			node.parent.expanded = true;
 			this.expandParents(node.parent);
 		}
@@ -163,24 +143,17 @@ export class TreeComponent extends InputBaseComponent {
 	private updateSelection(node: TreeNode<ITreeNode>, isSelected: boolean) {
 		if (this.selectionMode === this._singleSelectionMode) {
 			this.selectedNode = isSelected ? node : undefined;
+			this.value = isSelected ? node.key : undefined;
 		} else {
 			if (isSelected) {
 				this.selectedNodes.push(node);
+				this.value.push(node.key);
 			} else {
 				this.selectedNodes = this.selectedNodes.filter(n => n.key !== node.key);
+				this.value = this.value.filter((v: string) => v !== node.key);
 			}
 		}
-	}
 
-	private checkRecursiveFailsafe() {
-		this._searchFailsafe = this._searchFailsafe - 1;
-		if (this._searchFailsafe <= 0) {
-			throw "TreeComponent: Max depth reached while searching for selected keys";
-		}
-	}
-
-	private shouldExecuteSearch() {
-		// we only should search the tree if we have all data in place and its usefull to search the tree (current search key deviates from the previous search)
-		return this._searchKey !== this.value && this.hierarchicalNodes && this.hierarchicalNodes.length > 0 && this.selectedKeys  && this.value;
+		this.valueChanged();
 	}
 }
