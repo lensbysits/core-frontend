@@ -1,1 +1,1 @@
-export * from "./lib/framework-core-ui-bootstrap-components.module";
+export * from "./lib/bootstrap-components.module";
