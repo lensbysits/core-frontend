@@ -47,7 +47,7 @@ const components = [
 		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataApiClientsModule.forRoot(),
-		//MultilingualModule.forRoot()
+		MultilingualModule.forChild("masterdata"),
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
