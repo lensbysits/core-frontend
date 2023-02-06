@@ -17,7 +17,7 @@ export class TreeComponent extends InputBaseComponent {
 	private _flatMap: INodeMap = {};
 	private selectedNodes: TreeNode<ITreeNode>[] = [];
 	private selectedNode: TreeNode<ITreeNode> | undefined;
-	private _singleSelectionMode: "single" | "multiple" | "Checkbox" = "single";
+	private _singleSelectionMode: "single" | "multiple" | "checkbox" = "single";
 
 	@Input()
 	public filter = false;
