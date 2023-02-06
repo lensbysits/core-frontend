@@ -1,10 +1,10 @@
 import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { KeyValuePair } from "../../utils";
+import { KeyValuePair } from "@lens/app-abstract";
 import { MasterdataType } from "../../models";
 
 @Component({
-	selector: "lens-services-masterdata-type-selector",
+	selector: "masterdata-type-selector",
 	templateUrl: "masterdata-type-selector.component.html",
 	providers: [
 		{

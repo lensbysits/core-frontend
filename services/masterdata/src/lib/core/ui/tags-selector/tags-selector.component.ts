@@ -1,9 +1,9 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { KeyValuePair } from "../../utils";
+import { KeyValuePair } from "@lens/app-abstract";
 
 @Component({
-	selector: "lens-services-tags-selector",
+	selector: "masterdata-tags-selector",
 	templateUrl: "tags-selector.component.html",
 	providers: [
 		{

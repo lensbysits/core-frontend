@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, debounceTime, Subject } from "rxjs";
+import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
-import { KeyValuePair } from "../../core/utils";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
-	selector: "lens-masterdatas-list",
+	selector: "masterdata-list",
 	templateUrl: "./masterdatas-list.component.html",
 	styleUrls: ["./masterdatas-list.component.scss"]
 })

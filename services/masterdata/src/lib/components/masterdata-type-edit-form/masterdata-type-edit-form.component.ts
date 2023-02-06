@@ -10,7 +10,7 @@ import { MasterdataTypeMaxLength } from "../../core/utils";
 import { ToastService } from "@lens/app-abstract";
 
 @Component({
-	selector: "lens-masterdata-type-edit-form",
+	selector: "masterdata-type-edit-form",
 	templateUrl: "./masterdata-type-edit-form.component.html",
 	styleUrls: ["./masterdata-type-edit-form.component.scss"]
 })

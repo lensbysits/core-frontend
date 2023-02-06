@@ -2,7 +2,6 @@ export interface IQueryModel {
 	offset?: number | null | undefined;
 	limit?: number | null | undefined;
 	noLimit?: boolean | null | undefined;
-	tag?: string | null | undefined; // @deprecated Please use the tags instead
 	tags?: string | null | undefined;
 	createdBy?: string | null | undefined;
 	createdSince?: Date | null | undefined;

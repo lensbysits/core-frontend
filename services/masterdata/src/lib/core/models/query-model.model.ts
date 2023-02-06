@@ -5,7 +5,6 @@ export class QueryModel implements IQueryModel {
 	offset?: number | null | undefined;
 	limit?: number | null | undefined;
 	noLimit?: boolean | null | undefined;
-	tag?: string | null | undefined;
 	tags?: string | null | undefined;
 	createdBy?: string | null | undefined;
 	createdSince?: Date | null | undefined;
@@ -49,9 +48,6 @@ export class QueryModel implements IQueryModel {
 		}
 		if (this.noLimit !== undefined && this.noLimit !== null) {
 			queryParams = queryParams.append("NoLimit", this.noLimit);
-		}
-		if (this.tag !== undefined && this.tag !== null) {
-			queryParams = queryParams.append("Tag", this.tag);
 		}
 		if (this.tags !== undefined && this.tags !== null) {
 			queryParams = queryParams.append("Tags", this.tags);

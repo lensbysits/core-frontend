@@ -3,15 +3,15 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService } from "@lens/app-abstract";
-import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
+import { ToastService, KeyValuePair } from "@lens/app-abstract";
+import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataMaxLength } from "../../core/utils";
 
 @Component({
-	selector: "lens-masterdatas-edit-form",
+	selector: "masterdata-edit-form",
 	templateUrl: "./masterdatas-edit-form.component.html",
 	styleUrls: ["./masterdatas-edit-form.component.scss"]
 })
