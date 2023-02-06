@@ -16,14 +16,14 @@
 					</lens-button>
 				</div>
 				<div class="masterdata-table-toolbar-item">
-					<lens-services-tags-selector
+					<masterdata-tags-selector
 						id="tags"
 						[(ngModel)]="tagsSelected"
 						[tags]="tagsList"
 						(tagsChanged)="onTagsChangedFilter($event)"
 						[allowAddNewTag]="false"
 						placeholder="Here you can filter by tags">
-					</lens-services-tags-selector>
+					</masterdata-tags-selector>
 				</div>
 			</div>
 		</ng-container>

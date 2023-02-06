@@ -55,11 +55,11 @@
 							<!-- type id -->
 							<div class="field">
 								<label for="masterdataTypeId">Masterdata Type</label>
-								<lens-services-masterdata-type-selector
+								<masterdata-type-selector
 									id="masterdataTypeId"
 									formControlName="masterdataTypeId"
 									[masterdataTypes]="typesList">
-								</lens-services-masterdata-type-selector>
+								</masterdata-type-selector>
 								<div
 									*ngIf="
 										isFormSubmitted &&
@@ -159,12 +159,12 @@
 						<!-- tags -->
 						<div class="field">
 							<label for="tags">Tags</label>
-							<lens-services-tags-selector
+							<masterdata-tags-selector
 								id="tags"
 								formControlName="tags"
 								[tags]="tagsList"
 								placeholder="Here you can insert tags">
-							</lens-services-tags-selector>
+							</masterdata-tags-selector>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['tags']!.invalid"
 								class="p-error">

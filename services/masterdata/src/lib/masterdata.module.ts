@@ -11,7 +11,6 @@ import { PrimeComponentsModule } from "@lens/ui-prime-components";
 import { MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
 import { MasterdataApiClientsModule } from "./core/services";
 import {
-	LoggerMessagesComponent,
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
@@ -24,7 +23,6 @@ import { menu } from "./app-menu";
 import { masterdataRoutes } from "./app-routes";
 
 const components = [
-	LoggerMessagesComponent,
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
