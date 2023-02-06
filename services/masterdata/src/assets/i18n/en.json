@@ -1,0 +1,165 @@
+{
+	"gimitest": "gimi test",
+	"btnBack": "Back to user list",
+	"masterdatamgmt": {
+		"globals": {
+			"buttons": {
+				"btnCancel": "Cancel",
+				"btnOk": "Ok",
+				"btnDelete": "Delete"
+			}
+		},
+		"pages": {
+			"masterdataTypeList": {
+				"totalText": "Total masterdata types",
+				"header": "Groups",
+				"deleteGroupConfirmation":"Are you sure that you want to remove this group?",
+				"tableColumns": {
+					"name": "Name",
+					"role": "Role",
+					"businessUnit": "Business Unit"
+				},
+				"buttons": {
+					"btnAddNew": "Add new group"
+				}
+			},
+			"upsertGroup": {
+				"name": {
+					"label": "Name",
+					"placeholder": "Please enter a name for this group",
+					"validationError": "Name is required."
+				},
+				"role": {
+					"label": "Role",
+					"required": "Role is required."
+				},
+				"businessUnitDataFilter": {
+					"label": "Provides access to business unit (and all the business units below this one)",
+					"required": "Business unit data filter is required."
+				},
+				"owningBusinessUnit": {
+					"label": "The business unit the group belongs to",
+					"required": "Owning business unit is required."
+				},
+				"buttons": {
+					"btnBack": "Back to group list"
+				},
+				"tableColumns": {
+					"name": "Name",
+					"email": "Email address"
+				}
+			},
+			"createGroup": {
+				"header": "Create Group",
+				"buttons": {
+					"btnCreate": "Create group"
+				},
+				"notifications": {
+					"success": {
+						"title": "New group",
+						"message": "The group was succesfully added."
+					}
+				}
+			},
+			"editGroup": {
+				"members": "Members",
+				"buttons": {
+					"btnAssign": "Assign members",
+					"btnUpdateGroup": "Update group"
+				},
+				"notifications": {
+					"successAddMember": {
+						"title": "Members added",
+						"message": "{{memberCount}} member(s) have been added to the group."
+					},
+					"successRevokedMember": {
+						"title": "Member removed",
+						"message": "{{member}} is removed from the group."
+					},
+					"successUpdate": {
+						"title": "Group updated",
+						"message": "The group is successfully updated."
+					}
+				}
+			},
+			"assignMembers": {
+				"header": "Assign members",
+				"searchBoxPlaceholder": "Type a name to start searching",
+				"tableColumns": {
+					"name": "Name",
+					"email": "Email address"
+				},
+				"buttons": {
+					"btnAssign": "Assign members"
+				}
+			},
+			"userList": {
+				"header": "Users",
+				"tableColumns": {
+					"name": "Name",
+					"email": "Email address"
+				},
+				"buttons": {
+					"addNew": "Add new user"
+				}
+			},
+			"createUser": {
+				"header": "Create user",
+				"email": {
+					"label": "Email address",
+					"placeholder": "Please enter a valid email address",
+					"required": "Email address is required.",
+					"pattern": "Email address is invalid. Please enter a valid email address.",
+					"exists": "Email address already exists. Please use that user or reactivate the user if necessary."
+				},
+				"buttons": {
+					"btnCreate": "Create user",
+					"btnBack": "Back to user list"
+				},
+				"notifications": {
+					"success": {
+						"title": "New user",
+						"message": "The user is created."
+					}
+				}
+			},
+			"editUser": {
+				"header": "Edit user",
+				"status": {
+					"label": "status",
+					"active": "active",
+					"inactive": "inactive"
+				},
+				"buttons": {
+					"btnUpdate": "Update user",
+					"btnBack": "Back to user list",
+					"btnActivateUser": "Activate user",
+					"btnDeactivateUser": "Deactivate user"
+				},
+				"notifications": {
+					"success": {
+						"title": "User updated",
+						"message": "The user is succesfully updated."
+					}
+				},
+				"owningBusinessUnit": {
+					"label": "Owning business unit",
+					"required": "Business unit is required."
+				},
+				"nickname": "Nickname",
+				"expireOn": "Expire on",
+				"displayname": "Displayname",
+				"fullname": "Fullname",
+				"username": "Username",
+				"emailAddress": "Email address",
+				"tenant": "Tenant",
+				"userType": "User type",
+				"deactivatedOn": "Deactivated on",
+				"deactivateReason": "Deactivate reason",
+				"isNewAccount": "Is new account",
+				"lastSeen": "Last seen",
+				"createdOn": "Created on"
+			}
+		}
+	}
+}

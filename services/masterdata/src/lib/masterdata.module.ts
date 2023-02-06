@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
-import { MenuService } from "@lens/app-abstract";
+import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 
@@ -44,16 +44,20 @@ const components = [
 		HttpClientModule,
 		PrimeComponentsModule,
 		MasterdataTypeSelectorModule,
-    TagsSelectorModule,
+		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
-		MasterdataApiClientsModule.forRoot()
+		MasterdataApiClientsModule.forRoot(),
+		//MultilingualModule.forRoot()
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {
-	constructor(menuService: MenuService) {
-		menuService.addMenuItems(menu);
+	constructor(languageService: LanguageService, menuService: MenuService) {
+		languageService.onTranslationsLoaded(() => {
+			menuService.addMenuItems(menu);
+		})
+		languageService.initLanguageConfiguration();
 	}
 }
