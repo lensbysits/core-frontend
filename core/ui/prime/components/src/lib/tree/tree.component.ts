@@ -24,7 +24,7 @@ export class TreeComponent extends InputBaseComponent {
 	@Input()
 	public filterMode: "lenient" | "strict" = "lenient";
 	@Input()
-	public selectionMode: "single" | "multiple" | "Checkbox" = this._singleSelectionMode;
+	public selectionMode: "single" | "multiple" | "checkbox" = this._singleSelectionMode;
 
 	@Input()
 	public set nodes(nodes: ITreeNode[]) {
