@@ -15,5 +15,7 @@ export * from "./lib/panel";
 export * from "./lib/table";
 export * from "./lib/toast";
 export * from "./lib/toolbar";
+export * from "./lib/tree";
 
 export * from "./lib/prime-components.module";
+export * from "./lib/input-base/input-base.component"

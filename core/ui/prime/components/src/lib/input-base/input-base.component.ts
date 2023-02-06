@@ -1,85 +1,81 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, Optional, Output } from "@angular/core";
 import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, ValidationErrors, Validator } from "@angular/forms";
 
-
 @Component({
-    template: ""
+	template: ""
 })
 export class InputBaseComponent implements ControlValueAccessor, Validator {
-    @Input()
-    public formControl?: FormControl;
-
-    @Input()
-    public formControlName?: string;
+	@Input()
+	public formControl?: FormControl;
+	@Input()
+	public formControlName?: string;
+	@Input() 
+	public disabled = false;
+	@Input() 
+	public required = false;
 
 	@Output()
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public inputValueChanged: EventEmitter<any> = new EventEmitter();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    get control(): FormControl<any> {
-        if (this.formControl) {
-            return this.formControl;
-        }
+	public get control(): FormControl<any> {
+		if (this.formControl) {
+			return this.formControl;
+		}
 
-        if (!this.controlContainer || !this.controlContainer.control || !this.formControlName) {
-            throw "Either controlContainer, controlContainer.control or formControlName is empty. Please check your configuration.";
-        }
+		if (!this.controlContainer || !this.controlContainer.control || !this.formControlName) {
+			throw "Either controlContainer, controlContainer.control or formControlName is empty. Please check your configuration.";
+		}
 
-        const control = this.controlContainer.control.get(this.formControlName);
+		const control = this.controlContainer.control.get(this.formControlName);
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return control as FormControl<any>;
-    }
+		return control as FormControl<any>;
+	}
 
-    constructor (
-        @Optional() private readonly controlContainer: ControlContainer
-    ) { }
+	public isDisabled = false;
+	public isRequired = false;
+	public value: any;
 
-	@Input() public disabled = false;
-    @Input() public required = false;
+	constructor(@Optional() private readonly controlContainer: ControlContainer) {}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public value: any;
-
-    public valueChanged(): void {
-        this.onChange(this.value);
-        this.onTouched(this.value);
+	public valueChanged(): void {
+		this.onValueChanged(this.value);
+		this.onChange(this.value);
+		this.onTouched(this.value);
 		this.inputValueChanged.emit(this.value);
-    }
+	}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-    protected onChange = (event: any) => {};
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-    protected onTouched = (event: any) => {};
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    protected onValidationChange = () => {};
+	protected onValueChanged(value: any) {}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public writeValue(value: any): void {
-        this.value = value;
-    }
+	protected onChange = (event: any) => {};
+	protected onTouched = (event: any) => {};
+	protected onValidationChange = () => {};
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
+	public writeValue(value: any): void {
+		this.value = value;
+		// trigger the value changed handler, so the input control knows when a value is written and can execute specific logic
+		this.onValueChanged(value);
+	}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
+	public registerOnChange(fn: any): void {
+		this.onChange = fn;
+	}
 
-    public setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-    }
+	public registerOnTouched(fn: any): void {
+		this.onTouched = fn;
+	}
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-    public validate(control: AbstractControl<any, any>): ValidationErrors | null {
-        return null;
-    }
+	public setDisabledState?(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+	}
 
-    public registerOnValidatorChange?(fn: () => void): void {
-        this.onValidationChange = fn;
-    }
+	public validate(control: AbstractControl<any, any>): ValidationErrors | null {
+		return null;
+	}
+
+	public registerOnValidatorChange?(fn: () => void): void {
+		this.onValidationChange = fn;
+	}
 }

@@ -1,0 +1,71 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./tree.stories";
+import { Filterable, NotFilterable } from "./tree.stories";
+
+<Meta 
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Tree view
+
+This is a nice way to search items in a tree view!
+
+
+## No filtering
+<Story story={NotFilterable} height="250px" />
+
+## Filterable
+<Story story={Filterable} height="250px" />
+
+First import `TreeModule` from `@lens/ui-prime-components`.
+
+```ts
+const options = [
+    { key: 1, label: "Item 1" },
+    { key: 2, label: "Item 2", "parent": 1 },
+    { key: 3, label: "Item 3", "parent": 2 },
+    { key: 4, label: "Item 4", "parent": 1 }
+]; 
+
+// The tree component accepts a ITreeNode[]. You can easialy convert your list to a _flat_ list of ITreeNode item. The component itself takes care of the generation of a hierarchical structure.
+// You can create an adapter for This
+
+//Example
+export class BusinessUnitTreeNodeAdapter implements IAdapter<BusinessUnit[], ITreeNode[]> {
+	private static iconMapping: IIconMapping = {
+		"type1": "pi pi-globe",
+		"type2": "pi pi-slack",
+	};
+
+	adapt(source: BusinessUnit[]): ITreeNode[] {
+		const result = source.map(bu => {
+			const node:ITreeNode = {
+				data: bu,
+				parent: bu.parentId?.toString(),
+				key: bu.id?.toString() ?? "",
+				label: bu.name ?? "",
+				icon: BusinessUnitTreeNodeAdapter.iconMapping[bu.businessUnitType ?? ""]
+			}
+
+			return node;
+		})
+
+		return result;
+	}
+}
+```
+
+```html
+<lens-tree 
+	selectionMode="single|multi|checkbox"
+	filterMode="strict|lenient"
+	[(ngModel)]="value"
+	filter="true|false"
+	[nodes]="options"
+	(nodeSelected)="myCustomOnchangeLogic($event)"
+	(inputValueChanged)="valueChanged()">
+	<!--inputValueChanged is needed when you wrap this component in another component. Otherwise the selected value won't propagate corectly to the parent component-->
+</lens-tree>
+```
