@@ -34,8 +34,6 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 		return control as FormControl<any>;
 	}
 
-	public isDisabled = false;
-	public isRequired = false;
 	public value: any;
 
 	constructor(@Optional() private readonly controlContainer: ControlContainer) {}
