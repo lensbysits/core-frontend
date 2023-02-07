@@ -63,7 +63,7 @@
 									{{"masterdatamgmt.pages.masterdataTypeUpsert.code.required" | translate}}
 								</div>
 								<div *ngIf="getFormFields['code']!.errors?.['maxlength']">
-									{{"masterdatamgmt.pages.masterdataTypeUpsert.code.maxLength" | translate}}
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.code.maxLength" | translate: ({ maxLength: maxLength.code })}}
 								</div>
 							</div>
 						</div>
@@ -85,7 +85,7 @@
 									{{"masterdatamgmt.pages.masterdataTypeUpsert.name.required" | translate}}
 								</div>
 								<div *ngIf="getFormFields['name']!.errors?.['maxlength']">
-									{{"masterdatamgmt.pages.masterdataTypeUpsert.name.maxLength" | translate}}
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.name.maxLength" | translate: ({ maxLength: maxLength.name })}}
 								</div>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 								</div>
 								<div
 									*ngIf="getFormFields['description']!.errors?.['maxlength']">
-									{{"masterdatamgmt.pages.masterdataTypeUpsert.description.maxLength" | translate}}
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.description.maxLength" | translate: ({ maxLength: maxLength.description })}}
 								</div>
 							</div>
 						</div>
@@ -125,7 +125,7 @@
 								</div>
 								<div
 									*ngIf="getFormFields['metadata']!.errors?.['maxlength']">
-									{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.maxLength" | translate}}
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.maxLength" | translate: ({ maxLength: maxLength.metadata })}}
 								</div>
 							</div>
 						</div>
