@@ -20,8 +20,8 @@ export class LanguageService {
 		// save the event handler to be triggered on lazy loaded modules
 		// and execute them when the translations are already loaded
 		this.translationsLoadedSubject.subscribe(action);
-		if (this.translationsLoaded){
-			action()
+		if (this.translationsLoaded) {
+			action();
 		}
 	}
 
@@ -34,9 +34,9 @@ export class LanguageService {
 	}
 
 	private reloadTranslations() {
-		this.translateService.reloadLang("en").subscribe(() =>{
-			this.translationsLoadedSubject.next();
-
+		this.translationsLoaded = false;
+		this.translateService.reloadLang("en").subscribe(() => {
+			this.notifyListeners();
 		});
 	}
 
@@ -52,8 +52,12 @@ export class LanguageService {
 					: config.fallbackLanguage
 			)
 			.subscribe(() => {
-				this.translationsLoaded = true;
-				this.translationsLoadedSubject.next();
+				this.notifyListeners();
 			});
+	}
+	
+	private notifyListeners() {
+		this.translationsLoaded = true;
+		this.translationsLoadedSubject.next();
 	}
 }
