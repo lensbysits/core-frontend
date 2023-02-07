@@ -38,7 +38,9 @@ export class MasterdatasListComponent implements OnInit {
 
 		this.loadTagsList();
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		this.searchTermChange.pipe(debounceTime(500)).subscribe((selectedTags) => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
+		this.searchTermChange
+			.pipe(debounceTime(500))
+			.subscribe(selectedTags => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
 	}
 
 	loadItems(offset: number, rows: number, tags: string[]) {

@@ -18,10 +18,12 @@ export class QueryModel implements IQueryModel {
 		this.init(data);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	init(data?: any) {
 		if (data) {
 			for (const property in data) {
 				if (Object.prototype.hasOwnProperty.call(data, property)) {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					(<any>this)[property] = (<any>data)[property];
 				}
 			}

@@ -45,7 +45,7 @@ const components = [
 		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataApiClientsModule.forRoot(),
-		MultilingualModule.forChild("masterdata"),
+		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
@@ -55,7 +55,7 @@ export class MasterdataModule {
 	constructor(languageService: LanguageService, menuService: MenuService) {
 		languageService.onTranslationsLoaded(() => {
 			menuService.addMenuItems(menu);
-		})
+		});
 		languageService.initLanguageConfiguration();
 	}
 }
