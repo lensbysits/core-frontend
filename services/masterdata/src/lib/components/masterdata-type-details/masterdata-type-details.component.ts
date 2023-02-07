@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, tap } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { MasterdataType } from "../../core/models";
@@ -21,7 +22,8 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
 		private readonly activeRoute: ActivatedRoute,
-		private readonly location: Location
+		private readonly location: Location,
+		private readonly translateService: TranslateService
 	) {}
 
 	ngOnInit(): void {
@@ -47,11 +49,9 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	}
 
 	prepareForDisplay(item: MasterdataType) {
-		return Object.entries(item).map(item => {
-			item[0] = item[0].toLowerCase();
-			if (item[0] === "masterdatascount") {
-				item[0] = `masterdatas ${item[0].replace("masterdatas", "")}`;
-			}
+		// "metadata" model field will have a special display!
+		return Object.entries(item).filter(item => item[0] !== "metadata").map(item => {
+			item[0] = this.translateService.instant(`masterdatamgmt.pages.masterdataTypeDetails.modelFields.${item[0]}`);
 			return item;
 		});
 	}

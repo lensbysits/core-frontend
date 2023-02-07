@@ -5,7 +5,6 @@ export const menu: MenuItem[] = [
 		translationKey: "menu.title",
 		label: "Masterdata management",
 		items: [
-			{ translationKey: "menu.items.logs", label: "Logs", icon: "pi pi-fw pi-home", routerLink: ["/logs"] },
 			{
 				translationKey: "menu.items.masterdatas",
 				label: "Masterdatas",

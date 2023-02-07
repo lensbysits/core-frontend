@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, debounceTime, Subject } from "rxjs";
 import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
@@ -23,7 +24,12 @@ export class MasterdatasListComponent implements OnInit {
 	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
 	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
 
-	constructor(private readonly service: MasterdataCrudHttpService, private readonly router: Router, private readonly activeRoute: ActivatedRoute) {}
+	constructor(
+		private readonly service: MasterdataCrudHttpService,
+		private readonly router: Router,
+		private readonly activeRoute: ActivatedRoute,
+		private readonly translateService: TranslateService
+	) {}
 
 	// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
 	ngOnInit(): void {
@@ -79,7 +85,7 @@ export class MasterdatasListComponent implements OnInit {
 
 	onDeleteActionClicked(item: Masterdata) {
 		this.isLoading = true;
-		if (!confirm("Are you sure?") === true) {
+		if (!confirm(this.translateService.instant("masterdatamgmt.pages.masterdataList.deleteRowConfirmation")) === true) {
 			this.isLoading = false;
 			return;
 		}

@@ -1,164 +1,171 @@
 {
-	"gimitest": "gimi test",
-	"btnBack": "Back to user list",
 	"masterdatamgmt": {
 		"globals": {
-			"buttons": {
-				"btnCancel": "Cancel",
-				"btnOk": "Ok",
-				"btnDelete": "Delete"
-			}
+			"btnBack": "Back to list",
+			"btnCancel": "Cancel"
 		},
 		"pages": {
+			"dashboard": {
+				"demoText": "masterdata dashboard!"
+			},
 			"masterdataTypeList": {
-				"totalText": "Total masterdata types",
-				"header": "Groups",
-				"deleteGroupConfirmation":"Are you sure that you want to remove this group?",
+				"header": "Total masterdata types",
+				"deleteRowConfirmation": "Are you sure?",
 				"tableColumns": {
+					"code": "Code",
 					"name": "Name",
-					"role": "Role",
-					"businessUnit": "Business Unit"
+					"count": "Count",
+					"description": "Description"
 				},
 				"buttons": {
-					"btnAddNew": "Add new group"
+					"btnAddNewType": "Add masterdata type",
+					"btnView": "View Masterdatas",
+					"btnAdd": "Add Masterdata",
+					"btnEdit": "Edit",
+					"btnDelete": "Delete"
 				}
 			},
-			"upsertGroup": {
+			"masterdataTypeDetails": {
+				"header": "Masterdata-type Details",
+				"modelFields": {
+					"id": "Id",
+					"code": "Code",
+					"name": "Name",
+					"description": "Description",
+					"metadata": "Metadata",
+					"masterdatasCount": "Masterdatas Count"
+				}
+			},
+			"masterdataTypeUpsert": {
+				"addFormTitle": "Add Masterdata-type",
+				"editFormTitle": "Edit Masterdata-type",
+				"buttons": {
+					"btnSubmitAddForm": "Save",
+					"btnSubmitEditForm": "Update"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Add masterdata type",
+						"message": "The masterdata type was succesfully added."
+					},
+					"successEdit": {
+						"title": "Update masterdata type",
+						"message": "The masterdata type was succesfully updated."
+					}
+				},
+				"code": {
+					"label": "Code",
+					"placeholder": "Please enter a valid code",
+					"required": "Code is required.",
+					"maxLength": "Code can be max {{ maxLength }} characters long."
+				},
 				"name": {
 					"label": "Name",
-					"placeholder": "Please enter a name for this group",
-					"validationError": "Name is required."
+					"placeholder": "Please enter a valid name",
+					"required": "Name is required.",
+					"maxLength": "Name can be max {{ maxLength }} characters long."
 				},
-				"role": {
-					"label": "Role",
-					"required": "Role is required."
+				"description": {
+					"label": "Description",
+					"placeholder": "Please enter a valid description",
+					"required": "Description is required.",
+					"maxLength": "Description can be max {{ maxLength }} characters long."
 				},
-				"businessUnitDataFilter": {
-					"label": "Provides access to business unit (and all the business units below this one)",
-					"required": "Business unit data filter is required."
-				},
-				"owningBusinessUnit": {
-					"label": "The business unit the group belongs to",
-					"required": "Owning business unit is required."
-				},
-				"buttons": {
-					"btnBack": "Back to group list"
-				},
+				"metadata": {
+					"label": "Metadata",
+					"helpText": "* if you want to remove a (key, value) pair, set value to null",
+					"required": "Metadata is required.",
+					"maxLength": "Metadata can be max {{ maxLength }} characters long."
+				}
+			},
+			"masterdataList": {
+				"deleteRowConfirmation": "Are you sure?",
 				"tableColumns": {
+					"key": "Key",
+					"value": "Value",
 					"name": "Name",
-					"email": "Email address"
+					"description": "Description",
+					"tags": "Tags"
+				},
+				"buttons": {
+					"btnAddNew": "Add masterdata",
+					"btnEdit": "Edit",
+					"btnDelete": "Delete"
+				},
+				"tagsSelector": {
+					"placeholder": "Here you can filter by tags"
 				}
 			},
-			"createGroup": {
-				"header": "Create Group",
-				"buttons": {
-					"btnCreate": "Create group"
-				},
-				"notifications": {
-					"success": {
-						"title": "New group",
-						"message": "The group was succesfully added."
-					}
+			"masterdataDetails": {
+				"header": "Masterdata Details",
+				"modelFields": {
+					"id": "Id",
+					"masterdataTypeId": "Type Id",
+					"masterdataTypeName": "Type Name",
+					"key": "Key",
+					"value": "Value",
+					"name": "Name",
+					"description": "Description",
+					"metadata": "Metadata",
+					"tags": "Tags"
 				}
 			},
-			"editGroup": {
-				"members": "Members",
+			"masterdataUpsert": {
+				"addFormTitle": "Add Masterdata to type",
+				"editFormTitle": "Edit Masterdata to type",
 				"buttons": {
-					"btnAssign": "Assign members",
-					"btnUpdateGroup": "Update group"
+					"btnSubmitAddForm": "Save",
+					"btnSubmitEditForm": "Update"
 				},
 				"notifications": {
-					"successAddMember": {
-						"title": "Members added",
-						"message": "{{memberCount}} member(s) have been added to the group."
+					"successAdd": {
+						"title": "Add masterdata",
+						"message": "The masterdata was succesfully added."
 					},
-					"successRevokedMember": {
-						"title": "Member removed",
-						"message": "{{member}} is removed from the group."
-					},
-					"successUpdate": {
-						"title": "Group updated",
-						"message": "The group is successfully updated."
-					}
-				}
-			},
-			"assignMembers": {
-				"header": "Assign members",
-				"searchBoxPlaceholder": "Type a name to start searching",
-				"tableColumns": {
-					"name": "Name",
-					"email": "Email address"
-				},
-				"buttons": {
-					"btnAssign": "Assign members"
-				}
-			},
-			"userList": {
-				"header": "Users",
-				"tableColumns": {
-					"name": "Name",
-					"email": "Email address"
-				},
-				"buttons": {
-					"addNew": "Add new user"
-				}
-			},
-			"createUser": {
-				"header": "Create user",
-				"email": {
-					"label": "Email address",
-					"placeholder": "Please enter a valid email address",
-					"required": "Email address is required.",
-					"pattern": "Email address is invalid. Please enter a valid email address.",
-					"exists": "Email address already exists. Please use that user or reactivate the user if necessary."
-				},
-				"buttons": {
-					"btnCreate": "Create user",
-					"btnBack": "Back to user list"
-				},
-				"notifications": {
-					"success": {
-						"title": "New user",
-						"message": "The user is created."
-					}
-				}
-			},
-			"editUser": {
-				"header": "Edit user",
-				"status": {
-					"label": "status",
-					"active": "active",
-					"inactive": "inactive"
-				},
-				"buttons": {
-					"btnUpdate": "Update user",
-					"btnBack": "Back to user list",
-					"btnActivateUser": "Activate user",
-					"btnDeactivateUser": "Deactivate user"
-				},
-				"notifications": {
-					"success": {
-						"title": "User updated",
-						"message": "The user is succesfully updated."
+					"successEdit": {
+						"title": "Update masterdata",
+						"message": "The masterdata was succesfully updated."
 					}
 				},
-				"owningBusinessUnit": {
-					"label": "Owning business unit",
-					"required": "Business unit is required."
+				"type": {
+					"label": "Masterdata Type",
+					"required": "Masterdata Type is required."
 				},
-				"nickname": "Nickname",
-				"expireOn": "Expire on",
-				"displayname": "Displayname",
-				"fullname": "Fullname",
-				"username": "Username",
-				"emailAddress": "Email address",
-				"tenant": "Tenant",
-				"userType": "User type",
-				"deactivatedOn": "Deactivated on",
-				"deactivateReason": "Deactivate reason",
-				"isNewAccount": "Is new account",
-				"lastSeen": "Last seen",
-				"createdOn": "Created on"
+				"key": {
+					"label": "Key",
+					"placeholder": "Please enter a valid key",
+					"required": "Key is required.",
+					"maxLength": "Key can be max {{ maxLength }} characters long."
+				},
+				"value": {
+					"label": "Value",
+					"placeholder": "Please enter a valid value",
+					"required": "Value is required.",
+					"maxLength": "Value can be max {{ maxLength }} characters long."
+				},
+				"name": {
+					"label": "Name",
+					"placeholder": "Please enter a valid name",
+					"required": "Name is required.",
+					"maxLength": "Name can be max {{ maxLength }} characters long."
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Please enter a valid description",
+					"required": "Description is required.",
+					"maxLength": "Description can be max {{ maxLength }} characters long."
+				},
+				"metadata": {
+					"label": "Metadata",
+					"helpText": "* if you want to remove a (key, value) pair, set value to null",
+					"required": "Metadata is required.",
+					"maxLength": "Metadata can be max {{ maxLength }} characters long."
+				},
+				"tags": {
+					"label": "Tags",
+					"placeholder": "Here you can insert tags",
+					"required": "Tags is required."
+				}
 			}
 		}
 	}
