@@ -7,7 +7,7 @@
 				<lens-icon
 					icon="pi-arrow-left"
 					class="mr-2">
-        </lens-icon>
+				</lens-icon>
 				<a routerLink="/">Back to list</a>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 								editFormBlock;
 								context: { item: item }
 							">
-            </ng-container>
+					</ng-container>
 					</ng-container>
 					<!-- end only for edit form -->
 					<!-- only for add form -->
@@ -48,7 +48,7 @@
 								id="code"
 								formControlName="code"
 								placeholder="Please enter a valid code">
-              </lens-input-text>
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['code']!.invalid"
 								class="p-error">
@@ -70,7 +70,7 @@
 								id="name"
 								formControlName="name"
 								placeholder="Please enter a valid name">
-              </lens-input-text>
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
 								class="p-error">
@@ -89,7 +89,7 @@
 								id="description"
 								formControlName="description"
 								placeholder="Please enter a valid description">
-              </lens-input-textarea>
+							</lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
@@ -106,12 +106,11 @@
 						<!-- metadata -->
 						<div class="field">
 							<label for="metadata">Metadata</label>
-              <json-editor
-                [options]="makeMetadataEditorOptions()"
-                formControlName="metadata"
-              >
-              </json-editor>
-              <div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
+							<json-editor
+								[options]="makeMetadataEditorOptions()"
+								formControlName="metadata">
+							</json-editor>
+							<div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
 								class="p-error">
@@ -136,13 +135,15 @@
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"
-						(clicked)="onSubmit()"></lens-button>
+						(clicked)="onSubmit()">
+					</lens-button>
 				</div>
 				<div>
 					<lens-button
 						label="Cancel"
 						icon="pi pi-backward"
-						(clicked)="btnCancel()"></lens-button>
+						(clicked)="btnCancel()">
+					</lens-button>
 				</div>
 			</div>
 		</div>

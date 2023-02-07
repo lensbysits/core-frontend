@@ -1,5 +1,8 @@
-<lens-autocomplete
-  [options]="options"
-  [(ngModel)]="value"
-  modeType="tags"
-  separator=","></lens-autocomplete>
+<lens-autocomplete-tags
+	[options]="options"
+	[(ngModel)]="value"
+	[placeholder]="placeholder"
+	[allowAddNewTag]="allowAddNewTag"
+	separator=","
+	(inputValueChanged)="onTagsChanged($event)">
+</lens-autocomplete-tags>

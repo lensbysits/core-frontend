@@ -13,6 +13,7 @@ import { ToastModule } from './toast';
 import { InputEmailModule } from './input-email';
 import { PanelModule } from './panel';
 import { AutoCompleteModule } from './autocomplete';
+import { AutoCompleteTagsModule } from './autocomplete-tags';
 import { DialogModule } from './dialog';
 import { InputChipsModule } from './input-chips';
 import { LanguageSelectorModule } from './language-selector';
@@ -21,46 +22,48 @@ import { MultilingualModule } from '@lens/app-abstract';
 import { TreeModule } from './tree';
 
 @NgModule({
-  imports: [
-	AutoCompleteModule,
-	ButtonModule,
-	CommonModule,
-	DropdownModule,
-	IconModule,
-	InputChipsModule,
-	InputDateModule,
-	InputEmailModule,
-	InputTextModule,
-	InputTextareaModule,
-	LoadingSpinnerModule,
-	PanelModule,
-	TableModule,
-	ToastModule,
-	ToolbarModule,
-	DialogModule,
-	LanguageSelectorModule,
-	TreeModule,
-	MultilingualModule.forChild("prime")
-  ],
-  exports: [
-	AutoCompleteModule,
-	ButtonModule,
-	DropdownModule,
-	IconModule,
-	InputChipsModule,
-	InputDateModule,
-	InputEmailModule,
-	InputTextModule,
-	InputTextareaModule,
-	InputCheckboxModule,
-	LoadingSpinnerModule,
-	PanelModule,
-	TableModule,
-	ToastModule,
-	ToolbarModule,
-	DialogModule,
-	LanguageSelectorModule,
-	TreeModule
-]
+	imports: [
+		AutoCompleteModule,
+		AutoCompleteTagsModule,
+		ButtonModule,
+		CommonModule,
+		DropdownModule,
+		IconModule,
+		InputChipsModule,
+		InputDateModule,
+		InputEmailModule,
+		InputTextModule,
+		InputTextareaModule,
+		LoadingSpinnerModule,
+		PanelModule,
+		TableModule,
+		ToastModule,
+		ToolbarModule,
+		DialogModule,
+		LanguageSelectorModule,
+		TreeModule,
+		MultilingualModule.forChild("prime")
+	],
+	exports: [
+		AutoCompleteModule,
+		AutoCompleteTagsModule,
+		ButtonModule,
+		DropdownModule,
+		IconModule,
+		InputChipsModule,
+		InputDateModule,
+		InputEmailModule,
+		InputTextModule,
+		InputTextareaModule,
+		InputCheckboxModule,
+		LoadingSpinnerModule,
+		PanelModule,
+		TableModule,
+		ToastModule,
+		ToolbarModule,
+		DialogModule,
+		LanguageSelectorModule,
+		TreeModule
+	]
 })
 export class PrimeComponentsModule {}

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AutoCompleteModule as PrimeAutoCompleteModule } from "primeng/autocomplete";
-import { AutoCompleteComponent } from "./autocomplete.component";
+import { AutoCompleteTagsComponent } from "./autocomplete-tags.component";
 
 @NgModule({
     imports: [
@@ -9,10 +9,10 @@ import { AutoCompleteComponent } from "./autocomplete.component";
         FormsModule
     ],
     declarations: [
-        AutoCompleteComponent
+        AutoCompleteTagsComponent
     ],
     exports: [
-        AutoCompleteComponent
+        AutoCompleteTagsComponent
     ]
 })
-export class AutoCompleteModule { }
+export class AutoCompleteTagsModule { }

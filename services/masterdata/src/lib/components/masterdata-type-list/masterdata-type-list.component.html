@@ -7,7 +7,7 @@
 			type="success"
 			[disabled]="isLoading"
 			(clicked)="onAddAction()">
-    </lens-button>
+		</lens-button>
 	</div>
 	<lens-table
 		[source]="items"
@@ -19,40 +19,40 @@
 			<column
 				label="Code"
 				field="code">
-      </column>
+			</column>
 			<column
 				label="Name"
 				field="name">
-      </column>
+			</column>
 			<column
 				label="Count"
 				field="masterdatasCount">
-      </column>
+			</column>
 			<column
 				label="Description"
 				field="description">
-      </column>
+			</column>
 			<row-actions>
 				<action
 					icon="pi pi-list"
 					label="View Masterdatas"
 					(clicked)="onViewMasterdatasActionClicked($event)">
-        </action>
+				</action>
 				<action
 					icon="pi pi-calendar-plus"
 					label="Add Masterdata"
 					(clicked)="onAddMasterdataActionClicked($event)">
-        </action>
+				</action>
 				<action
 					icon="pi pi-pencil"
 					label="Edit"
 					(clicked)="onEditActionClicked($event)">
-        </action>
+				</action>
 				<action
 					icon="pi pi-trash"
 					label="Delete"
 					(clicked)="onDeleteActionClicked($event)">
-        </action>
+				</action>
 			</row-actions>
 		</columns>
 	</lens-table>

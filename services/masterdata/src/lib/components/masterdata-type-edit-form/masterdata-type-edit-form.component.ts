@@ -10,7 +10,7 @@ import { MasterdataTypeMaxLength } from "../../core/utils";
 import { ToastService } from "@lens/app-abstract";
 
 @Component({
-	selector: "lens-masterdata-type-edit-form",
+	selector: "masterdata-type-edit-form",
 	templateUrl: "./masterdata-type-edit-form.component.html",
 	styleUrls: ["./masterdata-type-edit-form.component.scss"]
 })
@@ -68,10 +68,10 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	loadData() {
 		this.isLoading = true;
 		this.service.getMasterdataTypeById(this.id).subscribe(data => {
-      if (!data) {
-        this.router.navigateByUrl("/not-found");
-        return;
-      }
+			if (!data) {
+				this.router.navigateByUrl("/not-found");
+				return;
+			}
 
 			this.dataForm.patchValue({
 				code: data.code,

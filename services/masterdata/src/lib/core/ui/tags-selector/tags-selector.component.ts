@@ -1,9 +1,9 @@
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { KeyValuePair } from "../../utils";
+import { KeyValuePair } from "@lens/app-abstract";
 
 @Component({
-	selector: "lens-services-tags-selector",
+	selector: "masterdata-tags-selector",
 	templateUrl: "tags-selector.component.html",
 	providers: [
 		{
@@ -14,6 +14,8 @@ import { KeyValuePair } from "../../utils";
 	]
 })
 export class TagsSelectorComponent implements ControlValueAccessor {
+  @Output() public tagsChanged: EventEmitter<KeyValuePair<string, string>[]> = new EventEmitter();
+
 	@Input() public set tags(value: string[]) {
 		this.options = value?.map(item => ({
 			key: item,
@@ -21,9 +23,12 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		}));
 	}
 
+	@Input() public placeholder = "";
+	@Input() public allowAddNewTag = true;
+
 	public options!: KeyValuePair<string, string>[];
 
-	private _value?: KeyValuePair<number, string>;
+	private _value?: KeyValuePair<string, string>;
 	private _disabled!: string;
 
 	public isDisabled = false;
@@ -42,17 +47,17 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected onTouched = () => {};
 
-	public set value(value: KeyValuePair<number, string> | undefined) {
+	public set value(value: KeyValuePair<string, string> | undefined) {
 		this._value = value;
 		this.onChange(value);
 		this.onTouched();
 	}
 
-	public get value(): KeyValuePair<number, string> | undefined {
+	public get value(): KeyValuePair<string, string> | undefined {
 		return this._value;
 	}
 
-	public writeValue(obj: KeyValuePair<number, string> | undefined): void {
+	public writeValue(obj: KeyValuePair<string, string> | undefined): void {
 		this._value = obj;
 	}
 
@@ -68,5 +73,9 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 
 	public setDisabledState?(isDisabled: boolean): void {
 		this.isDisabled = isDisabled;
+	}
+
+	public onTagsChanged(tags: KeyValuePair<string, string>[]) {
+		this.tagsChanged.emit(tags);
 	}
 }

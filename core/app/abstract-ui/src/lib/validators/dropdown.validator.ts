@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
-import { KeyValuePair } from "@tp-frontend/shared/core";
+import { KeyValuePair } from "@lens/app-abstract";
 
 export class DropdownValidator {
 	public static dropdownNotDefaultOrEmpty: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {

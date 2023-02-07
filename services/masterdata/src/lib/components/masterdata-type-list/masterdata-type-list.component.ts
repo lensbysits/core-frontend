@@ -5,7 +5,7 @@ import { MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
-	selector: "lens-masterdata-type-list",
+	selector: "masterdata-type-list",
 	templateUrl: "./masterdata-type-list.component.html",
 	styleUrls: ["./masterdata-type-list.component.scss"]
 })

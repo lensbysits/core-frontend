@@ -3,7 +3,7 @@
   "name": "framework-services-masterdata",
   "projectType": "library",
   "sourceRoot": "libs/framework/services/masterdata/src",
-  "prefix": "lens",
+  "prefix": "masterdata",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

@@ -6,5 +6,5 @@ export interface IMasterdataCreate {
 	description?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	metadata?: any;
-  tags?: string[];
+	tags?: string[];
 }
