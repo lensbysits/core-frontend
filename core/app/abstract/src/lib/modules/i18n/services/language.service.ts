@@ -1,10 +1,11 @@
 import { Injectable, InjectionToken } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { AppConfigurationService } from "../../app-configuration";
 import { LanguageConfiguration } from "../models/language-configuration.model";
 
-export const MULTILINGUAL_MODULES = new InjectionToken<string[]>('MULTILLINGUAL_MODULES');
+export const MULTILINGUAL_MODULES = new InjectionToken<string[]>("MULTILLINGUAL_MODULES");
+export const LAZY_LOADED_MULTILINGUAL_MODULES = new InjectionToken<BehaviorSubject<string>>("LAZY_LOADED_MULTILINGUAL_MODULES");
 
 @Injectable({
 	providedIn: "root"
@@ -16,15 +17,30 @@ export class LanguageService {
 	constructor(private appConfigurationService: AppConfigurationService, private translateService: TranslateService) {}
 
 	public onTranslationsLoaded(action: () => void) {
-		if (!this.translationsLoaded) {
-			// postpone action until translations are loaded
-			this.translationsLoadedSubject.subscribe(action);
-		} else {
-			action();
+		// save the event handler to be triggered on lazy loaded modules
+		// and execute them when the translations are already loaded
+		this.translationsLoadedSubject.subscribe(action);
+		if (this.translationsLoaded){
+			action()
 		}
 	}
 
 	public initLanguageConfiguration(): void {
+		if (this.translationsLoaded) {
+			this.reloadTranslations();
+		} else {
+			this.initTranslationService();
+		}
+	}
+
+	private reloadTranslations() {
+		this.translateService.reloadLang("en").subscribe(() =>{
+			this.translationsLoadedSubject.next();
+
+		});
+	}
+
+	private initTranslationService() {
 		const config = this.appConfigurationService.getSettings<LanguageConfiguration>("languageConfiguration");
 		this.translateService.addLangs(config.supportedLanguages);
 		this.translateService.setDefaultLang(config.fallbackLanguage);
