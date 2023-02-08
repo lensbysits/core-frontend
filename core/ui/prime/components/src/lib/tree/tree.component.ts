@@ -83,6 +83,7 @@ export class TreeComponent extends InputBaseComponent {
 					icon: value.icon,
 					label: value.label,
 					data: value,
+					selectable: !this.disabled,
 					children: []
 				};
 			}
@@ -155,5 +156,20 @@ export class TreeComponent extends InputBaseComponent {
 		}
 
 		this.valueChanged();
+	}
+
+	public override setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+		for (const node of this.hierarchicalNodes) {
+			this.setNodeSelectableRecursive(node, !isDisabled);
+		}
+	}
+
+	private setNodeSelectableRecursive(node: TreeNode<ITreeNode>, isSelectable: boolean): void {
+		node.selectable = isSelectable;
+		if (!node.children) return;
+		for (const n of node.children) {
+			this.setNodeSelectableRecursive(n, isSelectable);
+		}
 	}
 }
