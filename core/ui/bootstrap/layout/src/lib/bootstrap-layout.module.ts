@@ -1,16 +1,16 @@
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Router, RouterModule, Routes } from "@angular/router";
 
 //import { MenuService } from "./components/menu/menu.service";
-import { AppMainComponent } from "./components/main/main.component";
 import {
 	AppAbstractModule,
 	ILayoutConfiguration,
 	LayoutConfigurationService
 } from "@lens/app-abstract";
 import { BootstrapComponentsModule } from "@lens/ui-bootstrap-components";
+import { AppMainComponent } from "./components/main/main.component";
 
 @NgModule({
 	imports: [
