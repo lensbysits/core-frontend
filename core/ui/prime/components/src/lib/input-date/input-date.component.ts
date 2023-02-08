@@ -36,7 +36,7 @@ export class InputDateComponent extends InputBaseComponent {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     override validate(control: AbstractControl<any, any>): ValidationErrors | null {
-        if (!this.isRequired && !control.value) {
+        if (!this.required && !control.value) {
             return null;
         }
 

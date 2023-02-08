@@ -7,7 +7,7 @@ import { Masterdata } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
-	selector: "lens-masterdatas-details",
+	selector: "masterdata-details",
 	templateUrl: "./masterdatas-details.component.html",
 	styleUrls: ["./masterdatas-details.component.scss"]
 })
@@ -41,11 +41,6 @@ export class MasterdatasDetailsComponent implements OnInit {
 
 	loadItem(typeId: string, id: string) {
 		this.isLoading = true;
-		// this.service.getMasterdataById(typeId, id).subscribe((data) => {
-		//   console.log('loadItem', data);
-		//   this.item = data || {};
-		//   this.isLoading = false;
-		// });
 		this.item$ = this.service.getMasterdataById(typeId, id).pipe(
 			tap(() => {
 				this.isLoading = false;

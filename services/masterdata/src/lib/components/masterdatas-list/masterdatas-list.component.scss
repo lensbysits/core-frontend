@@ -2,4 +2,18 @@
   span {
     margin-right: 10px;
   }
+
+  .masterdata-table-toolbar {
+    display: flex;
+
+
+    .masterdata-table-toolbar-item {
+      margin-right: 10px;
+      min-width: 150px;
+
+      &:last-child {
+        flex-grow: 1;
+      }
+    }
+  }
 }

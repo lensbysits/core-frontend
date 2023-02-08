@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService } from "@lens/ui-prime-components";
-import { getRequiredFieldValue, getFieldValue, KeyValuePair } from "../../core/utils";
+import { ToastService, KeyValuePair } from "@lens/app-abstract";
+import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataMaxLength } from "../../core/utils";
-import { Observable } from "rxjs";
 
 @Component({
-	selector: "lens-masterdatas-edit-form",
+	selector: "masterdata-edit-form",
 	templateUrl: "./masterdatas-edit-form.component.html",
 	styleUrls: ["./masterdatas-edit-form.component.scss"]
 })
@@ -29,6 +29,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 	item?: Masterdata;
 	maxLength = MasterdataMaxLength;
 	typesList: MasterdataType[] = [];
+	tagsList: string[] = [];
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
@@ -46,7 +47,10 @@ export class MasterdatasEditFormComponent implements OnInit {
 		this.isAddForm = !(this.id !== undefined);
 		this.needsTypeIdSelector = !(this.typeId !== undefined);
 
-		if (this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
+		if (this.typeId) {
+			this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
+		}
+		this.loadTagsList();
 
 		if (!this.isAddForm) {
 			this.loadData();
@@ -66,7 +70,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 			value: ["", [Validators.required, Validators.maxLength(this.maxLength.value)]],
 			name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
 			description: ["", [Validators.maxLength(this.maxLength.description)]],
-			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]]
+			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]],
+			tags: [[] as KeyValuePair<string, string>[]]
 		});
 	}
 
@@ -85,11 +90,17 @@ export class MasterdatasEditFormComponent implements OnInit {
 	loadData() {
 		this.isLoading = true;
 		this.service.getMasterdataById(this.typeId, this.id).subscribe(data => {
+			if (!data) {
+				this.router.navigateByUrl("/not-found");
+				return;
+			}
+
 			this.dataForm.patchValue({
 				value: data.value,
 				name: data.name,
 				description: data.description,
-				metadata: data.metadata
+				metadata: data.metadata,
+				tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
 			});
 			this.item = data || {};
 			this.isLoading = false;
@@ -109,6 +120,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 		const name = getRequiredFieldValue<string>(this.dataForm, "name");
 		const description = getFieldValue<string>(this.dataForm, "description");
 		const metadata = getFieldValue<string>(this.dataForm, "metadata");
+		const tags = getFieldValue<KeyValuePair<string, string>[]>(this.dataForm, "tags").map(item => item.key);
 
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
@@ -122,6 +134,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
+			model.tags = tags;
 
 			this.service.createMasterdata(model).subscribe(() => {
 				this.navigateToListView();
@@ -134,6 +147,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.name = name;
 			model.description = description;
 			model.metadata = metadata;
+			model.tags = tags;
 
 			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
 				this.navigateToListView();
@@ -156,6 +170,19 @@ export class MasterdatasEditFormComponent implements OnInit {
 		this.service.getAllMasterdataTypes(0, 0).subscribe({
 			next: data => {
 				this.typesList = data.value || [];
+				this.isLoading = false;
+			},
+			complete: () => {
+				this.isLoading = false;
+			}
+		});
+	}
+
+	loadTagsList() {
+		this.isLoading = true;
+		this.service.getAllTags(this.typeId, 0, 0).subscribe({
+			next: data => {
+				this.tagsList = data.value || [];
 				this.isLoading = false;
 			},
 			complete: () => {

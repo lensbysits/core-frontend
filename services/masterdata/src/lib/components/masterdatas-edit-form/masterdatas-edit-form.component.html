@@ -9,7 +9,8 @@
 				style="color: var(--primary-color)">
 				<lens-icon
 					icon="pi-arrow-left"
-					class="mr-2"></lens-icon>
+					class="mr-2">
+				</lens-icon>
 				<a routerLink="..">Back to list</a>
 			</div>
 		</div>
@@ -22,7 +23,8 @@
 							*ngTemplateOutlet="
 								editFormBlock;
 								context: { item: item }
-							"></ng-container>
+							">
+						</ng-container>
 					</ng-container>
 					<!-- end only for edit form -->
 					<!-- only for add form -->
@@ -44,7 +46,8 @@
 					<ng-template #addFormBlock>
 						<ng-container *ngIf="needsTypeIdSelector">
 							<ng-container
-								*ngTemplateOutlet="showTypeIdSelectorBlock"></ng-container>
+								*ngTemplateOutlet="showTypeIdSelectorBlock">
+							</ng-container>
 						</ng-container>
 						<ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
 
@@ -52,12 +55,11 @@
 							<!-- type id -->
 							<div class="field">
 								<label for="masterdataTypeId">Masterdata Type</label>
-								<lens-services-masterdata-type-selector
+								<masterdata-type-selector
 									id="masterdataTypeId"
 									formControlName="masterdataTypeId"
-									[masterdataTypes]="
-										typesList
-									"></lens-services-masterdata-type-selector>
+									[masterdataTypes]="typesList">
+								</masterdata-type-selector>
 								<div
 									*ngIf="
 										isFormSubmitted &&
@@ -78,7 +80,8 @@
 								<lens-input-text
 									id="key"
 									formControlName="key"
-									placeholder="Please enter a valid key"></lens-input-text>
+									placeholder="Please enter a valid key">
+								</lens-input-text>
 								<div
 									*ngIf="isFormSubmitted && getFormFields['key']!.invalid"
 									class="p-error">
@@ -100,7 +103,8 @@
 							<lens-input-text
 								id="value"
 								formControlName="value"
-								placeholder="Please enter a valid value"></lens-input-text>
+								placeholder="Please enter a valid value">
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['value']!.invalid"
 								class="p-error">
@@ -118,7 +122,8 @@
 							<lens-input-text
 								id="name"
 								formControlName="name"
-								placeholder="Please enter a valid name"></lens-input-text>
+								placeholder="Please enter a valid name">
+							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
 								class="p-error">
@@ -136,7 +141,8 @@
 							<lens-input-textarea
 								id="description"
 								formControlName="description"
-								placeholder="Please enter a valid description"></lens-input-textarea>
+								placeholder="Please enter a valid description">
+							</lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
@@ -150,15 +156,31 @@
 								</div>
 							</div>
 						</div>
+						<!-- tags -->
+						<div class="field">
+							<label for="tags">Tags</label>
+							<masterdata-tags-selector
+								id="tags"
+								formControlName="tags"
+								[tags]="tagsList"
+								placeholder="Here you can insert tags">
+							</masterdata-tags-selector>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['tags']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['tags']!.errors?.['required']">
+									Tags is required.
+								</div>
+							</div>
+						</div>
 						<!-- metadata -->
 						<div class="field">
 							<label for="metadata">Metadata</label>
-              <json-editor
-                [options]="makeMetadataEditorOptions()"
-                formControlName="metadata"
-              >
-              </json-editor>
-              <div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
+							<json-editor
+								[options]="makeMetadataEditorOptions()"
+								formControlName="metadata">
+							</json-editor>
+							<div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
 								class="p-error">
@@ -183,13 +205,15 @@
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"
-						(clicked)="onSubmit()"></lens-button>
+						(clicked)="onSubmit()">
+					</lens-button>
 				</div>
 				<div>
 					<lens-button
 						label="Cancel"
 						icon="pi pi-backward"
-						(clicked)="btnCancel()"></lens-button>
+						(clicked)="btnCancel()">
+					</lens-button>
 				</div>
 			</div>
 		</div>

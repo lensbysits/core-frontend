@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { ToastModule } from "../toast";
 import { ButtonModule } from "../button";
-import { ToastService } from "./toast.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastService } from "@lens/app-abstract";
 
 @Component({
     template: `<lens-toast></lens-toast><button (click)="foo()">Show toaster</button>`

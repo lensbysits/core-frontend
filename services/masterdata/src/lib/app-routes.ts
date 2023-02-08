@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
 import {
-	LoggerMessagesComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
 	MasterdatasListComponent,
@@ -11,7 +10,6 @@ import {
 
 export const masterdataRoutes: Routes = [
 	{ path: "", component: MasterdataTypeListComponent },
-	{ path: "logs", component: LoggerMessagesComponent },
 	// masterdata-type
 	{ path: "add", component: MasterdataTypeEditFormComponent },
 	{

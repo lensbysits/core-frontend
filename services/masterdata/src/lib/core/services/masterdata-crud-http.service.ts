@@ -1,17 +1,15 @@
 import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
-
-import { LoggerMessagesService } from "./logger-messages.service";
-import { ILoggerMessage } from "../interfaces";
-import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList } from "../models";
+import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList, TagsResultList, QueryModel } from "../models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataCreate, IMasterdataUpdate } from "../interfaces";
 import {
 	MasterdataTypeModelAdapter,
 	MasterdataTypeResultListModelAdapter,
 	MasterdataModelAdapter,
-	MasterdataResultListModelAdapter
+	MasterdataResultListModelAdapter,
+  TagsResultListModelAdapter
 } from "../adapters";
 
 const isEmpty = (str: string) => !str || !str.length;
@@ -31,21 +29,20 @@ export class MasterdataCrudHttpService {
 
 	constructor(
 		private readonly client: HttpClient,
-		private readonly logger: LoggerMessagesService,
 		@Optional() @Inject(API_BASE_URL) baseUrl?: string
 	) {
 		this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
 	}
 
-	//#region Get
 	getAllMasterdataTypes(offset: number, rows: number): Observable<MasterdataTypeResultList> {
 		const masterdataTypeResultListModelAdapter = new MasterdataTypeResultListModelAdapter();
 
-		const url = this.genericListUriMasterdata(`${this.baseUrl}`, offset, rows);
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const url = this.buildListUri(this.baseUrl, queryParams.toString());
+
 		return this.client
-			.get<MasterdataTypeResultList>(url) //.pipe(first());
+			.get<MasterdataTypeResultList>(url)
 			.pipe(
-				tap(() => this.log(null, "getAllMasterdataTypes", "success")),
 				map(input => masterdataTypeResultListModelAdapter.adapt(input)),
 				catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
 			);
@@ -55,7 +52,6 @@ export class MasterdataCrudHttpService {
 		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
 		return this.client.get<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`).pipe(
-			tap(() => this.log(`id #${masterdatatype}`, `getMasterdataTypeById`, "success")),
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
@@ -63,12 +59,13 @@ export class MasterdataCrudHttpService {
 		);
 	}
 
-	getAllMasterdatas(masterdatatype: string, offset: number, rows: number): Observable<MasterdataResultList> {
+	getAllMasterdatas(masterdatatype: string, offset: number, rows: number, tags: string[]): Observable<MasterdataResultList> {
 		const masterdataResultListModelAdapter = new MasterdataResultListModelAdapter();
 
-		const url = this.genericListUriMasterdata(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, offset, rows);
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tags: tags.join(",") }));
+		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, queryParams.toString());
+
 		return this.client.get<MasterdataResultList>(url).pipe(
-			tap(() => this.log(null, "getAllMasterdatas", "success")),
 			map(input => masterdataResultListModelAdapter.adapt(input)),
 			catchError(this.handleError<MasterdataResultList>("getAllMasterdatas", masterdataResultListModelAdapter.adapt(null)))
 		);
@@ -78,23 +75,29 @@ export class MasterdataCrudHttpService {
 		const masterdataModelAdapter = new MasterdataModelAdapter();
 
 		return this.client.get<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`).pipe(
-			tap(() => this.log(`id #${id}`, `getMasterdataById`, "success")),
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("getMasterdataById", masterdataModelAdapter.adapt(null)))
 		);
 	}
-	//#endregion
 
-	//#region Add/Post
+	getAllTags(masterdatatype: string, offset: number, rows: number): Observable<TagsResultList> {
+		const tagsResultListModelAdapter = new TagsResultListModelAdapter();
+
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`, queryParams.toString());
+
+		return this.client.get<TagsResultList>(url).pipe(
+			map(input => tagsResultListModelAdapter.adapt(input)),
+			catchError(this.handleError<TagsResultList>("getAllTags", tagsResultListModelAdapter.adapt(null)))
+		);
+	}
+
 	createMasterdataType(item: IMasterdataTypeCreate): Observable<MasterdataType> {
 		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
 		return this.client.post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions).pipe(
-			tap(newItem => {
-				this.log(`id #${newItem?.value?.id}`, `createMasterdataType`, "success"); //JSON.parse(newItem)
-			}),
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
@@ -106,23 +109,17 @@ export class MasterdataCrudHttpService {
 		const masterdataModelAdapter = new MasterdataModelAdapter();
 
 		return this.client.post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions).pipe(
-			tap(newItem => {
-				this.log(`id #${newItem?.value?.id}`, `createMasterdata`, "success"); //JSON.parse(newItem)
-			}),
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null)))
 		);
 	}
-	//#endregion
 
-	//#region Update/Put
 	updateMasterdataType(masterdatatype: string, item: IMasterdataTypeUpdate): Observable<MasterdataType> {
 		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
 		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`, item, this.httpOptions).pipe(
-			tap(() => this.log(`id #${masterdatatype}`, `updateMasterdataType`, "success")),
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
@@ -134,32 +131,25 @@ export class MasterdataCrudHttpService {
 		const masterdataModelAdapter = new MasterdataModelAdapter();
 
 		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`, item, this.httpOptions).pipe(
-			tap(() => this.log(`id #${id}`, `updateMasterdata`, "success")),
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("updateMasterdata", masterdataModelAdapter.adapt(null)))
 		);
 	}
-	//#endregion
 
-	//#region Delete
 	deleteMasterdataType(masterdatatype: string): Observable<MasterdataType> {
 		return this.client.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions).pipe(
-			tap(() => this.log(`id #${masterdatatype}`, `deleteMasterdataType`, "success")),
 			catchError(this.handleError<MasterdataType>("deleteMasterdataType", undefined))
 		);
 	}
 
 	deleteMasterdata(masterdatatype: string, masterdata: string): Observable<Masterdata> {
 		return this.client.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions).pipe(
-			tap(() => this.log(`id #${masterdata}`, `deleteMasterdata`, "success")),
 			catchError(this.handleError<Masterdata>("deleteMasterdata", undefined))
 		);
 	}
-	//#endregion
 
-	//#region Private methods
 	/**
 	 * Handle Http operation that failed. Also let the app continue.
 	 *
@@ -172,99 +162,29 @@ export class MasterdataCrudHttpService {
 			// TODO: send the error to remote logging infrastructure
 			console.error("handleError/", error); // log to console instead
 
-			// TODO: better job of transforming error for user consumption
-			this.log(`(${error.status}) ${error.message}`, operation, "error");
-
 			// Let the app keep running by returning an empty result.
 			return of(result as T);
 		};
 	}
 
-	/** Log a message with the Logger Service
-	 *
-	 * @param message - text message to be logged
-	 * @param operation - executed operation title
-	 * @param status - executed operation status
-	 */
-	private log(message: string | null, operation: string, status: string = "info") {
-		const msg = [];
-		msg.push(new Date().toLocaleString());
-		msg.push("masterdata");
-		msg.push(operation);
-		msg.push(status);
-		message && msg.push(message);
-		this.logger.add({ status, message: msg.join(" | ") } as ILoggerMessage);
+	private buildListUri(baseUrl: string | undefined, queryString?: string) {
+		const url = `${baseUrl}?${queryString}`.replace(/[?&]$/, "");
+		return url;
 	}
 
-	/**
-	 * @param baseUrl (optional)
-	 * @param offset (optional)
-	 * @param limit (optional)
-	 * @return Success
-	 */
-	genericListUriMasterdata(baseUrl: string | null | undefined, offset: number, limit: number): string {
-		return this.genericListUri(
-			baseUrl,
-			limit > 0 ? offset : undefined,
-			limit > 0 ? limit : undefined,
-			limit > 0 ? undefined : true,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null
-		);
+	private buildListQueryModelParams(queryModel?: QueryModel): HttpParams {
+		if (!queryModel) {
+			return new HttpParams();
+		}
+		const { offset, limit } = queryModel;
+		queryModel.offset = undefined;
+		queryModel.limit = undefined;
+		queryModel.noLimit = true;
+		if (limit && limit > 0) {
+			queryModel.offset = offset;
+			queryModel.limit = limit;
+			queryModel.noLimit = undefined;
+		}
+		return queryModel.asParams();
 	}
-
-	/**
-	 * @param baseUrl (optional)
-	 * @param offset (optional)
-	 * @param limit (optional)
-	 * @param noLimit (optional)
-	 * @param tag (optional)
-	 * @param createdBy (optional)
-	 * @param createdSince (optional)
-	 * @param updatedBy (optional)
-	 * @param updatedSince (optional)
-	 * @param searchTerm (optional)
-	 * @param orderBy (optional)
-	 * @param queryString (optional)
-	 * @return Success
-	 */
-	// eslint-disable-next-line complexity
-	genericListUri(
-		baseUrl: string | null | undefined,
-		offset: number | null | undefined,
-		limit: number | null | undefined,
-		noLimit: boolean | null | undefined,
-		tag: string | null | undefined,
-		createdBy: string | null | undefined,
-		createdSince: Date | null | undefined,
-		updatedBy: string | null | undefined,
-		updatedSince: Date | null | undefined,
-		searchTerm: string | null | undefined,
-		orderBy: string | null | undefined,
-		queryString: string | null | undefined
-	): string {
-		let url_ = `${baseUrl}?`;
-		if (offset !== undefined && offset !== null) url_ += "Offset=" + encodeURIComponent("" + offset) + "&";
-		if (limit !== undefined && limit !== null) url_ += "Limit=" + encodeURIComponent("" + limit) + "&";
-		if (noLimit !== undefined && noLimit !== null) url_ += "NoLimit=" + encodeURIComponent("" + noLimit) + "&";
-		if (tag !== undefined && tag !== null) url_ += "Tag=" + encodeURIComponent("" + tag) + "&";
-		if (createdBy !== undefined && createdBy !== null) url_ += "CreatedBy=" + encodeURIComponent("" + createdBy) + "&";
-		if (createdSince !== undefined && createdSince !== null)
-			url_ += "CreatedSince=" + encodeURIComponent(createdSince ? "" + createdSince.toISOString() : "") + "&";
-		if (updatedBy !== undefined && updatedBy !== null) url_ += "UpdatedBy=" + encodeURIComponent("" + updatedBy) + "&";
-		if (updatedSince !== undefined && updatedSince !== null)
-			url_ += "UpdatedSince=" + encodeURIComponent(updatedSince ? "" + updatedSince.toISOString() : "") + "&";
-		if (searchTerm !== undefined && searchTerm !== null) url_ += "SearchTerm=" + encodeURIComponent("" + searchTerm) + "&";
-		if (orderBy !== undefined && orderBy !== null) url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&";
-		if (queryString !== undefined && queryString !== null) url_ += "QueryString=" + encodeURIComponent("" + queryString) + "&";
-		url_ = url_.replace(/[?&]$/, "");
-		return url_;
-	}
-	//#endregion
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ILazyLoadEvent } from "@lens/ui-prime-components";
-import { Observable } from "rxjs";
+import { Observable, debounceTime, Subject } from "rxjs";
+import { KeyValuePair } from "@lens/app-abstract";
+import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
 
 @Component({
-	selector: "lens-masterdatas-list",
+	selector: "masterdata-list",
 	templateUrl: "./masterdatas-list.component.html",
 	styleUrls: ["./masterdatas-list.component.scss"]
 })
@@ -16,6 +17,11 @@ export class MasterdatasListComponent implements OnInit {
 	totalSize = 0;
 	typeId = "";
 	masterdataType$?: Observable<MasterdataType>;
+	tagsList: string[] = [];
+	tagsSelected: KeyValuePair<string, string>[] = [];
+
+	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
+	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
 
 	constructor(private readonly service: MasterdataCrudHttpService, private readonly router: Router, private readonly activeRoute: ActivatedRoute) {}
 
@@ -23,14 +29,18 @@ export class MasterdatasListComponent implements OnInit {
 	ngOnInit(): void {
 		this.isLoading = true;
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
+
+		this.loadTagsList();
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		this.searchTermChange.pipe(debounceTime(500)).subscribe((selectedTags) => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
 	}
 
-	loadItems(offset: number, rows: number) {
+	loadItems(offset: number, rows: number, tags: string[]) {
 		this.isLoading = true;
 
 		if (this.typeId) this.masterdataType$ = this.service.getMasterdataTypeById(this.typeId);
 
-		this.service.getAllMasterdatas(this.typeId, offset, rows).subscribe({
+		this.service.getAllMasterdatas(this.typeId, offset, rows, tags).subscribe({
 			next: data => {
 				this.items = data.value || [];
 				this.totalSize = data.totalSize || 0;
@@ -42,8 +52,21 @@ export class MasterdatasListComponent implements OnInit {
 		});
 	}
 
+	loadTagsList() {
+		this.isLoading = true;
+		this.service.getAllTags(this.typeId, 0, 0).subscribe({
+			next: data => {
+				this.tagsList = data.value || [];
+				this.isLoading = false;
+			},
+			complete: () => {
+				this.isLoading = false;
+			}
+		});
+	}
+
 	onLazyLoadData(event: ILazyLoadEvent): void {
-		this.loadItems(event.offset, event.rows);
+		this.loadItems(event.offset, event.rows, this.convertTagsToValue(this.tagsSelected));
 	}
 
 	onRowClicked(item: Masterdata) {
@@ -75,5 +98,13 @@ export class MasterdatasListComponent implements OnInit {
 
 	onEditActionClicked(item: Masterdata) {
 		this.router.navigate([`${item.id}`, "edit"], { relativeTo: this.activeRoute });
+	}
+
+	onTagsChangedFilter(selectedTags: KeyValuePair<string, string>[]) {
+		this.searchTermChange.next(selectedTags);
+	}
+
+	private convertTagsToValue(tags: KeyValuePair<string, string>[]) {
+		return tags.map(item => item.value);
 	}
 }

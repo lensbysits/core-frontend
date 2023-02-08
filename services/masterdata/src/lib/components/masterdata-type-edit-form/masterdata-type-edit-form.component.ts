@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService } from "@lens/ui-prime-components";
 import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
 import { MasterdataTypeMaxLength } from "../../core/utils";
+import { ToastService } from "@lens/app-abstract";
 
 @Component({
-	selector: "lens-masterdata-type-edit-form",
+	selector: "masterdata-type-edit-form",
 	templateUrl: "./masterdata-type-edit-form.component.html",
 	styleUrls: ["./masterdata-type-edit-form.component.scss"]
 })
@@ -68,6 +68,11 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	loadData() {
 		this.isLoading = true;
 		this.service.getMasterdataTypeById(this.id).subscribe(data => {
+			if (!data) {
+				this.router.navigateByUrl("/not-found");
+				return;
+			}
+
 			this.dataForm.patchValue({
 				code: data.code,
 				name: data.name,
