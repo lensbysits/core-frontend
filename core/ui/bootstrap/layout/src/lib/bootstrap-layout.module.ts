@@ -15,6 +15,7 @@ import { AppFooterComponent } from "./components/footer/footer.component";
 import { AppLeftSideBarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { AppMainComponent } from "./components/main/main.component";
 import { AppTopBarComponent } from "./components/topbar/topbar.component";
+import { WindowService } from "./services/window.service";
 
 @NgModule({
 	imports: [
@@ -31,7 +32,7 @@ import { AppTopBarComponent } from "./components/topbar/topbar.component";
 		AppBreadcrumbsComponent,
 		AppFooterComponent
 	],
-	providers: [], //MenuService
+	providers: [WindowService], //MenuService
 	exports: [AppMainComponent, RouterModule, AppAbstractModule]
 })
 export class BootstrapLayoutModule {
@@ -73,6 +74,7 @@ export class BootstrapLayoutModule {
 			]
 		};
 	}
+
 	constructor(router: Router) {
 		if (BootstrapLayoutModule.rootRoutes) {
 			router.resetConfig(BootstrapLayoutModule.rootRoutes);
