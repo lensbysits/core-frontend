@@ -1,2 +1,38 @@
-<p>main works - main component!</p>
-<router-outlet></router-outlet>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div
+	id="main-wrapper"
+	data-layout="vertical"
+	data-navbarbg="skin5"
+	data-sidebartype="full"
+	data-sidebar-position="absolute"
+	data-header-position="absolute"
+	data-boxed-layout="full">
+	<ui-topbar></ui-topbar>
+	<ui-left-sidebar></ui-left-sidebar>
+	<!-- ============================================================== -->
+	<!-- Page wrapper  -->
+	<!-- ============================================================== -->
+	<div class="page-wrapper">
+		<ui-breadcrumbs></ui-breadcrumbs>
+
+		<!-- ============================================================== -->
+		<!-- Container fluid  -->
+		<!-- ============================================================== -->
+		<div class="container-fluid">
+			<router-outlet></router-outlet>
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Container fluid  -->
+		<!-- ============================================================== -->
+
+		<ui-footer></ui-footer>
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Page wrapper  -->
+	<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Main wrapper -->
+<!-- ============================================================== -->

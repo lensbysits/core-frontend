@@ -7,10 +7,10 @@ import {
 
 @Component({
 	selector: "ui-main",
-	templateUrl: "./main.component.html",
-	styleUrls: ["./main.component.scss"]
+	templateUrl: "./main.component.html"
 })
 export class AppMainComponent {
+	assetsPath = "../assets/bootstrap/images/";
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(

@@ -10,7 +10,11 @@ import {
 	LayoutConfigurationService
 } from "@lens/app-abstract";
 import { BootstrapComponentsModule } from "@lens/ui-bootstrap-components";
+import { AppBreadcrumbsComponent } from "./components/breadcrumbs/breadcrumbs.component";
+import { AppFooterComponent } from "./components/footer/footer.component";
+import { AppLeftSideBarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { AppMainComponent } from "./components/main/main.component";
+import { AppTopBarComponent } from "./components/topbar/topbar.component";
 
 @NgModule({
 	imports: [
@@ -20,7 +24,13 @@ import { AppMainComponent } from "./components/main/main.component";
 		FormsModule,
 		BootstrapComponentsModule
 	],
-	declarations: [AppMainComponent],
+	declarations: [
+		AppMainComponent,
+		AppTopBarComponent,
+		AppLeftSideBarComponent,
+		AppBreadcrumbsComponent,
+		AppFooterComponent
+	],
 	providers: [], //MenuService
 	exports: [AppMainComponent, RouterModule, AppAbstractModule]
 })

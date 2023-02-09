@@ -1,0 +1,38 @@
+/*
+Template Name: Admin Template
+Author: Niravjoshi / Wrappixel
+File: scss
+*/
+
+// Import Bootstrap source files (Required file)
+//@import "bootstrap/bootstrap";
+//@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap/scss/bootstrap.scss";
+
+// (Required file)
+@import "./_variable.scss";
+
+// All the custom components imports are bellow
+@import "./mixins/mixins.scss";
+
+// Theme colors
+@import "./theme-colors/theme-colors.scss";
+
+// Core
+@import "./core/core.scss";
+
+// This is for the pages (if you are not using some pages you can remove that style from pages folder)
+@import "./pages/pages.scss";
+
+// This is for the widgets (Required file)
+@import "./widgets/widgets.scss";
+
+// This is for the responsive (Required file)
+@import "./_responsive.scss";
+
+// In This scss you can write your scss
+@import "./_custom.scss";
+@import "./_landingpage.scss";
+
+// This is for the icons (Required file)
+// -- moved to icons folder
