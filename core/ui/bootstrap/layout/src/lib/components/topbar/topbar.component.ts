@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService
+	LayoutConfigurationService,
+	LayoutService
 } from "@lens/app-abstract";
 
 @Component({
@@ -13,6 +14,12 @@ export class AppTopBarComponent {
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(
-		readonly layoutConfigurationService: LayoutConfigurationService
-	) {}
+		readonly layoutConfigurationService: LayoutConfigurationService,
+		readonly layoutService: LayoutService
+	) {
+	}
+
+	onSidebarTogglerClick() {
+		this.layoutService.SidebarType = this.layoutService.SidebarType === "mini-sidebar" ? "full" : "mini-sidebar"
+	}
 }

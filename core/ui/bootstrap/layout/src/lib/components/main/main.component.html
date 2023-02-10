@@ -1,12 +1,11 @@
 <div
-	(click)="onSidebarTogglerClick()"
 	[ngClass]="{
 		'mini-sidebar': sidebarToggler
 	}"
 	id="main-wrapper"
 	data-layout="vertical"
 	data-navbarbg="skin5"
-	[attr.data-sidebartype]="sidebarType"
+	[attr.data-sidebartype]="layoutService.SidebarType$ | async"
 	data-sidebar-position="absolute"
 	data-header-position="absolute"
 	data-boxed-layout="full">
