@@ -27,7 +27,7 @@ export class WindowService {
 	isMiniSidebar$ = fromEvent(window, "resize").pipe(
 		startWith(window),
 		mapTo(window),
-		throttleTime(500),
+		throttleTime(250),
 		debounceTime(250),
 		map((window: Window) => {
 			return window.innerWidth < this.miniSidebarWidth;

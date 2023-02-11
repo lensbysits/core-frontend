@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, Renderer2 } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import {
 	ILayoutConfiguration,
 	LayoutConfigurationService
 } from "@lens/app-abstract";
 import { WindowService } from "../../services/window.service";
-//import { MenuService } from "../menu/menu.service";
 
 @Component({
 	selector: "ui-main",
@@ -13,13 +12,14 @@ import { WindowService } from "../../services/window.service";
 export class AppMainComponent implements AfterViewInit {
 	assetsPath = "../assets/bootstrap/images/";
 	layoutConfiguration: ILayoutConfiguration = {};
+	topbarItemClick = false;
+	activeTopbarItem: any;
 	isMiniSidebar$ = this.windowService.isMiniSidebar$;
 	sidebarType: "full" | "mini-sidebar" = "full";
-	sidebarToggler = false;
+	showMobileSidebar = false;
+	showSearchbox = false;
 
 	constructor(
-		public readonly renderer: Renderer2,
-		//private readonly menuService: MenuService,
 		readonly layoutConfigurationService: LayoutConfigurationService,
 		private readonly windowService: WindowService
 	) {
@@ -34,8 +34,38 @@ export class AppMainComponent implements AfterViewInit {
 		});
 	}
 
-	onSidebarTogglerClick() {
-		this.sidebarToggler = !this.sidebarToggler;
+	onLayoutClick() {
+		if (!this.topbarItemClick) {
+			this.activeTopbarItem = null;
+		}
+
+		this.topbarItemClick = false;
+	}
+
+	onTopbarItemClick(event: any, item: any): void {
+		this.topbarItemClick = true;
+
+		if (item?.id && item.id === "mobileSidebarToggler") {
+			this.showMobileSidebar = !this.showMobileSidebar;
+		} else {
+			this.toggleSideBarType();
+		}
+
+		if (this.activeTopbarItem === item) {
+			this.activeTopbarItem = null;
+		} else {
+			this.activeTopbarItem = item;
+		}
+		event.preventDefault();
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	onSearchboxItemClick(event: any, item: any) {
+		this.showSearchbox = !this.showSearchbox;
+		event.preventDefault();
+	}
+
+	private toggleSideBarType() {
 		this.sidebarType =
 			this.sidebarType === "mini-sidebar" ? "full" : "mini-sidebar";
 	}

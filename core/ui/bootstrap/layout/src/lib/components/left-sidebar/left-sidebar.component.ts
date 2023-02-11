@@ -9,10 +9,9 @@ import {
 	templateUrl: "./left-sidebar.component.html"
 })
 export class AppLeftSideBarComponent {
-	assetsPath = "../assets/bootstrap/images/";
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(
-		readonly layoutConfigurationService: LayoutConfigurationService
+		public readonly layoutConfigurationService: LayoutConfigurationService
 	) {}
 }

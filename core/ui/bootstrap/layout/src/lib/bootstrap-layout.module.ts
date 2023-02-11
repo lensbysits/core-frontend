@@ -14,6 +14,7 @@ import { AppBreadcrumbsComponent } from "./components/breadcrumbs/breadcrumbs.co
 import { AppFooterComponent } from "./components/footer/footer.component";
 import { AppLeftSideBarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { AppMainComponent } from "./components/main/main.component";
+import { AppSearchBoxComponent } from "./components/search-box/search-box.component";
 import { AppTopBarComponent } from "./components/topbar/topbar.component";
 import { WindowService } from "./services/window.service";
 
@@ -30,7 +31,8 @@ import { WindowService } from "./services/window.service";
 		AppTopBarComponent,
 		AppLeftSideBarComponent,
 		AppBreadcrumbsComponent,
-		AppFooterComponent
+		AppFooterComponent,
+		AppSearchBoxComponent
 	],
 	providers: [WindowService], //MenuService
 	exports: [AppMainComponent, RouterModule, AppAbstractModule]
