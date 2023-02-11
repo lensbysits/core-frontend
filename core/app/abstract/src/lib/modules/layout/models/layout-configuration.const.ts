@@ -1,55 +1,61 @@
 import { ILayoutConfiguration } from "./layout-configuration.interface";
 
-export function CreateLayout(args: ILayoutConfiguration = {
-    menuMode: "static",
-    menuColor: "light",
-    profileMode: "top",
-    inputStyle: "filled",
-    ripple: true,
-    showSearch: false,
-    showNotifications: false,
-    showMessages: false,
-    showSettings: false,
-    showFooter: false,
-    showLanguagePicker:false}
+export function CreateLayout(
+	args: ILayoutConfiguration = {
+		menuMode: "static",
+		menuColor: "light",
+		profileMode: "top",
+		inputStyle: "filled",
+		ripple: true,
+		showSearch: false,
+		showNotifications: false,
+		showMessages: false,
+		showSettings: false,
+		showQuickActions: false,
+		showFooter: false,
+		showLanguagePicker: false
+	}
 ): ILayoutConfiguration {
-    return {
-        menuMode: args.menuMode,
-        menuColor: args.menuColor,
-        profileMode: args.profileMode,
-        inputStyle: args.inputStyle,
-        ripple: args.ripple,
-        showSearch: args.showSearch,
-        showNotifications: args.showNotifications,
-        showMessages: args.showMessages,
-        showSettings: args.showSettings,
-        showFooter: args.showFooter,
-        showLanguagePicker: args.showLanguagePicker
-    };
+	return {
+		menuMode: args.menuMode,
+		menuColor: args.menuColor,
+		profileMode: args.profileMode,
+		inputStyle: args.inputStyle,
+		ripple: args.ripple,
+		showSearch: args.showSearch,
+		showNotifications: args.showNotifications,
+		showMessages: args.showMessages,
+		showSettings: args.showSettings,
+		showQuickActions: args.showQuickActions,
+		showFooter: args.showFooter,
+		showLanguagePicker: args.showLanguagePicker
+	};
 }
 
 export const StaticLightTopLayoutConfiguration: ILayoutConfiguration = {
-    menuMode: "static",
-    menuColor: "light",
-    profileMode: "top",
-    inputStyle: "filled",
-    ripple: true,
-    showSearch: false,
-    showNotifications: false,
-    showMessages: false,
-    showSettings: false,
-    showFooter: false
-}
+	menuMode: "static",
+	menuColor: "light",
+	profileMode: "top",
+	inputStyle: "filled",
+	ripple: true,
+	showSearch: false,
+	showNotifications: false,
+	showMessages: false,
+	showSettings: false,
+	showQuickActions: false,
+	showFooter: false
+};
 
 export const StaticDarkTopLayoutConfiguration: ILayoutConfiguration = {
-    menuMode: "static",
-    menuColor: "dark",
-    profileMode: "top",
-    inputStyle: "filled",
-    ripple: true,
-    showSearch: false,
-    showNotifications: false,
-    showMessages: false,
-    showSettings: false,
-    showFooter: false
-}
+	menuMode: "static",
+	menuColor: "dark",
+	profileMode: "top",
+	inputStyle: "filled",
+	ripple: true,
+	showSearch: false,
+	showNotifications: false,
+	showMessages: false,
+	showSettings: false,
+	showQuickActions: false,
+	showFooter: false
+};

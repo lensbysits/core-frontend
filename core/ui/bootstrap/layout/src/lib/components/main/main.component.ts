@@ -45,9 +45,10 @@ export class AppMainComponent implements AfterViewInit {
 	onTopbarItemClick(event: any, item: any): void {
 		this.topbarItemClick = true;
 
-		if (item?.id && item.id === "mobileSidebarToggler") {
+		const itemId = item?.id ?? null;
+		if (itemId === "mobileSidebarToggler") {
 			this.showMobileSidebar = !this.showMobileSidebar;
-		} else {
+		} else if (itemId === "sidebarToggler") {
 			this.toggleSideBarType();
 		}
 
@@ -56,6 +57,10 @@ export class AppMainComponent implements AfterViewInit {
 		} else {
 			this.activeTopbarItem = item;
 		}
+		event.preventDefault();
+	}
+
+	onTopbarSubItemClick(event: any) {
 		event.preventDefault();
 	}
 
