@@ -1,11 +1,5 @@
 <lens-panel
-	header="{{
-		isAddForm ?
-			('masterdatamgmt.pages.masterdataUpsert.addFormTitle' | translate) :
-			('masterdatamgmt.pages.masterdataUpsert.editFormTitle' | translate)
-	}} '{{
-		(masterdataType$ | async)?.name
-	}}'">
+	header="{{ formHeaderText }} '{{ (masterdataType$ | async)?.name}}'">
 	<div class="form-wrapper">
 		<div class="form-header">
 			<div
@@ -203,11 +197,7 @@
 			<div class="form-actions">
 				<div>
 					<lens-button
-						label="{{
-							isAddForm ?
-								('masterdatamgmt.pages.masterdataUpsert.buttons.btnSubmitAddForm' | translate) :
-								('masterdatamgmt.pages.masterdataUpsert.buttons.btnSubmitEditForm' | translate)
-						}}"
+						label="{{ saveFormButtonText }}"
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"

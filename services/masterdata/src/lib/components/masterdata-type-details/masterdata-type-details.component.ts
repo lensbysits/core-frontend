@@ -5,7 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, tap } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { MasterdataType } from "../../core/models";
-import { MasterdataCrudHttpService } from "../../core/services";
+import { MasterdataCrudHttpService, MasterdataHelperService } from "../../core/services";
 
 @Component({
 	selector: "masterdata-type-details",
@@ -20,6 +20,7 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
 	constructor(
+		private readonly masterdataHelper: MasterdataHelperService,
 		private readonly service: MasterdataCrudHttpService,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly location: Location,
@@ -49,10 +50,6 @@ export class MasterdataTypeDetailsComponent implements OnInit {
 	}
 
 	prepareForDisplay(item: MasterdataType) {
-		// "metadata" model field will have a special display!
-		return Object.entries(item).filter(item => item[0] !== "metadata").map(item => {
-			item[0] = this.translateService.instant(`masterdatamgmt.pages.masterdataTypeDetails.modelFields.${item[0]}`);
-			return item;
-		});
+		return this.masterdataHelper.prepareForDisplay<MasterdataType>(item, "masterdataTypeDetails");
 	}
 }

@@ -1,4 +1,10 @@
 {
+	"menu": {
+		"title": "Masterdata management",
+		"items": {
+			"masterdatas": "Masterdatas"
+		}
+	},
 	"masterdatamgmt": {
 		"globals": {
 			"btnBack": "Back to list",
@@ -6,7 +12,7 @@
 		},
 		"pages": {
 			"dashboard": {
-				"demoText": "masterdata dashboard!"
+				"demoText": "masterdata dashboard"
 			},
 			"masterdataTypeList": {
 				"header": "Total masterdata types",
@@ -26,7 +32,7 @@
 				}
 			},
 			"masterdataTypeDetails": {
-				"header": "Masterdata-type Details",
+				"header": "Masterdata type Details",
 				"modelFields": {
 					"id": "Id",
 					"code": "Code",
@@ -37,8 +43,8 @@
 				}
 			},
 			"masterdataTypeUpsert": {
-				"addFormTitle": "Add Masterdata-type",
-				"editFormTitle": "Edit Masterdata-type",
+				"addFormTitle": "Add Masterdata type",
+				"editFormTitle": "Edit Masterdata type",
 				"buttons": {
 					"btnSubmitAddForm": "Save",
 					"btnSubmitEditForm": "Update"

@@ -3,12 +3,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
+import { LanguageService, ToastService } from "@lens/app-abstract";
+import { getRequiredFieldValue, getFieldValue, MasterdataTypeMaxLength } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../core/interfaces";
 import { MasterdataCrudHttpService } from "../../core/services";
-import { MasterdataTypeMaxLength } from "../../core/utils";
-import { ToastService } from "@lens/app-abstract";
 
 @Component({
 	selector: "masterdata-type-edit-form",
@@ -23,6 +22,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	isAddForm = true;
 	item?: MasterdataType;
 	maxLength = MasterdataTypeMaxLength;
+	saveFormButtonText!: string;
+	formHeaderText!: string;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
@@ -32,7 +33,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 		private readonly activeRoute: ActivatedRoute,
 		private readonly formBuilder: FormBuilder,
 		private readonly toastService: ToastService,
-		private readonly translateService: TranslateService
+		private readonly translateService: TranslateService,
+		private readonly languageService: LanguageService
 	) {}
 
 	ngOnInit(): void {
@@ -49,6 +51,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			description: ["", [Validators.maxLength(this.maxLength.description)]],
 			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]]
 		});
+
+		this.buildTranslationTexts();
 	}
 
 	makeMetadataEditorOptions(): JsonEditorOptions {
@@ -135,5 +139,16 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
 	navigateToListView() {
 		this.router.navigate(["/"]);
+	}
+
+	private buildTranslationTexts() {
+		this.languageService.onTranslationsLoaded(() => {
+			this.formHeaderText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.editFormTitle");
+			this.saveFormButtonText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.buttons.btnSubmitEditForm");
+			if (this.isAddForm) {
+				this.formHeaderText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.addFormTitle");
+				this.saveFormButtonText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.buttons.btnSubmitAddForm");
+			}
+		});
 	}
 }

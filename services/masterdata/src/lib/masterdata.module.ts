@@ -9,7 +9,7 @@ import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 
 import { MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
-import { MasterdataApiClientsModule } from "./core/services";
+import { MasterdataServicesModule } from "./core/services";
 import {
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
@@ -44,7 +44,7 @@ const components = [
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
-		MasterdataApiClientsModule.forRoot(),
+		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],

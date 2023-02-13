@@ -31,7 +31,6 @@ export class MasterdatasListComponent implements OnInit {
 		private readonly translateService: TranslateService
 	) {}
 
-	// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
 	ngOnInit(): void {
 		this.isLoading = true;
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";

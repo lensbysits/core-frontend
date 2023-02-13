@@ -1,170 +1,176 @@
 {
+	"menu": {
+		"title": "Masterdata beheer",
+		"items": {
+			"masterdatas": "Masterdatas"
+		}
+	},
 	"masterdatamgmt": {
 		"globals": {
-			"btnBack": "NL:Back to list",
-			"btnCancel": "NL:Cancel"
+			"btnBack": "Terug naar lijst",
+			"btnCancel": "Annuleren"
 		},
 		"pages": {
 			"dashboard": {
-				"demoText": "NL:masterdata dashboard!"
+				"demoText": "masterdata dashboard"
 			},
 			"masterdataTypeList": {
-				"header": "NL:Total masterdata types",
-				"deleteRowConfirmation": "NL:Are you sure?",
+				"header": "Totaal aantal stamgegevens typen",
+				"deleteRowConfirmation": "Weet je het zeker?",
 				"tableColumns": {
-					"code": "NL:Code",
-					"name": "NL:Name",
-					"count": "NL:Count",
-					"description": "NL:Description"
+					"code": "Code",
+					"name": "Naam",
+					"count": "Tellen",
+					"description": "Beschrijving"
 				},
 				"buttons": {
-					"btnAddNewType": "NL:Add masterdata type",
-					"btnView": "NL:View Masterdatas",
-					"btnAdd": "NL:Add Masterdata",
-					"btnEdit": "NL:Edit",
-					"btnDelete": "NL:Delete"
+					"btnAddNewType": "Type stamgegevens toevoegen",
+					"btnView": "Bekijk stamgegevens",
+					"btnAdd": "Stamgegevens toevoegen",
+					"btnEdit": "Bewerken",
+					"btnDelete": "Verwijderen"
 				}
 			},
 			"masterdataTypeDetails": {
-				"header": "NL:Masterdata-type Details",
+				"header": "Type stamgegevens Details",
 				"modelFields": {
-					"id": "NL:Id",
-					"code": "NL:Code",
-					"name": "NL:Name",
-					"description": "NL:Description",
-					"metadata": "NL:Metadata",
-					"masterdatasCount": "NL:Masterdatas Count"
+					"id": "Id",
+					"code": "Code",
+					"name": "Naam",
+					"description": "Beschrijving",
+					"metadata": "Metagegevens",
+					"masterdatasCount": "Stamgegevens tellen"
 				}
 			},
 			"masterdataTypeUpsert": {
-				"addFormTitle": "NL:Add Masterdata-type",
-				"editFormTitle": "NL:Edit Masterdata-type",
+				"addFormTitle": "Type stamgegevens toevoegen",
+				"editFormTitle": "Type stamgegevens bewerken",
 				"buttons": {
-					"btnSubmitAddForm": "NL:Save",
-					"btnSubmitEditForm": "NL:Update"
+					"btnSubmitAddForm": "Opslaan",
+					"btnSubmitEditForm": "Bijwerken"
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "NL:Add masterdata type",
-						"message": "NL:The masterdata type was succesfully added."
+						"title": "Stamgegevens type toevoegen",
+						"message": "Het stamgegevens type is succesvol toegevoegd."
 					},
 					"successEdit": {
-						"title": "NL:Update masterdata type",
-						"message": "NL:The masterdata type was succesfully updated."
+						"title": "Stamgegevens type bijwerken",
+						"message": "Het stamgegevens type is met succes bijgewerkt."
 					}
 				},
 				"code": {
-					"label": "NL:Code",
-					"placeholder": "NL:Please enter a valid code",
-					"required": "NL:Code is required.",
-					"maxLength": "NL:Code can be max {{ maxLength }} characters long."
+					"label": "Code",
+					"placeholder": "Voer een geldige code in",
+					"required": "Code is vereist.",
+					"maxLength": "Code kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"name": {
-					"label": "NL:Name",
-					"placeholder": "NL:Please enter a valid name",
-					"required": "NL:Name is required.",
-					"maxLength": "NL:Name can be max {{ maxLength }} characters long."
+					"label": "Naam",
+					"placeholder": "Voer een geldige naam in",
+					"required": "Naam is vereist.",
+					"maxLength": "Naam kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"description": {
-					"label": "NL:Description",
-					"placeholder": "NL:Please enter a valid description",
-					"required": "NL:Description is required.",
-					"maxLength": "NL:Description can be max {{ maxLength }} characters long."
+					"label": "Beschrijving",
+					"placeholder": "Voer een geldige beschrijving in",
+					"required": "Beschrijving is verplicht.",
+					"maxLength": "Beschrijving kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"metadata": {
-					"label": "NL:Metadata",
-					"helpText": "NL:* if you want to remove a (key, value) pair, set value to null",
-					"required": "NL:Metadata is required.",
-					"maxLength": "NL:Metadata can be max {{ maxLength }} characters long."
+					"label": "Metagegevens",
+					"helpText": "* als u een (sleutel, waarde) paar wilt verwijderen, stelt u de waarde in op null",
+					"required": "Metagegevens zijn vereist.",
+					"maxLength": "Metagegevens kunnen maximaal {{ maxLength }} tekens lang zijn."
 				}
 			},
 			"masterdataList": {
-				"deleteRowConfirmation": "NL:Are you sure?",
+				"deleteRowConfirmation": "Weet je het zeker?",
 				"tableColumns": {
-					"key": "NL:Key",
-					"value": "NL:Value",
-					"name": "NL:Name",
-					"description": "NL:Description",
-					"tags": "NL:Tags"
+					"key": "Sleutel",
+					"value": "Waarde",
+					"name": "Naam",
+					"description": "Beschrijving",
+					"tags": "Labels"
 				},
 				"buttons": {
-					"btnAddNew": "NL:Add masterdata",
-					"btnEdit": "NL:Edit",
-					"btnDelete": "NL:Delete"
+					"btnAddNew": "Stamgegevens toevoegen",
+					"btnEdit": "Bewerken",
+					"btnDelete": "Verwijderen"
 				},
 				"tagsSelector": {
-					"placeholder": "NL:Here you can filter by tags"
+					"placeholder": "Hier kun je filteren op labels"
 				}
 			},
 			"masterdataDetails": {
-				"header": "NL:Masterdata Details",
+				"header": "Stamgegevens Details",
 				"modelFields": {
-					"id": "NL:Id",
-					"masterdataTypeId": "NL:Type Id",
-					"masterdataTypeName": "NL:Type Name",
-					"key": "NL:Key",
-					"value": "NL:Value",
-					"name": "NL:Name",
-					"description": "NL:Description",
-					"metadata": "NL:Metadata",
-					"tags": "NL:Tags"
+					"id": "Id",
+					"masterdataTypeId": "Type Id",
+					"masterdataTypeName": "Type Naam",
+					"key": "Sleutel",
+					"value": "Waarde",
+					"name": "Naam",
+					"description": "Beschrijving",
+					"metadata": "Metagegevens",
+					"tags": "Labels"
 				}
 			},
 			"masterdataUpsert": {
-				"addFormTitle": "NL:Add Masterdata to type",
-				"editFormTitle": "NL:Edit Masterdata to type",
+				"addFormTitle": "Stamgegevens toevoegen aan type",
+				"editFormTitle": "Stamgegevens bewerken om te typen",
 				"buttons": {
-					"btnSubmitAddForm": "NL:Save",
-					"btnSubmitEditForm": "NL:Update"
+					"btnSubmitAddForm": "Opslaan",
+					"btnSubmitEditForm": "Bijwerken"
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "NL:Add masterdata",
-						"message": "NL:The masterdata was succesfully added."
+						"title": "Stamgegevens toevoegen",
+						"message": "De stamgegevens zijn succesvol toegevoegd."
 					},
 					"successEdit": {
-						"title": "NL:Update masterdata",
-						"message": "NL:The masterdata was succesfully updated."
+						"title": "Stamgegevens bijwerken",
+						"message": "De stamgegevens zijn succesvol bijgewerkt."
 					}
 				},
 				"type": {
-					"label": "NL:Masterdata Type",
-					"required": "NL:Masterdata Type is required."
+					"label": "Type stamgegevens",
+					"required": "Stamgegevenstype is vereist."
 				},
 				"key": {
-					"label": "NL:Key",
-					"placeholder": "NL:Please enter a valid key",
-					"required": "NL:Key is required.",
-					"maxLength": "NL:Key can be max {{ maxLength }} characters long."
+					"label": "Sleutel",
+					"placeholder": "Voer een geldige sleutel in",
+					"required": "Sleutel is vereist.",
+					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"value": {
-					"label": "NL:Value",
-					"placeholder": "NL:Please enter a valid value",
-					"required": "NL:Value is required.",
-					"maxLength": "NL:Value can be max {{ maxLength }} characters long."
+					"label": "Waarde",
+					"placeholder": "Voer een geldige waarde in",
+					"required": "Waarde is vereist.",
+					"maxLength": "Waarde kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"name": {
-					"label": "NL:Name",
-					"placeholder": "NL:Please enter a valid name",
-					"required": "NL:Name is required.",
-					"maxLength": "NL:Name can be max {{ maxLength }} characters long."
+					"label": "Naam",
+					"placeholder": "Voer een geldige naam in",
+					"required": "Naam is vereist.",
+					"maxLength": "Naam kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"description": {
-					"label": "NL:Description",
-					"placeholder": "NL:Please enter a valid description",
-					"required": "NL:Description is required.",
-					"maxLength": "NL:Description can be max {{ maxLength }} characters long."
+					"label": "Beschrijving",
+					"placeholder": "Voer een geldige beschrijving in",
+					"required": "Beschrijving is verplicht.",
+					"maxLength": "Beschrijving kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"metadata": {
-					"label": "NL:Metadata",
-					"helpText": "NL:* if you want to remove a (key, value) pair, set value to null",
-					"required": "NL:Metadata is required.",
-					"maxLength": "NL:Metadata can be max {{ maxLength }} characters long."
+					"label": "Metagegevens",
+					"helpText": "* als u een (sleutel, waarde) paar wilt verwijderen, stelt u de waarde in op null",
+					"required": "Metagegevens zijn vereist.",
+					"maxLength": "Metagegevens kunnen maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"tags": {
-					"label": "NL:Tags",
-					"placeholder": "NL:Here you can insert tags",
-					"required": "NL:Tags is required."
+					"label": "Labels",
+					"placeholder": "Hier kun je labels invoegen",
+					"required": "Labels zijn vereist."
 				}
 			}
 		}
