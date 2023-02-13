@@ -97,7 +97,49 @@ The Lens frontend framework is incorporated into your workspace as follows:
     
     
 ## Configure multi language for your app and the used components
-### Create you own resource files
+### Usage
+#### Inititalization
+In the module of your app add `MultilingualModule.forRoot()`. This will inject the Language and Translation service and uses the resource file you've plaved under my-app/src/assets/i18n/<ISO 639-1 Code>.json
+
+Configure the multilingual menu for eager loaded modules by adding a provider for the APP_INITIALIZER in your module
+```typescript
+{
+    provide: APP_INITIALIZER,
+    useFactory: (languageService: LanguageService, menuService: MenuService) => () => {
+        languageService.onTranslationsLoaded(() => {
+            menuService.addMenuItems(menu);
+        })
+        languageService.initLanguageConfiguration()
+    },
+    deps: [LanguageService, MenuService],
+    multi: true
+}
+```
+
+Configure lazy loaded modules in the constructor of the module
+
+```typescript
+export class MasterdataModule {
+    constructor(languageService: LanguageService) {
+        languageService.onTranslationsLoaded(() => {
+            menuService.addMenuItems(menu);
+            })
+        languageService.initLanguageConfiguration()
+    }
+}
+```
+
+#### Configuration
+Update the configuration.json and add the following
+
+```json
+    "languageConfiguration":{
+        "fallbackLanguage":"<The ISO 639-1 code of the language when the requested language is not available>",
+        "supportedLanguages":["en","nl"] //Contains all supported languages in your app. Each ISO code in the list needs to have a resource file in the assets/i18n folder
+    }
+```
+
+# Create you own resource files
 Create the JSON files for your app in `<my app>/src/assets/i18n'.
 Create a file per supported language. Currently the modules support EN and NL
 
@@ -154,8 +196,17 @@ Please keep the format of the JSON in line with the one that's created for the u
 <h1>{{"usermgmt.pages.editGroup.header" | translate}}</h1>
 
 <my-input-component
-[label]="'usermgmt.pages.editGroup.myComponent.label' | translate" >
+    [label]="'usermgmt.pages.editGroup.myComponent.label' | translate" >
 </my-input-component>
+
+<h1>{{"usermgmt.pages.editGroup.header" | translate}}</h1>
+
+<p
+    [translate]="'usermgmt.pages.editGroup.myComponent.label'"
+    [translateParams]="{value1: paramValue1, value2: paramValue2 }">
+</p>
+
+<!--source: https://www.vitamindev.com/angular/how-to-use-parameters-in-ngx-translate/ -->
 
 ```
 
