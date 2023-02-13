@@ -141,7 +141,10 @@ export class MasterdatasEditFormComponent implements OnInit {
 			this.service.createMasterdata(model).subscribe(() => {
 				this.navigateToListView();
 				this.isLoading = false;
-				this.toastService.success("Add masterdata", "The masterdata was succesfully added.");
+				this.toastService.success(
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.title"),
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.message")
+				);
 			});
 		} else {
 			const model = {} as IMasterdataUpdate;
@@ -154,7 +157,10 @@ export class MasterdatasEditFormComponent implements OnInit {
 			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
 				this.navigateToListView();
 				this.isLoading = false;
-				this.toastService.success("Update masterdata", "The masterdata was succesfully updated.");
+				this.toastService.success(
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.title"),
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.message")
+				);
 			});
 		}
 	}
