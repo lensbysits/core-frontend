@@ -7,7 +7,7 @@ import { LanguageService, ToastService } from "@lens/app-abstract";
 import { getRequiredFieldValue, getFieldValue, MasterdataTypeMaxLength } from "../../core/utils";
 import { MasterdataType } from "../../core/models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../core/interfaces";
-import { MasterdataCrudHttpService } from "../../core/services";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
 
 @Component({
 	selector: "masterdata-type-edit-form",
@@ -28,6 +28,7 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
 	constructor(
+		private readonly masterdataRenderer: MasterdataRendererService,
 		private readonly service: MasterdataCrudHttpService,
 		private readonly router: Router,
 		private readonly activeRoute: ActivatedRoute,
@@ -143,12 +144,9 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
 	private buildTranslationTexts() {
 		this.languageService.onTranslationsLoaded(() => {
-			this.formHeaderText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.editFormTitle");
-			this.saveFormButtonText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.buttons.btnSubmitEditForm");
-			if (this.isAddForm) {
-				this.formHeaderText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.addFormTitle");
-				this.saveFormButtonText = this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.buttons.btnSubmitAddForm");
-			}
+			const mode = this.isAddForm ? "add" : "edit";
+			this.formHeaderText = `masterdatamgmt.pages.masterdataTypeUpsert.${mode}FormTitle`;
+			this.saveFormButtonText = `masterdatamgmt.pages.masterdataTypeUpsert.buttons.btnSubmit${this.masterdataRenderer.titleCase(mode)}Form`;
 		});
 	}
 }

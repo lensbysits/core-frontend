@@ -13,9 +13,9 @@
 			<div
 				*ngFor="let item of prepareForDisplay(item)"
 				class="grid">
-				<div class="col-6">{{ item[0] }}</div>
+				<div class="col-6">{{ item?.[0] }}</div>
 				<div class="col-6">
-					{{ item[1] }}
+					{{ item?.[1] }}
 				</div>
 			</div>
 			<div class="grid">

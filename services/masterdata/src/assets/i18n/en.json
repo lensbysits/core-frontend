@@ -2,7 +2,7 @@
 	"menu": {
 		"title": "Masterdata management",
 		"items": {
-			"masterdatas": "Masterdatas"
+			"masterdata": "Masterdata"
 		}
 	},
 	"masterdatamgmt": {
@@ -25,7 +25,7 @@
 				},
 				"buttons": {
 					"btnAddNewType": "Add masterdata type",
-					"btnView": "View Masterdatas",
+					"btnView": "View Masterdata",
 					"btnAdd": "Add Masterdata",
 					"btnEdit": "Edit",
 					"btnDelete": "Delete"
@@ -39,7 +39,7 @@
 					"name": "Name",
 					"description": "Description",
 					"metadata": "Metadata",
-					"masterdatasCount": "Masterdatas Count"
+					"masterdatasCount": "Masterdata Count"
 				}
 			},
 			"masterdataTypeUpsert": {

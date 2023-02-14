@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AppConfigurationService } from "@lens/app-abstract";
 
-import { API_BASE_URL, MasterdataCrudHttpService, MasterdataHelperService } from "./";
+import { API_BASE_URL, MasterdataCrudHttpService, MasterdataRendererService } from "./";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
 	const result = appConfigurationService.getSettings<string>("api.baseUrl");
@@ -18,7 +18,7 @@ export class MasterdataServicesModule {
 			ngModule: MasterdataServicesModule,
 			providers: [
 				MasterdataCrudHttpService,
-				MasterdataHelperService,
+				MasterdataRendererService,
 				{
 					provide: API_BASE_URL,
 					useFactory: apiBaseUrlFactory,

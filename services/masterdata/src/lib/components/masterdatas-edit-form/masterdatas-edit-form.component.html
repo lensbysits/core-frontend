@@ -1,5 +1,5 @@
 <lens-panel
-	header="{{ formHeaderText }} '{{ (masterdataType$ | async)?.name}}'">
+	header="{{ formHeaderText | translate }} '{{ (masterdataType$ | async)?.name}}'">
 	<div class="form-wrapper">
 		<div class="form-header">
 			<div
@@ -197,7 +197,7 @@
 			<div class="form-actions">
 				<div>
 					<lens-button
-						label="{{ saveFormButtonText }}"
+						label="{{ saveFormButtonText | translate }}"
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"
