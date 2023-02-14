@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
 import { AppConfigurationService } from "@lens/app-abstract";
 
 import { API_BASE_URL, MasterdataCrudHttpService, MasterdataHelperService } from "./";
@@ -11,7 +10,7 @@ function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): st
 }
 
 @NgModule({
-	imports: [CommonModule, HttpClientModule]
+	imports: [CommonModule]
 })
 export class MasterdataServicesModule {
 	public static forRoot(): ModuleWithProviders<MasterdataServicesModule> {

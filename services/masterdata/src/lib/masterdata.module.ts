@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
 import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
@@ -39,7 +38,6 @@ const components = [
 		AngJsoneditorModule,
 		FormsModule,
 		ReactiveFormsModule,
-		HttpClientModule,
 		PrimeComponentsModule,
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
