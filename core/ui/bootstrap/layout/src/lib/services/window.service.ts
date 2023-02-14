@@ -3,7 +3,6 @@ import {
 	debounceTime,
 	fromEvent,
 	map,
-	mapTo,
 	startWith,
 	throttleTime
 } from "rxjs";
@@ -26,8 +25,8 @@ export class WindowService {
 
 	isMiniSidebar$ = fromEvent(window, "resize").pipe(
 		startWith(window),
-		mapTo(window),
-		throttleTime(250),
+		map(() => window),
+		throttleTime(500),
 		debounceTime(250),
 		map((window: Window) => {
 			return window.innerWidth < this.miniSidebarWidth;

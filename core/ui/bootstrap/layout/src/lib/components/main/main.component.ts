@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService
+	LayoutConfigurationService,
+	LayoutService,
+	SidebarType
 } from "@lens/app-abstract";
+import { Observable, tap } from "rxjs";
 import { WindowService } from "../../services/window.service";
 
 @Component({
@@ -14,13 +17,14 @@ export class AppMainComponent implements AfterViewInit {
 	layoutConfiguration: ILayoutConfiguration = {};
 	topbarItemClick = false;
 	activeTopbarItem: any;
-	isMiniSidebar$ = this.windowService.isMiniSidebar$;
-	sidebarType: "full" | "mini-sidebar" = "full";
 	showMobileSidebar = false;
 	showSearchbox = false;
+	sidebarToggler = false;
+	sidebarType: SidebarType = "full";
 
 	constructor(
 		readonly layoutConfigurationService: LayoutConfigurationService,
+		public readonly layoutService: LayoutService,
 		private readonly windowService: WindowService
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(
@@ -30,7 +34,7 @@ export class AppMainComponent implements AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.windowService.isMiniSidebar$.subscribe((data) => {
-			this.sidebarType = data ? "mini-sidebar" : "full";
+			this.layoutService.SidebarType = data ? "mini-sidebar" : "full";
 		});
 	}
 
@@ -71,7 +75,7 @@ export class AppMainComponent implements AfterViewInit {
 	}
 
 	private toggleSideBarType() {
-		this.sidebarType =
-			this.sidebarType === "mini-sidebar" ? "full" : "mini-sidebar";
+		this.layoutService.SidebarType =
+			this.layoutService.SidebarType === "mini-sidebar" ? "full" : "mini-sidebar";
 	}
 }

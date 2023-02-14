@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService
+	LayoutConfigurationService,
+	LayoutService
 } from "@lens/app-abstract";
 import { AppMainComponent } from "../main/main.component";
 
@@ -14,10 +15,9 @@ export class AppTopBarComponent {
 
 	constructor(
 		public readonly layoutConfigurationService: LayoutConfigurationService,
+		readonly layoutService: LayoutService,
 		public readonly appMain: AppMainComponent
-	) {
-		layoutConfigurationService.layoutConfiguration$.subscribe(
-			(config) => (this.layoutConfiguration = config)
-		);
+	) {layoutConfigurationService.layoutConfiguration$.subscribe(
+		(config) => (this.layoutConfiguration = config));
 	}
 }

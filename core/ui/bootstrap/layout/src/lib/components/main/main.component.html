@@ -1,13 +1,13 @@
 <div
 	(click)="onLayoutClick()"
 	[ngClass]="{
-		'mini-sidebar': sidebarType === 'mini-sidebar',
+		'mini-sidebar': (layoutService.SidebarType$ | async) === 'mini-sidebar',
 		'show-sidebar': showMobileSidebar
 	}"
 	id="main-wrapper"
 	data-layout="vertical"
 	data-navbarbg="skin5"
-	[attr.data-sidebartype]="sidebarType"
+	[attr.data-sidebartype]="layoutService.SidebarType$ | async"
 	data-sidebar-position="absolute"
 	data-header-position="absolute"
 	data-boxed-layout="full">
