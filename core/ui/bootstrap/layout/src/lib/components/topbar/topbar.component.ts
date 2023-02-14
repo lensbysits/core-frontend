@@ -17,7 +17,9 @@ export class AppTopBarComponent {
 		public readonly layoutConfigurationService: LayoutConfigurationService,
 		readonly layoutService: LayoutService,
 		public readonly appMain: AppMainComponent
-	) {layoutConfigurationService.layoutConfiguration$.subscribe(
-		(config) => (this.layoutConfiguration = config));
+	) {
+		layoutConfigurationService.layoutConfiguration$.subscribe(
+			(config) => (this.layoutConfiguration = config)
+		);
 	}
 }
