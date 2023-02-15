@@ -1,7 +1,8 @@
 import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Observable, of } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Observable, throwError, catchError, map } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
+import { ToastService, IErrorMessage } from "@lens/app-abstract";
 import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList, TagsResultList, QueryModel } from "../models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataCreate, IMasterdataUpdate } from "../interfaces";
 import {
@@ -18,6 +19,7 @@ export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
 @Injectable()
 export class MasterdataCrudHttpService {
+	protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 	private baseUrl: string;
 	private httpOptions = {
 		headers: new HttpHeaders({
@@ -28,6 +30,8 @@ export class MasterdataCrudHttpService {
 	};
 
 	constructor(
+		private readonly toastService: ToastService,
+		private readonly translateService: TranslateService,
 		private readonly client: HttpClient,
 		@Optional() @Inject(API_BASE_URL) baseUrl?: string
 	) {
@@ -44,7 +48,7 @@ export class MasterdataCrudHttpService {
 			.get<MasterdataTypeResultList>(url)
 			.pipe(
 				map(input => masterdataTypeResultListModelAdapter.adapt(input)),
-				catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
+				catchError(this.handleError())
 			);
 	}
 
@@ -55,7 +59,7 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<MasterdataType>("getMasterdataTypeById", masterdataTypeModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -67,7 +71,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<MasterdataResultList>(url).pipe(
 			map(input => masterdataResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<MasterdataResultList>("getAllMasterdatas", masterdataResultListModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -78,7 +82,7 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<Masterdata>("getMasterdataById", masterdataModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -90,7 +94,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<TagsResultList>(url).pipe(
 			map(input => tagsResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<TagsResultList>("getAllTags", tagsResultListModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -101,7 +105,7 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<MasterdataType>("createMasterdataType", masterdataTypeModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -112,7 +116,7 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -123,7 +127,7 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<MasterdataType>("updateMasterdataType", masterdataTypeModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
@@ -134,19 +138,19 @@ export class MasterdataCrudHttpService {
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
-			catchError(this.handleError<Masterdata>("updateMasterdata", masterdataModelAdapter.adapt(null)))
+			catchError(this.handleError())
 		);
 	}
 
 	deleteMasterdataType(masterdatatype: string): Observable<MasterdataType> {
 		return this.client.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions).pipe(
-			catchError(this.handleError<MasterdataType>("deleteMasterdataType", undefined))
+			catchError(this.handleError())
 		);
 	}
 
 	deleteMasterdata(masterdatatype: string, masterdata: string): Observable<Masterdata> {
 		return this.client.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions).pipe(
-			catchError(this.handleError<Masterdata>("deleteMasterdata", undefined))
+			catchError(this.handleError())
 		);
 	}
 
@@ -156,12 +160,16 @@ export class MasterdataCrudHttpService {
 	 * @param operation - name of the operation that failed
 	 * @param result - optional value to return as the observable result
 	 */
-	private handleError<T>(operation = "operation", result?: T) {
+	private handleError() {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		return (error: any): Observable<T> => {
-			// TODO: send the error to remote logging infrastructure
-			console.error(`handleError/${operation}`, error); // log to console instead
-			throw error;
+		return (err: HttpErrorResponse): Observable<any> => {
+			const error : IErrorMessage = err.error;
+			this.toastService.error(
+				this.translateService.instant("errorHandling.title"),
+				this.translateService.instant("errorHandling.unexpected", { details: error.message ?? "" }),
+				30000
+			);
+			return throwError(() => error);
 		};
 	}
 
