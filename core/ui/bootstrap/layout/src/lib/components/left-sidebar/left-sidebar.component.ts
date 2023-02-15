@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService,
-	MenuService
+	LayoutConfigurationService
 } from "@lens/app-abstract";
 
 @Component({
@@ -11,10 +10,8 @@ import {
 })
 export class AppLeftSideBarComponent {
 	layoutConfiguration: ILayoutConfiguration = {};
-	currentRouteTitle?: string;
 
 	constructor(
-		public readonly layoutConfigurationService: LayoutConfigurationService,
-		public readonly menuService: MenuService
-	) { }
+		public readonly layoutConfigurationService: LayoutConfigurationService
+	) {}
 }

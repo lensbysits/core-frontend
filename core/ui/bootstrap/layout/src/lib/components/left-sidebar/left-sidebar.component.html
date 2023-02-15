@@ -5,51 +5,7 @@
 	<div class="scroll-sidebar">
 		<!-- Sidebar navigation-->
 		<nav class="sidebar-nav">
-			<ul
-				id="sidebarnav"
-				class="pt-4">
-
-				<li class="sidebar-item" 
-				*ngFor="let menuItem of menuService.getMenuItems() | async">
-					<a
-						class="sidebar-link waves-effect waves-dark"	
-						[ngClass]="{'has-arrow': menuItem.items}"
-						[href]="menuItem.url"
-						[routerLink]="menuItem.routerLink"
-						routerLinkActive="selected"
-						aria-expanded="false">
-						<i [class]="menuItem.icon"></i>
-						<span class="hide-menu">{{menuItem.label}} {{menuItem.items?.length}}</span>
-					</a>
-					<ul
-						*ngIf="menuItem.items as subMenuItems"
-						aria-expanded="true"
-						class="collapse first-level">
-						<li 
-							class="sidebar-item"
-							*ngFor="let subMenuItem of subMenuItems">
-							<a
-								[ngClass]="{'has-arrow': subMenuItem.items}"
-								[href]="subMenuItem.url"
-								[routerLink]="subMenuItem.routerLink"
-								routerLinkActive="selected"
-								class="sidebar-link">
-								<i [class]="subMenuItem.icon"></i>
-								<span class="hide-menu">{{subMenuItem.label}}</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="sidebar-item p-3">
-					<a
-						href="https://github.com/wrappixel/matrix-admin-bt5"
-						target="_blank"
-						class="w-100 btn btn-cyan d-flex align-items-center text-white">
-						<i class="mdi mdi-cloud-download font-20 me-2"></i>
-						Download Free
-					</a>
-				</li>
-			</ul>
+			<ui-menu></ui-menu>
 		</nav>
 		<!-- End Sidebar navigation -->
 	</div>
