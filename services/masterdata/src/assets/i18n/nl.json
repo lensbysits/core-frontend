@@ -20,7 +20,7 @@
 				"tableColumns": {
 					"code": "Code",
 					"name": "Naam",
-					"count": "Tellen",
+					"count": "Aantal",
 					"description": "Beschrijving"
 				},
 				"buttons": {
@@ -39,7 +39,7 @@
 					"name": "Naam",
 					"description": "Beschrijving",
 					"metadata": "Metagegevens",
-					"masterdatasCount": "Stamgegevens tellen"
+					"masterdatasCount": "Stamgegevens aantal"
 				}
 			},
 			"masterdataTypeUpsert": {
