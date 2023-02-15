@@ -13,10 +13,11 @@ export class MasterdataRendererService {
 
 	prepareForDisplay<T extends object>(item: T, translationKey: string): Entries<T> {
 		// "metadata" model field will have a special display!
-		return (Object.entries(item) as Entries<T>).filter(item => item[0] !== "metadata").map(item => {
+		const res = (Object.entries(item) as Entries<T>).filter(item => item[0] !== "metadata");
+		res.map(item => {
 			item[0] = this.translateService.instant(`masterdatamgmt.pages.${translationKey}.modelFields.${item[0].toString()}`);
-			return item;
 		});
+		return res;
 	}
 
 	titleCase(str: string) {
