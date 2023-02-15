@@ -167,7 +167,9 @@ export class TreeComponent extends InputBaseComponent {
 
 	private setNodeSelectableRecursive(node: TreeNode<ITreeNode>, isSelectable: boolean): void {
 		node.selectable = isSelectable;
-		if (!node.children) return;
+		if (!node.children) {
+			return;
+		}
 		for (const n of node.children) {
 			this.setNodeSelectableRecursive(n, isSelectable);
 		}
