@@ -160,18 +160,9 @@ export class TreeComponent extends InputBaseComponent {
 
 	public override setDisabledState(isDisabled: boolean): void {
 		this.disabled = isDisabled;
-		for (const node of this.hierarchicalNodes) {
-			this.setNodeSelectableRecursive(node, !isDisabled);
-		}
-	}
-
-	private setNodeSelectableRecursive(node: TreeNode<ITreeNode>, isSelectable: boolean): void {
-		node.selectable = isSelectable;
-		if (!node.children) {
-			return;
-		}
-		for (const n of node.children) {
-			this.setNodeSelectableRecursive(n, isSelectable);
+		for (const nodeId in this._flatMap) {
+			const node = this._flatMap[nodeId];
+			node.selectable = !isDisabled;
 		}
 	}
 }
