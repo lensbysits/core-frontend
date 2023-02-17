@@ -19,9 +19,9 @@ export class AppMainComponent implements AfterViewInit {
 	showSearchbox = false;
 
 	constructor(
-		public readonly layoutConfigurationService: LayoutConfigurationService,
-		public readonly layoutService: LayoutService,
-		private readonly windowService: WindowService
+		private readonly layoutConfigurationService: LayoutConfigurationService,
+		private readonly windowService: WindowService,
+		public readonly layoutService: LayoutService
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(
 			(config) => (this.layoutConfiguration = config)

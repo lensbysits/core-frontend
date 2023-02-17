@@ -14,8 +14,8 @@ export class AppTopBarComponent {
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(
-		public readonly layoutConfigurationService: LayoutConfigurationService,
-		readonly layoutService: LayoutService,
+		private readonly layoutConfigurationService: LayoutConfigurationService,
+		public readonly layoutService: LayoutService,
 		public readonly appMain: AppMainComponent
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(

@@ -63,7 +63,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
 	key = "";
 
 	constructor(
-		public readonly router: Router,
+		private readonly router: Router,
 		private readonly menuService: MenuService
 	) {
 		this.menuSourceSubscription = this.menuService.menuSource$.subscribe(

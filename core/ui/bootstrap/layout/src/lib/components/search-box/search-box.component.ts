@@ -39,7 +39,7 @@ export class AppSearchBoxComponent {
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(
-		readonly layoutConfigurationService: LayoutConfigurationService,
+		private readonly layoutConfigurationService: LayoutConfigurationService,
 		public readonly appMain: AppMainComponent
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(

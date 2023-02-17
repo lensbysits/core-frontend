@@ -1,10 +1,5 @@
 import { Component } from "@angular/core";
-import {
-	ILayoutConfiguration,
-	LayoutConfigurationService,
-	MenuItem,
-	MenuService
-} from "@lens/app-abstract";
+import { MenuItem, MenuService } from "@lens/app-abstract";
 import { Observable } from "rxjs";
 
 @Component({
@@ -26,12 +21,8 @@ import { Observable } from "rxjs";
 })
 export class AppMenuComponent {
 	menuModel$: Observable<MenuItem[]>;
-	layoutConfiguration: ILayoutConfiguration = {};
 
-	constructor(
-		public readonly layoutConfigurationService: LayoutConfigurationService,
-		public readonly menuService: MenuService
-	) {
+	constructor(private readonly menuService: MenuService) {
 		this.menuModel$ = this.menuService.getMenuItems();
 	}
 }
