@@ -2,14 +2,13 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
-import { MenuService } from "@lens/app-abstract";
+import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 
 import { MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
-import { MasterdataApiClientsModule } from "./core/services";
+import { MasterdataServicesModule } from "./core/services";
 import {
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
@@ -39,19 +38,22 @@ const components = [
 		AngJsoneditorModule,
 		FormsModule,
 		ReactiveFormsModule,
-		HttpClientModule,
 		PrimeComponentsModule,
 		MasterdataTypeSelectorModule,
-    TagsSelectorModule,
+		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
-		MasterdataApiClientsModule.forRoot()
+		MasterdataServicesModule.forRoot(),
+		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {
-	constructor(menuService: MenuService) {
-		menuService.addMenuItems(menu);
+	constructor(languageService: LanguageService, menuService: MenuService) {
+		languageService.onTranslationsLoaded(() => {
+			menuService.addMenuItems(menu);
+		});
+		languageService.initLanguageConfiguration();
 	}
 }

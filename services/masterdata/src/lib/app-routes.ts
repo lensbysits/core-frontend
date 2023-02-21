@@ -19,7 +19,7 @@ export const masterdataRoutes: Routes = [
 			{ path: "details", component: MasterdataTypeDetailsComponent },
 			{ path: "edit", component: MasterdataTypeEditFormComponent },
 
-			// masterdatas
+			// masterdata
 			{ path: "add", component: MasterdatasEditFormComponent },
 			{
 				path: ":masterdata",

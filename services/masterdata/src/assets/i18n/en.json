@@ -1,0 +1,178 @@
+{
+	"menu": {
+		"title": "Masterdata management",
+		"items": {
+			"masterdata": "Masterdata"
+		}
+	},
+	"masterdatamgmt": {
+		"globals": {
+			"btnBack": "Back to list",
+			"btnCancel": "Cancel"
+		},
+		"pages": {
+			"dashboard": {
+				"demoText": "masterdata dashboard"
+			},
+			"masterdataTypeList": {
+				"header": "Total masterdata types",
+				"deleteRowConfirmation": "Are you sure?",
+				"tableColumns": {
+					"code": "Code",
+					"name": "Name",
+					"count": "Count",
+					"description": "Description"
+				},
+				"buttons": {
+					"btnAddNewType": "Add masterdata type",
+					"btnView": "View Masterdata",
+					"btnAdd": "Add Masterdata",
+					"btnEdit": "Edit",
+					"btnDelete": "Delete"
+				}
+			},
+			"masterdataTypeDetails": {
+				"header": "Masterdata type Details",
+				"modelFields": {
+					"id": "Id",
+					"code": "Code",
+					"name": "Name",
+					"description": "Description",
+					"metadata": "Metadata",
+					"masterdatasCount": "Masterdata Count"
+				}
+			},
+			"masterdataTypeUpsert": {
+				"addFormTitle": "Add Masterdata type",
+				"editFormTitle": "Edit Masterdata type",
+				"buttons": {
+					"btnSubmitAddForm": "Save",
+					"btnSubmitEditForm": "Update"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Add masterdata type",
+						"message": "The masterdata type was succesfully added."
+					},
+					"successEdit": {
+						"title": "Update masterdata type",
+						"message": "The masterdata type was succesfully updated."
+					}
+				},
+				"code": {
+					"label": "Code",
+					"placeholder": "Please enter a valid code",
+					"required": "Code is required.",
+					"maxLength": "Code can be max {{ maxLength }} characters long."
+				},
+				"name": {
+					"label": "Name",
+					"placeholder": "Please enter a valid name",
+					"required": "Name is required.",
+					"maxLength": "Name can be max {{ maxLength }} characters long."
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Please enter a valid description",
+					"required": "Description is required.",
+					"maxLength": "Description can be max {{ maxLength }} characters long."
+				},
+				"metadata": {
+					"label": "Metadata",
+					"helpText": "* if you want to remove a (key, value) pair, set value to null",
+					"required": "Metadata is required.",
+					"maxLength": "Metadata can be max {{ maxLength }} characters long."
+				}
+			},
+			"masterdataList": {
+				"deleteRowConfirmation": "Are you sure?",
+				"tableColumns": {
+					"key": "Key",
+					"value": "Value",
+					"name": "Name",
+					"description": "Description",
+					"tags": "Tags"
+				},
+				"buttons": {
+					"btnAddNew": "Add masterdata",
+					"btnEdit": "Edit",
+					"btnDelete": "Delete"
+				},
+				"tagsSelector": {
+					"placeholder": "Here you can filter by tags"
+				}
+			},
+			"masterdataDetails": {
+				"header": "Masterdata Details",
+				"modelFields": {
+					"id": "Id",
+					"masterdataTypeId": "Type Id",
+					"masterdataTypeName": "Type Name",
+					"key": "Key",
+					"value": "Value",
+					"name": "Name",
+					"description": "Description",
+					"metadata": "Metadata",
+					"tags": "Tags"
+				}
+			},
+			"masterdataUpsert": {
+				"addFormTitle": "Add Masterdata to type",
+				"editFormTitle": "Edit Masterdata to type",
+				"buttons": {
+					"btnSubmitAddForm": "Save",
+					"btnSubmitEditForm": "Update"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Add masterdata",
+						"message": "The masterdata was succesfully added."
+					},
+					"successEdit": {
+						"title": "Update masterdata",
+						"message": "The masterdata was succesfully updated."
+					}
+				},
+				"type": {
+					"label": "Masterdata Type",
+					"required": "Masterdata Type is required."
+				},
+				"key": {
+					"label": "Key",
+					"placeholder": "Please enter a valid key",
+					"required": "Key is required.",
+					"maxLength": "Key can be max {{ maxLength }} characters long."
+				},
+				"value": {
+					"label": "Value",
+					"placeholder": "Please enter a valid value",
+					"required": "Value is required.",
+					"maxLength": "Value can be max {{ maxLength }} characters long."
+				},
+				"name": {
+					"label": "Name",
+					"placeholder": "Please enter a valid name",
+					"required": "Name is required.",
+					"maxLength": "Name can be max {{ maxLength }} characters long."
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Please enter a valid description",
+					"required": "Description is required.",
+					"maxLength": "Description can be max {{ maxLength }} characters long."
+				},
+				"metadata": {
+					"label": "Metadata",
+					"helpText": "* if you want to remove a (key, value) pair, set value to null",
+					"required": "Metadata is required.",
+					"maxLength": "Metadata can be max {{ maxLength }} characters long."
+				},
+				"tags": {
+					"label": "Tags",
+					"placeholder": "Here you can insert tags",
+					"required": "Tags is required."
+				}
+			}
+		}
+	}
+}

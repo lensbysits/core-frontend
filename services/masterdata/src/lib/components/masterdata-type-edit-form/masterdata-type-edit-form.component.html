@@ -1,4 +1,5 @@
-<lens-panel header="{{ formTitle }} Masterdata-type '{{ item?.name }}'">
+<lens-panel
+	header="{{ formHeaderText | translate }} '{{ item?.name }}'">
 	<div class="form-wrapper">
 		<div class="form-header">
 			<div
@@ -8,7 +9,7 @@
 					icon="pi-arrow-left"
 					class="mr-2">
 				</lens-icon>
-				<a routerLink="/">Back to list</a>
+				<a routerLink="/">{{"masterdatamgmt.globals.btnBack" | translate}}</a>
 			</div>
 		</div>
 		<div class="form-body">
@@ -35,7 +36,7 @@
 						#editFormBlock
 						let-item="item">
 						<div class="field view-only">
-							<label>Code</label>
+							<label>{{"masterdatamgmt.pages.masterdataTypeUpsert.code.label" | translate}}</label>
 							<span>{{ item.code }}</span>
 						</div>
 					</ng-template>
@@ -43,20 +44,20 @@
 					<ng-template #addFormBlock>
 						<!-- code -->
 						<div class="field">
-							<label for="code">Code</label>
+							<label for="code">{{"masterdatamgmt.pages.masterdataTypeUpsert.code.label" | translate}}</label>
 							<lens-input-text
 								id="code"
 								formControlName="code"
-								placeholder="Please enter a valid code">
+								placeholder="{{'masterdatamgmt.pages.masterdataTypeUpsert.code.placeholder' | translate}}">
 							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['code']!.invalid"
 								class="p-error">
 								<div *ngIf="getFormFields['code']!.errors?.['required']">
-									Code is required.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.code.required" | translate}}
 								</div>
 								<div *ngIf="getFormFields['code']!.errors?.['maxlength']">
-									Code can be max {{ maxLength.code }} characters long.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.code.maxLength" | translate: ({ maxLength: maxLength.code })}}
 								</div>
 							</div>
 						</div>
@@ -65,62 +66,60 @@
 					<ng-template #sharedFormBlock>
 						<!-- name -->
 						<div class="field">
-							<label for="name">Name</label>
+							<label for="name">{{"masterdatamgmt.pages.masterdataTypeUpsert.name.label" | translate}}</label>
 							<lens-input-text
 								id="name"
 								formControlName="name"
-								placeholder="Please enter a valid name">
+								placeholder="{{'masterdatamgmt.pages.masterdataTypeUpsert.name.placeholder' | translate}}">
 							</lens-input-text>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
 								class="p-error">
 								<div *ngIf="getFormFields['name']!.errors?.['required']">
-									Name is required.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.name.required" | translate}}
 								</div>
 								<div *ngIf="getFormFields['name']!.errors?.['maxlength']">
-									Name can be max {{ maxLength.name }} characters long.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.name.maxLength" | translate: ({ maxLength: maxLength.name })}}
 								</div>
 							</div>
 						</div>
 						<!-- description -->
 						<div class="field">
-							<label for="description">Description</label>
+							<label for="description">{{"masterdatamgmt.pages.masterdataTypeUpsert.description.label" | translate}}</label>
 							<lens-input-textarea
 								id="description"
 								formControlName="description"
-								placeholder="Please enter a valid description">
+								placeholder="{{'masterdatamgmt.pages.masterdataTypeUpsert.description.placeholder' | translate}}">
 							</lens-input-textarea>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
 								class="p-error">
 								<div *ngIf="getFormFields['description']!.errors?.['required']">
-									Description is required.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.description.required" | translate}}
 								</div>
 								<div
 									*ngIf="getFormFields['description']!.errors?.['maxlength']">
-									Description can be max {{ maxLength.description }} characters
-									long.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.description.maxLength" | translate: ({ maxLength: maxLength.description })}}
 								</div>
 							</div>
 						</div>
 						<!-- metadata -->
 						<div class="field">
-							<label for="metadata">Metadata</label>
+							<label for="metadata">{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.label" | translate}}</label>
 							<json-editor
 								[options]="makeMetadataEditorOptions()"
 								formControlName="metadata">
 							</json-editor>
-							<div class="help-text">* if you want to remove a (key, value) pair, set value to null</div>
+							<div class="help-text">{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.helpText" | translate}}</div>
 							<div
 								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
 								class="p-error">
 								<div *ngIf="getFormFields['metadata']!.errors?.['required']">
-									Metadata is required.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.required" | translate}}
 								</div>
 								<div
 									*ngIf="getFormFields['metadata']!.errors?.['maxlength']">
-									Metadata can be max {{ maxLength.metadata }} characters
-									long.
+									{{"masterdatamgmt.pages.masterdataTypeUpsert.metadata.maxLength" | translate: ({ maxLength: maxLength.metadata })}}
 								</div>
 							</div>
 						</div>
@@ -131,7 +130,7 @@
 			<div class="form-actions">
 				<div>
 					<lens-button
-						label="{{ saveBtnText }}"
+						label="{{ saveFormButtonText | translate }}"
 						icon="pi pi-save"
 						type="success"
 						[disabled]="isLoading"
@@ -140,7 +139,7 @@
 				</div>
 				<div>
 					<lens-button
-						label="Cancel"
+						label="{{'masterdatamgmt.globals.btnCancel' | translate}}"
 						icon="pi pi-backward"
 						(clicked)="btnCancel()">
 					</lens-button>
