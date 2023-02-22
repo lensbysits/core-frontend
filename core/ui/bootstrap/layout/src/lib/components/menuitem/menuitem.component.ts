@@ -13,7 +13,7 @@ import { MenuService } from "../../services";
 			<ng-container *ngIf="item">
 				<a
 					class="sidebar-link waves-effect waves-dark"
-					[ngClass]="setItemCssClass(item)"
+					[ngClass]="getItemCssClass(item)"
 					[id]="item.id"
 					[routerLink]="item.routerLink"
 					[attr.href]="item.url"
@@ -29,7 +29,7 @@ import { MenuService } from "../../services";
 				<ul
 					*ngIf="item.items as submenu"
 					class="collapse"
-					[ngClass]="setSubmenuCssClass()"
+					[ngClass]="getSubmenuCssClass()"
 					[attr.aria-expanded]="isExpanded">
 					<ui-menuitem
 						*ngFor="let subitem of submenu; let i = index"
@@ -103,14 +103,14 @@ export class AppMenuitemComponent implements OnChanges {
 		return len ? `(${len})` : "";
 	}
 
-	setItemCssClass(item: MenuItem) {
+	getItemCssClass(item: MenuItem) {
 		const css = [];
 		item.class && css.push(item.class);
 		item.items && css.push("has-arrow");
 		return css.join(" ");
 	}
 
-	setSubmenuCssClass() {
+	getSubmenuCssClass() {
 		const css = [];
 		css.push(`submenu-level-${this.level}`);
 		this.isExpanded && css.push("in");
