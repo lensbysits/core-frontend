@@ -1,8 +1,8 @@
 <div class="masterdata-table-wrapper">
 	<div class="mb-4">
-		<span>Total masterdata types: {{ totalSize }}</span>
+		<span>{{"masterdatamgmt.pages.masterdataTypeList.header" | translate}}: {{ totalSize }}</span>
 		<lens-button
-			label="Add masterdata type"
+			[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnAddNewType' | translate"
 			icon="pi pi-plus"
 			type="success"
 			[disabled]="isLoading"
@@ -17,40 +17,40 @@
 		[loading]="isLoading">
 		<columns>
 			<column
-				label="Code"
+				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.code' | translate"
 				field="code">
 			</column>
 			<column
-				label="Name"
+				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.name' | translate"
 				field="name">
 			</column>
 			<column
-				label="Count"
+				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.count' | translate"
 				field="masterdatasCount">
 			</column>
 			<column
-				label="Description"
+				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.description' | translate"
 				field="description">
 			</column>
 			<row-actions>
 				<action
 					icon="pi pi-list"
-					label="View Masterdatas"
+					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnView' | translate"
 					(clicked)="onViewMasterdatasActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-calendar-plus"
-					label="Add Masterdata"
+					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd' | translate"
 					(clicked)="onAddMasterdataActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-pencil"
-					label="Edit"
+					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit' | translate"
 					(clicked)="onEditActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-trash"
-					label="Delete"
+					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete' | translate"
 					(clicked)="onDeleteActionClicked($event)">
 				</action>
 			</row-actions>

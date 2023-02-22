@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService, KeyValuePair } from "@lens/app-abstract";
-import { getRequiredFieldValue, getFieldValue } from "../../core/utils";
+import { ToastService, LanguageService, KeyValuePair } from "@lens/app-abstract";
+import { getRequiredFieldValue, getFieldValue, MasterdataMaxLength } from "../../core/utils";
 import { Masterdata, MasterdataType } from "../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
-import { MasterdataCrudHttpService } from "../../core/services";
-import { MasterdataMaxLength } from "../../core/utils";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
 
 @Component({
 	selector: "masterdata-edit-form",
@@ -23,22 +23,25 @@ export class MasterdatasEditFormComponent implements OnInit {
 	dataForm!: FormGroup;
 	isFormSubmitted = false;
 	isAddForm = true;
-	saveBtnText = "Save";
-	formTitle = "Add";
 	needsTypeIdSelector = false;
 	item?: Masterdata;
 	maxLength = MasterdataMaxLength;
 	typesList: MasterdataType[] = [];
 	tagsList: string[] = [];
+	saveFormButtonText!: string;
+	formHeaderText!: string;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
 	constructor(
+		private readonly masterdataRenderer: MasterdataRendererService,
 		private readonly service: MasterdataCrudHttpService,
 		private readonly router: Router,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly formBuilder: FormBuilder,
-		private readonly toastService: ToastService
+		private readonly toastService: ToastService,
+		private readonly translateService: TranslateService,
+		private readonly languageService: LanguageService
 	) {}
 
 	ngOnInit(): void {
@@ -54,8 +57,6 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 		if (!this.isAddForm) {
 			this.loadData();
-			this.saveBtnText = "Update";
-			this.formTitle = "Edit";
 		}
 		if (this.isAddForm && this.needsTypeIdSelector) {
 			this.loadTypesList();
@@ -73,6 +74,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]],
 			tags: [[] as KeyValuePair<string, string>[]]
 		});
+
+		this.buildTranslationTexts();
 	}
 
 	makeMetadataEditorOptions(): JsonEditorOptions {
@@ -139,7 +142,10 @@ export class MasterdatasEditFormComponent implements OnInit {
 			this.service.createMasterdata(model).subscribe(() => {
 				this.navigateToListView();
 				this.isLoading = false;
-				this.toastService.success("Add masterdata", "The masterdata was succesfully added.");
+				this.toastService.success(
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.title"),
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.message")
+				);
 			});
 		} else {
 			const model = {} as IMasterdataUpdate;
@@ -152,7 +158,10 @@ export class MasterdatasEditFormComponent implements OnInit {
 			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
 				this.navigateToListView();
 				this.isLoading = false;
-				this.toastService.success("Update masterdata", "The masterdata was succesfully updated.");
+				this.toastService.success(
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.title"),
+					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.message")
+				);
 			});
 		}
 	}
@@ -188,6 +197,14 @@ export class MasterdatasEditFormComponent implements OnInit {
 			complete: () => {
 				this.isLoading = false;
 			}
+		});
+	}
+
+	private buildTranslationTexts() {
+		this.languageService.onTranslationsLoaded(() => {
+			const mode = this.isAddForm ? "add" : "edit";
+			this.formHeaderText = `masterdatamgmt.pages.masterdataUpsert.${mode}FormTitle`;
+			this.saveFormButtonText = `masterdatamgmt.pages.masterdataUpsert.buttons.btnSubmit${this.masterdataRenderer.titleCase(mode)}Form`;
 		});
 	}
 }

@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Observable, of } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { Result, MasterdataType, MasterdataTypeResultList, Masterdata, MasterdataResultList, TagsResultList, QueryModel } from "../models";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataCreate, IMasterdataUpdate } from "../interfaces";
 import {
@@ -156,14 +156,13 @@ export class MasterdataCrudHttpService {
 	 * @param operation - name of the operation that failed
 	 * @param result - optional value to return as the observable result
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	private handleError<T>(operation = "operation", result?: T) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (error: any): Observable<T> => {
 			// TODO: send the error to remote logging infrastructure
-			console.error("handleError/", error); // log to console instead
-
-			// Let the app keep running by returning an empty result.
-			return of(result as T);
+			console.error(`handleError/${operation}`, error); // log to console instead
+			throw error;
 		};
 	}
 

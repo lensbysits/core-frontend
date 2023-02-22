@@ -83,6 +83,7 @@ export class TreeComponent extends InputBaseComponent {
 					icon: value.icon,
 					label: value.label,
 					data: value,
+					selectable: !this.disabled,
 					children: []
 				};
 			}
@@ -155,5 +156,13 @@ export class TreeComponent extends InputBaseComponent {
 		}
 
 		this.valueChanged();
+	}
+
+	public override setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+		for (const nodeId in this._flatMap) {
+			const node = this._flatMap[nodeId];
+			node.selectable = !isDisabled;
+		}
 	}
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, tap } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { Masterdata } from "../../core/models";
-import { MasterdataCrudHttpService } from "../../core/services";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
 
 @Component({
 	selector: "masterdata-details",
@@ -21,9 +22,11 @@ export class MasterdatasDetailsComponent implements OnInit {
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
 	constructor(
+		private readonly masterdataRenderer: MasterdataRendererService,
 		private readonly service: MasterdataCrudHttpService,
 		private readonly activeRoute: ActivatedRoute,
-		private readonly location: Location
+		private readonly location: Location,
+		private readonly translateService: TranslateService
 	) {}
 
 	ngOnInit(): void {
@@ -50,12 +53,6 @@ export class MasterdatasDetailsComponent implements OnInit {
 	}
 
 	prepareForDisplay(item: Masterdata) {
-		return Object.entries(item).map(item => {
-			item[0] = item[0].toLowerCase().replace("masterdata", "");
-			if (["typeid", "typename"].includes(item[0])) {
-				item[0] = `type ${item[0].replace("type", "")}`;
-			}
-			return item;
-		});
+		return this.masterdataRenderer.prepareForDisplay<Masterdata>(item, "masterdataDetails");
 	}
 }

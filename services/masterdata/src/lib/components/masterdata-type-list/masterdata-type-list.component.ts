@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
 import { MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService } from "../../core/services";
@@ -14,9 +15,13 @@ export class MasterdataTypeListComponent implements OnInit {
 	items: MasterdataType[] = [];
 	totalSize = 0;
 
-	constructor(private readonly service: MasterdataCrudHttpService, private readonly router: Router, private readonly activeRoute: ActivatedRoute) {}
+	constructor(
+		private readonly service: MasterdataCrudHttpService,
+		private readonly router: Router,
+		private readonly activeRoute: ActivatedRoute,
+		private readonly translateService: TranslateService
+	) {}
 
-	// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
 	ngOnInit(): void {
 		this.isLoading = true;
 	}
@@ -51,7 +56,7 @@ export class MasterdataTypeListComponent implements OnInit {
 
 	onDeleteActionClicked(item: MasterdataType) {
 		this.isLoading = true;
-		if (!confirm("Are you sure?") === true) {
+		if (!confirm(this.translateService.instant("masterdatamgmt.pages.masterdataTypeList.deleteRowConfirmation")) === true) {
 			this.isLoading = false;
 			return;
 		}
