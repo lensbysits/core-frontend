@@ -7,13 +7,12 @@ export abstract class AuthGuard implements CanActivate, CanActivateChild, CanDea
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log('can canActivate from AuthGuard');
     return true;
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+	return true;
   }
   canDeactivate(
     component: unknown,
