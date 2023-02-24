@@ -1,3 +1,5 @@
+import { Claim } from "../../user-context";
+
 export class MenuItem {
 	label?:string;
 	translationKey?: string;
@@ -14,7 +16,7 @@ export class MenuItem {
 	badgeClass?: string;
 	extralink?: boolean;
 	items?: MenuItem[];
-	claimfilter?: string[];
+	claimfilter?: Claim[];
 	rolefilter?: string[];
 	envfilter?: string[];
 	anonymousonly?: boolean;

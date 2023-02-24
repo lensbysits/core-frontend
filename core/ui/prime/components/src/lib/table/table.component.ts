@@ -15,6 +15,7 @@ export class TableComponent implements AfterViewInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public source!: any[];
 	@Input() public totalRecords!: number;
+	@Input() public paginator = true;
 	@Input() public loading!: boolean;
 	@Input() public rows = 10;
 
