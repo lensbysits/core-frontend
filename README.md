@@ -34,9 +34,14 @@ The Lens frontend framework is incorporated into your workspace as follows:
             "@nebular/theme": "9.0.3",
             "eva-icons": "1.1.3",
     
-            "primeicons": "5.0.0",
-            "primeng": "14.0.2",
-            "primeflex": "3.2.1",
+            "primeicons": "6.0.1",
+            "primeng": "15.2.0",
+            "primeflex": "3.3.0",
+        
+		    "bootstrap": "5.2.3",
+
+            "@ngx-translate/core": "^14.0.0",
+            "@ngx-translate/http-loader": "^7.0.0",
             ...
         }
     ```

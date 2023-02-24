@@ -1,34 +1,38 @@
 {
-	"name": "framework-core-ui-bootstrap-layout",
-	"$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
-	"projectType": "library",
-	"sourceRoot": "libs/framework/core/ui/bootstrap/layout/src",
-	"prefix": "ui",
-	"targets": {
-		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-			"options": {
-				"jestConfig": "libs/framework/core/ui/bootstrap/layout/jest.config.ts",
-				"passWithNoTests": true
-			},
-			"configurations": {
-				"ci": {
-					"ci": true,
-					"codeCoverage": true
-				}
-			}
-		},
-		"lint": {
-			"executor": "@nrwl/linter:eslint",
-			"outputs": ["{options.outputFile}"],
-			"options": {
-				"lintFilePatterns": [
-					"libs/framework/core/ui/bootstrap/layout/**/*.ts",
-					"libs/framework/core/ui/bootstrap/layout/**/*.html"
-				]
-			}
-		}
-	},
-	"tags": []
+  "name": "framework-core-ui-bootstrap-layout",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/framework/core/ui/bootstrap/layout/src",
+  "prefix": "ui",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/framework/core/ui/bootstrap/layout/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/framework/core/ui/bootstrap/layout/**/*.ts",
+          "libs/framework/core/ui/bootstrap/layout/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
 }

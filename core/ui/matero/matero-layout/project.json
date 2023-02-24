@@ -1,9 +1,9 @@
 {
-  "name": "framework-core-ui-bootstrap-components",
+  "name": "framework-core-ui-matero-matero-layout",
   "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/framework/core/ui/bootstrap/components/src",
-  "prefix": "lens",
+  "sourceRoot": "libs/framework/core/ui/matero/matero-layout/src",
+  "prefix": "nx-test",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -11,7 +11,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/framework/core/ui/bootstrap/components/jest.config.ts",
+        "jestConfig": "libs/framework/core/ui/matero/matero-layout/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -28,8 +28,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/framework/core/ui/bootstrap/components/**/*.ts",
-          "libs/framework/core/ui/bootstrap/components/**/*.html"
+          "libs/framework/core/ui/matero/matero-layout/**/*.ts",
+          "libs/framework/core/ui/matero/matero-layout/**/*.html"
         ]
       }
     }
