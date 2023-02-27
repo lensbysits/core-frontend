@@ -99,7 +99,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
 
 	private hasClaimInternal = (userData: UserData, claim: Claim): boolean => 
-		(userData.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
+		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {
 		this.IsAuthenticated = isAuthenticated;
