@@ -20,6 +20,7 @@ export class NonOkApiResonseInterceptor implements HttpInterceptor {
 						this.toastService.error(
 							this.translateService.instant("errorHandling.title"),
 							this.translateService.instant("errorHandling.unexpected", { details: error.message ?? "" }),
+							"non-ok-api-response-toast",
 							30000
 						);
 					});
