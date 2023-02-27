@@ -20,6 +20,11 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			return this._additionalClaimsObservable;
 		}
 
+		if (!this.additionalClaimsService) {
+			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
+			return of([]);
+		}
+
 		this._additionalClaimsObservable = this.additionalClaimsService.retrieveAdditionalClaims();
 		return this._additionalClaimsObservable.pipe(
 			tap(claims => {
@@ -73,11 +78,6 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			return of(this.hasClaims(claims));
 		}
 
-		if (!this.additionalClaimsService) {
-			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
-			return of(true);
-		}
-		
 		return this.additionalClaimsObservable.pipe(
 			map(() => {
 				return this.hasClaims(claims);
