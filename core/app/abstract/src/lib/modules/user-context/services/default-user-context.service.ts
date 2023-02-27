@@ -20,6 +20,11 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			return this._additionalClaimsObservable;
 		}
 
+		if (!this.additionalClaimsService) {
+			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
+			return of([]);
+		}
+
 		this._additionalClaimsObservable = this.additionalClaimsService.retrieveAdditionalClaims();
 		return this._additionalClaimsObservable.pipe(
 			tap(claims => {
@@ -73,11 +78,6 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			return of(this.hasClaims(claims));
 		}
 
-		if (!this.additionalClaimsService) {
-			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
-			return of(true);
-		}
-
 		return this.additionalClaimsObservable.pipe(
 			map(() => {
 				return this.hasClaims(claims);
@@ -99,14 +99,16 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
 
 	private hasClaimInternal = (userData: UserData, claim: Claim): boolean => 
-		(userData.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
+		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {
 		this.IsAuthenticated = isAuthenticated;
 		this.UserData = { ...this.UserData, ...userData };
 		this.changedSubject.next();
 
-		this.additionalClaimsObservable.subscribe();
+		if (isAuthenticated) {
+			this.additionalClaimsObservable.subscribe();
+		}
 	}
 
 	public addClaims(claims: Claim[]): void {
