@@ -77,7 +77,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
 			return of(true);
 		}
-
+		
 		return this.additionalClaimsObservable.pipe(
 			map(() => {
 				return this.hasClaims(claims);
@@ -106,7 +106,9 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		this.UserData = { ...this.UserData, ...userData };
 		this.changedSubject.next();
 
-		this.additionalClaimsObservable.subscribe();
+		if (isAuthenticated) {
+			this.additionalClaimsObservable.subscribe();
+		}
 	}
 
 	public addClaims(claims: Claim[]): void {
