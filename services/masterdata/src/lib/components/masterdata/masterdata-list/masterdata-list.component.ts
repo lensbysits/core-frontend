@@ -4,13 +4,13 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable, debounceTime, Subject } from "rxjs";
 import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
-import { Masterdata, MasterdataType } from "../../core/models";
-import { MasterdataCrudHttpService } from "../../core/services";
+import { Masterdata, MasterdataType } from "../../../core/models";
+import { MasterdataCrudHttpService } from "../../../core/services";
 
 @Component({
 	selector: "masterdata-list",
-	templateUrl: "./masterdatas-list.component.html",
-	styleUrls: ["./masterdatas-list.component.scss"]
+	templateUrl: "./masterdata-list.component.html",
+	styleUrls: ["./masterdata-list.component.scss"]
 })
 export class MasterdatasListComponent implements OnInit {
 	isLoading = false;

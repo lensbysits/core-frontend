@@ -1,6 +1,6 @@
 //import { MasterdataType as MasterdataTypeApiModel } from '../../api-clients';
-import { IAdapter } from "../interfaces";
-import { MasterdataType } from "../models";
+import { IAdapter } from "../../interfaces";
+import { MasterdataType } from "../../models";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MasterdataTypeModelAdapter implements IAdapter<any, MasterdataType> {

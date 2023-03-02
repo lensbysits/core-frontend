@@ -4,20 +4,18 @@ import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { map, Observable, tap } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { Masterdata } from "../../core/models";
-import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
+import { MasterdataType } from "../../../core/models";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
 
 @Component({
-	selector: "masterdata-details",
-	templateUrl: "./masterdatas-details.component.html",
-	styleUrls: ["./masterdatas-details.component.scss"]
+	selector: "masterdata-type-details",
+	templateUrl: "./type-details.component.html",
+	styleUrls: ["./type-details.component.scss"]
 })
-export class MasterdatasDetailsComponent implements OnInit {
+export class MasterdataTypeDetailsComponent implements OnInit {
 	isLoading = false;
 	itemId = "";
-	typeId = "";
-	// item?: Masterdata;
-	item$?: Observable<Masterdata | undefined>;
+	item$?: Observable<MasterdataType | undefined>;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
@@ -30,9 +28,8 @@ export class MasterdatasDetailsComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.itemId = this.activeRoute.snapshot.paramMap.get("masterdata") ?? "";
-		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
-		this.loadItem(this.typeId, this.itemId);
+		this.itemId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
+		this.loadItem(this.itemId);
 	}
 
 	makeMetadataEditorOptions(): JsonEditorOptions {
@@ -42,9 +39,9 @@ export class MasterdatasDetailsComponent implements OnInit {
 		return opt;
 	}
 
-	loadItem(typeId: string, id: string) {
+	loadItem(id: string) {
 		this.isLoading = true;
-		this.item$ = this.service.getMasterdataById(typeId, id).pipe(
+		this.item$ = this.service.getMasterdataTypeById(id).pipe(
 			tap(() => {
 				this.isLoading = false;
 			}),
@@ -52,7 +49,7 @@ export class MasterdatasDetailsComponent implements OnInit {
 		);
 	}
 
-	prepareForDisplay(item: Masterdata) {
-		return this.masterdataRenderer.prepareForDisplay<Masterdata>(item, "masterdataDetails");
+	prepareForDisplay(item: MasterdataType) {
+		return this.masterdataRenderer.prepareForDisplay<MasterdataType>(item, "masterdataTypeDetails");
 	}
 }

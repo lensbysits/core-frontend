@@ -2,13 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
-import { MasterdataType } from "../../core/models";
-import { MasterdataCrudHttpService } from "../../core/services";
+import { MasterdataType } from "../../../core/models";
+import { MasterdataCrudHttpService } from "../../../core/services";
 
 @Component({
 	selector: "masterdata-type-list",
-	templateUrl: "./masterdata-type-list.component.html",
-	styleUrls: ["./masterdata-type-list.component.scss"]
+	templateUrl: "./type-list.component.html",
+	styleUrls: ["./type-list.component.scss"]
 })
 export class MasterdataTypeListComponent implements OnInit {
 	isLoading = false;

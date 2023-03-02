@@ -5,15 +5,15 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { ToastService, LanguageService, KeyValuePair } from "@lens/app-abstract";
-import { getRequiredFieldValue, getFieldValue, MasterdataMaxLength } from "../../core/utils";
-import { Masterdata, MasterdataType } from "../../core/models";
-import { IMasterdataCreate, IMasterdataUpdate } from "../../core/interfaces";
-import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
+import { getRequiredFieldValue, getFieldValue, MasterdataMaxLength } from "../../../core/utils";
+import { Masterdata, MasterdataType } from "../../../core/models";
+import { IMasterdataCreate, IMasterdataUpdate } from "../../../core/interfaces";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
 
 @Component({
 	selector: "masterdata-edit-form",
-	templateUrl: "./masterdatas-edit-form.component.html",
-	styleUrls: ["./masterdatas-edit-form.component.scss"]
+	templateUrl: "./masterdata-edit-form.component.html",
+	styleUrls: ["./masterdata-edit-form.component.scss"]
 })
 export class MasterdatasEditFormComponent implements OnInit {
 	isLoading = false;

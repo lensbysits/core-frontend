@@ -1,6 +1,6 @@
-import { IAdapter } from "../interfaces";
-import { MasterdataType, MasterdataTypeResultList } from "../models";
-import { MasterdataTypeModelAdapter } from ".";
+import { IAdapter } from "../../interfaces";
+import { MasterdataType, MasterdataTypeResultList } from "../../models";
+import { MasterdataTypeModelAdapter } from "./masterdata-type-model.adapter";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MasterdataTypeResultListModelAdapter implements IAdapter<any, MasterdataTypeResultList> {
