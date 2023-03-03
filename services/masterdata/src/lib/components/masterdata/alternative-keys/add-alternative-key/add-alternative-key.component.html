@@ -1,0 +1,66 @@
+<div class="alternative-keys-add-form">
+	<div class="p-fluid mb-4">
+		<form [formGroup]="dataForm">
+			<ng-container *ngTemplateOutlet="sharedFormBlockAlternativeKeys"></ng-container>
+
+			<ng-template #sharedFormBlockAlternativeKeys>
+				<!-- domain -->
+				<div class="field">
+					<label for="domain">{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.label" | translate}}</label>
+					<!--<lens-input-text
+						id="domain"
+						formControlName="domain"
+						placeholder="{{'masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.placeholder' | translate}}">
+					</lens-input-text>-->
+					<masterdata-alternative-key-domain-selector
+						id="domain"
+						formControlName="domain"
+						[domains]="domainsList"
+						placeholder="{{'masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.placeholder' | translate}}">
+					</masterdata-alternative-key-domain-selector>
+					<div
+						*ngIf="isFormSubmitted && getFormFields['domain']!.invalid"
+						class="p-error">
+						<div *ngIf="getFormFields['domain']!.errors?.['required']">
+							{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.required" | translate}}
+						</div>
+						<div *ngIf="getFormFields['domain']!.errors?.['maxlength']">
+							{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.maxLength" | translate: ({ maxLength: maxLength.domain })}}
+						</div>
+					</div>
+				</div>
+				<!-- key -->
+				<div class="field">
+					<label for="key">{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.key.label" | translate}}</label>
+					<lens-input-text
+						id="key"
+						formControlName="key"
+						placeholder="{{'masterdatamgmt.pages.masterdataAlternativeKeyUpsert.key.placeholder' | translate}}">
+					</lens-input-text>
+					<div
+						*ngIf="isFormSubmitted && getFormFields['key']!.invalid"
+						class="p-error">
+						<div *ngIf="getFormFields['key']!.errors?.['required']">
+							{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.key.required" | translate}}
+						</div>
+						<div *ngIf="getFormFields['key']!.errors?.['maxlength']">
+							{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.key.maxLength" | translate: ({ maxLength: maxLength.key })}}
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</form>
+	</div>
+
+	<div class="form-actions">
+		<div>
+			<lens-button
+				label="{{ saveFormButtonText | translate }}"
+				icon="pi pi-save"
+				type="success"
+				[disabled]="isLoading"
+				(clicked)="onSubmit()">
+			</lens-button>
+		</div>
+	</div>
+</div>

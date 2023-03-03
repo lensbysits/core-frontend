@@ -1,30 +1,30 @@
 import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { KeyValuePair } from "@lens/app-abstract";
-import { MasterdataType } from "../../models";
 
 @Component({
-	selector: "masterdata-type-selector",
-	templateUrl: "masterdata-type-selector.component.html",
+	selector: "masterdata-alternative-key-domain-selector",
+	templateUrl: "alternative-key-domain-selector.component.html",
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => MasterdataTypeSelectorComponent),
+			useExisting: forwardRef(() => MasterdataAlternativeKeyDomainSelectorComponent),
 			multi: true
 		}
 	]
 })
-export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
+export class MasterdataAlternativeKeyDomainSelectorComponent implements ControlValueAccessor {
 	private _value?: KeyValuePair<string, string>;
 
 	public options!: KeyValuePair<string, string>[];
 	@Input() public disabled = false;
 	@Input() public required = false;
+	@Input() public placeholder = "";
 
-	@Input() public set masterdataTypes(value: MasterdataType[]) {
-		this.options = value?.map(masterdataType => ({
-			key: masterdataType.id,
-			value: masterdataType.name
+	@Input() public set domains(value: string[]) {
+		this.options = value?.map(domain => ({
+			key: domain,
+			value: domain
 		}));
 	}
 

@@ -172,6 +172,42 @@
 					"placeholder": "Here you can insert tags",
 					"required": "Tags is required."
 				}
+			},
+			"masterdataAlternativeKeyBox": {
+				"header": "Alternative Keys"
+			},
+			"masterdataAlternativeKeyList": {
+				"deleteRowConfirmation": "Are you sure?",
+				"tableColumns": {
+					"domain": "Domain",
+					"key": "Key"
+				},
+				"buttons": {
+					"btnDelete": "Delete"
+				}
+			},
+			"masterdataAlternativeKeyUpsert": {
+				"buttons": {
+					"btnSubmitAddForm": "Save"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Add alternative key for masterdata",
+						"message": "The alternative key for masterdata was succesfully added."
+					}
+				},
+				"domain": {
+					"label": "Domain",
+					"placeholder": "Please enter a valid domain",
+					"required": "Domain is required.",
+					"maxLength": "Domain can be max {{ maxLength }} characters long."
+				},
+				"key": {
+					"label": "Key",
+					"placeholder": "Please enter a valid key",
+					"required": "Key is required.",
+					"maxLength": "Key can be max {{ maxLength }} characters long."
+				}
 			}
 		}
 	}

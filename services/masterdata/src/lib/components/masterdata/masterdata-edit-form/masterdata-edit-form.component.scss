@@ -1,29 +1,37 @@
 .form-wrapper {
-  width: 50%;
+	width: calc(50% - 20px);
+	display: inline-block;
+	vertical-align: top;
 
-  .field {
-    &.view-only {
-      &:not(:last-child) {
-        border-bottom: 1px solid #eceff1;
-      }
-      label {
-        min-width: 20%;
-      }
-    }
-    .help-text {
-      color: red;
-    }
-    div {
-      font-style: italic;
-    }
-  }
+	&:last-child {
+		border-left: 1px solid #eceff1;
+		margin-left: 10px;
+		padding-left: 10px;
+	}
 
-  .form-actions {
-    color: red;
+	.field {
+		&.view-only {
+			&:not(:last-child) {
+				border-bottom: 1px solid #eceff1;
+			}
+			label {
+				min-width: 20%;
+			}
+		}
+		.help-text {
+			color: red;
+		}
+		div {
+			font-style: italic;
+		}
+	}
 
-    > div {
-      display: inline-block;
-      margin-right: 5px;
-    }
-  }
+	.form-actions {
+		color: red;
+
+		> div {
+			display: inline-block;
+			margin-right: 5px;
+		}
+	}
 }

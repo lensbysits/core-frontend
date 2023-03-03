@@ -214,4 +214,17 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="form-wrapper" *ngIf="!isAddForm">
+		<div class="form-header">
+			<div
+				class="mb-4"
+				style="color: var(--primary-color)">
+				&nbsp;
+			</div>
+		</div>
+		<div class="form-body">
+			<masterdata-alternative-key [typeId]="typeId" [masterdataId]="id"></masterdata-alternative-key>
+		</div>
+	</div>
 </lens-panel>

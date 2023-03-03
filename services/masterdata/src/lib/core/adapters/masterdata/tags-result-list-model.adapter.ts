@@ -1,5 +1,5 @@
-import { IAdapter } from "../interfaces";
-import { TagsResultList } from "../models";
+import { IAdapter } from "../../interfaces";
+import { TagsResultList } from "../../models";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TagsResultListModelAdapter implements IAdapter<any, TagsResultList> {

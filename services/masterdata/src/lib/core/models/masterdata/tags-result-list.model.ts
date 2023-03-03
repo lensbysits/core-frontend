@@ -1,3 +1,3 @@
-import { Result } from "./result.model";
+import { Result } from "../result.model";
 
 export class TagsResultList extends Result<string[]> {}
