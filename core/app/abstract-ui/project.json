@@ -1,5 +1,5 @@
 {
-	"name": "abstract-ui",
+	"name": "framework-core-app-abstract-ui",
 	"projectType": "library",
 	"sourceRoot": "libs/framework/core/app/abstract-ui/src",
 	"prefix": "lens",
