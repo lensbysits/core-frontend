@@ -12,7 +12,7 @@ import {
 	MSAL_INTERCEPTOR_CONFIG
 } from "@azure/msal-angular";
 import { Configuration, IPublicClientApplication, LogLevel, PublicClientApplication } from "@azure/msal-browser";
-import { AuthenticationService, AuthGuard } from "@lens/security-abstract";
+import { AuthenticationModule, AuthenticationService, AuthGuard } from "@lens/security-abstract";
 import { AppConfigurationService, UserContextService } from "@lens/app-abstract";
 import { MSalAuthenticationService, UserContextService as msalUserContextService } from "./services";
 import { AuthenticationRedirectComponent } from "./components";
@@ -59,7 +59,7 @@ function loggerCallback(logLevel: LogLevel, message: string, containsPii: boolea
 
 @NgModule({
 	declarations: [AuthenticationRedirectComponent],
-	imports: [CommonModule, MsalModule],
+	imports: [CommonModule, MsalModule, AuthenticationModule],
 	providers: [MsalGuard],
 	exports: [MsalModule],
 	bootstrap: []
