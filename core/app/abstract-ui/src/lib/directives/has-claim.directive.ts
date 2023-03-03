@@ -1,12 +1,12 @@
 import { Directive, ElementRef, Input, OnInit } from "@angular/core";
-import { UserContextService } from "@lens/app-abstract";
+import { Claim, UserContextService } from "@lens/app-abstract";
 
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: "[lens-has-claim]"
 })
 export class HasClaimDirective implements OnInit {
-    @Input("lens-has-claim") public claim!: string;
+    @Input("lens-has-claim") public claim!: Claim;
 
     constructor (
         private readonly element: ElementRef,
@@ -14,7 +14,7 @@ export class HasClaimDirective implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        if (!this.userContextService.HasClaim(this.claim)) {
+        if (!this.userContextService.hasClaims(this.claim)) {
             this.element.nativeElement.style.display = "none";
         }
     }
