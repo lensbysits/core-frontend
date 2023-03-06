@@ -34,8 +34,9 @@ export class MasterdataAlternativeKeyDomainSelectorComponent implements ControlV
 	protected onTouched = () => {};
 
 	public set value(value: KeyValuePair<string, string> | undefined) {
-		this._value = value;
-		this.onChange(value);
+		const _value = typeof value === "string" ? { key: value, value } : value;
+		this._value = _value;
+		this.onChange(_value);
 		this.onTouched();
 	}
 

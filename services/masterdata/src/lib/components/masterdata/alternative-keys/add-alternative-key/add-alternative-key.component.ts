@@ -44,9 +44,11 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.dataForm = this.formBuilder.group({
-			//domain: ["", [Validators.required, Validators.maxLength(this.maxLength.domain)]],
-			//domain: [[] as KeyValuePair<string, string>[]],
-			domain: [new KeyValuePair<string, string>("",""), DropdownValidator.dropdownNotDefaultOrEmpty],
+			domain: [new KeyValuePair<string, string>("",""), [
+				Validators.required,
+				Validators.maxLength(this.maxLength.domain),
+				DropdownValidator.dropdownNotDefaultOrEmpty
+			]],
 			key: ["", [Validators.required, Validators.maxLength(this.maxLength.key)]]
 		});
 
