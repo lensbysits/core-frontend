@@ -174,39 +174,39 @@
 				}
 			},
 			"masterdataAlternativeKeyBox": {
-				"header": "Alternative Keys"
+				"header": "Alternatieve sleutels"
 			},
 			"masterdataAlternativeKeyList": {
-				"deleteRowConfirmation": "Are you sure?",
+				"deleteRowConfirmation": "Weet je het zeker?",
 				"tableColumns": {
-					"domain": "Domain",
-					"key": "Key"
+					"domain": "Domein",
+					"key": "Sleutel"
 				},
 				"buttons": {
-					"btnDelete": "Delete"
+					"btnDelete": "Verwijderen"
 				}
 			},
 			"masterdataAlternativeKeyUpsert": {
 				"buttons": {
-					"btnSubmitAddForm": "Save"
+					"btnSubmitAddForm": "Opslaan"
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "Add alternative key for masterdata",
-						"message": "The alternative key for masterdata was succesfully added."
+						"title": "Alternatieve sleutel voor masterdata toevoegen",
+						"message": "De alternatieve sleutel voor stamgegevens is succesvol toegevoegd."
 					}
 				},
 				"domain": {
-					"label": "Domain",
-					"placeholder": "Please enter a valid domain",
-					"required": "Domain is required.",
-					"maxLength": "Domain can be max {{ maxLength }} characters long."
+					"label": "Domein",
+					"placeholder": "Voer een geldig domein in",
+					"required": "Domein is vereist.",
+					"maxLength": "Domein mag maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"key": {
-					"label": "Key",
-					"placeholder": "Please enter a valid key",
-					"required": "Key is required.",
-					"maxLength": "Key can be max {{ maxLength }} characters long."
+					"label": "Sleutel",
+					"placeholder": "Voer een geldige sleutel in",
+					"required": "Sleutel is vereist.",
+					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
 				}
 			}
 		}
