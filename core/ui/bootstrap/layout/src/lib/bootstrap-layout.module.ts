@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule, Routes } from "@angular/router";
 
 import {
@@ -24,8 +24,9 @@ import { WindowService } from "./services/window.service";
 	imports: [
 		CommonModule,
 		AppAbstractModule,
-		RouterModule.forRoot([]),
 		FormsModule,
+		ReactiveFormsModule,
+		RouterModule.forRoot([]),
 		BootstrapComponentsModule
 	],
 	declarations: [
