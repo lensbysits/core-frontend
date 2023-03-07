@@ -21,6 +21,8 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 function msalInstanceFactory(appConfigurationService: AppConfigurationService): IPublicClientApplication {
 	const clientConfiguration = appConfigurationService.getSettings<Configuration>("identity.client");
 	if (clientConfiguration.cache && clientConfiguration.system?.loggerOptions) {
+		const logLevel = appConfigurationService.getSettings<string>("identity.client.system.loggerOptions.logLevel");
+		clientConfiguration.system.loggerOptions.logLevel = LogLevel[logLevel as keyof typeof LogLevel]
 		clientConfiguration.cache.storeAuthStateInCookie = isIE;
 		clientConfiguration.system.loggerOptions.loggerCallback = loggerCallback;
 	}

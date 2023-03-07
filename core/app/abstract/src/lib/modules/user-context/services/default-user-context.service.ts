@@ -25,14 +25,14 @@ export class DefaultUserContextService extends UserContextService implements OnD
 			return of([]);
 		}
 
-		this._additionalClaimsObservable = this.additionalClaimsService.retrieveAdditionalClaims();
-		return this._additionalClaimsObservable.pipe(
+		this._additionalClaimsObservable = this.additionalClaimsService.retrieveAdditionalClaims().pipe(
 			tap(claims => {
 				this.addClaims(claims);
 				this.additionalClaimsLoaded = true;
 				this.changedSubject.next();
 			})
 		);
+		return this._additionalClaimsObservable;
 	}
 
 	public changed$ = this.changedSubject.asObservable();
