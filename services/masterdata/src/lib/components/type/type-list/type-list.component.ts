@@ -34,9 +34,8 @@ export class MasterdataTypeListComponent implements OnInit {
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -67,9 +66,13 @@ export class MasterdataTypeListComponent implements OnInit {
 		}
 
 		this.items = this.items.filter(curitem => item !== curitem);
-		this.service.deleteMasterdataType(item.id).subscribe(() => {
-			this.totalSize--;
-			this.isLoading = false;
+		this.service.deleteMasterdataType(item.id).subscribe({
+			next: () => {
+				this.totalSize--;
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 

@@ -36,10 +36,18 @@ export class MasterdatasListComponent implements OnInit {
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
 
 		this.loadTagsList();
+
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		this.searchTermChange
 			.pipe(debounceTime(500))
-			.subscribe(selectedTags => this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags)));
+			.subscribe({
+				next: selectedTags => {
+					this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags));
+					this.isLoading = false;
+				},
+				complete: () => this.isLoading = false,
+				error: () => this.isLoading = false
+			});
 	}
 
 	loadItems(offset: number, rows: number, tags: string[]) {
@@ -53,9 +61,8 @@ export class MasterdatasListComponent implements OnInit {
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -66,9 +73,8 @@ export class MasterdatasListComponent implements OnInit {
 				this.tagsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -97,9 +103,13 @@ export class MasterdatasListComponent implements OnInit {
 		}
 
 		this.items = this.items.filter(curitem => item !== curitem);
-		this.service.deleteMasterdata(this.typeId, item.id).subscribe(() => {
-			this.totalSize--;
-			this.isLoading = false;
+		this.service.deleteMasterdata(this.typeId, item.id).subscribe({
+			next: () => {
+				this.totalSize--;
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 

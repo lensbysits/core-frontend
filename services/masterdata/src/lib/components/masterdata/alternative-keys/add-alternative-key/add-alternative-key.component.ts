@@ -37,8 +37,14 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		private readonly languageService: LanguageService,
 		private readonly alternativeKeyService: MasterdataAlternativeKeyService
 	) {
-		this.alternativeKeyRemovedSubscription = this.alternativeKeyService.alternativeKeyRemoved$.subscribe(key => {
-			this.loadDomainsList();
+		this.isLoading = true;
+		this.alternativeKeyRemovedSubscription = this.alternativeKeyService.alternativeKeyRemoved$.subscribe({
+			next: () => {
+				this.loadDomainsList();
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -84,16 +90,20 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		model.domain = domain;
 		model.key = key;
 
-		this.service.createMasterdataAlternativeKey(this.typeId, model).subscribe(() => {
-			this.isLoading = false;
-			this.alternativeKeyService.onAlternativeKeyAdded();
-			this.toastService.success(
-				this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.title"),
-				this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.message")
-			);
+		this.service.createMasterdataAlternativeKey(this.typeId, model).subscribe({
+			next: () => {
+				this.isLoading = false;
+				this.alternativeKeyService.onAlternativeKeyAdded();
+				this.toastService.success(
+					this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.title"),
+					this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.message")
+				);
 
-			this.isFormSubmitted = false;
-			this.dataForm.reset();
+				this.isFormSubmitted = false;
+				this.dataForm.reset();
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -104,9 +114,8 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 				this.domainsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
