@@ -1,0 +1,230 @@
+<lens-panel
+	header="{{ formHeaderText | translate }} '{{ (masterdataType$ | async)?.name}}'">
+	<div class="form-wrapper">
+		<div class="form-header">
+			<div
+				class="mb-4"
+				style="color: var(--primary-color)">
+				<lens-icon
+					icon="pi-arrow-left"
+					class="mr-2">
+				</lens-icon>
+				<a routerLink="..">{{"masterdatamgmt.globals.btnBack" | translate}}</a>
+			</div>
+		</div>
+		<div class="form-body">
+			<form [formGroup]="dataForm">
+				<div class="p-fluid mb-4">
+					<!-- only for edit form -->
+					<ng-container *ngIf="!isAddForm && item">
+						<ng-container
+							*ngTemplateOutlet="
+								editFormBlock;
+								context: { item: item }
+							">
+						</ng-container>
+					</ng-container>
+					<!-- end only for edit form -->
+					<!-- only for add form -->
+					<ng-container *ngIf="isAddForm">
+						<ng-container *ngTemplateOutlet="addFormBlock"></ng-container>
+					</ng-container>
+					<!-- end only for add form -->
+					<ng-container *ngTemplateOutlet="sharedFormBlock"></ng-container>
+
+					<ng-template
+						#editFormBlock
+						let-item="item">
+						<div class="field view-only">
+							<label>{{"masterdatamgmt.pages.masterdataUpsert.key.label" | translate}}</label>
+							<span>{{ item.key }}</span>
+						</div>
+					</ng-template>
+
+					<ng-template #addFormBlock>
+						<ng-container *ngIf="needsTypeIdSelector">
+							<ng-container
+								*ngTemplateOutlet="showTypeIdSelectorBlock">
+							</ng-container>
+						</ng-container>
+						<ng-container *ngTemplateOutlet="showKeyBlock"></ng-container>
+
+						<ng-template #showTypeIdSelectorBlock>
+							<!-- type id -->
+							<div class="field">
+								<label for="masterdataTypeId">{{"masterdatamgmt.pages.masterdataUpsert.type.label" | translate}}</label>
+								<masterdata-type-selector
+									id="masterdataTypeId"
+									formControlName="masterdataTypeId"
+									[masterdataTypes]="typesList">
+								</masterdata-type-selector>
+								<div
+									*ngIf="
+										isFormSubmitted &&
+										getFormFields['masterdataTypeId']!.invalid
+									"
+									class="p-error">
+									<div
+										*ngIf="getFormFields['masterdataTypeId']!.errors?.['required']">
+										{{"masterdatamgmt.pages.masterdataUpsert.type.required" | translate}}
+									</div>
+								</div>
+							</div>
+						</ng-template>
+						<ng-template #showKeyBlock>
+							<!-- key -->
+							<div class="field">
+								<label for="key">{{"masterdatamgmt.pages.masterdataUpsert.key.label" | translate}}</label>
+								<lens-input-text
+									id="key"
+									formControlName="key"
+									placeholder="{{'masterdatamgmt.pages.masterdataUpsert.key.placeholder' | translate}}">
+								</lens-input-text>
+								<div
+									*ngIf="isFormSubmitted && getFormFields['key']!.invalid"
+									class="p-error">
+									<div *ngIf="getFormFields['key']!.errors?.['required']">
+										{{"masterdatamgmt.pages.masterdataUpsert.key.required" | translate}}
+									</div>
+									<div *ngIf="getFormFields['key']!.errors?.['maxlength']">
+										{{"masterdatamgmt.pages.masterdataUpsert.key.maxLength" | translate: ({ maxLength: maxLength.key })}}
+									</div>
+								</div>
+							</div>
+						</ng-template>
+					</ng-template>
+
+					<ng-template #sharedFormBlock>
+						<!-- value -->
+						<div class="field">
+							<label for="value">{{"masterdatamgmt.pages.masterdataUpsert.value.label" | translate}}</label>
+							<lens-input-text
+								id="value"
+								formControlName="value"
+								placeholder="{{'masterdatamgmt.pages.masterdataUpsert.value.placeholder' | translate}}">
+							</lens-input-text>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['value']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['value']!.errors?.['required']">
+									{{"masterdatamgmt.pages.masterdataUpsert.value.required" | translate}}
+								</div>
+								<div *ngIf="getFormFields['value']!.errors?.['maxlength']">
+									{{"masterdatamgmt.pages.masterdataUpsert.value.maxLength" | translate: ({ maxLength: maxLength.value })}}
+								</div>
+							</div>
+						</div>
+						<!-- name -->
+						<div class="field">
+							<label for="name">{{"masterdatamgmt.pages.masterdataUpsert.name.label" | translate}}</label>
+							<lens-input-text
+								id="name"
+								formControlName="name"
+								placeholder="{{'masterdatamgmt.pages.masterdataUpsert.name.placeholder' | translate}}">
+							</lens-input-text>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['name']!.errors?.['required']">
+									{{"masterdatamgmt.pages.masterdataUpsert.name.required" | translate}}
+								</div>
+								<div *ngIf="getFormFields['name']!.errors?.['maxlength']">
+									{{"masterdatamgmt.pages.masterdataUpsert.name.maxLength" | translate: ({ maxLength: maxLength.name })}}
+								</div>
+							</div>
+						</div>
+						<!-- description -->
+						<div class="field">
+							<label for="description">{{"masterdatamgmt.pages.masterdataUpsert.description.label" | translate}}</label>
+							<lens-input-textarea
+								id="description"
+								formControlName="description"
+								placeholder="{{'masterdatamgmt.pages.masterdataUpsert.description.placeholder' | translate}}">
+							</lens-input-textarea>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['description']!.errors?.['required']">
+									{{"masterdatamgmt.pages.masterdataUpsert.description.required" | translate}}
+								</div>
+								<div
+									*ngIf="getFormFields['description']!.errors?.['maxlength']">
+									{{"masterdatamgmt.pages.masterdataUpsert.description.maxLength" | translate: ({ maxLength: maxLength.description })}}
+								</div>
+							</div>
+						</div>
+						<!-- tags -->
+						<div class="field">
+							<label for="tags">{{"masterdatamgmt.pages.masterdataUpsert.tags.label" | translate}}</label>
+							<masterdata-tags-selector
+								id="tags"
+								formControlName="tags"
+								[tags]="tagsList"
+								placeholder="{{'masterdatamgmt.pages.masterdataUpsert.tags.placeholder' | translate}}">
+							</masterdata-tags-selector>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['tags']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['tags']!.errors?.['required']">
+									{{"masterdatamgmt.pages.masterdataUpsert.tags.required" | translate}}
+								</div>
+							</div>
+						</div>
+						<!-- metadata -->
+						<div class="field">
+							<label for="metadata">{{"masterdatamgmt.pages.masterdataUpsert.metadata.label" | translate}}</label>
+							<json-editor
+								[options]="makeMetadataEditorOptions()"
+								formControlName="metadata">
+							</json-editor>
+							<div class="help-text">{{"masterdatamgmt.pages.masterdataUpsert.metadata.helpText" | translate}}</div>
+							<div
+								*ngIf="isFormSubmitted && getFormFields['metadata']!.invalid"
+								class="p-error">
+								<div *ngIf="getFormFields['metadata']!.errors?.['required']">
+									{{"masterdatamgmt.pages.masterdataUpsert.metadata.required" | translate}}
+								</div>
+								<div
+									*ngIf="getFormFields['metadata']!.errors?.['maxlength']">
+									{{"masterdatamgmt.pages.masterdataUpsert.metadata.maxLength" | translate: ({ maxLength: maxLength.metadata })}}
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</div>
+			</form>
+
+			<div class="form-actions">
+				<div>
+					<lens-button
+						label="{{ saveFormButtonText | translate }}"
+						icon="pi pi-save"
+						type="success"
+						[disabled]="isLoading"
+						(clicked)="onSubmit()">
+					</lens-button>
+				</div>
+				<div>
+					<lens-button
+						label="{{'masterdatamgmt.globals.btnCancel' | translate}}"
+						icon="pi pi-backward"
+						(clicked)="btnCancel()">
+					</lens-button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-wrapper" *ngIf="!isAddForm">
+		<div class="form-header">
+			<div
+				class="mb-4"
+				style="color: var(--primary-color)">
+				&nbsp;
+			</div>
+		</div>
+		<div class="form-body">
+			<masterdata-alternative-key [typeId]="typeId" [masterdataId]="id"></masterdata-alternative-key>
+		</div>
+	</div>
+</lens-panel>

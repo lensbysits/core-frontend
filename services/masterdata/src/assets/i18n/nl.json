@@ -172,6 +172,42 @@
 					"placeholder": "Hier kun je labels invoegen",
 					"required": "Labels zijn vereist."
 				}
+			},
+			"masterdataAlternativeKeyBox": {
+				"header": "Alternatieve sleutels"
+			},
+			"masterdataAlternativeKeyList": {
+				"deleteRowConfirmation": "Weet je het zeker?",
+				"tableColumns": {
+					"domain": "Domein",
+					"key": "Sleutel"
+				},
+				"buttons": {
+					"btnDelete": "Verwijderen"
+				}
+			},
+			"masterdataAlternativeKeyUpsert": {
+				"buttons": {
+					"btnSubmitAddForm": "Opslaan"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Alternatieve sleutel voor masterdata toevoegen",
+						"message": "De alternatieve sleutel voor stamgegevens is succesvol toegevoegd."
+					}
+				},
+				"domain": {
+					"label": "Domein",
+					"placeholder": "Voer een geldig domein in",
+					"required": "Domein is vereist.",
+					"maxLength": "Domein mag maximaal {{ maxLength }} tekens lang zijn."
+				},
+				"key": {
+					"label": "Sleutel",
+					"placeholder": "Voer een geldige sleutel in",
+					"required": "Sleutel is vereist.",
+					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
+				}
 			}
 		}
 	}

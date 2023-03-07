@@ -7,12 +7,15 @@ import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abst
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 
-import { MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
+import { MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule } from "./core/ui";
 import { MasterdataServicesModule } from "./core/services";
 import {
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
@@ -25,6 +28,9 @@ const components = [
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeListComponent,
@@ -41,12 +47,13 @@ const components = [
 		PrimeComponentsModule,
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
+		MasterdataAlternativeKeyDomainSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
-	exports: [MasterdataTypeSelectorModule, TagsSelectorModule],
+	exports: [MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {

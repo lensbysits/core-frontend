@@ -1,0 +1,26 @@
+<div class="alternative-keys-list">
+	<lens-table
+		[source]="items"
+		[totalRecords]="totalSize"
+		(lazyLoad)="onLazyLoadData($event)"
+		[loading]="isLoading"
+		[paginator]="false">
+		<columns>
+			<column
+				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.domain' | translate"
+				field="domain">
+			</column>
+			<column
+				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key' | translate"
+				field="key">
+			</column>
+			<row-actions>
+				<action
+					icon="pi pi-trash"
+					[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete' | translate"
+					(clicked)="onDeleteActionClicked($event)">
+				</action>
+			</row-actions>
+		</columns>
+	</lens-table>
+</div>

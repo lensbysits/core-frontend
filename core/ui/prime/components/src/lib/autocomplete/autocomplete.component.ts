@@ -16,6 +16,7 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
   @Input() public forceSelection = true;
   @Input() public dropdown = true;
   @Input() public placeholder = "";
+  @Input() public clearValueOnBlur = true;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public filteredOptions: { key: any, value: string }[] = [];
@@ -48,7 +49,9 @@ export class AutoCompleteComponent extends InputBaseComponent implements OnInit 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   public onBlur(event: any): void {
     if (typeof this.value === "string") {
-      this.value = undefined;
+      if (this.clearValueOnBlur) {
+        this.value = undefined;
+      }
       this.valueChanged();
     }
   }
