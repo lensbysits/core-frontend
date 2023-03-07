@@ -1,0 +1,15 @@
+:host ::ng-deep {
+	.alternative-keys-wrapper {
+		.alternative-keys-header .field {
+			border-bottom: 1px solid #eceff1;
+		}
+
+		.alternative-keys-list {
+			margin-top: 0px;
+
+			.p-datatable .p-datatable-thead > tr > th {
+				border: 0px;
+			}
+		}
+	}
+}

@@ -14,7 +14,11 @@ import { KeyValuePair } from "@lens/app-abstract";
 	]
 })
 export class TagsSelectorComponent implements ControlValueAccessor {
-  @Output() public tagsChanged: EventEmitter<KeyValuePair<string, string>[]> = new EventEmitter();
+	private _value?: KeyValuePair<string, string>;
+
+	public options!: KeyValuePair<string, string>[];
+	@Input() public disabled = false;
+	@Input() public required = false;
 
 	@Input() public set tags(value: string[]) {
 		this.options = value?.map(item => ({
@@ -25,22 +29,7 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 
 	@Input() public placeholder = "";
 	@Input() public allowAddNewTag = true;
-
-	public options!: KeyValuePair<string, string>[];
-
-	private _value?: KeyValuePair<string, string>;
-	private _disabled!: string;
-
-	public isDisabled = false;
-
-	@Input() public set disabled(value: string) {
-		this.isDisabled = value !== undefined;
-		this._disabled = value;
-	}
-
-	public get disabled(): string {
-		return this._disabled;
-	}
+	@Output() public tagsChanged: EventEmitter<KeyValuePair<string, string>[]> = new EventEmitter();
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
 	protected onChange = (event: any) => {};
@@ -72,7 +61,7 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 	}
 
 	public setDisabledState?(isDisabled: boolean): void {
-		this.isDisabled = isDisabled;
+		this.disabled = isDisabled;
 	}
 
 	public onTagsChanged(tags: KeyValuePair<string, string>[]) {

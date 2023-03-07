@@ -1,0 +1,25 @@
+<div class="alternative-keys-wrapper" *ngIf="showHeader || showAddNewForm || showListTable">
+	<ng-container *ngIf="showHeader">
+		<div class="alternative-keys-header">
+			<div class="field">
+				<label>{{"masterdatamgmt.pages.masterdataAlternativeKeyBox.header" | translate}}</label>
+				<span></span>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="showAddNewForm">
+		<masterdata-alternative-key-add
+			[typeId]="typeId"
+			[masterdataId]="masterdataId">
+		</masterdata-alternative-key-add>
+	</ng-container>
+
+	<ng-container *ngIf="showListTable">
+		<masterdata-alternative-key-list
+			[typeId]="typeId"
+			[masterdataId]="masterdataId"
+			[viewOnly]="showListTable === 'view'">
+		</masterdata-alternative-key-list>
+	</ng-container>
+</div>

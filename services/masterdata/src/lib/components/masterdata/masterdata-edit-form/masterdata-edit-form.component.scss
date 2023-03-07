@@ -1,0 +1,37 @@
+.form-wrapper {
+	width: calc((100% - 20px) / 2);
+	display: inline-block;
+	vertical-align: top;
+
+	&:last-child {
+		border-left: 1px solid #eceff1;
+		margin-left: 10px;
+		padding-left: 10px;
+	}
+
+	.field {
+		&.view-only {
+			&:not(:last-child) {
+				border-bottom: 1px solid #eceff1;
+			}
+			label {
+				min-width: 20%;
+			}
+		}
+		.help-text {
+			color: red;
+		}
+		div {
+			font-style: italic;
+		}
+	}
+
+	.form-actions {
+		color: red;
+
+		> div {
+			display: inline-block;
+			margin-right: 5px;
+		}
+	}
+}

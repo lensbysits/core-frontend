@@ -12,3 +12,8 @@ export const MasterdataMaxLength = {
 	description: 10000,
 	metadata: 50000
 };
+
+export const MasterdataAlternativeKeyMaxLength = {
+	domain: 255,
+	key: 255
+};

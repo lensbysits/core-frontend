@@ -1,0 +1,27 @@
+.details-wrapper {
+	width: calc((100% - 20px) / 2);
+	display: inline-block;
+	vertical-align: top;
+
+	&:last-child {
+		border-left: 1px solid #eceff1;
+		margin-left: 10px;
+		padding-left: 10px;
+	}
+
+	.grid {
+		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+
+		.col-12.alternative-keys {
+			&:last-child {
+				margin-top: 0;
+				padding: 0;
+			}
+		}
+		&:not(:last-child) {
+			border-bottom: 1px solid #eceff1;
+		}
+	}
+}
