@@ -92,21 +92,25 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 	loadData() {
 		this.isLoading = true;
-		this.service.getMasterdataById(this.typeId, this.id).subscribe(data => {
-			if (!data) {
-				this.router.navigateByUrl("/not-found");
-				return;
-			}
+		this.service.getMasterdataById(this.typeId, this.id).subscribe({
+			next: data => {
+				if (!data) {
+					this.router.navigateByUrl("/not-found");
+					return;
+				}
 
-			this.dataForm.patchValue({
-				value: data.value,
-				name: data.name,
-				description: data.description,
-				metadata: data.metadata,
-				tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
-			});
-			this.item = data || {};
-			this.isLoading = false;
+				this.dataForm.patchValue({
+					value: data.value,
+					name: data.name,
+					description: data.description,
+					metadata: data.metadata,
+					tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
+				});
+				this.item = data || {};
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -139,13 +143,17 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.metadata = metadata;
 			model.tags = tags;
 
-			this.service.createMasterdata(model).subscribe(() => {
-				this.navigateToListView();
-				this.isLoading = false;
-				this.toastService.success(
-					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.title"),
-					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.message")
-				);
+			this.service.createMasterdata(model).subscribe({
+				next: () => {
+					this.navigateToListView();
+					this.isLoading = false;
+					this.toastService.success(
+						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.title"),
+						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.message")
+					);
+				},
+				complete: () => this.isLoading = false,
+				error: () => this.isLoading = false
 			});
 		} else {
 			const model = {} as IMasterdataUpdate;
@@ -155,13 +163,17 @@ export class MasterdatasEditFormComponent implements OnInit {
 			model.metadata = metadata;
 			model.tags = tags;
 
-			this.service.updateMasterdata(this.typeId, this.id, model).subscribe(() => {
-				this.navigateToListView();
-				this.isLoading = false;
-				this.toastService.success(
-					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.title"),
-					this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.message")
-				);
+			this.service.updateMasterdata(this.typeId, this.id, model).subscribe({
+				next: () => {
+					this.navigateToListView();
+					this.isLoading = false;
+					this.toastService.success(
+						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.title"),
+						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.message")
+					);
+				},
+				complete: () => this.isLoading = false,
+				error: () => this.isLoading = false
 			});
 		}
 	}
@@ -181,9 +193,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 				this.typesList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -194,9 +205,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 				this.tagsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 

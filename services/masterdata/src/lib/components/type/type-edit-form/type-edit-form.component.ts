@@ -70,20 +70,24 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 
 	loadData() {
 		this.isLoading = true;
-		this.service.getMasterdataTypeById(this.id).subscribe(data => {
-			if (!data) {
-				this.router.navigateByUrl("/not-found");
-				return;
-			}
+		this.service.getMasterdataTypeById(this.id).subscribe({
+			next: data => {
+				if (!data) {
+					this.router.navigateByUrl("/not-found");
+					return;
+				}
 
-			this.dataForm.patchValue({
-				code: data.code,
-				name: data.name,
-				description: data.description,
-				metadata: data.metadata
-			});
-			this.item = data || {};
-			this.isLoading = false;
+				this.dataForm.patchValue({
+					code: data.code,
+					name: data.name,
+					description: data.description,
+					metadata: data.metadata
+				});
+				this.item = data || {};
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -109,13 +113,17 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			model.description = description;
 			model.metadata = metadata;
 
-			this.service.createMasterdataType(model).subscribe(() => {
-				this.navigateToListView();
-				this.isLoading = false;
-				this.toastService.success(
-					this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successAdd.title"),
-					this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successAdd.message")
-				);
+			this.service.createMasterdataType(model).subscribe({
+				next: () => {
+					this.navigateToListView();
+					this.isLoading = false;
+					this.toastService.success(
+						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successAdd.title"),
+						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successAdd.message")
+					);
+				},
+				complete: () => this.isLoading = false,
+				error: () => this.isLoading = false
 			});
 		} else {
 			const model = {} as IMasterdataTypeUpdate;
@@ -123,13 +131,17 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 			model.description = description;
 			model.metadata = metadata;
 
-			this.service.updateMasterdataType(this.id, model).subscribe(() => {
-				this.navigateToListView();
-				this.isLoading = false;
-				this.toastService.success(
-					this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successEdit.title"),
-					this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successEdit.message")
-				);
+			this.service.updateMasterdataType(this.id, model).subscribe({
+				next: () => {
+					this.navigateToListView();
+					this.isLoading = false;
+					this.toastService.success(
+						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successEdit.title"),
+						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successEdit.message")
+					);
+				},
+				complete: () => this.isLoading = false,
+				error: () => this.isLoading = false
 			});
 		}
 	}

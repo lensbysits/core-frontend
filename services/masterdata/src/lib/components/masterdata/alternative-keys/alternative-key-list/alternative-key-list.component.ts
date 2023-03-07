@@ -24,8 +24,14 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 		private readonly translateService: TranslateService,
 		private readonly alternativeKeyService: MasterdataAlternativeKeyService
 	) {
-		this.alternativeKeyAddedSubscription = this.alternativeKeyService.alternativeKeyAdded$.subscribe(key => {
-			this.loadItems(0, 0);
+		this.isLoading = true;
+		this.alternativeKeyAddedSubscription = this.alternativeKeyService.alternativeKeyAdded$.subscribe({
+			next: () => {
+				this.loadItems(0, 0);
+				this.isLoading = false;
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -47,9 +53,8 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 
@@ -71,10 +76,14 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 		}
 
 		this.items = this.items.filter(curitem => item !== curitem);
-		this.service.deleteMasterdataAlternativeKey(this.typeId, this.masterdataId, item.id).subscribe(() => {
-			this.totalSize--;
-			this.isLoading = false;
-			this.alternativeKeyService.onAlternativeKeyRemoved();
+		this.service.deleteMasterdataAlternativeKey(this.typeId, this.masterdataId, item.id).subscribe({
+			next: () => {
+				this.totalSize--;
+				this.isLoading = false;
+				this.alternativeKeyService.onAlternativeKeyRemoved();
+			},
+			complete: () => this.isLoading = false,
+			error: () => this.isLoading = false
 		});
 	}
 }
