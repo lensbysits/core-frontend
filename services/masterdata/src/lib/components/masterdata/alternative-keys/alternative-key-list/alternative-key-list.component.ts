@@ -18,6 +18,7 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
+	@Input() public viewOnly = true;
 
 	constructor(
 		private readonly service: MasterdataCrudHttpService,

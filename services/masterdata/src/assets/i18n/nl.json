@@ -91,7 +91,8 @@
 					"value": "Waarde",
 					"name": "Naam",
 					"description": "Beschrijving",
-					"tags": "Labels"
+					"tags": "Labels",
+					"count": "Sleutels aantal"
 				},
 				"buttons": {
 					"btnAddNew": "Stamgegevens toevoegen",
@@ -104,6 +105,7 @@
 			},
 			"masterdataDetails": {
 				"header": "Stamgegevens Details",
+				"alternativeKey": "Alternatieve sleutels",
 				"modelFields": {
 					"id": "Id",
 					"masterdataTypeId": "Type Id",

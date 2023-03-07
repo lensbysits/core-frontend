@@ -18,7 +18,8 @@
 	<ng-container *ngIf="showListTable">
 		<masterdata-alternative-key-list
 			[typeId]="typeId"
-			[masterdataId]="masterdataId">
+			[masterdataId]="masterdataId"
+			[viewOnly]="showListTable === 'view'">
 		</masterdata-alternative-key-list>
 	</ng-container>
 </div>
