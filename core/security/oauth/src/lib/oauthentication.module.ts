@@ -1,8 +1,8 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
+import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { AppConfigurationService, UserContextService } from "@lens/app-abstract";
 import { AuthenticationService, AuthGuard } from "@lens/security-abstract";
+import { AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
 import { AuthenticationRedirectComponent } from "./components";
 import { OAuthenticationService, UserContextService as oAuthUserContextService } from "./services";
 
@@ -23,7 +23,7 @@ function appOAuthConfigurationFactory(appConfigurationService: AppConfigurationS
 		postLogoutRedirectUri: appConfigurationService.getSettings<string>("identity.client.auth.postLogoutRedirectUri"),
 		clientId: appConfigurationService.getSettings<string>("identity.client.auth.clientId"),
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		scope: appConfigurationService.getSettings<any>("identity.guard.scopes").scopes.join(" "),
+		scope: appConfigurationService.getSettings<any>("identity.guard.authRequest").scopes.join(" "),
 		responseType: "code",
 		silentRenew: true,
 		useRefreshToken: true,
