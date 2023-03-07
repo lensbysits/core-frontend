@@ -5,7 +5,11 @@
 		}
 
 		.alternative-keys-list {
-			margin-top: 25px;
+			margin-top: 0px;
+
+			.p-datatable .p-datatable-thead > tr > th {
+				border: 0px;
+			}
 		}
 	}
 }

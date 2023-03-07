@@ -7,8 +7,8 @@ import { Component, Input } from "@angular/core";
 })
 export class MasterdataAlternativeKeyComponent {
 	@Input() public showHeader = true;
-	@Input() public showListTable = true;
 	@Input() public showAddNewForm = true;
+	@Input() public showListTable: false | true | "view" = true; // if view => we only display the rows, without any row actions!
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";

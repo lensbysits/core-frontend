@@ -14,13 +14,15 @@
 				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key' | translate"
 				field="key">
 			</column>
-			<row-actions>
-				<action
-					icon="pi pi-trash"
-					[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete' | translate"
-					(clicked)="onDeleteActionClicked($event)">
-				</action>
-			</row-actions>
+			<ng-container *ngIf="!viewOnly">
+				<row-actions>
+					<action
+						icon="pi pi-trash"
+						[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete' | translate"
+						(clicked)="onDeleteActionClicked($event)">
+					</action>
+				</row-actions>
+			</ng-container>
 		</columns>
 	</lens-table>
 </div>

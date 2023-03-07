@@ -28,5 +28,24 @@
 				</div>
 			</div>
 		</div>
+		<div class="details-wrapper">
+			<div
+				class="mb-4"
+				style="color: var(--primary-color)">
+				&nbsp;
+			</div>
+			<div class="grid">
+				<div class="col-12 alternative-keys">{{"masterdatamgmt.pages.masterdataDetails.alternativeKey" | translate}}</div>
+				<div class="col-12 alternative-keys">
+					<masterdata-alternative-key
+						[typeId]="typeId"
+						[masterdataId]="itemId"
+						[showHeader]="false"
+						[showAddNewForm]="false"
+						[showListTable]="'view'">
+					</masterdata-alternative-key>
+				</div>
+			</div>
+		</div>
 	</lens-panel>
 </div>

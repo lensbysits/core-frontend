@@ -11,4 +11,5 @@ export class Masterdata implements IMasterdataCreate, IMasterdataUpdate {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	metadata?: any;
 	tags?: string[];
+	masterdataKeysCount?: number;
 }

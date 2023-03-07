@@ -91,7 +91,8 @@
 					"value": "Value",
 					"name": "Name",
 					"description": "Description",
-					"tags": "Tags"
+					"tags": "Tags",
+					"count": "Keys Count"
 				},
 				"buttons": {
 					"btnAddNew": "Add masterdata",
@@ -104,6 +105,7 @@
 			},
 			"masterdataDetails": {
 				"header": "Masterdata Details",
+				"alternativeKey": "Alternative Keys",
 				"modelFields": {
 					"id": "Id",
 					"masterdataTypeId": "Type Id",
