@@ -48,7 +48,7 @@ export class AppSearchBoxComponent implements OnInit {
 	constructor(
 		private readonly layoutConfigurationService: LayoutConfigurationService,
 		public readonly appMain: AppMainComponent,
-		@Optional() public readonly searchService: SearchService
+		@Optional() public readonly searchService: SearchService<any[]>
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(
 			(config) => (this.layoutConfiguration = config)
@@ -59,6 +59,8 @@ export class AppSearchBoxComponent implements OnInit {
 	ngOnInit() {
 		this.queryField.valueChanges
 			.pipe(delay(200), debounceTime(300), distinctUntilChanged())
-			.subscribe((searchTerm: string) => this.searchService.search(searchTerm));
+			.subscribe((searchTerm: string) => {
+				this.searchService.search(searchTerm);
+			});
 	}
 }
