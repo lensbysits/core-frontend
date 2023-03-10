@@ -25,7 +25,7 @@ function appOAuthConfigurationFactory(appConfigurationService: AppConfigurationS
 		clientId: appConfigurationService.getSettings<string>("identity.client.auth.clientId"),
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		scope: appConfigurationService.getSettings<any>("identity.guard.authRequest").scopes.join(" "),
-		secureRoutes: [appConfigurationService.getSettings<string>("api.searchUrl")],
+		secureRoutes: Object.values(appConfigurationService.getSettings<any>("api")),
 		responseType: "code",
 		silentRenew: true,
 		useRefreshToken: true,

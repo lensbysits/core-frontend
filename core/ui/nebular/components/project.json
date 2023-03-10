@@ -1,28 +1,26 @@
 {
-  "name": "framework-core-ui-nebular-components",
-  "projectType": "library",
-  "sourceRoot": "libs/framework/core/ui/nebular/components/src",
-  "prefix": "lens",
-  "targets": {
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/framework/core/ui/nebular/components"
-      ],
-      "options": {
-        "jestConfig": "libs/framework/core/ui/nebular/components/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/framework/core/ui/nebular/components/**/*.ts",
-          "libs/framework/core/ui/nebular/components/**/*.html"
-        ]
-      }
-    }
-  },
-  "tags": []
+	"name": "framework-core-ui-nebular-components",
+	"projectType": "library",
+	"sourceRoot": "libs/framework/core/ui/nebular/components/src",
+	"prefix": "lens",
+	"targets": {
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/libs/framework/core/ui/nebular/components"],
+			"options": {
+				"jestConfig": "libs/framework/core/ui/nebular/components/jest.config.ts",
+				"passWithNoTests": true
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": [
+					"libs/framework/core/ui/nebular/components/**/*.ts",
+					"libs/framework/core/ui/nebular/components/**/*.html"
+				]
+			}
+		}
+	},
+	"tags": []
 }

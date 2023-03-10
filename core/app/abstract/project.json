@@ -1,28 +1,26 @@
 {
-  "name": "framework-core-app-abstract",
-  "projectType": "library",
-  "sourceRoot": "libs/framework/core/app/abstract/src",
-  "prefix": "lens",
-  "targets": {
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/framework/core/app/abstract"
-      ],
-      "options": {
-        "jestConfig": "libs/framework/core/app/abstract/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/framework/core/app/abstract/**/*.ts",
-          "libs/framework/core/app/abstract/**/*.html"
-        ]
-      }
-    }
-  },
-  "tags": []
+	"name": "framework-core-app-abstract",
+	"projectType": "library",
+	"sourceRoot": "libs/framework/core/app/abstract/src",
+	"prefix": "lens",
+	"targets": {
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/libs/framework/core/app/abstract"],
+			"options": {
+				"jestConfig": "libs/framework/core/app/abstract/jest.config.ts",
+				"passWithNoTests": true
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": [
+					"libs/framework/core/app/abstract/**/*.ts",
+					"libs/framework/core/app/abstract/**/*.html"
+				]
+			}
+		}
+	},
+	"tags": []
 }
