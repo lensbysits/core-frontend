@@ -1,5 +1,4 @@
 import { BehaviorSubject } from "rxjs";
-import { SearchResponseEntry } from "../models";
 
 export abstract class SearchService<T> {
 	// List of the results from the search
@@ -11,7 +10,7 @@ export abstract class SearchService<T> {
 	searchTerm$ = this.searchTermSubject.asObservable();
 
 	// Trigger actions when a result-item is selected
-	protected selectedSearchResultSubject = new BehaviorSubject<SearchResponseEntry | null>(null);
+	protected selectedSearchResultSubject = new BehaviorSubject<T | null>(null);
 	selectedSearchResult$ = this.selectedSearchResultSubject.asObservable();
 
 	// Do the actual search and with the result call searchResultSubject.next(result);

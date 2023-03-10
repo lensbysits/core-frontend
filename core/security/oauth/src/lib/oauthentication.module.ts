@@ -1,8 +1,9 @@
 import { CommonModule } from "@angular/common";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { AppConfigurationService, UserContextService } from "@lens/app-abstract";
 import { AuthenticationService, AuthGuard } from "@lens/security-abstract";
-import { AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
+import { AuthInterceptor, AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
 import { AuthenticationRedirectComponent } from "./components";
 import { OAuthenticationService, UserContextService as oAuthUserContextService } from "./services";
 
@@ -24,6 +25,7 @@ function appOAuthConfigurationFactory(appConfigurationService: AppConfigurationS
 		clientId: appConfigurationService.getSettings<string>("identity.client.auth.clientId"),
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		scope: appConfigurationService.getSettings<any>("identity.guard.authRequest").scopes.join(" "),
+		secureRoutes: [appConfigurationService.getSettings<string>("api.searchUrl")],
 		responseType: "code",
 		silentRenew: true,
 		useRefreshToken: true,
@@ -52,6 +54,7 @@ export class OAuthenticationModule {
 		return {
 			ngModule: OAuthenticationModule,
 			providers: [
+				{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 				{ provide: APP_OAUTH_CONFIGURATION, useFactory: appOAuthConfigurationFactory, deps: [AppConfigurationService] },
 				{ provide: AuthenticationService, useExisting: OAuthenticationService },
 				{ provide: UserContextService, useClass: oAuthUserContextService },
