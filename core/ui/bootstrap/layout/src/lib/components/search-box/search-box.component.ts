@@ -31,11 +31,16 @@ import { AppMainComponent } from "../main/main.component";
 						placeholder="Search"
 						aria-label="Search"
 						autofocus />
-					<a
-						class="srh-btn"
-						(click)="appMain.onSearchboxItemClick($event, searchboxToggler)">
-						<i class="mdi mdi-window-close"></i>
-					</a>
+					<div class="srh-btn">
+						<a
+							class="clear"
+							(click)="clearInput()">
+							clear
+						</a>
+						<a (click)="appMain.onSearchboxItemClick($event, searchboxToggler)">
+							<i class="mdi mdi-window-close"></i>
+						</a>
+					</div>
 				</form>
 			</ng-container>
 		</li>
@@ -55,12 +60,16 @@ export class AppSearchBoxComponent implements OnInit {
 		);
 	}
 
-	// TODO: searchService is from @lens/app-abstract,  but needs to run an 'search' method is not yet implemented here? also being in the framework, I cannot import the specific searchService for the 'support' app! solution needed here?
+	// works if SearchService(s) are set in a module loaded in app.module.ts!
 	ngOnInit() {
 		this.queryField.valueChanges
 			.pipe(delay(200), debounceTime(300), distinctUntilChanged())
 			.subscribe((searchTerm: string) => {
 				this.searchService.search(searchTerm);
 			});
+	}
+
+	clearInput() {
+		this.queryField.reset();
 	}
 }

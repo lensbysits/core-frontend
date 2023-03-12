@@ -82,8 +82,17 @@
 		.srh-btn {
 			position: absolute;
 			top: 23px;
-			cursor: pointer;
 			right: 20px;
+			cursor: pointer;
+
+			.clear {
+				border-right: 1px solid lightgray;
+				padding-right: 2px;
+				margin-right: 3px;
+				vertical-align: text-top;
+				line-height: 20px;
+				height: 24px;
+			}
 		}
 	}
 }
