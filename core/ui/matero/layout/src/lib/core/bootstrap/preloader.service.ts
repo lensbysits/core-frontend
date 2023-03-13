@@ -14,7 +14,7 @@ export class PreloaderService extends LensPreloaderService {
     return this.document.getElementById(this.selector);
   }
 
-  hide() {
+  override hide() {
     console.log("matero hiding loader");
     const el = this.getElement();
     if (el) {
