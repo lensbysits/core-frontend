@@ -1,21 +1,33 @@
 import { Meta, Story } from "@storybook/addon-docs";
-import meta from "./panel.stories";
+import meta from "./tab-view.stories";
 import { Default, Spinner } from "./panel.stories";
 
-<Meta 
+<Meta
     title={meta.title}
     component={meta.component}
     decorators={meta.decorators}
     argTypes={meta.argTypes} />
 
-# Panel
+# TabView
 
-This is a nice panel!
+This is a nice tab view!
 
 <Story story={Default} />
 
-First import `PanelModule` from `@lens/ui-prime-components`.
+First import `TabViewModule` from `@lens/ui-prime-components`.
 
 ```html
-<lens-panel header="header" collapsed="true">foo</lens-panel>
+	<lens-tab-view>
+		<tab-panels>
+			<tab-panel header="tab1-header">
+				<div>tab1 content</div>
+			</tab-panel>
+			<tab-panel header="tab2-header">
+				<div>tab2 content</div>
+			</tab-panel>
+			<tab-panel header="tab3-header">
+				<div>tab3 content</div>
+			</tab-panel>
+		</tab-panels>
+	</lens-tab-view>
 ```

@@ -1,29 +1,29 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
-import { TabViewModule } from 'primeng/tabview';
+import { RouterModule } from "@angular/router";
 import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
+import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
+import { TabViewModule } from "primeng/tabview";
 
-import { MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule } from "./core/ui";
-import { MasterdataServicesModule } from "./core/services";
+import { menu } from "./app-menu";
+import { masterdataRoutes } from "./app-routes";
 import {
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
-	MasterdataAlternativeKeyComponent,
-	MasterdataAlternativeKeyAddComponent,
-	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
 	MasterdataTypeListComponent
 } from "./components";
-import { menu } from "./app-menu";
-import { masterdataRoutes } from "./app-routes";
+import { MasterdataServicesModule } from "./core/services";
+import { MasterdataAlternativeKeyDomainSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
 
 const components = [
 	MasterdataDashboardComponent,
