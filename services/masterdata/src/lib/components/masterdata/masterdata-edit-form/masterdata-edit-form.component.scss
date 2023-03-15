@@ -3,12 +3,6 @@
 	display: inline-block;
 	vertical-align: top;
 
-	&:last-child {
-		border-left: 1px solid #eceff1;
-		margin-left: 10px;
-		padding-left: 10px;
-	}
-
 	.field {
 		&.view-only {
 			&:not(:last-child) {

@@ -1,0 +1,9 @@
+<p-tabView>
+	<p-tabPanel
+		*ngFor="let panel of panels.panels"
+		header="{{ panel.header }}">
+		{{ panel.id }}
+		<hr />
+		<ng-content select="{{ panel.curId }}"></ng-content>
+	</p-tabPanel>
+</p-tabView>

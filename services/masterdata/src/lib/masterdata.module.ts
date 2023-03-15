@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
+import { TabViewModule } from 'primeng/tabview';
 import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
@@ -50,7 +51,8 @@ const components = [
 		MasterdataAlternativeKeyDomainSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataServicesModule.forRoot(),
-		MultilingualModule.forChild("masterdata")
+		MultilingualModule.forChild("masterdata"),
+		TabViewModule
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
