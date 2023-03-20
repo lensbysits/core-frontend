@@ -22,12 +22,12 @@ export const appInitializerProviders = [
   //   deps: [SanctumService],
   //   multi: true,
   // },
-  {
-    provide: APP_INITIALIZER,
-    useFactory: TranslateLangServiceFactory,
-    deps: [TranslateLangService],
-    multi: true,
-  },
+  // {
+  //   provide: APP_INITIALIZER,
+  //   useFactory: TranslateLangServiceFactory,
+  //   deps: [TranslateLangService],
+  //   multi: true,
+  // },
   {
     provide: APP_INITIALIZER,
     useFactory: StartupServiceFactory,

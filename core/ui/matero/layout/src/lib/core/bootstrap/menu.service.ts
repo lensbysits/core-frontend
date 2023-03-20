@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { map, share } from 'rxjs/operators';
+import { MenuService as LensMenuService, MenuItem as LensMenuItem } from '@lens/app-abstract';
 
 export interface MenuTag {
   color: string; // background color
@@ -36,6 +37,35 @@ export interface Menu {
 })
 export class MenuService {
   private menu$: BehaviorSubject<Menu[]> = new BehaviorSubject<Menu[]>([]);
+
+  constructor(lensMenuService: LensMenuService) {
+    lensMenuService.getMenuItems()
+    .pipe(map(lensMenu => {
+      return lensMenu.map(menuItem => this.mapLensMenuItem(menuItem));
+    }))
+    .subscribe(menu => {
+      this.set(menu);
+    });
+  }
+
+  private mapLensMenuItem(lensMenu: LensMenuItem) : Menu {
+    return {
+      name: lensMenu.label ?? '',
+      route: lensMenu.routerLink?.join('.') ?? '',
+      type: lensMenu.items ? 'sub' : 'link',
+      icon: lensMenu.icon ?? '',
+      children: lensMenu.items?.map(childMenu => this.mapLensMenuChildItem(childMenu))
+    };
+  }
+
+  private mapLensMenuChildItem(lensMenu: LensMenuItem) : MenuChildrenItem {
+    return {
+      name: lensMenu.label ?? '',
+      route: lensMenu.routerLink?.join('.') ?? '',
+      type: lensMenu.items ? 'sub' : 'link'
+    };
+  }
+
 
   /** Get all the menu data. */
   getAll(): Observable<Menu[]> {

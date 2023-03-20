@@ -13,7 +13,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	private readonly changedSubject: Subject<void> = new Subject();
 	private readonly userDataSubject: BehaviorSubject<UserData> = new BehaviorSubject(this.UserData);
 	private readonly isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-	
+
 	private _additionalClaimsObservable?: Observable<Claim[]>;
 	private get additionalClaimsObservable(): Observable<Claim[]> {
 		if (this._additionalClaimsObservable) {
@@ -21,7 +21,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		}
 
 		if (!this.additionalClaimsService) {
-			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
+			console.log("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
 			return of([]);
 		}
 
@@ -92,13 +92,13 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		} else {
 			temp = claims;
 		}
-		
+
 		return temp.every(claim => this.hasClaim(claim));
 	}
 
 	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
 
-	private hasClaimInternal = (userData: UserData, claim: Claim): boolean => 
+	private hasClaimInternal = (userData: UserData, claim: Claim): boolean =>
 		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {

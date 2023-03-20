@@ -1,4 +1,5 @@
 import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { ErrorHandler, NgModule } from "@angular/core";
 import {
 	AppConfigurationModule,
@@ -19,7 +20,7 @@ const libraryModules = [
 ];
 
 @NgModule({
-	imports: [CommonModule, MultilingualModule, ...libraryModules],
+	imports: [CommonModule, HttpClientModule, MultilingualModule, ...libraryModules],
 	exports: libraryModules,
 	providers: [{ provide: ErrorHandler, useExisting: ErrorHandlerService }]
 })

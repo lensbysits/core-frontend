@@ -9,13 +9,14 @@ import { CoreModule } from './core/core.module';
 import { ThemeModule } from './theme/theme.module';
 import { SharedModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { appInitializerProviders } from './core';
 
 
 // Required for AOT compilation
 export function TranslateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-  
+
         @NgModule({
           imports: [
             CommonModule,
@@ -38,7 +39,9 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
           ],
           exports: [
             ThemeModule
+          ],
+          providers: [
+            appInitializerProviders
           ]
         })
         export class MateroLayoutModule { }
-        
