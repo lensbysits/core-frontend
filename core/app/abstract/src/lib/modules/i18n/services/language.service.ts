@@ -17,8 +17,9 @@ export class LanguageService {
 	constructor(private appConfigurationService: AppConfigurationService, private translateService: TranslateService) {}
 
 	public onTranslationsLoaded(action: () => void) {
-		// save the event handler to be triggered on lazy loaded modules
-		// and execute them when the translations are already loaded
+		// Lazy loaded modules loading extra resource files after the translation service is initialized
+		// We need to notify the subscribers when the translations for lazy loaded modules are loaded
+		// otherwise we will miss a lot of translations resulting in a broken UI
 		this.translationsLoadedSubject.subscribe(action);
 		if (this.translationsLoaded) {
 			action();
