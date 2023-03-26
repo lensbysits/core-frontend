@@ -210,6 +210,23 @@
 					"required": "Sleutel is vereist.",
 					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
 				}
+			},
+			"masterdataRelatedItemsBox": {
+				"header": "Related Items",
+				"selectType": {
+					"label": "Masterdata Type",
+					"placeholder": "Please choose a masterdata type",
+					"required": "Masterdata Type is required."
+				},
+				"boxTypeChooseRelated": {
+					"buttons": {
+						"btnAdd": "Add New Related Items"
+					},
+					"list": {
+						"id": "Id",
+						"name": "Name"
+					}
+				}
 			}
 		}
 	}

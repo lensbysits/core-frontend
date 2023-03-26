@@ -1,16 +1,15 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, Input, OnDestroy } from "@angular/core";
+import { ILazyLoadEvent } from "@lens/ui-prime-components";
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs/internal/Subscription";
-import { ILazyLoadEvent } from "@lens/ui-prime-components";
 import { MasterdataAlternativeKey } from "../../../../core/models";
-import { MasterdataCrudHttpService } from "../../../../core/services";
-import { MasterdataAlternativeKeyService } from "../alternative-key.service";
+import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../../../../core/services";
 
 @Component({
 	selector: "masterdata-alternative-key-list",
 	templateUrl: "./alternative-key-list.component.html"
 })
-export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy {
+export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 	isLoading = false;
 	items: MasterdataAlternativeKey[] = [];
 	totalSize = 0;
@@ -31,13 +30,9 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 				this.loadItems(0, 0);
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
-	}
-
-	ngOnInit(): void {
-		this.isLoading = true;
 	}
 
 	ngOnDestroy() {
@@ -54,8 +49,8 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -83,8 +78,8 @@ export class MasterdataAlternativeKeyListComponent implements OnInit, OnDestroy 
 				this.isLoading = false;
 				this.alternativeKeyService.onAlternativeKeyRemoved();
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 }

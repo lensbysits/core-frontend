@@ -6,6 +6,7 @@ import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abst
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
+import { AccordionModule } from "primeng/accordion";
 import { TabViewModule } from "primeng/tabview";
 
 import { menu } from "./app-menu";
@@ -15,6 +16,10 @@ import {
 	MasterdataAlternativeKeyComponent,
 	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
+	MasterdataRelatedItemsComponent,
+	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
 	MasterdatasListComponent,
@@ -26,16 +31,20 @@ import { MasterdataServicesModule } from "./core/services";
 import { MasterdataAlternativeKeyDomainSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
 
 const components = [
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
+	MasterdataRelatedItemsComponent,
+	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
-	MasterdataAlternativeKeyComponent,
-	MasterdataAlternativeKeyAddComponent,
-	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
-	MasterdataTypeListComponent,
-	MasterdataTypeEditFormComponent
+	MasterdataTypeEditFormComponent,
+	MasterdataTypeListComponent
 ];
 
 @NgModule({
@@ -52,7 +61,8 @@ const components = [
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata"),
-		TabViewModule
+		TabViewModule,
+		AccordionModule
 	],
 	declarations: [...components],
 	exports: [MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],

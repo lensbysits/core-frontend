@@ -1,0 +1,72 @@
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { MasterdataType } from "../../../../core/models";
+import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../core/services";
+
+@Component({
+	selector: "masterdata-related-items-select-type",
+	templateUrl: "./select-type.component.html",
+	styleUrls: ["./select-type.component.scss"]
+})
+export class MasterdataRelatedItemsSelectTypeComponent implements OnInit, OnDestroy {
+	isLoading = false;
+	typesList: MasterdataType[] = [];
+	typesListAvailable: MasterdataType[] = [];
+	relatedItemsSubscription: Subscription;
+
+	constructor(private readonly service: MasterdataCrudHttpService, private readonly relatedItemsService: MasterdataRelatedItemsService) {
+		this.isLoading = true;
+		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+			next: () => {
+				this.typesListAvailable = this.setTypesListAvailable(this.typesList);
+				this.isLoading = false;
+			},
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
+		});
+	}
+
+	ngOnInit(): void {
+		this.loadTypesList();
+	}
+
+	ngOnDestroy() {
+		if (this.relatedItemsSubscription) {
+			this.relatedItemsSubscription.unsubscribe();
+		}
+	}
+
+	loadTypesList() {
+		this.isLoading = true;
+		this.service.getAllMasterdataTypes(0, 0).subscribe({
+			next: data => {
+				this.typesList = data.value || [];
+				this.typesListAvailable = this.setTypesListAvailable(this.typesList);
+				this.isLoading = false;
+			},
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
+		});
+	}
+
+	onTypeChanged(selectedItem: string): void {
+		if (!selectedItem) {
+			return;
+		}
+		const typeName = this.typesList.find(item => item.id === selectedItem)?.name ?? "";
+		this.relatedItemsService.addRelatedItems({
+			typeId: selectedItem,
+			typeName: typeName,
+			items: []
+		});
+
+		this.relatedItemsService.setCurrentOpenedTypeById(selectedItem);
+	}
+
+	private setTypesListAvailable(types: MasterdataType[]): MasterdataType[] {
+		const result = types.filter(item => {
+			return !this.relatedItemsService.RelatedItems?.some(elem => elem.typeId === item.id);
+		});
+		return result;
+	}
+}

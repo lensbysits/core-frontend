@@ -1,14 +1,13 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract";
+import { DropdownValidator } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs/internal/Subscription";
-import { ToastService, LanguageService, KeyValuePair } from "@lens/app-abstract";
-import { DropdownValidator } from "@lens/app-abstract-ui";
-import { getRequiredFieldValue, MasterdataAlternativeKeyMaxLength } from "../../../../core/utils";
 import { IMasterdataAlternativeKeyCreate } from "../../../../core/interfaces";
-import { MasterdataCrudHttpService } from "../../../../core/services";
-import { MasterdataAlternativeKeyService } from "../alternative-key.service";
+import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../../../../core/services";
+import { getRequiredFieldValue, MasterdataAlternativeKeyMaxLength } from "../../../../core/utils";
 
 @Component({
 	selector: "masterdata-alternative-key-add",
@@ -43,18 +42,17 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 				this.loadDomainsList();
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
 	ngOnInit(): void {
 		this.dataForm = this.formBuilder.group({
-			domain: [new KeyValuePair<string, string>("",""), [
-				Validators.required,
-				Validators.maxLength(this.maxLength.domain),
-				DropdownValidator.dropdownNotDefaultOrEmpty
-			]],
+			domain: [
+				new KeyValuePair<string, string>("", ""),
+				[Validators.required, Validators.maxLength(this.maxLength.domain), DropdownValidator.dropdownNotDefaultOrEmpty]
+			],
 			key: ["", [Validators.required, Validators.maxLength(this.maxLength.key)]]
 		});
 
@@ -102,8 +100,8 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 				this.isFormSubmitted = false;
 				this.dataForm.reset();
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -114,8 +112,8 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 				this.domainsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 

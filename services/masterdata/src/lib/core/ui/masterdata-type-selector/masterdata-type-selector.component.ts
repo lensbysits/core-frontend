@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { KeyValuePair } from "@lens/app-abstract";
 import { MasterdataType } from "../../models";
@@ -20,6 +20,7 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	public options!: KeyValuePair<string, string>[];
 	@Input() public disabled = false;
 	@Input() public required = false;
+	@Input() public placeholder = "";
 
 	@Input() public set masterdataTypes(value: MasterdataType[]) {
 		this.options = value?.map(masterdataType => ({
@@ -27,6 +28,8 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 			value: masterdataType.name
 		}));
 	}
+
+	@Output() public typeChanged: EventEmitter<string> = new EventEmitter();
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
 	protected onChange = (event: any) => {};
@@ -59,5 +62,9 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 
 	public setDisabledState?(isDisabled: boolean): void {
 		this.disabled = isDisabled;
+	}
+
+	public onTypeChanged(type: string) {
+		this.typeChanged.emit(type);
 	}
 }

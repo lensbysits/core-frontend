@@ -1,35 +1,31 @@
-import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import {
-	Result,
-	MasterdataType,
-	MasterdataTypeResultList,
-	Masterdata,
-	MasterdataResultList,
-	MasterdataAlternativeKey,
-	MasterdataAlternativeKeyResultList,
-	TagsResultList,
-	QueryModel
-} from "../models";
-import {
-	IMasterdataTypeCreate,
-	IMasterdataTypeUpdate,
-	IMasterdataCreate,
-	IMasterdataUpdate,
-	IMasterdataAlternativeKeyCreate
-} from "../interfaces";
-import {
-	MasterdataTypeModelAdapter,
-	MasterdataTypeResultListModelAdapter,
-	MasterdataModelAdapter,
-	MasterdataResultListModelAdapter,
+	DomainsResultListModelAdapter,
 	MasterdataAlternativeKeyModelAdapter,
 	MasterdataAlternativeKeyResultListModelAdapter,
-	DomainsResultListModelAdapter,
+	MasterdataModelAdapter,
+	MasterdataRelatedItemResultListModelAdapter,
+	MasterdataResultListModelAdapter,
+	MasterdataTypeModelAdapter,
+	MasterdataTypeResultListModelAdapter,
 	TagsResultListModelAdapter
 } from "../adapters";
+import { IMasterdataAlternativeKeyCreate, IMasterdataCreate, IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataUpdate } from "../interfaces";
+import {
+	Masterdata,
+	MasterdataAlternativeKey,
+	MasterdataAlternativeKeyResultList,
+	MasterdataRelatedItemResultList,
+	MasterdataResultList,
+	MasterdataType,
+	MasterdataTypeResultList,
+	QueryModel,
+	Result,
+	TagsResultList
+} from "../models";
 
 const isEmpty = (str: string) => !str || !str.length;
 
@@ -46,10 +42,7 @@ export class MasterdataCrudHttpService {
 		//responseType: 'text' as 'json',
 	};
 
-	constructor(
-		private readonly client: HttpClient,
-		@Optional() @Inject(API_BASE_URL) baseUrl?: string
-	) {
+	constructor(private readonly client: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
 		this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
 	}
 
@@ -59,12 +52,10 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(this.baseUrl, queryParams.toString());
 
-		return this.client
-			.get<MasterdataTypeResultList>(url)
-			.pipe(
-				map(input => masterdataTypeResultListModelAdapter.adapt(input)),
-				catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
-			);
+		return this.client.get<MasterdataTypeResultList>(url).pipe(
+			map(input => masterdataTypeResultListModelAdapter.adapt(input)),
+			catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
+		);
 	}
 
 	getMasterdataTypeById(masterdatatype: string): Observable<MasterdataType> {
@@ -101,7 +92,12 @@ export class MasterdataCrudHttpService {
 		);
 	}
 
-	getAllMasterdataAlternativeKeys(masterdatatype: string, masterdata: string, offset: number, rows: number): Observable<MasterdataAlternativeKeyResultList> {
+	getAllMasterdataAlternativeKeys(
+		masterdatatype: string,
+		masterdata: string,
+		offset: number,
+		rows: number
+	): Observable<MasterdataAlternativeKeyResultList> {
 		const masterdataAlternativeKeyResultListModelAdapter = new MasterdataAlternativeKeyResultListModelAdapter();
 
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
@@ -109,7 +105,12 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<MasterdataAlternativeKeyResultList>(url).pipe(
 			map(input => masterdataAlternativeKeyResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<MasterdataAlternativeKeyResultList>("getAllMasterdataAlternativeKeys", masterdataAlternativeKeyResultListModelAdapter.adapt(null)))
+			catchError(
+				this.handleError<MasterdataAlternativeKeyResultList>(
+					"getAllMasterdataAlternativeKeys",
+					masterdataAlternativeKeyResultListModelAdapter.adapt(null)
+				)
+			)
 		);
 	}
 
@@ -134,6 +135,18 @@ export class MasterdataCrudHttpService {
 		return this.client.get<TagsResultList>(url).pipe(
 			map(input => tagsResultListModelAdapter.adapt(input)),
 			catchError(this.handleError<TagsResultList>("getAllTags", tagsResultListModelAdapter.adapt(null)))
+		);
+	}
+
+	getRelatedItems(masterdatatype: string, masterdata: string): Observable<MasterdataRelatedItemResultList> {
+		const masterdataRelatedItemResultListModelAdapter = new MasterdataRelatedItemResultListModelAdapter();
+
+		const queryParams = this.buildListQueryModelParams();
+		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, queryParams.toString());
+
+		return this.client.get<MasterdataRelatedItemResultList>(url).pipe(
+			map(input => masterdataRelatedItemResultListModelAdapter.adapt(input)),
+			catchError(this.handleError<MasterdataRelatedItemResultList>("getRelatedItems", masterdataRelatedItemResultListModelAdapter.adapt(null)))
 		);
 	}
 
@@ -162,12 +175,14 @@ export class MasterdataCrudHttpService {
 	createMasterdataAlternativeKey(masterdatatype: string, item: IMasterdataAlternativeKeyCreate): Observable<MasterdataAlternativeKey> {
 		const masterdataAlternativeKeyModelAdapter = new MasterdataAlternativeKeyModelAdapter();
 
-		return this.client.post<Result<MasterdataAlternativeKey>>(`${this.baseUrl}/${masterdatatype}/${item.masterdataId}/keys`, [item], this.httpOptions).pipe(
-			map(input => {
-				return masterdataAlternativeKeyModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataAlternativeKey>("createMasterdataAlternativeKey", masterdataAlternativeKeyModelAdapter.adapt(null)))
-		);
+		return this.client
+			.post<Result<MasterdataAlternativeKey>>(`${this.baseUrl}/${masterdatatype}/${item.masterdataId}/keys`, [item], this.httpOptions)
+			.pipe(
+				map(input => {
+					return masterdataAlternativeKeyModelAdapter.adapt(input.value);
+				}),
+				catchError(this.handleError<MasterdataAlternativeKey>("createMasterdataAlternativeKey", masterdataAlternativeKeyModelAdapter.adapt(null)))
+			);
 	}
 
 	updateMasterdataType(masterdatatype: string, item: IMasterdataTypeUpdate): Observable<MasterdataType> {
@@ -193,21 +208,21 @@ export class MasterdataCrudHttpService {
 	}
 
 	deleteMasterdataType(masterdatatype: string): Observable<MasterdataType> {
-		return this.client.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions).pipe(
-			catchError(this.handleError<MasterdataType>("deleteMasterdataType", undefined))
-		);
+		return this.client
+			.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions)
+			.pipe(catchError(this.handleError<MasterdataType>("deleteMasterdataType", undefined)));
 	}
 
 	deleteMasterdata(masterdatatype: string, masterdata: string): Observable<Masterdata> {
-		return this.client.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions).pipe(
-			catchError(this.handleError<Masterdata>("deleteMasterdata", undefined))
-		);
+		return this.client
+			.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions)
+			.pipe(catchError(this.handleError<Masterdata>("deleteMasterdata", undefined)));
 	}
 
 	deleteMasterdataAlternativeKey(masterdatatype: string, masterdata: string, id: string): Observable<MasterdataAlternativeKey> {
-		return this.client.delete<MasterdataAlternativeKey>(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/${id}`, this.httpOptions).pipe(
-			catchError(this.handleError<MasterdataAlternativeKey>("deleteMasterdata", undefined))
-		);
+		return this.client
+			.delete<MasterdataAlternativeKey>(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/${id}`, this.httpOptions)
+			.pipe(catchError(this.handleError<MasterdataAlternativeKey>("deleteMasterdata", undefined)));
 	}
 
 	/**

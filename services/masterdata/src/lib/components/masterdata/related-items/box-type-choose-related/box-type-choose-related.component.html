@@ -1,0 +1,49 @@
+<div class="related-items-box-type-choose-related">
+	<lens-button
+		[label]="
+			'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.buttons.btnAdd'
+				| translate
+		"
+		icon="pi pi-save"
+		type="secondary"
+		[disabled]="isLoading"
+		(clicked)="onAddNewRelatedItems()"></lens-button>
+	<hr />
+	<lens-table
+		[source]="relatedItems"
+		[totalRecords]="relatedItems.length"
+		[loading]="isLoading"
+		[paginator]="false">
+		<columns>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.list.name'
+						| translate
+				"
+				field="name"></column>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.list.id'
+						| translate
+				"
+				field="id"></column>
+		</columns>
+	</lens-table>
+	<form [formGroup]="testForm">
+		<lens-input-text
+			formControlName="foo"
+			id="foo"
+			icon="spinner"
+			[spinIcon]="true"
+			iconAlign="right"
+			placeholder="test"></lens-input-text>
+	</form>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+		non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+</div>

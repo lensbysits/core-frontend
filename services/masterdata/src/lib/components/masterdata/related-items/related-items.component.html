@@ -1,0 +1,21 @@
+<div class="related-items-wrapper">
+	<ng-container *ngIf="showHeader">
+		<div class="related-items-header">
+			<div class="field">
+				<label>
+					{{
+						"masterdatamgmt.pages.masterdataRelatedItemsBox.header" | translate
+					}}
+				</label>
+				<span></span>
+			</div>
+		</div>
+	</ng-container>
+
+	<masterdata-related-items-select-type></masterdata-related-items-select-type>
+	<hr />
+	<masterdata-related-items-list-by-type
+		[relatedItems]="
+			relatedItemsService.getRelatedItemsGroupedByType()
+		"></masterdata-related-items-list-by-type>
+</div>
