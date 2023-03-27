@@ -10,6 +10,8 @@ import {
 	UserContextModule
 } from "./modules";
 import { ErrorHandlerService } from "./services";
+import { DefaultHttpErrorHandlerService } from "./services/default-http-error-handler.service";
+import { HttpErrorHandlerService } from "./services/http-error-handler.service";
 
 const libraryModules = [
 	AppInfoModule,
@@ -22,6 +24,9 @@ const libraryModules = [
 @NgModule({
 	imports: [CommonModule, HttpClientModule, MultilingualModule, ...libraryModules],
 	exports: libraryModules,
-	providers: [{ provide: ErrorHandler, useExisting: ErrorHandlerService }]
+	providers: [
+    { provide: ErrorHandler, useExisting: ErrorHandlerService },
+    { provide: HttpErrorHandlerService, useExisting: DefaultHttpErrorHandlerService }
+  ]
 })
 export class AppAbstractModule {}
