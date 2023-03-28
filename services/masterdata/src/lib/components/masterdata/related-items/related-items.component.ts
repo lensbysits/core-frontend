@@ -13,7 +13,7 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnChanges {
 
 	isLoading = false;
 
-	@Input() public showHeader = false;
+	@Input() public showHeader = true;
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
 
@@ -21,6 +21,10 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnChanges {
 
 	ngOnInit(): void {
 		this.loadRelatedItems();
+		this.relatedItemsService.CurrentMasterdata = {
+			masterdataTypeId: this.typeId,
+			masterdataId: this.masterdataId
+		};
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

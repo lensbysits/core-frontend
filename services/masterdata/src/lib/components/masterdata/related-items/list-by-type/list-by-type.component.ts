@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component } from "@angular/core";
+import { Subscription } from "rxjs";
 import { MasterdataRelatedItemGroupedByType } from "../../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../core/services";
 
@@ -7,21 +8,24 @@ import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../
 	templateUrl: "./list-by-type.component.html",
 	styleUrls: ["./list-by-type.component.scss"]
 })
-export class MasterdataRelatedItemsListByTypeComponent implements OnChanges {
+export class MasterdataRelatedItemsListByTypeComponent {
 	isLoading = false;
-
-	@Input() public relatedItems: MasterdataRelatedItemGroupedByType[] = [];
+	relatedItems: MasterdataRelatedItemGroupedByType[] = [];
+	relatedItemsSubscription: Subscription;
 
 	constructor(private readonly service: MasterdataCrudHttpService, public readonly relatedItemsService: MasterdataRelatedItemsService) {
 		this.isLoading = true;
+		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+			next: () => {
+				this.relatedItems = this.relatedItemsService.getRelatedItemsGroupedByType();
+				this.isLoading = false;
+			},
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
+		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	ngOnChanges(changes: SimpleChanges) {
-		console.log("list-by-type/changes", this.relatedItems);
-	}
-
-	getRelatedItems(): MasterdataRelatedItemGroupedByType[] {
-		return this.relatedItems;
+	buildTypeName(type: MasterdataRelatedItemGroupedByType) {
+		return `${type.typeName} (${type.items.length})`;
 	}
 }

@@ -220,7 +220,20 @@
 				},
 				"boxTypeChooseRelated": {
 					"buttons": {
-						"btnAdd": "Add New Related Items"
+						"btnAdd": "Add New Related Masterdata Items",
+						"btnSave": "Save"
+					},
+					"addForm": {
+						"masterdataItems": {
+							"placeholder": "Please choose at least one masterdata item",
+							"required": "Masterdata Items is required."
+						},
+						"notifications": {
+							"successAdd": {
+								"title": "Add New Related Masterdata Items",
+								"message": "Succesfully associated."
+							}
+						}
 					},
 					"list": {
 						"id": "Id",

@@ -2,6 +2,11 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { MasterdataRelatedItemGroupedByType } from "../models";
 
+export interface ICurrentMasterdata {
+	masterdataTypeId?: string;
+	masterdataId?: string;
+}
+
 export interface ICurrentOpenedType {
 	idx: number;
 	id?: string;
@@ -9,6 +14,28 @@ export interface ICurrentOpenedType {
 
 @Injectable()
 export class MasterdataRelatedItemsService {
+	// current masterdata
+	private readonly currentMasterdataSubject = new BehaviorSubject<ICurrentMasterdata>({});
+	currentMasterdata$ = this.currentMasterdataSubject.asObservable();
+
+	get CurrentMasterdata(): ICurrentMasterdata {
+		return this.currentMasterdataSubject?.value;
+	}
+	set CurrentMasterdata(item: ICurrentMasterdata) {
+		this.currentMasterdataSubject.next(item);
+	}
+
+	// current opened type box
+	private readonly currentOpenedTypeSubject = new BehaviorSubject<ICurrentOpenedType>({ idx: 0 });
+	currentOpenedType$ = this.currentOpenedTypeSubject.asObservable();
+
+	get CurrentOpenedType(): ICurrentOpenedType {
+		return this.currentOpenedTypeSubject?.value;
+	}
+	set CurrentOpenedType(item: ICurrentOpenedType) {
+		this.currentOpenedTypeSubject.next(item);
+	}
+
 	// related items grouped by type
 	private readonly relatedItemsSubject = new BehaviorSubject<MasterdataRelatedItemGroupedByType[]>(this.RelatedItems);
 	relatedItems$ = this.relatedItemsSubject.asObservable();
@@ -21,18 +48,12 @@ export class MasterdataRelatedItemsService {
 		this.relatedItemsSubject.next(items_);
 	}
 
-	// current opened type box
-	private readonly currentOpenedTypeSubject = new BehaviorSubject<ICurrentOpenedType>({ idx: 0, id: undefined });
-	currentOpenedType$ = this.currentOpenedTypeSubject.asObservable();
-
-	get CurrentOpenedType(): ICurrentOpenedType {
-		return this.currentOpenedTypeSubject?.value;
-	}
-	set CurrentOpenedType(item: ICurrentOpenedType) {
-		this.currentOpenedTypeSubject.next(item);
-	}
-
 	// additional methods
+	setCurrentOpenedTypeById(typeId: string) {
+		const idx = this.getRelatedItemsGroupedByType().findIndex(item => typeId === item.typeId);
+		this.CurrentOpenedType = { id: typeId, idx };
+	}
+
 	addRelatedItems(items: MasterdataRelatedItemGroupedByType | MasterdataRelatedItemGroupedByType[]): void {
 		let items_ = Array.isArray(items) ? items : [items];
 
@@ -46,11 +67,6 @@ export class MasterdataRelatedItemsService {
 
 	getRelatedItemsGroupedByType(): MasterdataRelatedItemGroupedByType[] {
 		return this.RelatedItems?.sort(this.sortByTypeName);
-	}
-
-	setCurrentOpenedTypeById(typeId: string) {
-		const idx = this.getRelatedItemsGroupedByType().findIndex(item => typeId === item.typeId);
-		this.CurrentOpenedType = { id: typeId, idx };
 	}
 
 	private sortByTypeName(a: MasterdataRelatedItemGroupedByType, b: MasterdataRelatedItemGroupedByType) {

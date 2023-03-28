@@ -1,10 +1,9 @@
 <div class="related-items-list-by-type-wrapper accordion-wrapper">
 	<p-accordion [activeIndex]="relatedItemsService.CurrentOpenedType.idx">
-		<ng-container *ngFor="let type of getRelatedItems()">
-			<p-accordionTab header="{{ type.typeName }}">
+		<ng-container *ngFor="let type of relatedItems">
+			<p-accordionTab header="{{ buildTypeName(type) }}">
 				<masterdata-related-items-box-type-choose-related
 					[typeId]="type.typeId"
-					[typeName]="type.typeName"
 					[relatedItems]="
 						type.items
 					"></masterdata-related-items-box-type-choose-related>

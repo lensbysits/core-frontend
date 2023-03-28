@@ -7,17 +7,26 @@ import {
 	MasterdataAlternativeKeyModelAdapter,
 	MasterdataAlternativeKeyResultListModelAdapter,
 	MasterdataModelAdapter,
+	MasterdataRelatedItemModelAdapter,
 	MasterdataRelatedItemResultListModelAdapter,
 	MasterdataResultListModelAdapter,
 	MasterdataTypeModelAdapter,
 	MasterdataTypeResultListModelAdapter,
 	TagsResultListModelAdapter
 } from "../adapters";
-import { IMasterdataAlternativeKeyCreate, IMasterdataCreate, IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataUpdate } from "../interfaces";
+import {
+	IMasterdataAlternativeKeyCreate,
+	IMasterdataCreate,
+	IMasterdataRelatedItemCreate,
+	IMasterdataTypeCreate,
+	IMasterdataTypeUpdate,
+	IMasterdataUpdate
+} from "../interfaces";
 import {
 	Masterdata,
 	MasterdataAlternativeKey,
 	MasterdataAlternativeKeyResultList,
+	MasterdataRelatedItem,
 	MasterdataRelatedItemResultList,
 	MasterdataResultList,
 	MasterdataType,
@@ -183,6 +192,17 @@ export class MasterdataCrudHttpService {
 				}),
 				catchError(this.handleError<MasterdataAlternativeKey>("createMasterdataAlternativeKey", masterdataAlternativeKeyModelAdapter.adapt(null)))
 			);
+	}
+
+	createMasterdataRelatedItems(masterdatatype: string, masterdata: string, item: IMasterdataRelatedItemCreate[]): Observable<MasterdataRelatedItem> {
+		const masterdataRelatedItemModelAdapter = new MasterdataRelatedItemModelAdapter();
+
+		return this.client.post<Result<MasterdataRelatedItem>>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, item, this.httpOptions).pipe(
+			map(input => {
+				return masterdataRelatedItemModelAdapter.adapt(input.value);
+			}),
+			catchError(this.handleError<MasterdataRelatedItem>("createMasterdataAlternativeKey", masterdataRelatedItemModelAdapter.adapt(null)))
+		);
 	}
 
 	updateMasterdataType(masterdatatype: string, item: IMasterdataTypeUpdate): Observable<MasterdataType> {

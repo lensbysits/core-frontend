@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { Component, Input, OnInit } from "@angular/core";
 import { MasterdataRelatedItemGroupedByTypeItem } from "../../../../core/models";
 import { MasterdataCrudHttpService } from "../../../../core/services";
 
@@ -8,25 +7,15 @@ import { MasterdataCrudHttpService } from "../../../../core/services";
 	templateUrl: "./box-type-choose-related.component.html",
 	styleUrls: ["./box-type-choose-related.component.scss"]
 })
-export class MasterdataRelatedItemsBoxTypeChooseRelatedComponent implements OnInit, OnChanges {
+export class MasterdataRelatedItemsBoxTypeChooseRelatedComponent implements OnInit {
 	isLoading = false;
 
 	@Input() public typeId = "";
-	@Input() public typeName = "";
 	@Input() public relatedItems: MasterdataRelatedItemGroupedByTypeItem[] = [];
-
-	public testForm = new FormGroup({
-		foo: new FormControl()
-	});
 
 	constructor(private readonly service: MasterdataCrudHttpService) {}
 
 	ngOnInit(): void {
-		console.log("box-type-choose/relatedItems", this.relatedItems);
+		console.log("box-type-choose/relatedItems", `typeId=${this.typeId}`, this.relatedItems);
 	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
-	ngOnChanges(changes: SimpleChanges) {}
-
-	onAddNewRelatedItems() {}
 }
