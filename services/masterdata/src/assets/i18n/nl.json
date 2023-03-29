@@ -212,40 +212,40 @@
 				}
 			},
 			"masterdataRelatedItemsBox": {
-				"header": "Related Items",
+				"header": "Verwante artikelen",
 				"selectType": {
-					"label": "Masterdata Type",
-					"placeholder": "Please choose a masterdata type",
-					"required": "Masterdata Type is required."
+					"label": "Type stamgegevens",
+					"placeholder": "Kies a.u.b. een type stamgegevens",
+					"required": "Masterdatatype is vereist."
 				},
 				"boxTypeChooseRelated": {
 					"buttons": {
-						"btnAdd": "Add New Related Masterdata Items",
-						"btnSave": "Save",
-						"btnDelete": "Delete"
+						"btnAdd": "Nieuwe gerelateerde masterdata-items toevoegen",
+						"btnSave": "Opslaan",
+						"btnDelete": "Verwijderen"
 					},
 					"addForm": {
 						"masterdataItems": {
-							"placeholder": "Please choose at least one masterdata item",
-							"required": "Masterdata Items is required."
+							"placeholder": "Kies a.u.b. ten minste één stamgegevensitem",
+							"required": "Masterdata-items zijn vereist."
 						},
 						"notifications": {
 							"successAdd": {
-								"title": "Add New Related Masterdata Items",
-								"message": "Succesfully associated."
+								"title": "Nieuwe verwante masterdata-items toevoegen",
+								"message": "Succesvol gekoppeld."
 							}
 						}
 					},
 					"deleteForm": {
-						"title": "Current Related Masterdata Items",
+						"title": "Huidige verwante stamgegevensitems",
 						"listMasterdataItems": {
-							"filterPlaceholder": "Enter text here to filter masterdata items",
-							"required": "It's required to choose at least one masterdata item."
+							"filterPlaceholder": "Voer hier tekst in om stamgegevensitems te filteren",
+							"required": "Het is verplicht om ten minste één masterdata-item te kiezen."
 						},
 						"notifications": {
 							"successDelete": {
-								"title": "Delete Selected Related Masterdata Items",
-								"message": "Succesfully deleted."
+								"title": "Verwijder geselecteerde verwante masterdata-items",
+								"message": "Succesvol verwijderd."
 							}
 						}
 					}
