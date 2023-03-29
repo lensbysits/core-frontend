@@ -1,14 +1,13 @@
-import { Component, ContentChild, Input, ViewChild } from "@angular/core";
+import { Component, Input, TemplateRef, ViewChild } from "@angular/core";
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: "lens-tab-view > tab-panels > tab-panel",
-	template: "<ng-content select='{{ curId }}'></ng-content>"
+	template: "<ng-template #template><ng-content></ng-content></ng-template>"
 })
 export class TabPanelComponent {
 	@Input() header!: string;
 	@Input() id!: string;
-	curId = `[${this.id}]`;
 
-	@ContentChild(ViewChild) public content?: ViewChild; //, { static: true }
+	@ViewChild("template") public template!: TemplateRef<any>;
 }

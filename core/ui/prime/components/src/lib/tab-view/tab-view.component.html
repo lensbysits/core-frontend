@@ -4,6 +4,6 @@
 		header="{{ panel.header }}">
 		{{ panel.id }}
 		<hr />
-		<ng-content select="{{ panel.curId }}"></ng-content>
+		<ng-template [ngTemplateOutlet]="panel.template"></ng-template>
 	</p-tabPanel>
 </p-tabView>
