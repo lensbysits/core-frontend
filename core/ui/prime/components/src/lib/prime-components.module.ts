@@ -14,59 +14,40 @@ import { InputEmailModule } from "./input-email";
 import { InputTextModule } from "./input-text";
 import { InputTextareaModule } from "./input-textarea";
 import { LanguageSelectorModule } from "./language-selector";
+import { ListboxModule } from "./listbox";
 import { LoadingSpinnerModule } from "./loading-indicator/loading-spinner.module";
+import { MultiSelectModule } from "./multiselect";
 import { PanelModule } from "./panel";
-import { TabViewModule } from "./tab-view";
 import { TableModule } from "./table";
 import { ToastModule } from "./toast";
 import { ToolbarModule } from "./toolbar";
 import { TreeModule } from "./tree";
 
+const modules = [
+	AutoCompleteModule,
+	AutoCompleteTagsModule,
+	ButtonModule,
+	DialogModule,
+	DropdownModule,
+	IconModule,
+	InputCheckboxModule,
+	InputChipsModule,
+	InputDateModule,
+	InputEmailModule,
+	InputTextModule,
+	InputTextareaModule,
+	LanguageSelectorModule,
+	ListboxModule,
+	LoadingSpinnerModule,
+	MultiSelectModule,
+	PanelModule,
+	TableModule,
+	ToastModule,
+	ToolbarModule,
+	TreeModule
+];
 @NgModule({
-	imports: [
-		AutoCompleteModule,
-		AutoCompleteTagsModule,
-		ButtonModule,
-		CommonModule,
-		DropdownModule,
-		IconModule,
-		InputChipsModule,
-		InputDateModule,
-		InputEmailModule,
-		InputTextModule,
-		InputTextareaModule,
-		LoadingSpinnerModule,
-		PanelModule,
-		TableModule,
-		ToastModule,
-		ToolbarModule,
-		DialogModule,
-		LanguageSelectorModule,
-		TreeModule,
-		TabViewModule,
-		MultilingualModule.forChild("prime")
-	],
-	exports: [
-		AutoCompleteModule,
-		AutoCompleteTagsModule,
-		ButtonModule,
-		DropdownModule,
-		IconModule,
-		InputChipsModule,
-		InputDateModule,
-		InputEmailModule,
-		InputTextModule,
-		InputTextareaModule,
-		InputCheckboxModule,
-		LoadingSpinnerModule,
-		PanelModule,
-		TableModule,
-		ToastModule,
-		ToolbarModule,
-		DialogModule,
-		LanguageSelectorModule,
-		TreeModule,
-		TabViewModule
-	]
+	imports: [...modules, CommonModule, MultilingualModule.forChild("prime")],
+	exports: [...modules]
 })
 export class PrimeComponentsModule {}

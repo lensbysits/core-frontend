@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MasterdataRelatedItemGroupedByType } from "../../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../core/services";
 
 @Component({
-	selector: "masterdata-related-items-list-by-type",
-	templateUrl: "./list-by-type.component.html",
-	styleUrls: ["./list-by-type.component.scss"]
+	selector: "masterdata-related-items-view-only",
+	templateUrl: "./view-only.component.html",
+	styleUrls: ["./view-only.component.scss"]
 })
-export class MasterdataRelatedItemsListByTypeComponent {
+export class MasterdataRelatedItemsViewOnlyComponent implements OnDestroy {
 	isLoading = false;
 	relatedItems: MasterdataRelatedItemGroupedByType[] = [];
 	relatedItemsSubscription: Subscription;
@@ -25,7 +25,9 @@ export class MasterdataRelatedItemsListByTypeComponent {
 		});
 	}
 
-	buildTypeName(type: MasterdataRelatedItemGroupedByType) {
-		return `${type.typeName} (${type.items.length})`;
+	ngOnDestroy() {
+		if (this.relatedItemsSubscription) {
+			this.relatedItemsSubscription.unsubscribe();
+		}
 	}
 }

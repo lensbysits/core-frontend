@@ -16,10 +16,13 @@ import {
 	MasterdataAlternativeKeyComponent,
 	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsAddNewItemsComponent,
 	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
 	MasterdataRelatedItemsComponent,
 	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
+	MasterdataRelatedItemsViewOnlyComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
 	MasterdatasListComponent,
@@ -28,17 +31,25 @@ import {
 	MasterdataTypeListComponent
 } from "./components";
 import { MasterdataServicesModule } from "./core/services";
-import { MasterdataAlternativeKeyDomainSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule } from "./core/ui";
+import {
+	MasterdataAlternativeKeyDomainSelectorModule,
+	MasterdataItemsSelectorModule,
+	MasterdataTypeSelectorModule,
+	TagsSelectorModule
+} from "./core/ui";
 
 const components = [
 	MasterdataAlternativeKeyAddComponent,
 	MasterdataAlternativeKeyComponent,
 	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsAddNewItemsComponent,
 	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
 	MasterdataRelatedItemsComponent,
 	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
+	MasterdataRelatedItemsViewOnlyComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
 	MasterdatasListComponent,
@@ -55,17 +66,18 @@ const components = [
 		FormsModule,
 		ReactiveFormsModule,
 		PrimeComponentsModule,
+		MasterdataItemsSelectorModule,
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
 		MasterdataAlternativeKeyDomainSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata"),
-		TabViewModule,
-		AccordionModule
+		AccordionModule,
+		TabViewModule
 	],
 	declarations: [...components],
-	exports: [MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
+	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {

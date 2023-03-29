@@ -1,0 +1,33 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./multiselect.stories";
+import { Default } from "./multiselect.stories";
+
+<Meta
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# MultiSelect
+
+This is a nice multiselect!
+
+<Story story={Default} />
+
+First import `MultiSelectModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-multiselect id="foo" placeholder="test" options="options"></lens-multiselect>
+```
+
+```ts
+const options = [
+    { value: 1, label: "Item 1", disabled: false },
+    { value: 2, label: "Item 2", disabled: false },
+    { value: 3, label: "Item 3", disabled: false },
+    { value: 4, label: "Item 4", disabled: false },
+	{ value: 5, label: "Item 5", disabled: false }
+];
+```
+
+The properties used for `value`, `label` and `disabled` can be changed and are configured using `optionValue`, `optionLabel` and `optionDisabled` respectively.

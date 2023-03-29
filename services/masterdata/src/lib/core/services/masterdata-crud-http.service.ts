@@ -7,17 +7,26 @@ import {
 	MasterdataAlternativeKeyModelAdapter,
 	MasterdataAlternativeKeyResultListModelAdapter,
 	MasterdataModelAdapter,
+	MasterdataRelatedItemModelAdapter,
 	MasterdataRelatedItemResultListModelAdapter,
 	MasterdataResultListModelAdapter,
 	MasterdataTypeModelAdapter,
 	MasterdataTypeResultListModelAdapter,
 	TagsResultListModelAdapter
 } from "../adapters";
-import { IMasterdataAlternativeKeyCreate, IMasterdataCreate, IMasterdataTypeCreate, IMasterdataTypeUpdate, IMasterdataUpdate } from "../interfaces";
+import {
+	IMasterdataAlternativeKeyCreate,
+	IMasterdataCreate,
+	IMasterdataRelatedItemCreate,
+	IMasterdataTypeCreate,
+	IMasterdataTypeUpdate,
+	IMasterdataUpdate
+} from "../interfaces";
 import {
 	Masterdata,
 	MasterdataAlternativeKey,
 	MasterdataAlternativeKeyResultList,
+	MasterdataRelatedItem,
 	MasterdataRelatedItemResultList,
 	MasterdataResultList,
 	MasterdataType,
@@ -181,8 +190,22 @@ export class MasterdataCrudHttpService {
 				map(input => {
 					return masterdataAlternativeKeyModelAdapter.adapt(input.value);
 				}),
+				// eslint-disable-next-line max-len
 				catchError(this.handleError<MasterdataAlternativeKey>("createMasterdataAlternativeKey", masterdataAlternativeKeyModelAdapter.adapt(null)))
 			);
+	}
+
+	// eslint-disable-next-line max-len
+	createMasterdataRelatedItems(masterdatatype: string, masterdata: string, item: IMasterdataRelatedItemCreate[]): Observable<MasterdataRelatedItem> {
+		const masterdataRelatedItemModelAdapter = new MasterdataRelatedItemModelAdapter();
+
+		// eslint-disable-next-line max-len
+		return this.client.post<Result<MasterdataRelatedItem>>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, item, this.httpOptions).pipe(
+			map(input => {
+				return masterdataRelatedItemModelAdapter.adapt(input.value);
+			}),
+			catchError(this.handleError<MasterdataRelatedItem>("createMasterdataAlternativeKey", masterdataRelatedItemModelAdapter.adapt(null)))
+		);
 	}
 
 	updateMasterdataType(masterdatatype: string, item: IMasterdataTypeUpdate): Observable<MasterdataType> {
@@ -222,7 +245,18 @@ export class MasterdataCrudHttpService {
 	deleteMasterdataAlternativeKey(masterdatatype: string, masterdata: string, id: string): Observable<MasterdataAlternativeKey> {
 		return this.client
 			.delete<MasterdataAlternativeKey>(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/${id}`, this.httpOptions)
-			.pipe(catchError(this.handleError<MasterdataAlternativeKey>("deleteMasterdata", undefined)));
+			.pipe(catchError(this.handleError<MasterdataAlternativeKey>("deleteMasterdataAlternativeKey", undefined)));
+	}
+
+	deleteMasterdataRelatedItems(masterdatatype: string, masterdata: string, guids: string[]): Observable<MasterdataRelatedItem> {
+		const options = {
+			...this.httpOptions,
+			body: [...guids]
+		};
+
+		return this.client
+			.delete<MasterdataRelatedItem>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, options)
+			.pipe(catchError(this.handleError<MasterdataRelatedItem>("deleteMasterdataRelatedItems", undefined)));
 	}
 
 	/**

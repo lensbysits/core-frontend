@@ -220,11 +220,34 @@
 				},
 				"boxTypeChooseRelated": {
 					"buttons": {
-						"btnAdd": "Add New Related Items"
+						"btnAdd": "Add New Related Masterdata Items",
+						"btnSave": "Save",
+						"btnDelete": "Delete"
 					},
-					"list": {
-						"id": "Id",
-						"name": "Name"
+					"addForm": {
+						"masterdataItems": {
+							"placeholder": "Please choose at least one masterdata item",
+							"required": "Masterdata Items is required."
+						},
+						"notifications": {
+							"successAdd": {
+								"title": "Add New Related Masterdata Items",
+								"message": "Succesfully associated."
+							}
+						}
+					},
+					"deleteForm": {
+						"title": "Current Related Masterdata Items",
+						"listMasterdataItems": {
+							"filterPlaceholder": "Enter text here to filter masterdata items",
+							"required": "It's required to choose at least one masterdata item."
+						},
+						"notifications": {
+							"successDelete": {
+								"title": "Delete Selected Related Masterdata Items",
+								"message": "Succesfully deleted."
+							}
+						}
 					}
 				}
 			}
