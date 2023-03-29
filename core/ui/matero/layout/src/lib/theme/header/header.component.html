@@ -21,7 +21,7 @@
 
   <app-user></app-user>
 
-  <button *ngIf="layoutSettings.userOptionsInSidebar" mat-icon-button (click)="toggleSidenavNotice.emit()">
+  <button *ngIf="layoutSettings.showUserPanel" mat-icon-button (click)="toggleSidenavNotice.emit()">
     <mat-icon>list</mat-icon>
   </button>
 </mat-toolbar>
