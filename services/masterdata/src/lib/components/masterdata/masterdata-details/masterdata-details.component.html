@@ -7,7 +7,7 @@
 			<p-tabPanel
 				header="Masterdata Properties"
 				id="masterdataProperties">
-				<div masterdataProperties>
+				<div>
 					<div class="details-wrapper">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div
@@ -37,7 +37,7 @@
 			<p-tabPanel
 				header="Alternative Keys"
 				id="alternativeKeys">
-				<div alternativeKeys>
+				<div>
 					<div class="details-wrapper">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="grid">
@@ -55,11 +55,16 @@
 			</p-tabPanel>
 			<p-tabPanel
 				header="Related Items"
-				id="relatedItems">
-				<div relatedItems>
+				id="relatedItems"
+				[selected]="true">
+				<div>
 					<div class="details-wrapper">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-						<div>...</div>
+						<masterdata-related-items
+							[typeId]="typeId"
+							[masterdataId]="itemId"
+							[showHeader]="false"
+							[viewOnly]="true"></masterdata-related-items>
 					</div>
 				</div>
 			</p-tabPanel>

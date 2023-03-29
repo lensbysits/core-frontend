@@ -221,7 +221,8 @@
 				"boxTypeChooseRelated": {
 					"buttons": {
 						"btnAdd": "Add New Related Masterdata Items",
-						"btnSave": "Save"
+						"btnSave": "Save",
+						"btnDelete": "Delete"
 					},
 					"addForm": {
 						"masterdataItems": {
@@ -235,9 +236,18 @@
 							}
 						}
 					},
-					"list": {
-						"id": "Id",
-						"name": "Name"
+					"deleteForm": {
+						"title": "Current Related Masterdata Items",
+						"listMasterdataItems": {
+							"filterPlaceholder": "Enter text here to filter masterdata items",
+							"required": "It's required to choose at least one masterdata item."
+						},
+						"notifications": {
+							"successDelete": {
+								"title": "Delete Selected Related Masterdata Items",
+								"message": "Succesfully deleted."
+							}
+						}
 					}
 				}
 			}

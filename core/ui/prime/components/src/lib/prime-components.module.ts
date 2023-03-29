@@ -14,10 +14,10 @@ import { InputEmailModule } from "./input-email";
 import { InputTextModule } from "./input-text";
 import { InputTextareaModule } from "./input-textarea";
 import { LanguageSelectorModule } from "./language-selector";
+import { ListboxModule } from "./listbox";
 import { LoadingSpinnerModule } from "./loading-indicator/loading-spinner.module";
 import { MultiSelectModule } from "./multiselect";
 import { PanelModule } from "./panel";
-import { TabViewModule } from "./tab-view";
 import { TableModule } from "./table";
 import { ToastModule } from "./toast";
 import { ToolbarModule } from "./toolbar";
@@ -37,10 +37,10 @@ const modules = [
 	InputTextModule,
 	InputTextareaModule,
 	LanguageSelectorModule,
+	ListboxModule,
 	LoadingSpinnerModule,
 	MultiSelectModule,
 	PanelModule,
-	TabViewModule,
 	TableModule,
 	ToastModule,
 	ToolbarModule,

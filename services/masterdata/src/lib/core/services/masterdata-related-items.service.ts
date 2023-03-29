@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { MasterdataRelatedItemGroupedByType } from "../models";
 
 export interface ICurrentMasterdata {
@@ -14,6 +14,10 @@ export interface ICurrentOpenedType {
 
 @Injectable()
 export class MasterdataRelatedItemsService {
+	// related items should be reloaded!
+	private readonly resetSubject: Subject<void> = new Subject();
+	public reset$ = this.resetSubject.asObservable();
+
 	// current masterdata
 	private readonly currentMasterdataSubject = new BehaviorSubject<ICurrentMasterdata>({});
 	currentMasterdata$ = this.currentMasterdataSubject.asObservable();
@@ -49,9 +53,18 @@ export class MasterdataRelatedItemsService {
 	}
 
 	// additional methods
+	markResetRelatedItems() {
+		this.resetSubject.next();
+	}
+
 	setCurrentOpenedTypeById(typeId: string) {
 		const idx = this.getRelatedItemsGroupedByType().findIndex(item => typeId === item.typeId);
 		this.CurrentOpenedType = { id: typeId, idx };
+	}
+
+	resetRelatedItems(items: MasterdataRelatedItemGroupedByType | MasterdataRelatedItemGroupedByType[]): void {
+		const items_ = Array.isArray(items) ? items : [items];
+		this.RelatedItems = [...items_];
 	}
 
 	addRelatedItems(items: MasterdataRelatedItemGroupedByType | MasterdataRelatedItemGroupedByType[]): void {
@@ -62,7 +75,6 @@ export class MasterdataRelatedItemsService {
 			return !this.RelatedItems?.some(elem => elem.typeId === item.typeId);
 		});
 		this.RelatedItems = [...(this.RelatedItems ?? []), ...items_];
-		console.log("this.RelatedItems", this.RelatedItems);
 	}
 
 	getRelatedItemsGroupedByType(): MasterdataRelatedItemGroupedByType[] {

@@ -11,8 +11,16 @@
 			</div>
 		</div>
 	</ng-container>
+	<ng-container
+		*ngIf="viewOnly; then showViewOnly; else showEditable"></ng-container>
+</div>
 
+<ng-template #showViewOnly>
+	<masterdata-related-items-view-only></masterdata-related-items-view-only>
+</ng-template>
+
+<ng-template #showEditable>
 	<masterdata-related-items-select-type></masterdata-related-items-select-type>
 	<hr />
 	<masterdata-related-items-list-by-type></masterdata-related-items-list-by-type>
-</div>
+</ng-template>

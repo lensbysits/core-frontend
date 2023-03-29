@@ -1,25 +1,11 @@
 <div class="related-items-box-type-choose-related">
 	<masterdata-related-items-add-new-items
-		[typeId]="typeId"></masterdata-related-items-add-new-items>
+		[typeId]="typeId"
+		[relatedItems]="relatedItems"></masterdata-related-items-add-new-items>
 	<hr />
-	<lens-table
-		[source]="relatedItems"
-		[totalRecords]="relatedItems.length"
-		[loading]="isLoading"
-		[paginator]="false">
-		<columns>
-			<column
-				[label]="
-					'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.list.name'
-						| translate
-				"
-				field="name"></column>
-			<column
-				[label]="
-					'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.list.id'
-						| translate
-				"
-				field="id"></column>
-		</columns>
-	</lens-table>
+	<masterdata-related-items-list-items
+		[typeId]="typeId"
+		[relatedItems]="relatedItems"
+		[toggle]="toggle"
+		(refreshByToggle)="refreshByToggle()"></masterdata-related-items-list-items>
 </div>

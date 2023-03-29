@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
+import { Subscription } from "rxjs";
 import { MasterdataRelatedItem, MasterdataRelatedItemGroupedByType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../core/services";
 
@@ -7,17 +8,25 @@ import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../
 	templateUrl: "./related-items.component.html",
 	styleUrls: ["./related-items.component.scss"]
 })
-export class MasterdataRelatedItemsComponent implements OnInit, OnChanges {
+export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnChanges {
 	private relatedItems: MasterdataRelatedItem[] = [];
 	private relatedItemsGrouped: MasterdataRelatedItemGroupedByType[] = [];
+	resetSubscription: Subscription;
 
 	isLoading = false;
 
-	@Input() public showHeader = true;
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
+	@Input() public showHeader = true;
+	@Input() public viewOnly = false;
 
-	constructor(private readonly service: MasterdataCrudHttpService, public readonly relatedItemsService: MasterdataRelatedItemsService) {}
+	constructor(private readonly service: MasterdataCrudHttpService, public readonly relatedItemsService: MasterdataRelatedItemsService) {
+		this.resetSubscription = this.relatedItemsService.reset$.subscribe({
+			next: () => {
+				this.loadRelatedItems();
+			}
+		});
+	}
 
 	ngOnInit(): void {
 		this.loadRelatedItems();
@@ -27,10 +36,14 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnChanges {
 		};
 	}
 
+	ngOnDestroy() {
+		if (this.resetSubscription) {
+			this.resetSubscription.unsubscribe();
+		}
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	ngOnChanges(changes: SimpleChanges) {
-		console.log("main/changes", this.relatedItems);
-		console.log("main/changes-grouped", this.mapRelatedItemsGroupedByType(this.relatedItems));
 		this.relatedItemsGrouped = this.mapRelatedItemsGroupedByType(this.relatedItems);
 	}
 
@@ -40,7 +53,7 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnChanges {
 			next: data => {
 				this.relatedItems = data.value || [];
 				this.relatedItemsGrouped = this.mapRelatedItemsGroupedByType(this.relatedItems);
-				this.relatedItemsService.addRelatedItems(this.relatedItemsGrouped);
+				this.relatedItemsService.resetRelatedItems(this.relatedItemsGrouped);
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),

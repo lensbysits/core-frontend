@@ -4,7 +4,7 @@
 			'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.buttons.btnAdd'
 				| translate
 		"
-		icon="pi pi-save"
+		icon="pi pi-plus"
 		type="secondary"
 		[disabled]="isLoading"
 		(clicked)="onAddNewRelatedItems()"></lens-button>
@@ -14,10 +14,10 @@
 		<div class="form-wrapper">
 			<div class="p-fluid mb-4">
 				<form [formGroup]="dataForm">
-					<!-- masterdata items -->
+					<!-- all masterdata items -->
 					<div class="field">
 						<masterdata-items-selector
-							[masterdataItems]="typeMasterdataItems"
+							[masterdataItems]="typeMasterdataItemsFiltered"
 							formControlName="masterdataItems"
 							placeholder="{{
 								'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.addForm.masterdataItems.placeholder'

@@ -1,0 +1,60 @@
+<div class="related-items-list-items">
+	<div class="form-wrapper">
+		<div class="p-fluid mb-4">
+			<form [formGroup]="dataForm">
+				<!-- all masterdata items -->
+				<div class="field">
+					<label for="value">
+						{{
+							"masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.deleteForm.title"
+								| translate
+						}}
+					</label>
+					<lens-listbox
+						[options]="relatedItems"
+						formControlName="listRelatedItems"
+						optionValue="id"
+						optionLabel="name"
+						filterPlaceHolder="{{
+							'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.deleteForm.listMasterdataItems.filterPlaceholder'
+								| translate
+						}}"
+						[listStyleClass]="'related-items-listbox'"></lens-listbox>
+					<div
+						*ngIf="
+							isFormSubmitted && getFormFields['listRelatedItems']!.invalid
+						"
+						class="p-error">
+						<div
+							*ngIf="getFormFields['listRelatedItems']!.errors?.['required']">
+							{{
+								"masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.deleteForm.listMasterdataItems.required"
+									| translate
+							}}
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="form-actions">
+			<div>
+				<lens-button
+					label="{{
+						'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.buttons.btnDelete'
+							| translate
+					}}"
+					icon="pi pi-delete-left"
+					type="danger"
+					[disabled]="isLoading"
+					(clicked)="onSubmit()"></lens-button>
+			</div>
+			<div>
+				<lens-button
+					label="{{ 'masterdatamgmt.globals.btnCancel' | translate }}"
+					icon="pi pi-backward"
+					(clicked)="btnCancel()"></lens-button>
+			</div>
+		</div>
+	</div>
+</div>
