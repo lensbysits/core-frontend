@@ -7,21 +7,21 @@
 
   <span class="flex-fill"></span>
 
-  <button mat-icon-button>
+  <button mat-icon-button *ngIf="layoutSettings.searchbar">
     <mat-icon>search</mat-icon>
   </button>
 
-  <button mat-icon-button (click)="toggleFullscreen()">
+  <button mat-icon-button (click)="toggleFullscreen()" *ngIf="layoutSettings.fullscreen">
     <mat-icon>fullscreen</mat-icon>
   </button>
 
-  <app-notification></app-notification>
+  <app-notification *ngIf="layoutSettings.notification"></app-notification>
 
-  <app-translate></app-translate>
+  <app-translate *ngIf="layoutSettings.translate"></app-translate>
 
   <app-user></app-user>
 
-  <button mat-icon-button (click)="toggleSidenavNotice.emit()">
+  <button *ngIf="layoutSettings.userOptionsInSidebar" mat-icon-button (click)="toggleSidenavNotice.emit()">
     <mat-icon>list</mat-icon>
   </button>
 </mat-toolbar>
