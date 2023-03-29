@@ -1,35 +1,35 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { TabViewModule } from "./tab-view.module";
-import { TabViewComponent } from "./tab-view.component";
 import { ButtonModule } from "../button";
+import { AccordionComponent } from "./accordion.component";
+import { AccordionModule } from "./accordion.module";
 
 export default {
-	component: TabViewComponent,
-	title: "Components/TabView",
+	component: AccordionComponent,
+	title: "Components/Accordion",
 	decorators: [
 		moduleMetadata({
-			imports: [TabViewModule, ButtonModule, BrowserAnimationsModule]
+			imports: [AccordionModule, ButtonModule, BrowserAnimationsModule]
 		})
 	]
 } as Meta;
 
 const Template: Story = args => ({
 	template: `
-		<lens-tab-view>
-			<tab-panels>
-				<tab-panel header="tab1-header">
+		<lens-accordion>
+			<accordion-panels>
+				<accordion-panel header="tab1-header">
 					<div>tab1 content</div>
 					<lens-button label="Button"></lens-button>
-				</tab-panel>
-				<tab-panel header="tab2-header">
+				</accordion-panel>
+				<accordion-panel header="tab2-header">
 					<div>tab2 content</div>
-				</tab-panel>
-				<tab-panel header="tab3-header">
+				</accordion-panel>
+				<accordion-panel header="tab3-header">
 					<div>tab3 content</div>
-				</tab-panel>
-			</tab-panels>
-		</lens-tab-view>
+				</accordion-panel>
+			</accordion-panels>
+		</lens-accordion>
 	`,
 	props: {
 		...args

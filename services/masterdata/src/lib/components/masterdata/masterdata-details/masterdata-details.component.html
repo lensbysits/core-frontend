@@ -3,72 +3,69 @@
 		[header]="'masterdatamgmt.pages.masterdataDetails.header' | translate">
 		<!-- <lens-tab-view>
 		<tab-panels> -->
-		<p-tabView>
-			<p-tabPanel
-				header="Masterdata Properties"
-				id="masterdataProperties">
-				<div>
-					<div class="details-wrapper">
-						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-						<div
-							*ngFor="let item of prepareForDisplay(item)"
-							class="grid">
-							<div class="col-6">{{ item?.[0] }}</div>
-							<div class="col-6">
-								{{ item?.[1] }}
+		<lens-tabs>
+			<tab-panels>
+				<tab-panel header="Masterdata Properties">
+					<div>
+						<div class="details-wrapper">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<div
+								*ngFor="let item of prepareForDisplay(item)"
+								class="grid">
+								<div class="col-6">{{ item?.[0] }}</div>
+								<div class="col-6">
+									{{ item?.[1] }}
+								</div>
 							</div>
-						</div>
-						<div class="grid">
-							<div class="col-12">
-								{{
-									"masterdatamgmt.pages.masterdataDetails.modelFields.metadata"
-										| translate
-								}}
-							</div>
-							<div class="col-12">
-								<json-editor
-									[options]="makeMetadataEditorOptions()"
-									[data]="item.metadata"></json-editor>
-							</div>
-						</div>
-					</div>
-				</div>
-			</p-tabPanel>
-			<p-tabPanel
-				header="Alternative Keys"
-				id="alternativeKeys">
-				<div>
-					<div class="details-wrapper">
-						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-						<div class="grid">
-							<div class="col-12 alternative-keys">
-								<masterdata-alternative-key
-									[typeId]="typeId"
-									[masterdataId]="itemId"
-									[showHeader]="false"
-									[showAddNewForm]="false"
-									[showListTable]="'view'"></masterdata-alternative-key>
+							<div class="grid">
+								<div class="col-12">
+									{{
+										"masterdatamgmt.pages.masterdataDetails.modelFields.metadata"
+											| translate
+									}}
+								</div>
+								<div class="col-12">
+									<json-editor
+										[options]="makeMetadataEditorOptions()"
+										[data]="item.metadata"></json-editor>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-			<p-tabPanel
-				header="Related Items"
-				id="relatedItems"
-				[selected]="true">
-				<div>
-					<div class="details-wrapper">
-						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-						<masterdata-related-items
-							[typeId]="typeId"
-							[masterdataId]="itemId"
-							[showHeader]="false"
-							[viewOnly]="true"></masterdata-related-items>
+				</tab-panel>
+				<tab-panel header="Alternative Keys">
+					<div>
+						<div class="details-wrapper">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<div class="grid">
+								<div class="col-12 alternative-keys">
+									<masterdata-alternative-key
+										[typeId]="typeId"
+										[masterdataId]="itemId"
+										[showHeader]="false"
+										[showAddNewForm]="false"
+										[showListTable]="'view'"></masterdata-alternative-key>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-		</p-tabView>
+				</tab-panel>
+				<tab-panel
+					header="Related Items"
+					[selected]="true">
+					<div>
+						<div class="details-wrapper">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<masterdata-related-items
+								[typeId]="typeId"
+								[masterdataId]="itemId"
+								[showHeader]="false"
+								[viewOnly]="true"></masterdata-related-items>
+						</div>
+					</div>
+				</tab-panel>
+			</tab-panels>
+		</lens-tabs>
 		<!-- </tab-panels>
 		</lens-tab-view> -->
 	</lens-panel>

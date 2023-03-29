@@ -1,6 +1,6 @@
 import { Meta, Story } from "@storybook/addon-docs";
-import meta from "./tab-view.stories";
-import { Default, Spinner } from "./tab-view.stories";
+import meta from "./tabs.stories";
+import { Default, Spinner } from "./tabs.stories";
 
 <Meta
     title={meta.title}
@@ -8,16 +8,16 @@ import { Default, Spinner } from "./tab-view.stories";
     decorators={meta.decorators}
     argTypes={meta.argTypes} />
 
-# TabView
+# Tabs
 
-This is a nice tab view!
+This is a nice tabs interface!
 
 <Story story={Default} />
 
-First import `TabViewModule` from `@lens/ui-prime-components`.
+First import `TabsModule` from `@lens/ui-prime-components`.
 
 ```html
-	<lens-tab-view>
+	<lens-tabs>
 		<tab-panels>
 			<tab-panel header="tab1-header">
 				<div>tab1 content</div>
@@ -29,5 +29,5 @@ First import `TabViewModule` from `@lens/ui-prime-components`.
 				<div>tab3 content</div>
 			</tab-panel>
 		</tab-panels>
-	</lens-tab-view>
+	</lens-tabs>
 ```

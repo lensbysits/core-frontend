@@ -11,40 +11,42 @@
 		</div>
 	</ng-container>
 	<ng-container *ngIf="!isAddForm">
-		<p-tabView>
-			<p-tabPanel header="Masterdata Properties">
-				<div class="form-wrapper masterdata-properties">
-					<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-					<div class="form-body">
-						<ng-container *ngTemplateOutlet="mainFormBlock"></ng-container>
+		<lens-tabs>
+			<tab-panels>
+				<tab-panel header="Masterdata Properties">
+					<div class="form-wrapper masterdata-properties">
+						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+						<div class="form-body">
+							<ng-container *ngTemplateOutlet="mainFormBlock"></ng-container>
+						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-			<p-tabPanel header="Alternative Keys">
-				<div class="form-wrapper alternative-keys">
-					<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-					<div class="form-body">
-						<masterdata-alternative-key
-							[typeId]="typeId"
-							[masterdataId]="id"
-							[showHeader]="false"></masterdata-alternative-key>
+				</tab-panel>
+				<tab-panel header="Alternative Keys">
+					<div class="form-wrapper alternative-keys">
+						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+						<div class="form-body">
+							<masterdata-alternative-key
+								[typeId]="typeId"
+								[masterdataId]="id"
+								[showHeader]="false"></masterdata-alternative-key>
+						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-			<p-tabPanel
-				header="Related Items"
-				[selected]="true">
-				<div class="form-wrapper related-items">
-					<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
-					<div class="form-body">
-						<masterdata-related-items
-							[typeId]="typeId"
-							[masterdataId]="id"
-							[showHeader]="false"></masterdata-related-items>
+				</tab-panel>
+				<tab-panel
+					header="Related Items"
+					[selected]="true">
+					<div class="form-wrapper related-items">
+						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+						<div class="form-body">
+							<masterdata-related-items
+								[typeId]="typeId"
+								[masterdataId]="id"
+								[showHeader]="false"></masterdata-related-items>
+						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-		</p-tabView>
+				</tab-panel>
+			</tab-panels>
+		</lens-tabs>
 	</ng-container>
 </lens-panel>
 

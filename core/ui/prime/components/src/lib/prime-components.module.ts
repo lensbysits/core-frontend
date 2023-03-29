@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MultilingualModule } from "@lens/app-abstract";
+import { AccordionModule } from "./accordion";
 import { AutoCompleteModule } from "./autocomplete";
 import { AutoCompleteTagsModule } from "./autocomplete-tags";
 import { ButtonModule } from "./button";
@@ -19,11 +20,13 @@ import { LoadingSpinnerModule } from "./loading-indicator/loading-spinner.module
 import { MultiSelectModule } from "./multiselect";
 import { PanelModule } from "./panel";
 import { TableModule } from "./table";
+import { TabsModule } from "./tabs";
 import { ToastModule } from "./toast";
 import { ToolbarModule } from "./toolbar";
 import { TreeModule } from "./tree";
 
 const modules = [
+	AccordionModule,
 	AutoCompleteModule,
 	AutoCompleteTagsModule,
 	ButtonModule,
@@ -42,6 +45,7 @@ const modules = [
 	MultiSelectModule,
 	PanelModule,
 	TableModule,
+	TabsModule,
 	ToastModule,
 	ToolbarModule,
 	TreeModule

@@ -6,8 +6,6 @@ import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abst
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
-import { AccordionModule } from "primeng/accordion";
-import { TabViewModule } from "primeng/tabview";
 
 import { menu } from "./app-menu";
 import { masterdataRoutes } from "./app-routes";
@@ -72,9 +70,7 @@ const components = [
 		MasterdataAlternativeKeyDomainSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataServicesModule.forRoot(),
-		MultilingualModule.forChild("masterdata"),
-		AccordionModule,
-		TabViewModule
+		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
 	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],

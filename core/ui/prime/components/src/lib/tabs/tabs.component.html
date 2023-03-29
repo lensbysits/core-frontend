@@ -1,9 +1,8 @@
 <p-tabView>
 	<p-tabPanel
 		*ngFor="let panel of panels.panels"
-		header="{{ panel.header }}">
-		{{ panel.id }}
-		<hr />
+		header="{{ panel.header }}"
+		[selected]="panel.selected">
 		<ng-template [ngTemplateOutlet]="panel.template"></ng-template>
 	</p-tabPanel>
 </p-tabView>
