@@ -19,9 +19,6 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 	currentMasterdata: ICurrentMasterdata = {};
 	relatedItemsSubscription: Subscription;
 
-	@Output() public refreshByToggle: EventEmitter<void> = new EventEmitter();
-	@Input() public toggle!: boolean;
-
 	@Input() public typeId = "";
 	@Input() public relatedItems: MasterdataRelatedItemGroupedByTypeItem[] = [];
 
@@ -62,7 +59,6 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 
 	btnCancel() {
 		this.resetDataForm();
-		this.refreshByToggle.emit();
 		this.relatedItemsService.markResetRelatedItems();
 		this.relatedItemsService.setCurrentOpenedTypeById(this.typeId);
 	}

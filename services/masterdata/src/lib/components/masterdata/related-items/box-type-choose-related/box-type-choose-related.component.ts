@@ -8,12 +8,7 @@ import { MasterdataRelatedItemGroupedByTypeItem } from "../../../../core/models"
 })
 export class MasterdataRelatedItemsBoxTypeChooseRelatedComponent {
 	isLoading = false;
-	toggle = false;
 
 	@Input() public typeId = "";
 	@Input() public relatedItems: MasterdataRelatedItemGroupedByTypeItem[] = [];
-
-	refreshByToggle() {
-		this.toggle = !this.toggle;
-	}
 }
