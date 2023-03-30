@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { MasterdataRelatedItem, MasterdataRelatedItemGroupedByType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../core/services";
 
@@ -9,9 +9,9 @@ import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../
 	styleUrls: ["./related-items.component.scss"]
 })
 export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnChanges {
+	private destroy$ = new Subject<void>();
 	private relatedItems: MasterdataRelatedItem[] = [];
 	private relatedItemsGrouped: MasterdataRelatedItemGroupedByType[] = [];
-	resetSubscription: Subscription;
 
 	isLoading = false;
 
@@ -21,7 +21,7 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnCha
 	@Input() public viewOnly = false;
 
 	constructor(private readonly service: MasterdataCrudHttpService, public readonly relatedItemsService: MasterdataRelatedItemsService) {
-		this.resetSubscription = this.relatedItemsService.reset$.subscribe({
+		this.relatedItemsService.reset$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.loadRelatedItems();
 			}
@@ -37,9 +37,8 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnCha
 	}
 
 	ngOnDestroy() {
-		if (this.resetSubscription) {
-			this.resetSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

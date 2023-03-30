@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from "@angular/core";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
 import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs/internal/Subscription";
+import { Subject, takeUntil } from "rxjs";
 import { MasterdataAlternativeKey } from "../../../../core/models";
 import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../../../../core/services";
 
@@ -10,10 +10,11 @@ import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../.
 	templateUrl: "./alternative-key-list.component.html"
 })
 export class MasterdataAlternativeKeyListComponent implements OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	items: MasterdataAlternativeKey[] = [];
 	totalSize = 0;
-	alternativeKeyAddedSubscription: Subscription;
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
@@ -25,7 +26,7 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 		private readonly alternativeKeyService: MasterdataAlternativeKeyService
 	) {
 		this.isLoading = true;
-		this.alternativeKeyAddedSubscription = this.alternativeKeyService.alternativeKeyAdded$.subscribe({
+		this.alternativeKeyService.alternativeKeyAdded$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.loadItems(0, 0);
 				this.isLoading = false;
@@ -36,9 +37,8 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.alternativeKeyAddedSubscription) {
-			this.alternativeKeyAddedSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	loadItems(offset: number, rows: number) {

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastService } from "@lens/app-abstract";
 import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { MasterdataRelatedItemGroupedByTypeItem } from "../../../../../core/models";
 import { ICurrentMasterdata, MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../../core/services";
 import { getRequiredFieldValue } from "../../../../../core/utils";
@@ -13,11 +13,12 @@ import { getRequiredFieldValue } from "../../../../../core/utils";
 	styleUrls: ["./list-items.component.scss"]
 })
 export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	dataForm!: FormGroup;
 	isFormSubmitted = false;
 	currentMasterdata: ICurrentMasterdata = {};
-	relatedItemsSubscription: Subscription;
 
 	@Input() public typeId = "";
 	@Input() public relatedItems: MasterdataRelatedItemGroupedByTypeItem[] = [];
@@ -30,7 +31,7 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 		private readonly translateService: TranslateService
 	) {
 		this.isLoading = true;
-		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+		this.relatedItemsService.relatedItems$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.currentMasterdata = this.relatedItemsService.CurrentMasterdata;
 				this.isLoading = false;
@@ -47,9 +48,8 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 	}
 
 	ngOnDestroy() {
-		if (this.relatedItemsSubscription) {
-			this.relatedItemsSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	// convenience getter for easy access to form fields

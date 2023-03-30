@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { MasterdataRelatedItemGroupedByType } from "../../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../core/services";
 
@@ -9,13 +9,14 @@ import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../
 	styleUrls: ["./view-only.component.scss"]
 })
 export class MasterdataRelatedItemsViewOnlyComponent implements OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	relatedItems: MasterdataRelatedItemGroupedByType[] = [];
-	relatedItemsSubscription: Subscription;
 
 	constructor(private readonly service: MasterdataCrudHttpService, public readonly relatedItemsService: MasterdataRelatedItemsService) {
 		this.isLoading = true;
-		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+		this.relatedItemsService.relatedItems$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.relatedItems = this.relatedItemsService.getRelatedItemsGroupedByType();
 				this.isLoading = false;
@@ -26,8 +27,7 @@ export class MasterdataRelatedItemsViewOnlyComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.relatedItemsSubscription) {
-			this.relatedItemsSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 }

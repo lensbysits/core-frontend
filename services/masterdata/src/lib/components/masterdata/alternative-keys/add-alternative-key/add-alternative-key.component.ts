@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract";
 import { DropdownValidator } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs/internal/Subscription";
+import { Subject, takeUntil } from "rxjs";
 import { IMasterdataAlternativeKeyCreate } from "../../../../core/interfaces";
 import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../../../../core/services";
 import { getRequiredFieldValue, MasterdataAlternativeKeyMaxLength } from "../../../../core/utils";
@@ -15,13 +15,14 @@ import { getRequiredFieldValue, MasterdataAlternativeKeyMaxLength } from "../../
 	styleUrls: ["./add-alternative-key.component.scss"]
 })
 export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	dataForm!: FormGroup;
 	isFormSubmitted = false;
 	maxLength = MasterdataAlternativeKeyMaxLength;
 	saveFormButtonText!: string;
 	domainsList: string[] = [];
-	alternativeKeyRemovedSubscription: Subscription;
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
@@ -37,7 +38,7 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		private readonly alternativeKeyService: MasterdataAlternativeKeyService
 	) {
 		this.isLoading = true;
-		this.alternativeKeyRemovedSubscription = this.alternativeKeyService.alternativeKeyRemoved$.subscribe({
+		this.alternativeKeyService.alternativeKeyRemoved$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.loadDomainsList();
 				this.isLoading = false;
@@ -61,9 +62,8 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.alternativeKeyRemovedSubscription) {
-			this.alternativeKeyRemovedSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	// convenience getter for easy access to form fields

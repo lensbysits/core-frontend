@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastService } from "@lens/app-abstract";
 import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { IMasterdataRelatedItemCreate } from "../../../../../core/interfaces";
 import { Masterdata, MasterdataRelatedItemGroupedByTypeItem } from "../../../../../core/models";
 import { ICurrentMasterdata, MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../../core/services";
@@ -14,6 +14,8 @@ import { getRequiredFieldValue } from "../../../../../core/utils";
 	styleUrls: ["./add-new-items.component.scss"]
 })
 export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	showSelection = false;
 	typeMasterdataItems: Masterdata[] = [];
@@ -21,7 +23,6 @@ export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDes
 	dataForm!: FormGroup;
 	isFormSubmitted = false;
 	currentMasterdata: ICurrentMasterdata = {};
-	relatedItemsSubscription: Subscription;
 
 	@Input() public typeId = "";
 	@Input() public relatedItems: MasterdataRelatedItemGroupedByTypeItem[] = [];
@@ -34,7 +35,7 @@ export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDes
 		private readonly translateService: TranslateService
 	) {
 		this.isLoading = true;
-		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+		this.relatedItemsService.relatedItems$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.currentMasterdata = this.relatedItemsService.CurrentMasterdata;
 				this.isLoading = false;
@@ -51,9 +52,8 @@ export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDes
 	}
 
 	ngOnDestroy() {
-		if (this.relatedItemsSubscription) {
-			this.relatedItemsSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	// convenience getter for easy access to form fields

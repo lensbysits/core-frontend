@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { MasterdataType } from "../../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../../../core/services";
 
@@ -9,14 +9,15 @@ import { MasterdataCrudHttpService, MasterdataRelatedItemsService } from "../../
 	styleUrls: ["./select-type.component.scss"]
 })
 export class MasterdataRelatedItemsSelectTypeComponent implements OnInit, OnDestroy {
+	private destroy$ = new Subject<void>();
+
 	isLoading = false;
 	typesList: MasterdataType[] = [];
 	typesListAvailable: MasterdataType[] = [];
-	relatedItemsSubscription: Subscription;
 
 	constructor(private readonly service: MasterdataCrudHttpService, private readonly relatedItemsService: MasterdataRelatedItemsService) {
 		this.isLoading = true;
-		this.relatedItemsSubscription = this.relatedItemsService.relatedItems$.subscribe({
+		this.relatedItemsService.relatedItems$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.typesListAvailable = this.setTypesListAvailable(this.typesList);
 				this.isLoading = false;
@@ -31,9 +32,8 @@ export class MasterdataRelatedItemsSelectTypeComponent implements OnInit, OnDest
 	}
 
 	ngOnDestroy() {
-		if (this.relatedItemsSubscription) {
-			this.relatedItemsSubscription.unsubscribe();
-		}
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	loadTypesList() {
