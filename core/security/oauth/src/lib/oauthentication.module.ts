@@ -1,8 +1,9 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
 import { AppConfigurationService, UserContextService } from "@lens/app-abstract";
 import { AuthenticationService, AuthGuard } from "@lens/security-abstract";
+import { AuthInterceptor, AuthModule, AutoLoginAllRoutesGuard, LogLevel, OpenIdConfiguration, StsConfigLoader, StsConfigStaticLoader } from "angular-auth-oidc-client";
 import { AuthenticationRedirectComponent } from "./components";
 import { OAuthenticationService, UserContextService as oAuthUserContextService } from "./services";
 
@@ -23,7 +24,8 @@ function appOAuthConfigurationFactory(appConfigurationService: AppConfigurationS
 		postLogoutRedirectUri: appConfigurationService.getSettings<string>("identity.client.auth.postLogoutRedirectUri"),
 		clientId: appConfigurationService.getSettings<string>("identity.client.auth.clientId"),
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		scope: appConfigurationService.getSettings<any>("identity.guard.scopes").scopes.join(" "),
+		scope: appConfigurationService.getSettings<any>("identity.guard.authRequest").scopes.join(" "),
+		secureRoutes: Object.values(appConfigurationService.getSettings<any>("api")),
 		responseType: "code",
 		silentRenew: true,
 		useRefreshToken: true,
@@ -52,6 +54,7 @@ export class OAuthenticationModule {
 		return {
 			ngModule: OAuthenticationModule,
 			providers: [
+				{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 				{ provide: APP_OAUTH_CONFIGURATION, useFactory: appOAuthConfigurationFactory, deps: [AppConfigurationService] },
 				{ provide: AuthenticationService, useExisting: OAuthenticationService },
 				{ provide: UserContextService, useClass: oAuthUserContextService },

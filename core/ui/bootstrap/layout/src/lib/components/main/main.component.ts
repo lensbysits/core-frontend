@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Renderer2 } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService
+	LayoutConfigurationService,
+	LayoutService
 } from "@lens/app-abstract";
 import { WindowService } from "../../services/window.service";
-//import { MenuService } from "../menu/menu.service";
 
 @Component({
 	selector: "ui-main",
@@ -13,15 +13,15 @@ import { WindowService } from "../../services/window.service";
 export class AppMainComponent implements AfterViewInit {
 	assetsPath = "../assets/bootstrap/images/";
 	layoutConfiguration: ILayoutConfiguration = {};
-	isMiniSidebar$ = this.windowService.isMiniSidebar$;
-	sidebarType: "full" | "mini-sidebar" = "full";
-	sidebarToggler = false;
+	topbarItemClick = false;
+	activeTopbarItem: any;
+	showMobileSidebar = false;
+	showSearchbox = false;
 
 	constructor(
-		public readonly renderer: Renderer2,
-		//private readonly menuService: MenuService,
-		readonly layoutConfigurationService: LayoutConfigurationService,
-		private readonly windowService: WindowService
+		private readonly layoutConfigurationService: LayoutConfigurationService,
+		private readonly windowService: WindowService,
+		public readonly layoutService: LayoutService
 	) {
 		layoutConfigurationService.layoutConfiguration$.subscribe(
 			(config) => (this.layoutConfiguration = config)
@@ -30,13 +30,50 @@ export class AppMainComponent implements AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.windowService.isMiniSidebar$.subscribe((data) => {
-			this.sidebarType = data ? "mini-sidebar" : "full";
+			this.layoutService.SidebarType = data ? "mini-sidebar" : "full";
 		});
 	}
 
-	onSidebarTogglerClick() {
-		this.sidebarToggler = !this.sidebarToggler;
-		this.sidebarType =
-			this.sidebarType === "mini-sidebar" ? "full" : "mini-sidebar";
+	onLayoutClick() {
+		if (!this.topbarItemClick) {
+			this.activeTopbarItem = null;
+		}
+
+		this.topbarItemClick = false;
+	}
+
+	onTopbarItemClick(event: any, item: any): void {
+		this.topbarItemClick = true;
+
+		const itemId = item?.id ?? null;
+		if (itemId === "mobileSidebarToggler") {
+			this.showMobileSidebar = !this.showMobileSidebar;
+		} else if (itemId === "sidebarToggler") {
+			this.toggleSideBarType();
+		}
+
+		if (this.activeTopbarItem === item) {
+			this.activeTopbarItem = null;
+		} else {
+			this.activeTopbarItem = item;
+		}
+		event.preventDefault();
+	}
+
+	onTopbarSubItemClick(event: any) {
+		event.preventDefault();
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	onSearchboxItemClick(event: any, item: any) {
+		this.showSearchbox = !this.showSearchbox;
+		event.preventDefault();
+	}
+
+	private toggleSideBarType() {
+		this.layoutService.SidebarType =
+			this.layoutService.SidebarType === "mini-sidebar"
+				? "full"
+				: "mini-sidebar";
 	}
 }

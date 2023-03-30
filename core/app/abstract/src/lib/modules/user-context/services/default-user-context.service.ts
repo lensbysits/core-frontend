@@ -1,7 +1,8 @@
 import { Inject, Injectable, InjectionToken, OnDestroy, Optional } from "@angular/core";
 import { UserContextService } from "./user-context.service";
-import { Observable, map, Subject, BehaviorSubject } from "rxjs";
-import { UserData } from "../models";
+import { Observable, map, Subject, BehaviorSubject, tap, of } from "rxjs";
+import { Claim, UserData } from "../models";
+import { AdditionalClaimsService } from "./additional-claims.service";
 
 export const DEFAULT_USER = new InjectionToken<{ UserData: UserData; IsAuthenticated: boolean }>("AppInfo");
 
@@ -17,6 +18,29 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	public userData$ = this.userDataSubject.asObservable();
 	public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
+	private _additionalClaimsObservable?: Observable<Claim[]>;
+	private get additionalClaimsObservable(): Observable<Claim[]> {
+		if (this._additionalClaimsObservable) {
+			return this._additionalClaimsObservable;
+		}
+
+		if (!this.additionalClaimsService) {
+			console.warn("Trying to retrieve additional claims, but no AdditionalClaimService is defined.");
+			return of([]);
+		}
+
+		this._additionalClaimsObservable = this.additionalClaimsService.retrieveAdditionalClaims().pipe(
+			tap(claims => {
+				this.addClaims(claims);
+				this.additionalClaimsLoaded = true;
+				this.changedSubject.next();
+			})
+		);
+		return this._additionalClaimsObservable;
+	}
+
+	private additionalClaimsLoaded = false;
+
 	public get UserData(): UserData {
 		return this.userDataSubject?.value;
 	}
@@ -31,32 +55,77 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		this.isAuthenticatedSubject.next(isAuthenticated);
 	}
 
-	constructor(@Optional() @Inject(DEFAULT_USER) defaultUser?: { UserData: UserData; IsAuthenticated: boolean }) {
+	constructor(
+		@Optional() private readonly additionalClaimsService: AdditionalClaimsService,
+		@Optional() @Inject(DEFAULT_USER) defaultUser?: { UserData: UserData; IsAuthenticated: boolean }
+	) {
 		super();
 		if (defaultUser) {
 			this.Set(defaultUser.UserData, defaultUser.IsAuthenticated);
 		}
 	}
 
-	IsInRole$(role: string): Observable<boolean> {
-		return this.userDataSubject.pipe(map((userData) => this.IsInRoleInternal(userData, role)));
+	IsInRole$(roles: string | string[]): Observable<boolean> {
+		return this.userDataSubject.pipe(
+      map((userData) => this.IsInRoleInternal(userData, roles)));
 	}
 
-	IsInRole = (role: string): boolean => this.IsInRoleInternal(this.UserData, role);
+	IsInRole = (roles: string | string[]): boolean => this.IsInRoleInternal(this.UserData, roles);
 
-	private IsInRoleInternal = (userData: UserData, role: string): boolean => this.UserData.Roles?.includes(role) ?? false;
+	private IsInRoleInternal(userData: UserData, roles: string | string[]): boolean {
+    let temp: string[] = [];
+		if (roles.constructor !== Array) {
+			temp = [ <string>roles ];
+		} else {
+			temp = roles;
+		}
 
-	HasClaim$(claim: string): Observable<boolean> {
-		return this.userDataSubject.pipe(map((userData) => this.HasClaimInternal(userData, claim)));
+		return temp.every(role => this.UserData.Roles?.includes(role) ?? false);
 	}
 
-	HasClaim = (claim: string): boolean => this.HasClaimInternal(this.UserData, claim);
+	public hasClaims$(claims: Claim | Claim[]): Observable<boolean> {
+		if (this.additionalClaimsLoaded) {
+			return of(this.hasClaims(claims));
+		}
 
-	private HasClaimInternal = (userData: UserData, claim: string): boolean => (userData.Claims?.findIndex((c) => c.name === claim) ?? -1) > -1;
+		return this.additionalClaimsObservable.pipe(
+			map(() => {
+				return this.hasClaims(claims);
+			})
+		);
+	}
+
+	public hasClaims(claims: Claim | Claim[]): boolean {
+		let temp: Claim[] = [];
+		if (claims.constructor !== Array) {
+			temp = [ <Claim>claims ];
+		} else {
+			temp = claims;
+		}
+
+		return temp.every(claim => this.hasClaim(claim));
+	}
+
+	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
+
+	private hasClaimInternal = (userData: UserData, claim: Claim): boolean =>
+		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {
 		this.IsAuthenticated = isAuthenticated;
 		this.UserData = { ...this.UserData, ...userData };
+		this.changedSubject.next();
+
+		if (isAuthenticated) {
+			this.additionalClaimsObservable.subscribe();
+		}
+	}
+
+	public addClaims(claims: Claim[]): void {
+		if (!this.UserData.Claims) {
+			this.UserData.Claims = [];
+		}
+		this.UserData.Claims?.push(...claims);
 		this.changedSubject.next();
 	}
 

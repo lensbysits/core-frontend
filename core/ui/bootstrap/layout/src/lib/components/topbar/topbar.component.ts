@@ -1,18 +1,25 @@
 import { Component } from "@angular/core";
 import {
 	ILayoutConfiguration,
-	LayoutConfigurationService
+	LayoutConfigurationService,
+	LayoutService
 } from "@lens/app-abstract";
+import { AppMainComponent } from "../main/main.component";
 
 @Component({
 	selector: "ui-topbar",
 	templateUrl: "./topbar.component.html"
 })
 export class AppTopBarComponent {
-	assetsPath = "../assets/bootstrap/images/";
 	layoutConfiguration: ILayoutConfiguration = {};
 
 	constructor(
-		readonly layoutConfigurationService: LayoutConfigurationService
-	) {}
+		private readonly layoutConfigurationService: LayoutConfigurationService,
+		public readonly layoutService: LayoutService,
+		public readonly appMain: AppMainComponent
+	) {
+		layoutConfigurationService.layoutConfiguration$.subscribe(
+			(config) => (this.layoutConfiguration = config)
+		);
+	}
 }

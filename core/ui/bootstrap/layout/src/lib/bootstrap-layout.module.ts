@@ -1,9 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule, Routes } from "@angular/router";
 
-//import { MenuService } from "./components/menu/menu.service";
 import {
 	AppAbstractModule,
 	ILayoutConfiguration,
@@ -14,25 +13,33 @@ import { AppBreadcrumbsComponent } from "./components/breadcrumbs/breadcrumbs.co
 import { AppFooterComponent } from "./components/footer/footer.component";
 import { AppLeftSideBarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { AppMainComponent } from "./components/main/main.component";
+import { AppMenuComponent } from "./components/menu/menu.component";
+import { AppMenuitemComponent } from "./components/menuitem/menuitem.component";
+import { AppSearchBoxComponent } from "./components/search-box/search-box.component";
 import { AppTopBarComponent } from "./components/topbar/topbar.component";
+import { MenuService } from "./services/menu.service";
 import { WindowService } from "./services/window.service";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		AppAbstractModule,
-		RouterModule.forRoot([]),
 		FormsModule,
+		ReactiveFormsModule,
+		RouterModule.forRoot([]),
 		BootstrapComponentsModule
 	],
 	declarations: [
 		AppMainComponent,
+		AppMenuComponent,
+		AppMenuitemComponent,
 		AppTopBarComponent,
 		AppLeftSideBarComponent,
 		AppBreadcrumbsComponent,
-		AppFooterComponent
+		AppFooterComponent,
+		AppSearchBoxComponent
 	],
-	providers: [WindowService], //MenuService
+	providers: [MenuService, WindowService],
 	exports: [AppMainComponent, RouterModule, AppAbstractModule]
 })
 export class BootstrapLayoutModule {

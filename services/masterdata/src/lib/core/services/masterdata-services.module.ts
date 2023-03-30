@@ -1,9 +1,9 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
 import { AppConfigurationService } from "@lens/app-abstract";
 
-import { API_BASE_URL, MasterdataCrudHttpService } from "./";
+import { API_BASE_URL, MasterdataCrudHttpService, MasterdataRendererService } from "./";
+import { MasterdataAlternativeKeyService } from "../../components/masterdata/alternative-keys";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
 	const result = appConfigurationService.getSettings<string>("api.baseUrl");
@@ -11,14 +11,16 @@ function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): st
 }
 
 @NgModule({
-	imports: [CommonModule, HttpClientModule]
+	imports: [CommonModule]
 })
-export class MasterdataApiClientsModule {
-	public static forRoot(): ModuleWithProviders<MasterdataApiClientsModule> {
+export class MasterdataServicesModule {
+	public static forRoot(): ModuleWithProviders<MasterdataServicesModule> {
 		return {
-			ngModule: MasterdataApiClientsModule,
+			ngModule: MasterdataServicesModule,
 			providers: [
 				MasterdataCrudHttpService,
+				MasterdataRendererService,
+				MasterdataAlternativeKeyService,
 				{
 					provide: API_BASE_URL,
 					useFactory: apiBaseUrlFactory,

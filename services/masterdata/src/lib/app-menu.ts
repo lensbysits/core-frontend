@@ -2,10 +2,10 @@ import { MenuItem } from "@lens/app-abstract";
 
 export const menu: MenuItem[] = [
 	{
-		label: "Manage masterdata",
+		translationKey: "menu.title",
 		items: [
 			{
-				label: "Masterdatas",
+				translationKey: "menu.items.masterdata",
 				icon: "pi pi-fw pi-briefcase",
 				routerLink: ["/"]
 			}

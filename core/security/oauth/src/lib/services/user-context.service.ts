@@ -1,15 +1,17 @@
-import { Injectable } from "@angular/core";
-import { DefaultUserContextService, UserData } from "@lens/app-abstract";
+import { Injectable, Optional } from "@angular/core";
+import { AdditionalClaimsService, DefaultUserContextService, UserData } from "@lens/app-abstract";
 import { AuthenticationService } from "@lens/security-abstract";
-import { PublicEventsService } from "angular-auth-oidc-client";
 import { takeUntil } from "rxjs";
 
 @Injectable()
 export class UserContextService extends DefaultUserContextService {
 
 
-  constructor(publicEventsService: PublicEventsService, authenticationService: AuthenticationService) {
-    super();
+  constructor(
+	authenticationService: AuthenticationService,
+	@Optional() additionalClaimsService: AdditionalClaimsService
+  ) {
+    super(additionalClaimsService);
     authenticationService.userData$.pipe(
       takeUntil(this.destroy$)
     )

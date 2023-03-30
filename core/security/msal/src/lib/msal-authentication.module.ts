@@ -12,7 +12,7 @@ import {
 	MSAL_INTERCEPTOR_CONFIG
 } from "@azure/msal-angular";
 import { Configuration, IPublicClientApplication, LogLevel, PublicClientApplication } from "@azure/msal-browser";
-import { AuthenticationService, AuthGuard } from "@lens/security-abstract";
+import { AuthenticationModule, AuthenticationService, AuthGuard } from "@lens/security-abstract";
 import { AppConfigurationService, UserContextService } from "@lens/app-abstract";
 import { MSalAuthenticationService, UserContextService as msalUserContextService } from "./services";
 import { AuthenticationRedirectComponent } from "./components";
@@ -21,6 +21,8 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 function msalInstanceFactory(appConfigurationService: AppConfigurationService): IPublicClientApplication {
 	const clientConfiguration = appConfigurationService.getSettings<Configuration>("identity.client");
 	if (clientConfiguration.cache && clientConfiguration.system?.loggerOptions) {
+		const logLevel = appConfigurationService.getSettings<string>("identity.client.system.loggerOptions.logLevel");
+		clientConfiguration.system.loggerOptions.logLevel = LogLevel[logLevel as keyof typeof LogLevel]
 		clientConfiguration.cache.storeAuthStateInCookie = isIE;
 		clientConfiguration.system.loggerOptions.loggerCallback = loggerCallback;
 	}
@@ -59,7 +61,7 @@ function loggerCallback(logLevel: LogLevel, message: string, containsPii: boolea
 
 @NgModule({
 	declarations: [AuthenticationRedirectComponent],
-	imports: [CommonModule, MsalModule],
+	imports: [CommonModule, MsalModule, AuthenticationModule],
 	providers: [MsalGuard],
 	exports: [MsalModule],
 	bootstrap: []

@@ -1,0 +1,38 @@
+{
+  "name": "framework-core-ui-matero-matero-layout",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/framework/core/ui/matero/matero-layout/src",
+  "prefix": "nx-test",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/framework/core/ui/matero/matero-layout/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/framework/core/ui/matero/matero-layout/**/*.ts",
+          "libs/framework/core/ui/matero/matero-layout/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

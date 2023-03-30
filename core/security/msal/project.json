@@ -1,5 +1,5 @@
 {
-	"name": "msal",
+	"name": "framework-core-security-msal",
 	"projectType": "library",
 	"sourceRoot": "libs/framework/core/security/msal/src",
 	"prefix": "lens",

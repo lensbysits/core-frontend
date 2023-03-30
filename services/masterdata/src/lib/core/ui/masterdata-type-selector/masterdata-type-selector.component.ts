@@ -15,27 +15,17 @@ import { MasterdataType } from "../../models";
 	]
 })
 export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
+	private _value?: KeyValuePair<string, string>;
+
+	public options!: KeyValuePair<string, string>[];
+	@Input() public disabled = false;
+	@Input() public required = false;
+
 	@Input() public set masterdataTypes(value: MasterdataType[]) {
 		this.options = value?.map(masterdataType => ({
 			key: masterdataType.id,
 			value: masterdataType.name
 		}));
-	}
-
-	public options!: KeyValuePair<string, string>[];
-
-	private _value?: KeyValuePair<string, string>;
-	private _disabled!: string;
-
-	public isDisabled = false;
-
-	@Input() public set disabled(value: string) {
-		this.isDisabled = value !== undefined;
-		this._disabled = value;
-	}
-
-	public get disabled(): string {
-		return this._disabled;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
@@ -68,6 +58,6 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	}
 
 	public setDisabledState?(isDisabled: boolean): void {
-		this.isDisabled = isDisabled;
+		this.disabled = isDisabled;
 	}
 }

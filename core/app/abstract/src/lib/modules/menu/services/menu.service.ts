@@ -19,9 +19,10 @@ export class MenuService {
 	) {
 		if (this.userContext) {
 			// Whenever something changes in the UserContext, refresh the menu by refiltering the menuItems.
-			//TODO: Make the filter work again
-			userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems.filter(this.filter, this)));
-			userContext.changed$.subscribe(() => this.menuItems$.next(this.allMenuItems));
+			userContext.changed$.subscribe(() => {
+				const filteredMenuItems = this.allMenuItems.filter(this.filter, this);
+				this.menuItems$.next(filteredMenuItems);
+			});
 		}
 	}
 
@@ -33,9 +34,7 @@ export class MenuService {
 
 		this.allMenuItems.push(...menus);
 
-		//TODO: Make the filter work again
-		this.menuItems$.next(this.allMenuItems);
-		// this.menuItems$.next(this.allMenuItems.filter(this.filter, this));
+		this.menuItems$.next(this.allMenuItems.filter(this.filter, this));
 	}
 
 	public getMenuItems(): Observable<MenuItem[]> {
@@ -55,7 +54,7 @@ export class MenuService {
 
 		if (this.userContext) {
 			// if claim-filter is false, don't show
-			if (navItem.claimfilter && !navItem.claimfilter.some(claim => this.userContext.HasClaim(claim))) {
+			if (navItem.claimfilter && !navItem.claimfilter.some(claim => this.userContext.hasClaims(claim))) {
 				return null;
 			}
 
