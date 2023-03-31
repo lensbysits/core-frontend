@@ -120,7 +120,7 @@
 			},
 			"masterdataUpsert": {
 				"addFormTitle": "Masterdata toevoegen aan type",
-				"editFormTitle": "Masterdata bewerken voor type",
+				"editFormTitle": "Masterdata bewerken voor: ",
 				"buttons": {
 					"btnSubmitAddForm": "Opslaan",
 					"btnSubmitEditForm": "Bijwerken"

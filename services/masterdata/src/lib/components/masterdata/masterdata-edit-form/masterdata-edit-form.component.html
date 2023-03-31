@@ -1,7 +1,5 @@
 <lens-panel
-	header="{{ formHeaderText | translate }} '{{
-		(masterdataType$ | async)?.name
-	}}'">
+	header="{{ formHeaderText | translate }} '{{dataForm.get('name')?.value }}'">
 	<ng-container *ngIf="isAddForm">
 		<div class="form-wrapper">
 			<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
@@ -58,7 +56,7 @@
 			<lens-icon
 				icon="pi-arrow-left"
 				class="mr-2"></lens-icon>
-			<a routerLink="..">
+			<a [routerLink]="isAddForm ? '..' : '../..'">
 				{{ "masterdatamgmt.globals.btnBack" | translate }}
 			</a>
 		</div>

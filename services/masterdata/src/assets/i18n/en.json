@@ -120,7 +120,7 @@
 			},
 			"masterdataUpsert": {
 				"addFormTitle": "Add Masterdata to type",
-				"editFormTitle": "Edit Masterdata to type",
+				"editFormTitle": "Edit Masterdata: ",
 				"buttons": {
 					"btnSubmitAddForm": "Save",
 					"btnSubmitEditForm": "Update"
