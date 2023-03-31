@@ -1,4 +1,3 @@
-//import { MasterdataType as MasterdataTypeApiModel } from '../../api-clients';
 import { IAdapter } from "../../interfaces";
 import { MasterdataAlternativeKey } from "../../models";
 

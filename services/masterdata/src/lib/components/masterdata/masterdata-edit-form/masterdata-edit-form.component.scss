@@ -1,12 +1,8 @@
 .form-wrapper {
-	width: calc((100% - 20px) / 2);
-	display: inline-block;
-	vertical-align: top;
-
-	&:last-child {
-		border-left: 1px solid #eceff1;
-		margin-left: 10px;
-		padding-left: 10px;
+	&:not(.related-items) {
+		width: calc((100% - 20px) / 2);
+		display: inline-block;
+		vertical-align: top;
 	}
 
 	.field {

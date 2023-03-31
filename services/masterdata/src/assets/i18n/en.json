@@ -210,6 +210,46 @@
 					"required": "Key is required.",
 					"maxLength": "Key can be max {{ maxLength }} characters long."
 				}
+			},
+			"masterdataRelatedItemsBox": {
+				"header": "Related Items",
+				"selectType": {
+					"label": "Masterdata Type",
+					"placeholder": "Please choose a masterdata type",
+					"required": "Masterdata Type is required."
+				},
+				"boxTypeChooseRelated": {
+					"buttons": {
+						"btnAdd": "Add New Related Masterdata Items",
+						"btnSave": "Save",
+						"btnDelete": "Delete"
+					},
+					"addForm": {
+						"masterdataItems": {
+							"placeholder": "Please choose at least one masterdata item",
+							"required": "Masterdata Items is required."
+						},
+						"notifications": {
+							"successAdd": {
+								"title": "Add New Related Masterdata Items",
+								"message": "Succesfully associated."
+							}
+						}
+					},
+					"deleteForm": {
+						"title": "Current Related Masterdata Items",
+						"listMasterdataItems": {
+							"filterPlaceholder": "Enter text here to filter masterdata items",
+							"required": "It's required to choose at least one masterdata item."
+						},
+						"notifications": {
+							"successDelete": {
+								"title": "Delete Selected Related Masterdata Items",
+								"message": "Succesfully deleted."
+							}
+						}
+					}
+				}
 			}
 		}
 	}

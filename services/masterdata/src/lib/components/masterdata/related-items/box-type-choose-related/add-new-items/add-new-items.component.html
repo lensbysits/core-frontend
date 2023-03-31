@@ -1,0 +1,64 @@
+<div class="related-items-add-new-items">
+	<lens-button
+		[label]="
+			'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.buttons.btnAdd'
+				| translate
+		"
+		icon="pi pi-plus"
+		type="secondary"
+		[disabled]="isLoading"
+		(clicked)="onAddNewRelatedItems()"></lens-button>
+	<lens-loading-spinner
+		[isLoading]="isLoading"
+		*ngIf="showSelection">
+		<div class="form-wrapper">
+			<div class="p-fluid mb-4">
+				<form [formGroup]="dataForm">
+					<!-- all masterdata items -->
+					<div class="field">
+						<masterdata-items-selector
+							[masterdataItems]="typeMasterdataItemsFiltered"
+							formControlName="masterdataItems"
+							placeholder="{{
+								'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.addForm.masterdataItems.placeholder'
+									| translate
+							}}"></masterdata-items-selector>
+						<div
+							*ngIf="
+								isFormSubmitted && getFormFields['masterdataItems']!.invalid
+							"
+							class="p-error">
+							<div
+								*ngIf="getFormFields['masterdataItems']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.addForm.masterdataItems.required"
+										| translate
+								}}
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="form-actions">
+				<div>
+					<lens-button
+						label="{{
+							'masterdatamgmt.pages.masterdataRelatedItemsBox.boxTypeChooseRelated.buttons.btnSave'
+								| translate
+						}}"
+						icon="pi pi-save"
+						type="success"
+						[disabled]="isLoading"
+						(clicked)="onSubmit()"></lens-button>
+				</div>
+				<div>
+					<lens-button
+						label="{{ 'masterdatamgmt.globals.btnCancel' | translate }}"
+						icon="pi pi-backward"
+						(clicked)="btnCancel()"></lens-button>
+				</div>
+			</div>
+		</div>
+	</lens-loading-spinner>
+</div>

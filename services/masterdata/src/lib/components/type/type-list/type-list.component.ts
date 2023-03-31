@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ILazyLoadEvent } from "@lens/ui-prime-components";
+import { TranslateService } from "@ngx-translate/core";
 import { MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService } from "../../../core/services";
 
@@ -10,7 +10,7 @@ import { MasterdataCrudHttpService } from "../../../core/services";
 	templateUrl: "./type-list.component.html",
 	styleUrls: ["./type-list.component.scss"]
 })
-export class MasterdataTypeListComponent implements OnInit {
+export class MasterdataTypeListComponent {
 	isLoading = false;
 	items: MasterdataType[] = [];
 	totalSize = 0;
@@ -20,9 +20,7 @@ export class MasterdataTypeListComponent implements OnInit {
 		private readonly router: Router,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly translateService: TranslateService
-	) {}
-
-	ngOnInit(): void {
+	) {
 		this.isLoading = true;
 	}
 
@@ -34,8 +32,8 @@ export class MasterdataTypeListComponent implements OnInit {
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -71,8 +69,8 @@ export class MasterdataTypeListComponent implements OnInit {
 				this.totalSize--;
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
