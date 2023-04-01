@@ -2,7 +2,8 @@
 	(click)="onLayoutClick()"
 	[ngClass]="{
 		'mini-sidebar': (layoutService.SidebarType$ | async) === 'mini-sidebar',
-		'show-sidebar': showMobileSidebar
+		'show-sidebar': showMobileSidebar,
+		'hide-menu': layoutConfiguration.hideMenu
 	}"
 	id="main-wrapper"
 	data-layout="vertical"

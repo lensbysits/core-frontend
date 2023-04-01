@@ -1,1 +1,38 @@
 // In this scss you can overwrite all our scss, we suggested you to add your scss into this, so whenever the update comes it will not affect your code.
+
+/*==============================================================
+ Hide Menu Feature
+ ============================================================== */
+#main-wrapper.hide-menu {
+	.navbar-header {
+		display: none;
+	}
+	.topbar {
+		#sidebarToggler {
+			> a {
+				display: none;
+			}
+		}
+		#quickActions {
+			.dropdown-menu {
+				right: auto;
+			}
+		}
+	}
+	.left-sidebar {
+		display: none;
+	}
+	.page-wrapper {
+		margin-left: 0px;
+	}
+}
+
+@include media-breakpoint-up(md) {
+	#main-wrapper[data-layout="vertical"].hide-menu {
+		&[data-sidebartype="mini-sidebar"] {
+			.page-wrapper {
+				margin-left: 0;
+			}
+		}
+	}
+}

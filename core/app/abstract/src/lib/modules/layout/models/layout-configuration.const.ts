@@ -2,6 +2,7 @@ import { ILayoutConfiguration } from "./layout-configuration.interface";
 
 export function CreateLayout(
 	args: ILayoutConfiguration = {
+		hideMenu: false,
 		menuMode: "static",
 		menuColor: "light",
 		profileMode: "top",
@@ -17,6 +18,7 @@ export function CreateLayout(
 	}
 ): ILayoutConfiguration {
 	return {
+		hideMenu: args.hideMenu,
 		menuMode: args.menuMode,
 		menuColor: args.menuColor,
 		profileMode: args.profileMode,
@@ -33,6 +35,7 @@ export function CreateLayout(
 }
 
 export const StaticLightTopLayoutConfiguration: ILayoutConfiguration = {
+	hideMenu: false,
 	menuMode: "static",
 	menuColor: "light",
 	profileMode: "top",
@@ -47,6 +50,7 @@ export const StaticLightTopLayoutConfiguration: ILayoutConfiguration = {
 };
 
 export const StaticDarkTopLayoutConfiguration: ILayoutConfiguration = {
+	hideMenu: false,
 	menuMode: "static",
 	menuColor: "dark",
 	profileMode: "top",
