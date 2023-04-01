@@ -1,0 +1,9 @@
+:host ::ng-deep {
+	.related-items-list-by-type-wrapper.accordion-wrapper {
+		.p-accordion-tab:not(.p-accordion-tab-active) {
+			.p-toggleable-content {
+				overflow: hidden;
+			}
+		}
+	}
+}

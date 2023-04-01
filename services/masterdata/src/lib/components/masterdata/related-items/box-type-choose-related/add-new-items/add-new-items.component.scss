@@ -1,0 +1,28 @@
+:host ::ng-deep {
+	.related-items-add-new-items {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+
+		.p-multiselect {
+			width: 100%;
+		}
+
+		.form-wrapper {
+			.field {
+				div.p-error {
+					font-style: italic;
+				}
+			}
+
+			.form-actions {
+				color: red;
+
+				> div {
+					display: inline-block;
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+}

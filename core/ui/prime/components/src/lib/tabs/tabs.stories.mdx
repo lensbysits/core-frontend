@@ -1,0 +1,33 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./tabs.stories";
+import { Default, Spinner } from "./tabs.stories";
+
+<Meta
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Tabs
+
+This is a nice tabs interface!
+
+<Story story={Default} />
+
+First import `TabsModule` from `@lens/ui-prime-components`.
+
+```html
+	<lens-tabs>
+		<tab-panels>
+			<tab-panel header="tab1-header">
+				<div>tab1 content</div>
+			</tab-panel>
+			<tab-panel header="tab2-header">
+				<div>tab2 content</div>
+			</tab-panel>
+			<tab-panel header="tab3-header">
+				<div>tab3 content</div>
+			</tab-panel>
+		</tab-panels>
+	</lens-tabs>
+```

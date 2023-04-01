@@ -1,0 +1,27 @@
+.related-items-select-type-form {
+	.field {
+		&.view-only {
+			&:not(:last-child) {
+				border-bottom: 1px solid #eceff1;
+			}
+			label {
+				min-width: 20%;
+			}
+		}
+		.help-text {
+			color: red;
+		}
+		div {
+			font-style: italic;
+		}
+	}
+
+	.form-actions {
+		color: red;
+
+		> div {
+			display: inline-block;
+			margin-right: 5px;
+		}
+	}
+}

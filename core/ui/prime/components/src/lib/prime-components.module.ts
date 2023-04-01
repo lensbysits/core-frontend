@@ -1,69 +1,57 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LoadingSpinnerModule } from './loading-indicator/loading-spinner.module';
-import { IconModule } from './icon';
-import { ButtonModule } from './button';
-import { InputTextModule } from './input-text';
-import { InputTextareaModule } from './input-textarea';
-import { InputDateModule } from './input-date';
-import { DropdownModule } from './dropdown';
-import { TableModule } from './table';
-import { ToolbarModule } from './toolbar';
-import { ToastModule } from './toast';
-import { InputEmailModule } from './input-email';
-import { PanelModule } from './panel';
-import { AutoCompleteModule } from './autocomplete';
-import { AutoCompleteTagsModule } from './autocomplete-tags';
-import { DialogModule } from './dialog';
-import { InputChipsModule } from './input-chips';
-import { LanguageSelectorModule } from './language-selector';
-import { InputCheckboxModule } from './input-checkbox';
-import { MultilingualModule } from '@lens/app-abstract';
-import { TreeModule } from './tree';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { MultilingualModule } from "@lens/app-abstract";
+import { AccordionModule } from "./accordion";
+import { AutoCompleteModule } from "./autocomplete";
+import { AutoCompleteTagsModule } from "./autocomplete-tags";
+import { ButtonModule } from "./button";
+import { DialogModule } from "./dialog";
+import { DropdownModule } from "./dropdown";
+import { IconModule } from "./icon";
+import { InputCheckboxModule } from "./input-checkbox";
+import { InputChipsModule } from "./input-chips";
+import { InputDateModule } from "./input-date";
+import { InputEmailModule } from "./input-email";
+import { InputTextModule } from "./input-text";
+import { InputTextareaModule } from "./input-textarea";
+import { LanguageSelectorModule } from "./language-selector";
+import { ListboxModule } from "./listbox";
+import { LoadingSpinnerModule } from "./loading-indicator/loading-spinner.module";
+import { MultiSelectModule } from "./multiselect";
+import { PanelModule } from "./panel";
+import { TableModule } from "./table";
+import { TabsModule } from "./tabs";
+import { ToastModule } from "./toast";
+import { ToolbarModule } from "./toolbar";
+import { TreeModule } from "./tree";
 
+const modules = [
+	AccordionModule,
+	AutoCompleteModule,
+	AutoCompleteTagsModule,
+	ButtonModule,
+	DialogModule,
+	DropdownModule,
+	IconModule,
+	InputCheckboxModule,
+	InputChipsModule,
+	InputDateModule,
+	InputEmailModule,
+	InputTextModule,
+	InputTextareaModule,
+	LanguageSelectorModule,
+	ListboxModule,
+	LoadingSpinnerModule,
+	MultiSelectModule,
+	PanelModule,
+	TableModule,
+	TabsModule,
+	ToastModule,
+	ToolbarModule,
+	TreeModule
+];
 @NgModule({
-	imports: [
-		AutoCompleteModule,
-		AutoCompleteTagsModule,
-		ButtonModule,
-		CommonModule,
-		DropdownModule,
-		IconModule,
-		InputChipsModule,
-		InputDateModule,
-		InputEmailModule,
-		InputTextModule,
-		InputTextareaModule,
-		LoadingSpinnerModule,
-		PanelModule,
-		TableModule,
-		ToastModule,
-		ToolbarModule,
-		DialogModule,
-		LanguageSelectorModule,
-		TreeModule,
-		MultilingualModule.forChild("prime")
-	],
-	exports: [
-		AutoCompleteModule,
-		AutoCompleteTagsModule,
-		ButtonModule,
-		DropdownModule,
-		IconModule,
-		InputChipsModule,
-		InputDateModule,
-		InputEmailModule,
-		InputTextModule,
-		InputTextareaModule,
-		InputCheckboxModule,
-		LoadingSpinnerModule,
-		PanelModule,
-		TableModule,
-		ToastModule,
-		ToolbarModule,
-		DialogModule,
-		LanguageSelectorModule,
-		TreeModule
-	]
+	imports: [...modules, CommonModule, MultilingualModule.forChild("prime")],
+	exports: [...modules]
 })
 export class PrimeComponentsModule {}

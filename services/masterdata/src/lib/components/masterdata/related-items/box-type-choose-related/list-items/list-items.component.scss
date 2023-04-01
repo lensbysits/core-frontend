@@ -1,0 +1,23 @@
+:host ::ng-deep {
+	.related-items-list-items {
+		.related-items-listbox {
+			max-height: 250px;
+		}
+		.form-wrapper {
+			.field {
+				div.p-error {
+					font-style: italic;
+				}
+			}
+
+			.form-actions {
+				color: red;
+
+				> div {
+					display: inline-block;
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+}

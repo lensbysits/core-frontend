@@ -31,10 +31,10 @@ export class LanguageSelectorComponent implements OnInit {
 	public onLanguageChanged(item: any) {
 		const lang = item.value ?? "";
 		if (this.translateService.getLangs().indexOf(lang.value) !== -1) {
-			this.translateService.use(lang.value);
+			this.translateService.use(lang.value).subscribe(() => {
+				this.createAvailableLanguageList();
+			});
 		}
-
-		this.createAvailableLanguageList();
 	}
 
 	private createAvailableLanguageList() {

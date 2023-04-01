@@ -6,7 +6,7 @@ import { MasterdataAlternativeKeyModelAdapter } from "./alternative-key-model.ad
 export class MasterdataAlternativeKeyResultListModelAdapter implements IAdapter<any, MasterdataAlternativeKeyResultList> {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adapt(source: any): MasterdataAlternativeKeyResultList {
-		const masterdataAlternativekeyModelAdapter = new MasterdataAlternativeKeyModelAdapter();
+		const masterdataAlternativeKeyModelAdapter = new MasterdataAlternativeKeyModelAdapter();
 		if (!source) {
 			return {
 				totalSize: 0,
@@ -15,7 +15,7 @@ export class MasterdataAlternativeKeyResultListModelAdapter implements IAdapter<
 		}
 		return {
 			totalSize: source.totalSize,
-			value: source.value?.map((item: MasterdataAlternativeKey) => masterdataAlternativekeyModelAdapter.adapt(item))
+			value: source.value?.map((item: MasterdataAlternativeKey) => masterdataAlternativeKeyModelAdapter.adapt(item))
 		};
 	}
 }

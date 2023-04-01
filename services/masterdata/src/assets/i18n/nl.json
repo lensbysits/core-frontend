@@ -15,8 +15,8 @@
 				"demoText": "masterdata dashboard"
 			},
 			"masterdataTypeList": {
-				"header": "Totaal aantal stamgegevens typen",
-				"deleteRowConfirmation": "Weet je het zeker?",
+				"header": "Totaal aantal masterdata types",
+				"deleteRowConfirmation": "Weet u het zeker?",
 				"tableColumns": {
 					"code": "Code",
 					"name": "Naam",
@@ -24,64 +24,64 @@
 					"description": "Beschrijving"
 				},
 				"buttons": {
-					"btnAddNewType": "Type stamgegevens toevoegen",
-					"btnView": "Bekijk stamgegevens",
-					"btnAdd": "Stamgegevens toevoegen",
+					"btnAddNewType": "Nieuw masterdata type toevoegen",
+					"btnView": "Bekijk masterdata",
+					"btnAdd": "Masterdata toevoegen",
 					"btnEdit": "Bewerken",
 					"btnDelete": "Verwijderen"
 				}
 			},
 			"masterdataTypeDetails": {
-				"header": "Type stamgegevens Details",
+				"header": "Details masterdata type",
 				"modelFields": {
 					"id": "Id",
 					"code": "Code",
 					"name": "Naam",
 					"description": "Beschrijving",
-					"metadata": "Metagegevens",
-					"masterdatasCount": "Stamgegevens aantal"
+					"metadata": "Metadata",
+					"masterdatasCount": "Aantal masterdata"
 				}
 			},
 			"masterdataTypeUpsert": {
-				"addFormTitle": "Type stamgegevens toevoegen",
-				"editFormTitle": "Type stamgegevens bewerken",
+				"addFormTitle": "Masterdata type toevoegen",
+				"editFormTitle": "Masterdata type bewerken",
 				"buttons": {
 					"btnSubmitAddForm": "Opslaan",
 					"btnSubmitEditForm": "Bijwerken"
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "Stamgegevens type toevoegen",
-						"message": "Het stamgegevens type is succesvol toegevoegd."
+						"title": "Masterdata type toevoegen",
+						"message": "Het masterdata type is succesvol toegevoegd."
 					},
 					"successEdit": {
-						"title": "Stamgegevens type bijwerken",
-						"message": "Het stamgegevens type is met succes bijgewerkt."
+						"title": "Masterdata type bijwerken",
+						"message": "Het masterdata type is succesvol bijgewerkt."
 					}
 				},
 				"code": {
 					"label": "Code",
 					"placeholder": "Voer een geldige code in",
-					"required": "Code is vereist.",
-					"maxLength": "Code kan maximaal {{ maxLength }} tekens lang zijn."
+					"required": "Code is verplicht.",
+					"maxLength": "De code kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"name": {
 					"label": "Naam",
 					"placeholder": "Voer een geldige naam in",
-					"required": "Naam is vereist.",
-					"maxLength": "Naam kan maximaal {{ maxLength }} tekens lang zijn."
+					"required": "Naam is verplicht.",
+					"maxLength": "De naam kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"description": {
 					"label": "Beschrijving",
 					"placeholder": "Voer een geldige beschrijving in",
 					"required": "Beschrijving is verplicht.",
-					"maxLength": "Beschrijving kan maximaal {{ maxLength }} tekens lang zijn."
+					"maxLength": "De beschrijving kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"metadata": {
-					"label": "Metagegevens",
-					"helpText": "* als u een (sleutel, waarde) paar wilt verwijderen, stelt u de waarde in op null",
-					"required": "Metagegevens zijn vereist.",
-					"maxLength": "Metagegevens kunnen maximaal {{ maxLength }} tekens lang zijn."
+					"label": "Metadata",
+					"helpText": "* als je een (key, value) paar wilt verwijderen, zet de waarde dan op null",
+					"required": "Metadata is verplicht.",
+					"maxLength": "Metadata kan maximaal {{ maxLength }} tekens lang zijn."
 				}
 			},
 			"masterdataList": {
@@ -91,20 +91,20 @@
 					"value": "Waarde",
 					"name": "Naam",
 					"description": "Beschrijving",
-					"tags": "Labels",
-					"count": "Sleutels aantal"
+					"tags": "Tags",
+					"count": "Aantal sleutels"
 				},
 				"buttons": {
-					"btnAddNew": "Stamgegevens toevoegen",
+					"btnAddNew": "Masterdata toevoegen",
 					"btnEdit": "Bewerken",
 					"btnDelete": "Verwijderen"
 				},
 				"tagsSelector": {
-					"placeholder": "Hier kun je filteren op labels"
+					"placeholder": "Hier kun je filteren op tags"
 				}
 			},
 			"masterdataDetails": {
-				"header": "Stamgegevens Details",
+				"header": "Details masterdata",
 				"alternativeKey": "Alternatieve sleutels",
 				"modelFields": {
 					"id": "Id",
@@ -114,47 +114,47 @@
 					"value": "Waarde",
 					"name": "Naam",
 					"description": "Beschrijving",
-					"metadata": "Metagegevens",
-					"tags": "Labels"
+					"metadata": "Metadata",
+					"tags": "Tags"
 				}
 			},
 			"masterdataUpsert": {
-				"addFormTitle": "Stamgegevens toevoegen aan type",
-				"editFormTitle": "Stamgegevens bewerken om te typen",
+				"addFormTitle": "Masterdata toevoegen aan type",
+				"editFormTitle": "Masterdata bewerken voor: ",
 				"buttons": {
 					"btnSubmitAddForm": "Opslaan",
 					"btnSubmitEditForm": "Bijwerken"
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "Stamgegevens toevoegen",
-						"message": "De stamgegevens zijn succesvol toegevoegd."
+						"title": "Masterdata toevoegen",
+						"message": "De masterdata is succesvol toegevoegd."
 					},
 					"successEdit": {
-						"title": "Stamgegevens bijwerken",
-						"message": "De stamgegevens zijn succesvol bijgewerkt."
+						"title": "Masterdata bijwerken",
+						"message": "De masterdata is succesvol bijgewerkt."
 					}
 				},
 				"type": {
-					"label": "Type stamgegevens",
-					"required": "Stamgegevenstype is vereist."
+					"label": "Masterdata Type",
+					"required": "Masterdata Type is verplicht."
 				},
 				"key": {
 					"label": "Sleutel",
 					"placeholder": "Voer een geldige sleutel in",
-					"required": "Sleutel is vereist.",
+					"required": "Sleutel is verplicht.",
 					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"value": {
 					"label": "Waarde",
 					"placeholder": "Voer een geldige waarde in",
-					"required": "Waarde is vereist.",
+					"required": "Waarde is verplicht.",
 					"maxLength": "Waarde kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"name": {
 					"label": "Naam",
 					"placeholder": "Voer een geldige naam in",
-					"required": "Naam is vereist.",
+					"required": "Naam is verplicht.",
 					"maxLength": "Naam kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"description": {
@@ -165,21 +165,21 @@
 				},
 				"metadata": {
 					"label": "Metagegevens",
-					"helpText": "* als u een (sleutel, waarde) paar wilt verwijderen, stelt u de waarde in op null",
-					"required": "Metagegevens zijn vereist.",
+					"helpText": "* om een (sleutel, waarde) paar te verwijderen, stelt u de waarde in op null",
+					"required": "Metagegevens zijn verplicht.",
 					"maxLength": "Metagegevens kunnen maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"tags": {
 					"label": "Labels",
-					"placeholder": "Hier kun je labels invoegen",
-					"required": "Labels zijn vereist."
+					"placeholder": "Hier kunt u labels invoegen",
+					"required": "Labels zijn verplicht."
 				}
 			},
 			"masterdataAlternativeKeyBox": {
 				"header": "Alternatieve sleutels"
 			},
 			"masterdataAlternativeKeyList": {
-				"deleteRowConfirmation": "Weet je het zeker?",
+				"deleteRowConfirmation": "Weet u het zeker?",
 				"tableColumns": {
 					"domain": "Domein",
 					"key": "Sleutel"
@@ -194,21 +194,61 @@
 				},
 				"notifications": {
 					"successAdd": {
-						"title": "Alternatieve sleutel voor masterdata toevoegen",
+						"title": "Alternatieve sleutel voor stamgegevens toevoegen",
 						"message": "De alternatieve sleutel voor stamgegevens is succesvol toegevoegd."
 					}
 				},
 				"domain": {
 					"label": "Domein",
 					"placeholder": "Voer een geldig domein in",
-					"required": "Domein is vereist.",
-					"maxLength": "Domein mag maximaal {{ maxLength }} tekens lang zijn."
+					"required": "Domein is verplicht.",
+					"maxLength": "Domein kan maximaal {{ maxLength }} tekens lang zijn."
 				},
 				"key": {
 					"label": "Sleutel",
 					"placeholder": "Voer een geldige sleutel in",
-					"required": "Sleutel is vereist.",
+					"required": "Sleutel is verplicht.",
 					"maxLength": "Sleutel kan maximaal {{ maxLength }} tekens lang zijn."
+				}
+			},
+			"masterdataRelatedItemsBox": {
+				"header": "Gerelateerde items",
+				"selectType": {
+					"label": "Type stamgegevens",
+					"placeholder": "Kies a.u.b. een type stamgegevens",
+					"required": "Masterdatatype is verplicht."
+				},
+				"boxTypeChooseRelated": {
+					"buttons": {
+						"btnAdd": "Nieuwe gerelateerde stamgegevensitems toevoegen",
+						"btnSave": "Opslaan",
+						"btnDelete": "Verwijderen"
+					},
+					"addForm": {
+						"masterdataItems": {
+							"placeholder": "Kies minstens één masterdata-item",
+							"required": "Masterdata-items zijn verplicht."
+						},
+						"notifications": {
+							"successAdd": {
+								"title": "Nieuwe gerelateerde masterdata-items toevoegen",
+								"message": "Succesvol gekoppeld."
+							}
+						}
+					},
+					"deleteForm": {
+						"title": "Huidige gerelateerde masterdata-items",
+						"listMasterdataItems": {
+							"filterPlaceholder": "Voer hier tekst in om masterdata-items te filteren",
+							"required": "Er moet minstens één masterdata-item worden gekozen."
+						},
+						"notifications": {
+							"successDelete": {
+								"title": "Geselecteerde gerelateerde masterdata-items verwijderen",
+								"message": "Succesvol verwijderd."
+							}
+						}
+					}
 				}
 			}
 		}
