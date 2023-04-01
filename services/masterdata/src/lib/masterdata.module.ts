@@ -1,40 +1,59 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
+import { RouterModule } from "@angular/router";
 import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abstract";
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
+import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
 
-import { MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule } from "./core/ui";
-import { MasterdataServicesModule } from "./core/services";
+import { menu } from "./app-menu";
+import { masterdataRoutes } from "./app-routes";
 import {
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsAddNewItemsComponent,
+	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
+	MasterdataRelatedItemsComponent,
+	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsListItemsComponent,
+	MasterdataRelatedItemsSelectTypeComponent,
+	MasterdataRelatedItemsViewOnlyComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
-	MasterdataAlternativeKeyComponent,
-	MasterdataAlternativeKeyAddComponent,
-	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
 	MasterdataTypeListComponent
 } from "./components";
-import { menu } from "./app-menu";
-import { masterdataRoutes } from "./app-routes";
+import { MasterdataServicesModule } from "./core/services";
+import {
+	MasterdataAlternativeKeyDomainSelectorModule,
+	MasterdataItemsSelectorModule,
+	MasterdataTypeSelectorModule,
+	TagsSelectorModule
+} from "./core/ui";
 
 const components = [
+	MasterdataAlternativeKeyAddComponent,
+	MasterdataAlternativeKeyComponent,
+	MasterdataAlternativeKeyListComponent,
 	MasterdataDashboardComponent,
+	MasterdataRelatedItemsAddNewItemsComponent,
+	MasterdataRelatedItemsBoxTypeChooseRelatedComponent,
+	MasterdataRelatedItemsComponent,
+	MasterdataRelatedItemsListByTypeComponent,
+	MasterdataRelatedItemsListItemsComponent,
+	MasterdataRelatedItemsSelectTypeComponent,
+	MasterdataRelatedItemsViewOnlyComponent,
 	MasterdatasDetailsComponent,
 	MasterdatasEditFormComponent,
-	MasterdataAlternativeKeyComponent,
-	MasterdataAlternativeKeyAddComponent,
-	MasterdataAlternativeKeyListComponent,
 	MasterdatasListComponent,
 	MasterdataTypeDetailsComponent,
-	MasterdataTypeListComponent,
-	MasterdataTypeEditFormComponent
+	MasterdataTypeEditFormComponent,
+	MasterdataTypeListComponent
 ];
 
 @NgModule({
@@ -45,6 +64,7 @@ const components = [
 		FormsModule,
 		ReactiveFormsModule,
 		PrimeComponentsModule,
+		MasterdataItemsSelectorModule,
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
 		MasterdataAlternativeKeyDomainSelectorModule,
@@ -53,7 +73,7 @@ const components = [
 		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
-	exports: [MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
+	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {

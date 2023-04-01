@@ -1,0 +1,7 @@
+<p-accordion [activeIndex]="activeIndex">
+	<p-accordionTab
+		*ngFor="let panel of panels.panels"
+		header="{{ panel.header }}">
+		<ng-template [ngTemplateOutlet]="panel.template"></ng-template>
+	</p-accordionTab>
+</p-accordion>

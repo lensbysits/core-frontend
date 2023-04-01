@@ -1,0 +1,33 @@
+<ng-container
+	*ngIf="
+		display === 'chip';
+		then displayChip;
+		else displayDefault
+	"></ng-container>
+
+<ng-template #displayDefault>
+	<p-multiSelect
+		(onChange)="onMultiSelectChanged($event)"
+		[inputId]="id"
+		[options]="options"
+		[placeholder]="placeholder!"
+		[optionValue]="optionValue"
+		[optionLabel]="optionLabel"
+		[optionDisabled]="optionDisabled"
+		[disabled]="disabled"
+		[readonly]="readonly"></p-multiSelect>
+</ng-template>
+
+<ng-template #displayChip>
+	<p-multiSelect
+		(onChange)="onMultiSelectChanged($event)"
+		[inputId]="id"
+		[options]="options"
+		[placeholder]="placeholder!"
+		[optionValue]="optionValue"
+		[optionLabel]="optionLabel"
+		[optionDisabled]="optionDisabled"
+		[disabled]="disabled"
+		[readonly]="readonly"
+		display="chip"></p-multiSelect>
+</ng-template>
