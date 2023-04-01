@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { AppConfigurationService } from '@lens/app-abstract';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../shared';
-import { AppSettings, defaults } from '../settings';
+import { AppSettings, defaults, layoutDefaults, LayoutSettings } from '../settings';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ export class SettingsService {
   private key = 'ng-matero-settings';
 
   private options: AppSettings;
+  private layoutSettings: LayoutSettings;
 
   private readonly notify$ = new BehaviorSubject<Partial<AppSettings>>({});
 
@@ -17,13 +19,18 @@ export class SettingsService {
     return this.notify$.asObservable();
   }
 
-  constructor(private store: LocalStorageService) {
+  constructor(private store: LocalStorageService, private appConfigurationService: AppConfigurationService) {
     const storedOptions = this.store.get(this.key);
     this.options = Object.assign(defaults, storedOptions);
+    this.layoutSettings = Object.assign(layoutDefaults, appConfigurationService.getSettings("layout"));
   }
 
   getOptions(): AppSettings {
     return this.options;
+  }
+
+  getLayoutSettings(): LayoutSettings {
+    return this.layoutSettings;
   }
 
   setOptions(options: AppSettings) {

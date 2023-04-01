@@ -13,7 +13,11 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	private readonly changedSubject: Subject<void> = new Subject();
 	private readonly userDataSubject: BehaviorSubject<UserData> = new BehaviorSubject(this.UserData);
 	private readonly isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-	
+
+	public changed$ = this.changedSubject.asObservable();
+	public userData$ = this.userDataSubject.asObservable();
+	public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+
 	private _additionalClaimsObservable?: Observable<Claim[]>;
 	private get additionalClaimsObservable(): Observable<Claim[]> {
 		if (this._additionalClaimsObservable) {
@@ -34,10 +38,6 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		);
 		return this._additionalClaimsObservable;
 	}
-
-	public changed$ = this.changedSubject.asObservable();
-	public userData$ = this.userDataSubject.asObservable();
-	public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
 	private additionalClaimsLoaded = false;
 
@@ -65,13 +65,23 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		}
 	}
 
-	IsInRole$(role: string): Observable<boolean> {
-		return this.userDataSubject.pipe(map((userData) => this.IsInRoleInternal(userData, role)));
+	IsInRole$(roles: string | string[]): Observable<boolean> {
+		return this.userDataSubject.pipe(
+      map((userData) => this.IsInRoleInternal(userData, roles)));
 	}
 
-	IsInRole = (role: string): boolean => this.IsInRoleInternal(this.UserData, role);
+	IsInRole = (roles: string | string[]): boolean => this.IsInRoleInternal(this.UserData, roles);
 
-	private IsInRoleInternal = (userData: UserData, role: string): boolean => this.UserData.Roles?.includes(role) ?? false;
+	private IsInRoleInternal(userData: UserData, roles: string | string[]): boolean {
+    let temp: string[] = [];
+		if (roles.constructor !== Array) {
+			temp = [ <string>roles ];
+		} else {
+			temp = roles;
+		}
+
+		return temp.every(role => this.UserData.Roles?.includes(role) ?? false);
+	}
 
 	public hasClaims$(claims: Claim | Claim[]): Observable<boolean> {
 		if (this.additionalClaimsLoaded) {
@@ -92,13 +102,13 @@ export class DefaultUserContextService extends UserContextService implements OnD
 		} else {
 			temp = claims;
 		}
-		
+
 		return temp.every(claim => this.hasClaim(claim));
 	}
 
 	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
 
-	private hasClaimInternal = (userData: UserData, claim: Claim): boolean => 
+	private hasClaimInternal = (userData: UserData, claim: Claim): boolean =>
 		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {

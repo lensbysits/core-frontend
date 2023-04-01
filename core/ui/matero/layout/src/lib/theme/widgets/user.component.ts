@@ -56,7 +56,7 @@ export class UserComponent implements OnInit {
     this.userContext
       .userData$
       .pipe(
-        tap(user => (this.user = { name: user.Username })),
+        tap(user => (this.user = { name: user.Username, avatar: "https://i.pravatar.cc/300" })),
         debounceTime(10)
       )
       .subscribe(() => this.cdr.detectChanges());

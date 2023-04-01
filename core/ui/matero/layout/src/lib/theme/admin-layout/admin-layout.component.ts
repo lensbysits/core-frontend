@@ -33,6 +33,7 @@ export class AdminLayoutComponent implements OnDestroy {
   @ViewChild('content', { static: true }) content!: MatSidenavContent;
 
   options = this.settings.getOptions();
+  layoutSettings = this.settings.getLayoutSettings();
 
   private layoutChangesSubscription = Subscription.EMPTY;
 

@@ -7,7 +7,9 @@ import {
   ViewEncapsulation,
   HostBinding,
 } from '@angular/core';
+import { AppConfigurationService } from '@lens/app-abstract';
 import screenfull from 'screenfull';
+import { layoutDefaults, LayoutSettings, SettingsService } from '../../core';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +26,12 @@ export class HeaderComponent {
 
   @Output() toggleSidenav = new EventEmitter<void>();
   @Output() toggleSidenavNotice = new EventEmitter<void>();
+
+  layoutSettings: LayoutSettings = layoutDefaults
+
+  constructor(private settings: SettingsService) {
+    this.layoutSettings = settings.getLayoutSettings();
+  }
 
   toggleFullscreen() {
     if (screenfull.isEnabled) {

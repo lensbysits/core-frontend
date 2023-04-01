@@ -21,3 +21,21 @@ export const defaults: AppSettings = {
   sidenavCollapsed: false,
   language: 'en-US',
 };
+
+export interface LayoutSettings {
+  searchbar: boolean;
+  fullscreen: boolean;
+  notification: boolean;
+  notificationSidebar: boolean;
+  translate: boolean;
+  showUserPanel: boolean;
+}
+
+export const layoutDefaults: LayoutSettings = {
+  searchbar: true,
+  fullscreen: true,
+  notification: true,
+  notificationSidebar: true,
+  translate: true,
+  showUserPanel: true
+};

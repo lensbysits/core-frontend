@@ -35,7 +35,7 @@ export abstract class BaseToken {
   }
 
   getRefreshTime(): number {
-    return timeLeft((this.exp ?? 0) - 5);
+    return timeLeft((<any>this.exp ?? 0) - 5);
   }
 
   private hasAccessToken(): boolean {
@@ -43,7 +43,7 @@ export abstract class BaseToken {
   }
 
   private isExpired(): boolean {
-    return this.exp !== undefined && this.exp - currentTimestamp() <= 0;
+    return this.exp !== undefined && <any>this.exp - currentTimestamp() <= 0;
   }
 }
 

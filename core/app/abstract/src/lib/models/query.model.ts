@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { IQueryModel } from "../interfaces";
+import { IQueryModel } from './query.model.interface';
 
 export class QueryModel implements IQueryModel {
 	offset?: number | null | undefined;
