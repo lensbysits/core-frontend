@@ -11,6 +11,8 @@
 						}}
 					</label>
 					<lens-listbox
+						(optionTextClick)="onOptionTextClick($event)"
+						[isOptionTextLink]="true"
 						[options]="relatedItems"
 						formControlName="listRelatedItems"
 						optionValue="id"

@@ -1,5 +1,6 @@
 <p-listbox
 	(onChange)="onListboxChanged($event)"
+	(onClick)="onListboxOptionClick($event)"
 	[options]="options"
 	[optionValue]="optionValue"
 	[optionLabel]="optionLabel"
@@ -14,4 +15,16 @@
 	[readonly]="readonly"
 	[filterPlaceHolder]="filterPlaceHolder"
 	[listStyle]="listStyle"
-	[listStyleClass]="listStyleClass"></p-listbox>
+	[listStyleClass]="listStyleClass">
+	<ng-container *ngIf="isOptionTextLink">
+		<ng-template
+			let-option
+			pTemplate="item">
+			<span
+				(click)="onOptionTextClick($event, option)"
+				class="option-text">
+				{{ option.name }}
+			</span>
+		</ng-template>
+	</ng-container>
+</p-listbox>

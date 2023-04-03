@@ -1,6 +1,7 @@
 export interface MasterdataRelatedItemGroupedByTypeItem {
 	id: string;
 	name: string;
+	link?: string;
 }
 
 export interface MasterdataRelatedItemGroupedByType {

@@ -1,6 +1,12 @@
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { InputBaseComponent } from "../input-base/input-base.component";
+
+export interface IListboxOptionTextClick {
+	originalEvent: Event;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	option: any;
+}
 
 @Component({
 	selector: "lens-listbox",
@@ -26,10 +32,21 @@ export class ListboxComponent extends InputBaseComponent {
 	@Input() public listStyle: any;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public listStyleClass: any;
+	@Input() public isOptionTextLink = false;
+
+	@Output() public optionTextClick = new EventEmitter<IListboxOptionTextClick>();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onListboxChanged(event: any): void {
 		this.value = event.value;
 		this.valueChanged();
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
+	public onListboxOptionClick(event: any): void {}
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public onOptionTextClick(event: Event, option: any) {
+		this.optionTextClick.emit({ originalEvent: event, option });
 	}
 }
