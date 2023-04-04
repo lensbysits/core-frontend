@@ -75,7 +75,8 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnCha
 			itemsGrouped[typeFoundIndex].items?.push({
 				id: item.id,
 				name: item.name,
-				link: `./${item.masterdataTypeId}/${item.id}/edit`
+				link: `./${item.masterdataTypeId}/${item.id}/edit`,
+				count: item.childMasterdataCount
 			});
 		});
 		return itemsGrouped;

@@ -110,12 +110,14 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 	onOptionTextClick(data: IListboxOptionTextClick) {
 		const {
 			originalEvent: event,
-			option: { link }
+			option: { link = "" }
 		} = data;
 
 		event.preventDefault();
 		event.stopPropagation();
-		window.open(link, "_blank");
+		if (link !== "") {
+			window.open(link, "_blank");
+		}
 	}
 
 	private resetDataForm() {

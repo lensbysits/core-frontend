@@ -33,6 +33,7 @@ export class ListboxComponent extends InputBaseComponent {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public listStyleClass: any;
 	@Input() public isOptionTextLink = false;
+	@Input() public showOptionTextCount = false;
 
 	@Output() public optionTextClick = new EventEmitter<IListboxOptionTextClick>();
 

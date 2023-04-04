@@ -5,4 +5,6 @@ export class MasterdataRelatedItem {
 	value!: string;
 	masterdataTypeId!: string;
 	masterdataTypeName!: string;
+	childMasterdataCount!: number;
+	parentMasterdataCount!: number;
 }

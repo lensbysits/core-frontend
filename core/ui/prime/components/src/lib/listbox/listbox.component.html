@@ -23,7 +23,9 @@
 			<span
 				(click)="onOptionTextClick($event, option)"
 				class="option-text">
-				{{ option.name }}
+				{{
+					option.name + (showOptionTextCount ? " (" + option.count + ")" : "")
+				}}
 			</span>
 		</ng-template>
 	</ng-container>
