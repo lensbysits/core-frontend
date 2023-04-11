@@ -2,6 +2,19 @@
 	.related-items-list-items {
 		.related-items-listbox {
 			max-height: 250px;
+
+			&.p-listbox-list-wrapper {
+				ul.p-listbox-list {
+					li.p-listbox-item {
+						span.option-text {
+							cursor: pointer;
+							&:hover {
+								background-color: yellow;
+							}
+						}
+					}
+				}
+			}
 		}
 		.form-wrapper {
 			.field {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnChanges, Output } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { TieredMenu } from "primeng/tieredmenu";
 import { ColumnsComponent } from "./columns.component";
@@ -11,13 +11,14 @@ import { RowActionsComponent } from "./row-actions.component";
 	templateUrl: "table.component.html",
 	styleUrls: ["table.component.scss"]
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent implements AfterViewInit, OnChanges {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public source!: any[];
 	@Input() public totalRecords!: number;
 	@Input() public paginator = true;
 	@Input() public loading!: boolean;
 	@Input() public rows = 10;
+	@Input() public lang = ""; // TODO: find a better solution; this is an workaround to be able to refresh the html template view, when the interface language is changed
 
 	@Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,16 +34,11 @@ export class TableComponent implements AfterViewInit {
 	public rowActionItems!: MenuItem[];
 
 	public ngAfterViewInit(): void {
-		setTimeout(() => { // to circumvent the ecaihbce exception https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
-			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
-				id:action.id,
-				icon: action.icon,
-				label: action.label,
-				command: () => {
-					action.clicked.emit(this.itemOfContextMenuClickedRow);
-				}
-			}));
-		});
+		this.loadRowActionItems();
+	}
+
+	public ngOnChanges(): void {
+		this.loadRowActionItems();
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,5 +68,19 @@ export class TableComponent implements AfterViewInit {
 		this.itemOfContextMenuClickedRow = item;
 		menu.toggle(event);
 		event.stopPropagation();
+	}
+
+	private loadRowActionItems() {
+		setTimeout(() => {
+			// to circumvent the ecaihbce exception https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
+			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
+				id: action.id,
+				icon: action.icon,
+				label: action.label,
+				command: () => {
+					action.clicked.emit(this.itemOfContextMenuClickedRow);
+				}
+			}));
+		});
 	}
 }

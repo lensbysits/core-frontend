@@ -6,12 +6,14 @@ export class MasterdataRelatedItemModelAdapter implements IAdapter<any, Masterda
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adapt(source: any): MasterdataRelatedItem {
 		return {
-			masterdataTypeId: source?.masterdataTypeId,
-			masterdataTypeName: source?.masterdataTypeName,
 			id: source?.id,
 			name: source?.name,
 			key: source?.key,
-			value: source?.value
+			value: source?.value,
+			masterdataTypeId: source?.masterdataTypeId,
+			masterdataTypeName: source?.masterdataTypeName,
+			childMasterdataCount: source?.childMasterdataCount,
+			parentMasterdataCount: source?.parentMasterdataCount
 		};
 	}
 }
