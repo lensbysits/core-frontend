@@ -58,6 +58,10 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 		return this.dataForm.controls;
 	}
 
+	getMasterdataRelatedItems(): MasterdataRelatedItemGroupedByTypeItem[] {
+		return this.relatedItems.filter(item => !(this.currentMasterdata.masterdataId === item.id));
+	}
+
 	btnCancel() {
 		this.resetDataForm();
 		this.relatedItemsService.markResetRelatedItems();

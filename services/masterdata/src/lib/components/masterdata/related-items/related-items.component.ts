@@ -60,25 +60,27 @@ export class MasterdataRelatedItemsComponent implements OnInit, OnDestroy, OnCha
 		});
 	}
 
-	mapRelatedItemsGroupedByType(items: MasterdataRelatedItem[]): MasterdataRelatedItemGroupedByType[] {
+	private mapRelatedItemsGroupedByType(items: MasterdataRelatedItem[]): MasterdataRelatedItemGroupedByType[] {
 		const itemsGrouped: MasterdataRelatedItemGroupedByType[] = [];
-		items.forEach(item => {
-			let typeFoundIndex = itemsGrouped.findIndex(elem => elem.typeId === item.masterdataTypeId);
-			if (typeFoundIndex === -1) {
-				itemsGrouped.push({
-					typeId: item.masterdataTypeId,
-					typeName: item.masterdataTypeName,
-					items: []
+		items
+			.filter(item => !(this.typeId === item.masterdataTypeId && this.masterdataId === item.id))
+			.forEach(item => {
+				let typeFoundIndex = itemsGrouped.findIndex(elem => elem.typeId === item.masterdataTypeId);
+				if (typeFoundIndex === -1) {
+					itemsGrouped.push({
+						typeId: item.masterdataTypeId,
+						typeName: item.masterdataTypeName,
+						items: []
+					});
+					typeFoundIndex = itemsGrouped.length - 1;
+				}
+				itemsGrouped[typeFoundIndex].items?.push({
+					id: item.id,
+					name: item.name,
+					link: `./${item.masterdataTypeId}/${item.id}/edit`,
+					count: item.childMasterdataCount
 				});
-				typeFoundIndex = itemsGrouped.length - 1;
-			}
-			itemsGrouped[typeFoundIndex].items?.push({
-				id: item.id,
-				name: item.name,
-				link: `./${item.masterdataTypeId}/${item.id}/edit`,
-				count: item.childMasterdataCount
 			});
-		});
 		return itemsGrouped;
 	}
 }
