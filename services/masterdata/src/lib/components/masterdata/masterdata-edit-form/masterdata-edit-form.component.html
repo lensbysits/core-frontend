@@ -11,9 +11,7 @@
 	<ng-container *ngIf="!isAddForm">
 		<lens-tabs>
 			<tab-panels>
-				<tab-panel
-					header="Masterdata Properties"
-					[selected]="true">
+				<tab-panel header="Masterdata Properties">
 					<div class="form-wrapper masterdata-properties">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
@@ -40,6 +38,19 @@
 								[typeId]="typeId"
 								[masterdataId]="id"
 								[showHeader]="false"></masterdata-related-items>
+						</div>
+					</div>
+				</tab-panel>
+				<tab-panel
+					header="Translations"
+					[selected]="true">
+					<div class="form-wrapper related-items">
+						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+						<div class="form-body">
+							<masterdata-translation
+								[typeId]="typeId"
+								[masterdataId]="id"
+								[showHeader]="false"></masterdata-translation>
 						</div>
 					</div>
 				</tab-panel>

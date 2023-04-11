@@ -21,12 +21,14 @@ import {
 	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdataRelatedItemsViewOnlyComponent,
-	MasterdatasDetailsComponent,
-	MasterdatasEditFormComponent,
-	MasterdatasListComponent,
+	MasterdataTranslationComponent,
+	MasterdataTranslationListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
-	MasterdataTypeListComponent
+	MasterdataTypeListComponent,
+	MasterdatasDetailsComponent,
+	MasterdatasEditFormComponent,
+	MasterdatasListComponent
 } from "./components";
 import { MasterdataServicesModule } from "./core/services";
 import {
@@ -48,12 +50,14 @@ const components = [
 	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdataRelatedItemsViewOnlyComponent,
-	MasterdatasDetailsComponent,
-	MasterdatasEditFormComponent,
-	MasterdatasListComponent,
+	MasterdataTranslationComponent,
+	MasterdataTranslationListComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
-	MasterdataTypeListComponent
+	MasterdataTypeListComponent,
+	MasterdatasDetailsComponent,
+	MasterdatasEditFormComponent,
+	MasterdatasListComponent
 ];
 
 @NgModule({

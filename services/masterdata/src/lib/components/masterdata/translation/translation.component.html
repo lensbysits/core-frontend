@@ -1,0 +1,21 @@
+<div class="related-items-wrapper">
+	<ng-container *ngIf="showHeader">
+		<div class="related-items-header">
+			<div class="field">
+				<label>
+					{{
+						"masterdatamgmt.pages.masterdataRelatedItemsBox.header" | translate
+					}}
+				</label>
+				<span></span>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container
+		*ngIf="viewOnly; then showViewOnly; else showEditable"></ng-container>
+</div>
+
+<ng-template #showViewOnly>TODO</ng-template>
+<ng-template #showEditable>
+	<masterdata-translation-list></masterdata-translation-list>
+</ng-template>

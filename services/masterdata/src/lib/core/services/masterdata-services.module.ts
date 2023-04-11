@@ -7,7 +7,8 @@ import {
 	MasterdataAlternativeKeyService,
 	MasterdataCrudHttpService,
 	MasterdataRelatedItemsService,
-	MasterdataRendererService
+	MasterdataRendererService,
+	MasterdataTranslationService
 } from "./";
 
 function apiBaseUrlFactory(appConfigurationService: AppConfigurationService): string {
@@ -27,6 +28,7 @@ export class MasterdataServicesModule {
 				MasterdataRendererService,
 				MasterdataAlternativeKeyService,
 				MasterdataRelatedItemsService,
+				MasterdataTranslationService,
 				{
 					provide: API_BASE_URL,
 					useFactory: apiBaseUrlFactory,
