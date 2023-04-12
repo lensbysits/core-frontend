@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
 import { TranslateService } from "@ngx-translate/core";
-import { debounceTime, Observable, Subject } from "rxjs";
+import { Observable, Subject, debounceTime } from "rxjs";
 import { Masterdata, MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService } from "../../../core/services";
 
@@ -13,13 +13,14 @@ import { MasterdataCrudHttpService } from "../../../core/services";
 	styleUrls: ["./masterdata-list.component.scss"]
 })
 export class MasterdatasListComponent implements OnInit {
-	isLoading = true;
+	isLoading = false;
 	items: Masterdata[] = [];
 	totalSize = 0;
 	typeId = "";
 	masterdataType$?: Observable<MasterdataType>;
 	tagsList: string[] = [];
 	tagsSelected: KeyValuePair<string, string>[] = [];
+	lang = ""; // interface current language; used as an workaround to refresh the lens-table html template view!
 
 	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
 	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
@@ -29,7 +30,12 @@ export class MasterdatasListComponent implements OnInit {
 		private readonly router: Router,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly translateService: TranslateService
-	) {}
+	) {
+		this.isLoading = true;
+		this.translateService.onLangChange.subscribe(() => {
+			this.lang = this.translateService.store.currentLang;
+		});
+	}
 
 	ngOnInit(): void {
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";

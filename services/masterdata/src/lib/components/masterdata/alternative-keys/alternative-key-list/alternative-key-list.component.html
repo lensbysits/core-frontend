@@ -1,5 +1,6 @@
 <div class="alternative-keys-list">
 	<lens-table
+		[lang]="lang"
 		[source]="items"
 		[totalRecords]="totalSize"
 		(lazyLoad)="onLazyLoadData($event)"
@@ -7,20 +8,26 @@
 		[paginator]="false">
 		<columns>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.domain' | translate"
-				field="domain">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.domain'
+						| translate
+				"
+				field="domain"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key' | translate"
-				field="key">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key'
+						| translate
+				"
+				field="key"></column>
 			<ng-container *ngIf="!viewOnly">
 				<row-actions>
 					<action
 						icon="pi pi-trash"
-						[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete' | translate"
-						(clicked)="onDeleteActionClicked($event)">
-					</action>
+						[label]="
+							'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete'
+								| translate
+						"
+						(clicked)="onDeleteActionClicked($event)"></action>
 				</row-actions>
 			</ng-container>
 		</columns>
