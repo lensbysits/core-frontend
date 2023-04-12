@@ -7,10 +7,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CoreModule } from './core/core.module';
 import { ThemeModule } from './theme/theme.module';
-import { HttpErrorHandlerService, SharedModule } from './shared';
+import { HttpErrorHandlerService, PaginatorI18nService, SharedModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { appInitializerProviders } from './core';
 import { HttpErrorHandlerService as LensHttpErrorHandlerService } from '@lens/app-abstract';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 
 // Required for AOT compilation
@@ -42,7 +43,12 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
     ThemeModule
   ],
   providers: [
-    appInitializerProviders
+    appInitializerProviders,
+    {
+      provide: MatPaginatorIntl,
+      deps: [PaginatorI18nService],
+      useFactory: (paginatorI18nSrv: PaginatorI18nService) => paginatorI18nSrv.getPaginatorIntl(),
+    }
   ]
 })
 export class MateroLayoutModule {
