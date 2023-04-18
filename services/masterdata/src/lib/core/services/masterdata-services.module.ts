@@ -24,10 +24,10 @@ export class MasterdataServicesModule {
 		return {
 			ngModule: MasterdataServicesModule,
 			providers: [
-				MasterdataCrudHttpService,
-				MasterdataRendererService,
 				MasterdataAlternativeKeyService,
+				MasterdataCrudHttpService,
 				MasterdataRelatedItemsService,
+				MasterdataRendererService,
 				MasterdataTranslationService,
 				{
 					provide: API_BASE_URL,
