@@ -1,15 +1,21 @@
 <div class="masterdata-table-wrapper">
 	<div class="mb-4">
-		<span>{{"masterdatamgmt.pages.masterdataTypeList.header" | translate}}: {{ totalSize }}</span>
+		<span>
+			{{ "masterdatamgmt.pages.masterdataTypeList.header" | translate }}:
+			{{ totalSize }}
+		</span>
 		<lens-button
-			[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnAddNewType' | translate"
+			[label]="
+				'masterdatamgmt.pages.masterdataTypeList.buttons.btnAddNewType'
+					| translate
+			"
 			icon="pi pi-plus"
 			type="success"
 			[disabled]="isLoading"
-			(clicked)="onAddAction()">
-		</lens-button>
+			(clicked)="onAddAction()"></lens-button>
 	</div>
 	<lens-table
+		[lang]="lang"
 		[source]="items"
 		[totalRecords]="totalSize"
 		(lazyLoad)="onLazyLoadData($event)"
@@ -17,17 +23,23 @@
 		[loading]="isLoading">
 		<columns>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.code' | translate"
-				field="code">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataTypeList.tableColumns.code'
+						| translate
+				"
+				field="code"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.name' | translate"
-				field="name">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataTypeList.tableColumns.name'
+						| translate
+				"
+				field="name"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.count' | translate"
-				field="masterdatasCount">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataTypeList.tableColumns.count'
+						| translate
+				"
+				field="masterdatasCount"></column>
 			<column
 				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.description' | translate"
 				field="description">
@@ -35,22 +47,22 @@
 			<row-actions>
 				<action
 					icon="pi pi-list"
-					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnView' | translate"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnView"
 					(clicked)="onViewMasterdatasActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-calendar-plus"
-					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd' | translate"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd"
 					(clicked)="onAddMasterdataActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-pencil"
-					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit' | translate"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit"
 					(clicked)="onEditActionClicked($event)">
 				</action>
 				<action
 					icon="pi pi-trash"
-					[label]="'masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete' | translate"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete"
 					(clicked)="onDeleteActionClicked($event)">
 				</action>
 			</row-actions>

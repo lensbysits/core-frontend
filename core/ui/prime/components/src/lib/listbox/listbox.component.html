@@ -1,0 +1,32 @@
+<p-listbox
+	(onChange)="onListboxChanged($event)"
+	(onClick)="onListboxOptionClick($event)"
+	[options]="options"
+	[optionValue]="optionValue"
+	[optionLabel]="optionLabel"
+	[optionDisabled]="optionDisabled"
+	[optionGroupLabel]="optionGroupLabel"
+	[optionGroupChildren]="optionGroupChildren"
+	[group]="group"
+	[multiple]="multiple"
+	[filter]="filter"
+	[checkbox]="checkbox"
+	[showToggleAll]="showToggleAll"
+	[readonly]="readonly"
+	[filterPlaceHolder]="filterPlaceHolder"
+	[listStyle]="listStyle"
+	[listStyleClass]="listStyleClass">
+	<ng-container *ngIf="isOptionTextLink">
+		<ng-template
+			let-option
+			pTemplate="item">
+			<span
+				(click)="onOptionTextClick($event, option)"
+				class="option-text">
+				{{
+					option.name + (showOptionTextCount ? " (" + option.count + ")" : "")
+				}}
+			</span>
+		</ng-template>
+	</ng-container>
+</p-listbox>

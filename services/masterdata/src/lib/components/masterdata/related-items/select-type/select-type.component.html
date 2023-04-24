@@ -1,0 +1,21 @@
+<div class="related-items-select-type-form">
+	<div class="p-fluid mb-4">
+		<!-- type id -->
+		<div class="field">
+			<label for="masterdataTypeId">
+				{{
+					"masterdatamgmt.pages.masterdataRelatedItemsBox.selectType.label"
+						| translate
+				}}
+			</label>
+			<masterdata-type-selector
+				id="masterdataTypeId"
+				placeholder="{{
+					'masterdatamgmt.pages.masterdataRelatedItemsBox.selectType.placeholder'
+						| translate
+				}}"
+				(typeChanged)="onTypeChanged($event)"
+				[masterdataTypes]="typesListAvailable"></masterdata-type-selector>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+<div class="related-items-list-by-type-wrapper accordion-wrapper">
+	<lens-accordion [activeIndex]="relatedItemsService.CurrentOpenedType.idx">
+		<accordion-panels>
+			<accordion-panel
+				*ngFor="let type of relatedItems"
+				header="{{ buildTypeName(type) }}">
+				<masterdata-related-items-box-type-choose-related
+					[typeId]="type.typeId"
+					[relatedItems]="
+						type.items
+					"></masterdata-related-items-box-type-choose-related>
+			</accordion-panel>
+		</accordion-panels>
+	</lens-accordion>
+</div>

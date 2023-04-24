@@ -1,0 +1,26 @@
+<div class="related-items-wrapper">
+	<ng-container *ngIf="showHeader">
+		<div class="related-items-header">
+			<div class="field">
+				<label>
+					{{
+						"masterdatamgmt.pages.masterdataRelatedItemsBox.header" | translate
+					}}
+				</label>
+				<span></span>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container
+		*ngIf="viewOnly; then showViewOnly; else showEditable"></ng-container>
+</div>
+
+<ng-template #showViewOnly>
+	<masterdata-related-items-view-only></masterdata-related-items-view-only>
+</ng-template>
+
+<ng-template #showEditable>
+	<masterdata-related-items-select-type></masterdata-related-items-select-type>
+	<hr />
+	<masterdata-related-items-list-by-type></masterdata-related-items-list-by-type>
+</ng-template>

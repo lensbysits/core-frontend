@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import { Observable, debounceTime, Subject } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
+import { TranslateService } from "@ngx-translate/core";
+import { debounceTime, Observable, Subject } from "rxjs";
 import { Masterdata, MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService } from "../../../core/services";
 
@@ -13,7 +13,7 @@ import { MasterdataCrudHttpService } from "../../../core/services";
 	styleUrls: ["./masterdata-list.component.scss"]
 })
 export class MasterdatasListComponent implements OnInit {
-	isLoading = false;
+	isLoading = true;
 	items: Masterdata[] = [];
 	totalSize = 0;
 	typeId = "";
@@ -32,22 +32,19 @@ export class MasterdatasListComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.isLoading = true;
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";
 
 		this.loadTagsList();
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		this.searchTermChange
-			.pipe(debounceTime(500))
-			.subscribe({
-				next: selectedTags => {
-					this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags));
-					this.isLoading = false;
-				},
-				complete: () => this.isLoading = false,
-				error: () => this.isLoading = false
-			});
+		this.searchTermChange.pipe(debounceTime(500)).subscribe({
+			next: selectedTags => {
+				this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags));
+				this.isLoading = false;
+			},
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
+		});
 	}
 
 	loadItems(offset: number, rows: number, tags: string[]) {
@@ -61,8 +58,8 @@ export class MasterdatasListComponent implements OnInit {
 				this.totalSize = data.totalSize || 0;
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -73,8 +70,8 @@ export class MasterdatasListComponent implements OnInit {
 				this.tagsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -108,8 +105,8 @@ export class MasterdatasListComponent implements OnInit {
 				this.totalSize--;
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
