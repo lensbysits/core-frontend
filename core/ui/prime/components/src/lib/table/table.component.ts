@@ -13,7 +13,7 @@ import { TranslateService } from "@ngx-translate/core";
 	templateUrl: "table.component.html",
 	styleUrls: ["table.component.scss"]
 })
-export class TableComponent implements AfterViewInit, OnChanges {
+export class TableComponent implements AfterViewInit {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public source!: any[];
 	@Input() public totalRecords!: number;
