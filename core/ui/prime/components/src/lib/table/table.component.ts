@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnChanges, Output } from "@angular/core";
-import { MenuItem } from "primeng/api";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
+
 import { TieredMenu } from "primeng/tieredmenu";
 import { ColumnsComponent } from "./columns.component";
 import { ILazyLoadEvent } from "./lazy-load-event.interface";
 import { RowActionComponent } from "./row-action.component";
 import { RowActionsComponent } from "./row-actions.component";
+import { LanguageService, MenuItem } from "@lens/app-abstract";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
 	selector: "lens-table",
@@ -29,16 +31,32 @@ export class TableComponent implements AfterViewInit, OnChanges {
 	@ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
 	@ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent;
 
+	constructor(languageService?: LanguageService, private translateService?: TranslateService){
+		languageService?.onTranslationsLoaded(() => this.initRowActions);
+		translateService?.onLangChange.subscribe(()=> this.initRowActions());
+	}
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public itemOfContextMenuClickedRow: any;
 	public rowActionItems!: MenuItem[];
 
 	public ngAfterViewInit(): void {
-		this.loadRowActionItems();
+		setTimeout(() => { // to circumvent the ecaihbce exception https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
+			this.initRowActions();
+		});
 	}
 
-	public ngOnChanges(): void {
-		this.loadRowActionItems();
+	private initRowActions() {
+		this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => {
+			const label = action.translationKey ? this.translateService?.instant(action.translationKey) : action.label;
+			return ({
+				id: action.id,
+				icon: action.icon,
+				label: label,
+				command: () => {
+					action.clicked.emit(this.itemOfContextMenuClickedRow);
+				}
+			})}
+		);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

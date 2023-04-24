@@ -41,38 +41,31 @@
 				"
 				field="masterdatasCount"></column>
 			<column
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.tableColumns.description'
-						| translate
-				"
-				field="description"></column>
+				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.description' | translate"
+				field="description">
+			</column>
+			<row-actions>
+				<action
+					icon="pi pi-list"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnView"
+					(clicked)="onViewMasterdatasActionClicked($event)">
+				</action>
+				<action
+					icon="pi pi-calendar-plus"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd"
+					(clicked)="onAddMasterdataActionClicked($event)">
+				</action>
+				<action
+					icon="pi pi-pencil"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit"
+					(clicked)="onEditActionClicked($event)">
+				</action>
+				<action
+					icon="pi pi-trash"
+					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete"
+					(clicked)="onDeleteActionClicked($event)">
+				</action>
+			</row-actions>
 		</columns>
-		<row-actions>
-			<action
-				icon="pi pi-list"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnView' | translate
-				"
-				(clicked)="onViewMasterdatasActionClicked($event)"></action>
-			<action
-				icon="pi pi-calendar-plus"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd' | translate
-				"
-				(clicked)="onAddMasterdataActionClicked($event)"></action>
-			<action
-				icon="pi pi-pencil"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit' | translate
-				"
-				(clicked)="onEditActionClicked($event)"></action>
-			<action
-				icon="pi pi-trash"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete'
-						| translate
-				"
-				(clicked)="onDeleteActionClicked($event)"></action>
-		</row-actions>
 	</lens-table>
 </div>

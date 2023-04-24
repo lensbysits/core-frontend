@@ -41,6 +41,7 @@ export class LanguageService {
 		this.translateService.reloadLang("en").subscribe(() => {
 			this.notifyListeners();
 			this.notifyPipesAndDirectives();
+			this.translationsLoaded = true;
 		});
 	}
 	
