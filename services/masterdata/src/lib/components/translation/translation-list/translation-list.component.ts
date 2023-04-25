@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { IMasterdataTranslationFlat } from "../../../core/interfaces";
 import { LanguageItem } from "../../../core/models";
@@ -17,6 +17,8 @@ export class MasterdataTranslationListComponent {
 	@Input() public translatableFields: string[] = [];
 	@Input() public languagesList: LanguageItem[] = [];
 
+	@Output() public setDefaultLanguage: EventEmitter<IMasterdataTranslationFlat> = new EventEmitter();
+
 	constructor(private readonly translateService: TranslateService) {
 		this.translateService.onLangChange.subscribe(() => {
 			this.lang = this.translateService.store.currentLang;
@@ -32,6 +34,6 @@ export class MasterdataTranslationListComponent {
 	}
 
 	onSetDefaultActionClicked(item: IMasterdataTranslationFlat) {
-		console.log("TODO/onSetDefaultActionClicked");
+		this.setDefaultLanguage.emit(item);
 	}
 }

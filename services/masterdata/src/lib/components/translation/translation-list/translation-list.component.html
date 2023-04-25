@@ -1,22 +1,4 @@
 <div class="translation-list-wrapper">
-	<ng-container *ngIf="!viewOnly">
-		<div class="list-actions">
-			<div>
-				<lens-button
-					label="Add New Language"
-					icon="pi pi-plus"
-					type="primary"
-					[disabled]="isLoading"></lens-button>
-			</div>
-			<div>
-				<lens-button
-					label="Save Changes"
-					icon="pi pi-save"
-					type="success"
-					[disabled]="true"></lens-button>
-			</div>
-		</div>
-	</ng-container>
 	<lens-table
 		[lang]="lang"
 		[source]="getTranslationItems()"

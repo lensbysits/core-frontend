@@ -16,6 +16,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	languagesList: LanguageItem[] = [];
 	translationFlat: IMasterdataTranslationFlat[] = [];
 	translatableFields: string[] = [];
+	isDirtyChanges = false;
 
 	@Input() public showHeader = true;
 	@Input() public viewOnly = false;
@@ -52,8 +53,13 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		});
 	}
 
+	onSetDefaultLanguage(item: IMasterdataTranslationFlat) {
+		const { language } = item;
+		this.setDefaultLanguage(language);
+	}
+
 	private initTranslation() {
-		this.translationFlat = this.mapTranslation2Flat(this.translation);
+		this.translationFlat = this.mapTranslation2FlatModel(this.translation);
 		this.translationFlat = this.addLanguageNameToTranslation(this.translationFlat);
 		//this.translationService.resetTranslationItems(this.translationFlat);
 		console.log("translation", this.translation);
@@ -70,7 +76,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		});
 	}
 
-	private mapTranslation2Flat(items: IMasterdataTranslation<any>[]): IMasterdataTranslationFlat[] {
+	private mapTranslation2FlatModel(items: IMasterdataTranslation<any>[]): IMasterdataTranslationFlat[] {
 		const res: IMasterdataTranslationFlat[] = [];
 		items
 			.filter(item => item.language !== "")
@@ -98,5 +104,23 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 				});
 			});
 		return res;
+	}
+
+	private setDefaultLanguage(language: string) {
+		const isCurrentDefault = this.translationFlat.find(item => language === item.language)?.isDefault;
+		if (isCurrentDefault) {
+			// already is set as default language
+			return;
+		}
+
+		this.translationFlat = this.translationFlat.map(item => {
+			const isDefault = language === item.language;
+			return {
+				...item,
+				isDefault: isDefault,
+				isDefaultForDisplay: isDefault ? "yes" : "no"
+			};
+		});
+		this.isDirtyChanges = true;
 	}
 }

@@ -11,8 +11,29 @@
 			</div>
 		</div>
 	</ng-container>
+	<ng-container *ngIf="!viewOnly">
+		<div class="list-actions">
+			<div>
+				<lens-button
+					label="Add New Language"
+					icon="pi pi-plus"
+					type="primary"
+					[disabled]="isLoading"></lens-button>
+			</div>
+			<div>
+				<lens-button
+					label="Save Changes"
+					icon="pi pi-save"
+					type="success"
+					[disabled]="!isDirtyChanges"></lens-button>
+			</div>
+		</div>
+	</ng-container>
 	<masterdata-translation-list
 		[viewOnly]="viewOnly"
 		[translationFlat]="translationFlat"
-		[translatableFields]="translatableFields"></masterdata-translation-list>
+		[translatableFields]="translatableFields"
+		(setDefaultLanguage)="
+			onSetDefaultLanguage($event)
+		"></masterdata-translation-list>
 </div>
