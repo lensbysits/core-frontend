@@ -50,28 +50,19 @@
 		<row-actions>
 			<action
 				icon="pi pi-list"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnView' | translate
-				"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnView"
 				(clicked)="onViewMasterdatasActionClicked($event)"></action>
 			<action
 				icon="pi pi-calendar-plus"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd' | translate
-				"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd"
 				(clicked)="onAddMasterdataActionClicked($event)"></action>
 			<action
 				icon="pi pi-pencil"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit' | translate
-				"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit"
 				(clicked)="onEditActionClicked($event)"></action>
 			<action
 				icon="pi pi-trash"
-				[label]="
-					'masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete'
-						| translate
-				"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete"
 				(clicked)="onDeleteActionClicked($event)"></action>
 		</row-actions>
 	</lens-table>

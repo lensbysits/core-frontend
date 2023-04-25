@@ -8,7 +8,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class RowActionComponent {
     @Input() public id?: string;
     @Input() public icon!: string;
-    @Input() public label!: string;
+    @Input() public label?: string;
+    @Input() public translationKey?: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Output() public clicked = new EventEmitter<any>();
 }
