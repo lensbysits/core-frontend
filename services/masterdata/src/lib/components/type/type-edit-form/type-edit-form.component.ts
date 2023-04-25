@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { LanguageService, ToastService } from "@lens/app-abstract";
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { TranslateService } from "@ngx-translate/core";
-import { IMasterdataTranslation, IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../../core/interfaces";
+import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../../core/interfaces";
 import { MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
 import { MasterdataTypeMaxLength, getFieldValue, getRequiredFieldValue } from "../../../core/utils";
@@ -24,7 +24,6 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 	maxLength = MasterdataTypeMaxLength;
 	saveFormButtonText!: string;
 	formHeaderText!: string;
-	translation!: IMasterdataTranslation<"name" | "description">;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 

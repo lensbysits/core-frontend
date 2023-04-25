@@ -72,20 +72,20 @@
 					'masterdatamgmt.pages.masterdataList.tableColumns.count' | translate
 				"
 				field="masterdataKeysCount"></column>
-			<row-actions>
-				<action
-					icon="pi pi-pencil"
-					[label]="
-						'masterdatamgmt.pages.masterdataList.buttons.btnEdit' | translate
-					"
-					(clicked)="onEditActionClicked($event)"></action>
-				<action
-					icon="pi pi-trash"
-					[label]="
-						'masterdatamgmt.pages.masterdataList.buttons.btnDelete' | translate
-					"
-					(clicked)="onDeleteActionClicked($event)"></action>
-			</row-actions>
 		</columns>
+		<row-actions>
+			<action
+				icon="pi pi-pencil"
+				[label]="
+					'masterdatamgmt.pages.masterdataList.buttons.btnEdit' | translate
+				"
+				(clicked)="onEditActionClicked($event)"></action>
+			<action
+				icon="pi pi-trash"
+				[label]="
+					'masterdatamgmt.pages.masterdataList.buttons.btnDelete' | translate
+				"
+				(clicked)="onDeleteActionClicked($event)"></action>
+		</row-actions>
 	</lens-table>
 </div>

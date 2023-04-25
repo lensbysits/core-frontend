@@ -7,13 +7,11 @@ type Entries<T> = {
 
 @Injectable()
 export class MasterdataRendererService {
-	constructor(
-		private readonly translateService: TranslateService
-	) {}
+	constructor(private readonly translateService: TranslateService) {}
 
 	prepareForDisplay<T extends object>(item: T, translationKey: string): Entries<T> {
 		// "metadata" model field will have a special display!
-		const res = (Object.entries(item) as Entries<T>).filter(item => !["metadata", "masterdataKeysCount"].includes(item[0] as string));
+		const res = (Object.entries(item) as Entries<T>).filter(item => !["metadata", "masterdataKeysCount", "translation"].includes(item[0] as string));
 		res.forEach(item => {
 			item[0] = this.translateService.instant(`masterdatamgmt.pages.${translationKey}.modelFields.${item[0].toString()}`);
 		});

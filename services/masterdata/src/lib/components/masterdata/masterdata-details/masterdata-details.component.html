@@ -1,15 +1,11 @@
 <div *ngIf="item$ | async; let item">
 	<lens-panel
 		[header]="'masterdatamgmt.pages.masterdataDetails.header' | translate">
-		<!-- <lens-tab-view>
-		<tab-panels> -->
 		<lens-tabs>
 			<tab-panels>
-				<tab-panel
-					header="Masterdata Properties"
-					[selected]="true">
+				<tab-panel header="Masterdata Properties">
 					<div>
-						<div class="details-wrapper">
+						<div class="details-wrapper masterdata-properties">
 							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 							<div
 								*ngFor="let item of prepareForDisplay(item)"
@@ -37,7 +33,7 @@
 				</tab-panel>
 				<tab-panel header="Alternative Keys">
 					<div>
-						<div class="details-wrapper">
+						<div class="details-wrapper alternative-keys">
 							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 							<div class="grid">
 								<div class="col-12 alternative-keys">
@@ -54,7 +50,7 @@
 				</tab-panel>
 				<tab-panel header="Related Items">
 					<div>
-						<div class="details-wrapper">
+						<div class="details-wrapper related-items">
 							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 							<masterdata-related-items
 								[typeId]="typeId"
@@ -64,10 +60,25 @@
 						</div>
 					</div>
 				</tab-panel>
+				<tab-panel
+					header="Translations"
+					[selected]="true">
+					<div>
+						<div class="details-wrapper translation">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<masterdata-translation
+								[typeId]="typeId"
+								[masterdataId]="itemId"
+								[showHeader]="false"
+								[viewOnly]="true"
+								[translation]="
+									item?.translation ?? []
+								"></masterdata-translation>
+						</div>
+					</div>
+				</tab-panel>
 			</tab-panels>
 		</lens-tabs>
-		<!-- </tab-panels>
-		</lens-tab-view> -->
 	</lens-panel>
 </div>
 

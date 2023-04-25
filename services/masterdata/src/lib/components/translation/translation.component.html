@@ -11,11 +11,8 @@
 			</div>
 		</div>
 	</ng-container>
-	<ng-container
-		*ngIf="viewOnly; then showViewOnly; else showEditable"></ng-container>
+	<masterdata-translation-list
+		[viewOnly]="viewOnly"
+		[translationFlat]="translationFlat"
+		[translatableFields]="translatableFields"></masterdata-translation-list>
 </div>
-
-<ng-template #showViewOnly>TODO</ng-template>
-<ng-template #showEditable>
-	<masterdata-translation-list></masterdata-translation-list>
-</ng-template>

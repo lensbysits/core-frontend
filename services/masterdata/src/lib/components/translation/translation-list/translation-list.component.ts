@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
-import * as data from "../../../../assets/locales/masterdata-translation-mock.json";
+import { Component, Input } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { IMasterdataTranslationFlat } from "../../../core/interfaces";
+import { LanguageItem } from "../../../core/models";
 
 @Component({
 	selector: "masterdata-translation-list",
@@ -8,9 +10,28 @@ import * as data from "../../../../assets/locales/masterdata-translation-mock.js
 })
 export class MasterdataTranslationListComponent {
 	isLoading = false;
-	translation: any = (data as any).default;
+	lang = ""; // interface current language; used as an workaround to refresh the lens-table html template view!
 
-	constructor() {
-		this.isLoading = true;
+	@Input() public viewOnly = false;
+	@Input() public translationFlat: IMasterdataTranslationFlat[] = [];
+	@Input() public translatableFields: string[] = [];
+	@Input() public languagesList: LanguageItem[] = [];
+
+	constructor(private readonly translateService: TranslateService) {
+		this.translateService.onLangChange.subscribe(() => {
+			this.lang = this.translateService.store.currentLang;
+		});
+	}
+
+	getTranslationItems() {
+		return this.translationFlat;
+	}
+
+	onEditActionClicked(item: IMasterdataTranslationFlat) {
+		console.log("TODO/onEditActionClicked");
+	}
+
+	onSetDefaultActionClicked(item: IMasterdataTranslationFlat) {
+		console.log("TODO/onSetDefaultActionClicked");
 	}
 }

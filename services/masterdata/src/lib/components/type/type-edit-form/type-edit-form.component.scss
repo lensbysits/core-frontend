@@ -1,5 +1,9 @@
 .form-wrapper {
-	width: 50%;
+	&:not(.translation) {
+		width: calc((100% - 20px) / 2);
+		display: inline-block;
+		vertical-align: top;
+	}
 
 	.field {
 		&.view-only {

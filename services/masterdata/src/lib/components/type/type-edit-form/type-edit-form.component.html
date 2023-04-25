@@ -11,7 +11,7 @@
 		<lens-tabs>
 			<tab-panels>
 				<tab-panel header="Type Properties">
-					<div class="form-wrapper masterdata-properties">
+					<div class="form-wrapper type-properties">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
 							<ng-container *ngTemplateOutlet="mainFormBlock"></ng-container>
@@ -21,12 +21,15 @@
 				<tab-panel
 					header="Translations"
 					[selected]="true">
-					<div class="form-wrapper translations">
+					<div class="form-wrapper translation">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
 							<masterdata-translation
 								[typeId]="id"
-								[showHeader]="false"></masterdata-translation>
+								[showHeader]="false"
+								[translation]="
+									item?.translation ?? []
+								"></masterdata-translation>
 						</div>
 					</div>
 				</tab-panel>

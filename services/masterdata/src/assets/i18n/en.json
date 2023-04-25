@@ -252,7 +252,20 @@
 				}
 			},
 			"masterdataTranslationsBox": {
-				"header": "Translations"
+				"header": "Translations",
+				"tableColumns": {
+					"language": "Language Code",
+					"languageName": "Language Name",
+					"value": "Value",
+					"name": "Name",
+					"description": "Description",
+					"isDefault": "Default"
+				},
+				"buttons": {
+					"btnAdd": "Add New Language",
+					"btnEdit": "Edit",
+					"btnSetDefault": "Set as Default"
+				}
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import {
 	DomainsResultListModelAdapter,
+	LanguagesResultListModelAdapter,
 	MasterdataAlternativeKeyModelAdapter,
 	MasterdataAlternativeKeyResultListModelAdapter,
 	MasterdataModelAdapter,
@@ -23,6 +24,7 @@ import {
 	IMasterdataUpdate
 } from "../interfaces";
 import {
+	LanguagesResultList,
 	Masterdata,
 	MasterdataAlternativeKey,
 	MasterdataAlternativeKeyResultList,
@@ -131,7 +133,7 @@ export class MasterdataCrudHttpService {
 
 		return this.client.get<TagsResultList>(url).pipe(
 			map(input => domainsResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<TagsResultList>("getAllTags", domainsResultListModelAdapter.adapt(null)))
+			catchError(this.handleError<TagsResultList>("getAllDomains", domainsResultListModelAdapter.adapt(null)))
 		);
 	}
 
@@ -156,6 +158,18 @@ export class MasterdataCrudHttpService {
 		return this.client.get<MasterdataRelatedItemResultList>(url).pipe(
 			map(input => masterdataRelatedItemResultListModelAdapter.adapt(input)),
 			catchError(this.handleError<MasterdataRelatedItemResultList>("getRelatedItems", masterdataRelatedItemResultListModelAdapter.adapt(null)))
+		);
+	}
+
+	getAllLanguages(masterdatatype: string, offset: number, rows: number): Observable<LanguagesResultList> {
+		const languagesResultListModelAdapter = new LanguagesResultListModelAdapter();
+
+		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
+		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/langs`, queryParams.toString());
+
+		return this.client.get<LanguagesResultList>(url).pipe(
+			map(input => languagesResultListModelAdapter.adapt(input)),
+			catchError(this.handleError<LanguagesResultList>("getAllLanguages", languagesResultListModelAdapter.adapt(null)))
 		);
 	}
 

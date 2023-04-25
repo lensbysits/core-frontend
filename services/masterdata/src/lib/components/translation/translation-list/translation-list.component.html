@@ -1,8 +1,86 @@
 <div class="translation-list-wrapper">
-	<ul>
-		<li *ngFor="let locale of translation">
-			<div>locale: {{ locale.language }}</div>
-			<div>name: {{ locale.isDefault }}</div>
-		</li>
-	</ul>
+	<ng-container *ngIf="!viewOnly">
+		<div class="list-actions">
+			<div>
+				<lens-button
+					label="Add New Language"
+					icon="pi pi-plus"
+					type="primary"
+					[disabled]="isLoading"></lens-button>
+			</div>
+			<div>
+				<lens-button
+					label="Save Changes"
+					icon="pi pi-save"
+					type="success"
+					[disabled]="true"></lens-button>
+			</div>
+		</div>
+	</ng-container>
+	<lens-table
+		[lang]="lang"
+		[source]="getTranslationItems()"
+		[totalRecords]="getTranslationItems().length"
+		[loading]="isLoading"
+		[rows]="1000">
+		<columns>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.language'
+						| translate
+				"
+				field="language"></column>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.languageName'
+						| translate
+				"
+				field="languageName"></column>
+			<column
+				*ngIf="translatableFields.includes('value')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.value'
+						| translate
+				"
+				field="value"></column>
+			<column
+				*ngIf="translatableFields.includes('name')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.name'
+						| translate
+				"
+				field="name"></column>
+			<column
+				*ngIf="translatableFields.includes('description')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.description'
+						| translate
+				"
+				field="description"></column>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.isDefault'
+						| translate
+				"
+				field="isDefaultForDisplay"></column>
+		</columns>
+		<ng-container *ngIf="!viewOnly">
+			<row-actions>
+				<action
+					icon="pi pi-pencil"
+					[label]="
+						'masterdatamgmt.pages.masterdataTranslationsBox.buttons.btnEdit'
+							| translate
+					"
+					(clicked)="onEditActionClicked($event)"></action>
+				<action
+					icon="pi pi-lock"
+					[label]="
+						'masterdatamgmt.pages.masterdataTranslationsBox.buttons.btnSetDefault'
+							| translate
+					"
+					(clicked)="onSetDefaultActionClicked($event)"></action>
+			</row-actions>
+		</ng-container>
+	</lens-table>
 </div>

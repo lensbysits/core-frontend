@@ -19,17 +19,17 @@
 						| translate
 				"
 				field="key"></column>
-			<ng-container *ngIf="!viewOnly">
-				<row-actions>
-					<action
-						icon="pi pi-trash"
-						[label]="
-							'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete'
-								| translate
-						"
-						(clicked)="onDeleteActionClicked($event)"></action>
-				</row-actions>
-			</ng-container>
 		</columns>
+		<ng-container *ngIf="!viewOnly">
+			<row-actions>
+				<action
+					icon="pi pi-trash"
+					[label]="
+						'masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete'
+							| translate
+					"
+					(clicked)="onDeleteActionClicked($event)"></action>
+			</row-actions>
+		</ng-container>
 	</lens-table>
 </div>

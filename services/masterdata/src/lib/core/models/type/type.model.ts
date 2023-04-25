@@ -1,4 +1,4 @@
-import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../interfaces";
+import { IMasterdataTranslation, IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../interfaces";
 
 export class MasterdataType implements IMasterdataTypeCreate, IMasterdataTypeUpdate {
 	id!: string;
@@ -8,4 +8,5 @@ export class MasterdataType implements IMasterdataTypeCreate, IMasterdataTypeUpd
 	masterdatasCount?: number;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	metadata?: any;
+	translation?: IMasterdataTranslation<"name" | "description">[];
 }

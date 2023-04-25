@@ -44,13 +44,16 @@
 				<tab-panel
 					header="Translations"
 					[selected]="true">
-					<div class="form-wrapper related-items">
+					<div class="form-wrapper translation">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
 							<masterdata-translation
 								[typeId]="typeId"
 								[masterdataId]="id"
-								[showHeader]="false"></masterdata-translation>
+								[showHeader]="false"
+								[translation]="
+									item?.translation ?? []
+								"></masterdata-translation>
 						</div>
 					</div>
 				</tab-panel>

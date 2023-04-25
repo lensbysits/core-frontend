@@ -5,7 +5,7 @@ import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract"
 import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
-import { IMasterdataCreate, IMasterdataTranslation, IMasterdataUpdate } from "../../../core/interfaces";
+import { IMasterdataCreate, IMasterdataUpdate } from "../../../core/interfaces";
 import { Masterdata, MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
 import { MasterdataMaxLength, getFieldValue, getRequiredFieldValue } from "../../../core/utils";
@@ -30,7 +30,6 @@ export class MasterdatasEditFormComponent implements OnInit {
 	tagsList: string[] = [];
 	saveFormButtonText!: string;
 	formHeaderText!: string;
-	translation!: IMasterdataTranslation<"value" | "name" | "description">;
 
 	@ViewChild(JsonEditorComponent, { static: false }) metadataEditor!: JsonEditorComponent;
 
