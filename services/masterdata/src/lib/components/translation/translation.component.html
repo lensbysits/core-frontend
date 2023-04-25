@@ -25,7 +25,8 @@
 					label="Save Changes"
 					icon="pi pi-save"
 					type="success"
-					[disabled]="!isDirtyChanges"></lens-button>
+					[disabled]="!isDirtyChanges"
+					(clicked)="onSaveChanges()"></lens-button>
 			</div>
 		</div>
 	</ng-container>

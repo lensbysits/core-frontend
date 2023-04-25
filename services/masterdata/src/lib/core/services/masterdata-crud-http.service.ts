@@ -19,6 +19,8 @@ import {
 	IMasterdataAlternativeKeyCreate,
 	IMasterdataCreate,
 	IMasterdataRelatedItemCreate,
+	IMasterdataTranslationUpdateMdItem,
+	IMasterdataTranslationUpdateMdType,
 	IMasterdataTypeCreate,
 	IMasterdataTypeUpdate,
 	IMasterdataUpdate
@@ -241,6 +243,28 @@ export class MasterdataCrudHttpService {
 				return masterdataModelAdapter.adapt(input.value);
 			}),
 			catchError(this.handleError<Masterdata>("updateMasterdata", masterdataModelAdapter.adapt(null)))
+		);
+	}
+
+	updateMasterdataTypeTranslation(masterdatatype: string, item: IMasterdataTranslationUpdateMdType): Observable<MasterdataType> {
+		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
+
+		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/translation`, item, this.httpOptions).pipe(
+			map(input => {
+				return masterdataTypeModelAdapter.adapt(input.value);
+			}),
+			catchError(this.handleError<MasterdataType>("updateMasterdataTypeTranslation", masterdataTypeModelAdapter.adapt(null)))
+		);
+	}
+
+	updateMasterdataTranslation(masterdatatype: string, id: string, item: IMasterdataTranslationUpdateMdItem): Observable<Masterdata> {
+		const masterdataModelAdapter = new MasterdataModelAdapter();
+
+		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}/translation`, item, this.httpOptions).pipe(
+			map(input => {
+				return masterdataModelAdapter.adapt(input.value);
+			}),
+			catchError(this.handleError<Masterdata>("updateMasterdataTranslation", masterdataModelAdapter.adapt(null)))
 		);
 	}
 

@@ -1,7 +1,14 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
+import { ToastService } from "@lens/app-abstract";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
-import { IMasterdataTranslation, IMasterdataTranslationFlat } from "../../core/interfaces";
-import { LanguageItem } from "../../core/models";
+import {
+	IMasterdataTranslation,
+	IMasterdataTranslationFlat,
+	IMasterdataTranslationUpdateMdItem,
+	IMasterdataTranslationUpdateMdType
+} from "../../core/interfaces";
+import { LanguageItem, Masterdata, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService, MasterdataTranslationService } from "../../core/services";
 
 @Component({
@@ -24,7 +31,12 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	@Input() public masterdataId = "";
 	@Input() public translation: IMasterdataTranslation<any>[] = [];
 
-	constructor(private readonly service: MasterdataCrudHttpService, public readonly translationService: MasterdataTranslationService) {}
+	constructor(
+		private readonly toastService: ToastService,
+		private readonly translateService: TranslateService,
+		private readonly service: MasterdataCrudHttpService,
+		public readonly translationService: MasterdataTranslationService
+	) {}
 
 	ngOnInit(): void {
 		this.initTranslation();
@@ -38,6 +50,10 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 
 	ngOnChanges() {
 		this.initTranslation();
+	}
+
+	isTypeModel(): boolean {
+		return !(this.masterdataId !== "");
 	}
 
 	loadLanguagesList() {
@@ -58,6 +74,72 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		this.setDefaultLanguage(language);
 	}
 
+	onSaveChanges() {
+		this.isLoading = true;
+
+		if (this.isTypeModel()) {
+			const model = {} as IMasterdataTranslationUpdateMdType;
+			model.translations = this.mapFlatModel2Translation(this.translationFlat);
+			console.log("SaveChange/model/type", model);
+
+			this.service.updateMasterdataTypeTranslation(this.typeId, model).subscribe({
+				next: data => {
+					this.saveChangesComplete(data, true);
+				},
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
+			});
+		} else {
+			const model = {} as IMasterdataTranslationUpdateMdItem;
+			model.translations = this.mapFlatModel2Translation(this.translationFlat);
+			console.log("SaveChange/model/masterdata", model);
+
+			this.service.updateMasterdataTranslation(this.typeId, this.masterdataId, model).subscribe({
+				next: data => {
+					this.saveChangesComplete(data, false);
+				},
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
+			});
+		}
+	}
+
+	private saveChangesComplete(data: Masterdata | MasterdataType, isType: boolean) {
+		const translateKey = isType ? "successMdType" : "successMdItem";
+
+		this.isLoading = false;
+		this.isDirtyChanges = false;
+		this.reloadTranslation(data.translation ?? []);
+
+		this.toastService.success(
+			this.translateService.instant(`masterdatamgmt.pages.masterdataTranslationsBox.notifications.saveChanges.${translateKey}.title`),
+			this.translateService.instant(`masterdatamgmt.pages.masterdataTranslationsBox.notifications.saveChanges.${translateKey}.message`)
+		);
+	}
+
+	private setDefaultLanguage(language: string) {
+		const isCurrentDefault = this.translationFlat.find(item => language === item.language)?.isDefault;
+		if (isCurrentDefault) {
+			// already is set as default language
+			return;
+		}
+
+		this.translationFlat = this.translationFlat.map(item => {
+			const isDefault = language === item.language;
+			return {
+				...item,
+				isDefault: isDefault,
+				isDefaultForDisplay: isDefault ? "yes" : "no"
+			};
+		});
+		this.isDirtyChanges = true;
+	}
+
+	private reloadTranslation(translation: IMasterdataTranslation<any>[]) {
+		this.translation = translation;
+		this.initTranslation();
+	}
+
 	private initTranslation() {
 		this.translationFlat = this.mapTranslation2FlatModel(this.translation);
 		this.translationFlat = this.addLanguageNameToTranslation(this.translationFlat);
@@ -74,6 +156,33 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 				languageName
 			};
 		});
+	}
+
+	private mapFlatModel2Translation(items: IMasterdataTranslationFlat[]): IMasterdataTranslation<any>[] {
+		const res: IMasterdataTranslation<any>[] = [];
+		items
+			.filter(item => item.language !== "")
+			.forEach(item => {
+				let langFoundIndex = res.findIndex(elem => elem.language === item.language);
+				if (langFoundIndex === -1) {
+					res.push({
+						language: item.language,
+						isDefault: item.isDefault,
+						values: []
+					});
+					langFoundIndex = res.length - 1;
+				}
+
+				Object.keys(item).forEach(itemKey => {
+					if (this.translatableFields.includes(itemKey)) {
+						res[langFoundIndex].values.push({
+							field: itemKey,
+							value: String(item[itemKey])
+						});
+					}
+				});
+			});
+		return res;
 	}
 
 	private mapTranslation2FlatModel(items: IMasterdataTranslation<any>[]): IMasterdataTranslationFlat[] {
@@ -104,23 +213,5 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 				});
 			});
 		return res;
-	}
-
-	private setDefaultLanguage(language: string) {
-		const isCurrentDefault = this.translationFlat.find(item => language === item.language)?.isDefault;
-		if (isCurrentDefault) {
-			// already is set as default language
-			return;
-		}
-
-		this.translationFlat = this.translationFlat.map(item => {
-			const isDefault = language === item.language;
-			return {
-				...item,
-				isDefault: isDefault,
-				isDefaultForDisplay: isDefault ? "yes" : "no"
-			};
-		});
-		this.isDirtyChanges = true;
 	}
 }

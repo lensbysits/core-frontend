@@ -265,6 +265,18 @@
 					"btnAdd": "Add New Language",
 					"btnEdit": "Edit",
 					"btnSetDefault": "Set as Default"
+				},
+				"notifications": {
+					"saveChanges": {
+						"successMdType": {
+							"title": "Save changes on masterdata type",
+							"message": "The masterdata type translation was succesfully updated."
+						},
+						"successMdItem": {
+							"title": "Save changes on masterdata item",
+							"message": "The masterdata item translation was succesfully updated."
+						}
+					}
 				}
 			}
 		}

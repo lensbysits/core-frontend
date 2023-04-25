@@ -15,7 +15,6 @@ export class MasterdataTranslationListComponent {
 	@Input() public viewOnly = false;
 	@Input() public translationFlat: IMasterdataTranslationFlat[] = [];
 	@Input() public translatableFields: string[] = [];
-	@Input() public languagesList: LanguageItem[] = [];
 
 	@Output() public setDefaultLanguage: EventEmitter<IMasterdataTranslationFlat> = new EventEmitter();
 
