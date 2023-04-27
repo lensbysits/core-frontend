@@ -24,6 +24,7 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 	translatableFields: string[] = [];
 	currentLanguages: string[] = [];
 	languagesList: LanguageItem[] = [];
+	availableLanguages: LanguageItem[] = [];
 
 	constructor(
 		private readonly masterdataRenderer: MasterdataRendererService,
@@ -49,6 +50,8 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 	}
 
 	ngOnInit(): void {
+		this.availableLanguages = this.languagesList.filter(item => !this.currentLanguages.includes(item.code));
+
 		const whenMdItem = !this.isTypeModel && {
 			value: ["", [Validators.required, Validators.maxLength(this.maxLength.value)]]
 		};
@@ -73,10 +76,6 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 	// convenience getter for easy access to form fields
 	get getFormFields() {
 		return this.dataForm.controls;
-	}
-
-	get getAvailableLanguages() {
-		return this.languagesList.filter(item => !this.currentLanguages.includes(item.code));
 	}
 
 	onCancelButtonClicked() {
