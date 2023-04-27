@@ -11,6 +11,7 @@ export class MasterdataRendererService {
 
 	prepareForDisplay<T extends object>(item: T, translationKey: string): Entries<T> {
 		// "metadata" model field will have a special display!
+		// eslint-disable-next-line max-len
 		const res = (Object.entries(item) as Entries<T>).filter(item => !["metadata", "masterdataKeysCount", "translation"].includes(item[0] as string));
 		res.forEach(item => {
 			item[0] = this.translateService.instant(`masterdatamgmt.pages.${translationKey}.modelFields.${item[0].toString()}`);

@@ -31,6 +31,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	@Input() public viewOnly = false;
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public translation: IMasterdataTranslation<any>[] = [];
 
 	constructor(
@@ -216,6 +217,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		this.isDirtyChanges = true;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private reloadTranslation(translation: IMasterdataTranslation<any>[]) {
 		this.translation = translation;
 		this.initTranslation();
@@ -238,7 +240,9 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		});
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private mapFlatModel2Translation(items: IMasterdataTranslationFlat[]): IMasterdataTranslation<any>[] {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const res: IMasterdataTranslation<any>[] = [];
 		items
 			.filter(item => item.language !== "")
@@ -265,6 +269,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		return res;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private mapTranslation2FlatModel(items: IMasterdataTranslation<any>[]): IMasterdataTranslationFlat[] {
 		const res: IMasterdataTranslationFlat[] = [];
 		items
