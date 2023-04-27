@@ -131,12 +131,11 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
-			const masterdataTypeIdSelector = getRequiredFieldValue<KeyValuePair<string, string>>(this.dataForm, "masterdataTypeId").key;
 			const masterdataTypeId = getRequiredFieldValue<string>(this.dataForm, "masterdataTypeId");
 
 			const model = {} as IMasterdataCreate;
 			model.key = key;
-			model.masterdataTypeId = masterdataTypeIdSelector ?? masterdataTypeId ?? undefined;
+			model.masterdataTypeId = masterdataTypeId ?? undefined;
 			model.value = value;
 			model.name = name;
 			model.description = description;

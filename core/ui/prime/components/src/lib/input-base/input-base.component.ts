@@ -12,9 +12,9 @@ export class InputBaseComponent implements ControlValueAccessor, Validator {
 	public formControl?: FormControl;
 	@Input()
 	public formControlName?: string;
-	@Input() 
+	@Input()
 	public disabled = false;
-	@Input() 
+	@Input()
 	public required = false;
 
 	@Output()

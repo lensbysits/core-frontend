@@ -18,7 +18,8 @@
 					label="Add New Language"
 					icon="pi pi-plus"
 					type="primary"
-					[disabled]="isLoading"></lens-button>
+					[disabled]="isLoading"
+					(clicked)="onAddNewLanguage()"></lens-button>
 			</div>
 			<div>
 				<lens-button
@@ -34,7 +35,6 @@
 		[viewOnly]="viewOnly"
 		[translationFlat]="translationFlat"
 		[translatableFields]="translatableFields"
-		(setDefaultLanguage)="
-			onSetDefaultLanguage($event)
-		"></masterdata-translation-list>
+		(setDefaultLanguage)="onSetDefaultLanguage($event)"
+		(editLanguage)="onEditLanguage($event)"></masterdata-translation-list>
 </div>

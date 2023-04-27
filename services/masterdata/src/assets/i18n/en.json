@@ -277,6 +277,44 @@
 							"message": "The masterdata item translation was succesfully updated."
 						}
 					}
+				},
+				"upsert": {
+					"addForm": {
+						"header": "Add New Language",
+						"btnSubmit": "Add Language"
+					},
+					"editForm": {
+						"header": "Edit Language",
+						"btnSubmit": "Update Language"
+					},
+					"language": {
+						"label": "Language",
+						"placeholder": "Choose Language",
+						"required": "Language is required.",
+						"exists": "Language already exists."
+					},
+					"isDefault": {
+						"label": "Set as Default Language",
+						"required": "Default Language is required."
+					},
+					"value": {
+						"label": "Value",
+						"placeholder": "Please enter a valid value",
+						"required": "Value is required.",
+						"maxLength": "Value can be max {{ maxLength }} characters long."
+					},
+					"name": {
+						"label": "Name",
+						"placeholder": "Please enter a valid name",
+						"required": "Name is required.",
+						"maxLength": "Name can be max {{ maxLength }} characters long."
+					},
+					"description": {
+						"label": "Description",
+						"placeholder": "Please enter a valid description",
+						"required": "Description is required.",
+						"maxLength": "Description can be max {{ maxLength }} characters long."
+					}
 				}
 			}
 		}

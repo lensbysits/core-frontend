@@ -1,0 +1,22 @@
+.translation-upsert-body-wrapper {
+	.field {
+		&.view-only {
+			&:not(:last-child) {
+				border-bottom: 1px solid #eceff1;
+			}
+			label {
+				min-width: 20%;
+			}
+		}
+		.help-text {
+			color: red;
+		}
+		div {
+			font-style: italic;
+		}
+	}
+}
+
+.translation-upsert-footer-wrapper {
+	border: 0px solid gray;
+}

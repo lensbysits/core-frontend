@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { ToastService } from "@lens/app-abstract";
+import { DialogService } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
 import {
@@ -9,7 +10,8 @@ import {
 	IMasterdataTranslationUpdateMdType
 } from "../../core/interfaces";
 import { LanguageItem, Masterdata, MasterdataType } from "../../core/models";
-import { MasterdataCrudHttpService, MasterdataTranslationService } from "../../core/services";
+import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
+import { MasterdataTranslationUpsertComponent } from "./upsert-translation-form/upsert-translation.component";
 
 @Component({
 	selector: "masterdata-translation",
@@ -32,10 +34,11 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	@Input() public translation: IMasterdataTranslation<any>[] = [];
 
 	constructor(
+		private readonly dialogService: DialogService,
+		private readonly masterdataRenderer: MasterdataRendererService,
 		private readonly toastService: ToastService,
 		private readonly translateService: TranslateService,
-		private readonly service: MasterdataCrudHttpService,
-		public readonly translationService: MasterdataTranslationService
+		private readonly service: MasterdataCrudHttpService
 	) {}
 
 	ngOnInit(): void {
@@ -80,7 +83,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		if (this.isTypeModel()) {
 			const model = {} as IMasterdataTranslationUpdateMdType;
 			model.translations = this.mapFlatModel2Translation(this.translationFlat);
-			console.log("SaveChange/model/type", model);
+			//console.log("SaveChange/model/type", model);
 
 			this.service.updateMasterdataTypeTranslation(this.typeId, model).subscribe({
 				next: data => {
@@ -92,7 +95,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		} else {
 			const model = {} as IMasterdataTranslationUpdateMdItem;
 			model.translations = this.mapFlatModel2Translation(this.translationFlat);
-			console.log("SaveChange/model/masterdata", model);
+			//console.log("SaveChange/model/masterdata", model);
 
 			this.service.updateMasterdataTranslation(this.typeId, this.masterdataId, model).subscribe({
 				next: data => {
@@ -102,6 +105,82 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 				error: () => (this.isLoading = false)
 			});
 		}
+	}
+
+	async onAddNewLanguage(): Promise<void> {
+		const translateKey = "addForm";
+		const headerText = this.translateService.instant(`masterdatamgmt.pages.masterdataTranslationsBox.upsert.${translateKey}.header`);
+		const dialogRef = this.dialogService.open(MasterdataTranslationUpsertComponent, {
+			header: headerText,
+			width: "50%",
+			data: {
+				item: null,
+				isTypeModel: this.isTypeModel(),
+				isAddForm: true,
+				translatableFields: this.translatableFields,
+				currentLanguages: this.translationFlat.map(item => item.language),
+				languagesList: this.languagesList
+			}
+		});
+
+		dialogRef.onClose.subscribe((model: IMasterdataTranslationFlat) => {
+			if (!model) {
+				return;
+			}
+
+			// add new language if not exists already
+			if (!this.translationFlat.find(item => item.language === model.language)) {
+				this.translationFlat.push({
+					...model
+				});
+				if (model.isDefault) {
+					// set this language as default one
+					this.setDefaultLanguage(model.language, true);
+				}
+				this.isDirtyChanges = true;
+			}
+		});
+	}
+
+	async onEditLanguage(item: IMasterdataTranslationFlat): Promise<void> {
+		const translateKey = "editForm";
+		const headerText = this.translateService.instant(`masterdatamgmt.pages.masterdataTranslationsBox.upsert.${translateKey}.header`);
+		const dialogRef = this.dialogService.open(MasterdataTranslationUpsertComponent, {
+			header: headerText,
+			width: "50%",
+			data: {
+				item,
+				isTypeModel: this.isTypeModel(),
+				isAddForm: false,
+				translatableFields: this.translatableFields,
+				currentLanguages: this.translationFlat.map(item => item.language),
+				languagesList: this.languagesList
+			}
+		});
+
+		dialogRef.onClose.subscribe((model: IMasterdataTranslationFlat) => {
+			if (!model) {
+				return;
+			}
+
+			const foundIndex = this.translationFlat.findIndex(item => item.language === model.language); // find current edited language
+			if (foundIndex !== -1) {
+				const origDefaultState = this.translationFlat[foundIndex].isDefault;
+				this.translationFlat[foundIndex] = {
+					// update language
+					...this.translationFlat[foundIndex],
+					...model
+				};
+				if (model.isDefault) {
+					// set this language as default one
+					this.setDefaultLanguage(model.language, true);
+				} else if (!model.isDefault && origDefaultState) {
+					// fallback: if this edited language was the current default one, than set first found language as default one
+					this.setDefaultLanguage(this.translationFlat.find(item => item !== undefined)?.language ?? "", true);
+				}
+				this.isDirtyChanges = true;
+			}
+		});
 	}
 
 	private saveChangesComplete(data: Masterdata | MasterdataType, isType: boolean) {
@@ -117,11 +196,13 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		);
 	}
 
-	private setDefaultLanguage(language: string) {
-		const isCurrentDefault = this.translationFlat.find(item => language === item.language)?.isDefault;
-		if (isCurrentDefault) {
-			// already is set as default language
-			return;
+	private setDefaultLanguage(language: string, forceReset = false) {
+		if (!forceReset) {
+			const isCurrentDefault = this.translationFlat.find(item => language === item.language)?.isDefault;
+			if (isCurrentDefault) {
+				// already is set as default language
+				return;
+			}
 		}
 
 		this.translationFlat = this.translationFlat.map(item => {
@@ -129,7 +210,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 			return {
 				...item,
 				isDefault: isDefault,
-				isDefaultForDisplay: isDefault ? "yes" : "no"
+				isDefaultForDisplay: this.masterdataRenderer.isDefaultForDisplay(isDefault)
 			};
 		});
 		this.isDirtyChanges = true;
@@ -143,9 +224,8 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	private initTranslation() {
 		this.translationFlat = this.mapTranslation2FlatModel(this.translation);
 		this.translationFlat = this.addLanguageNameToTranslation(this.translationFlat);
-		//this.translationService.resetTranslationItems(this.translationFlat);
-		console.log("translation", this.translation);
-		console.log("translationFlat", this.translationFlat);
+		//console.log("translation", this.translation);
+		//console.log("translationFlat", this.translationFlat);
 	}
 
 	private addLanguageNameToTranslation(items: IMasterdataTranslationFlat[]): IMasterdataTranslationFlat[] {
@@ -197,7 +277,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 							language: item.language,
 							languageName: "",
 							isDefault: item.isDefault,
-							isDefaultForDisplay: item.isDefault ? "yes" : "no"
+							isDefaultForDisplay: this.masterdataRenderer.isDefaultForDisplay(item.isDefault)
 						});
 						langFoundIndex = res.length - 1;
 					}

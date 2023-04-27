@@ -1,20 +1,20 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { KeyValuePair } from "@lens/app-abstract";
-import { MasterdataType } from "../../models";
+import { LanguageItem } from "../../models";
 
 @Component({
-	selector: "masterdata-type-selector",
-	templateUrl: "masterdata-type-selector.component.html",
+	selector: "masterdata-language-selector",
+	templateUrl: "language-selector.component.html",
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => MasterdataTypeSelectorComponent),
+			useExisting: forwardRef(() => LanguageSelectorComponent),
 			multi: true
 		}
 	]
 })
-export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
+export class LanguageSelectorComponent implements ControlValueAccessor {
 	private _value?: string;
 
 	public options!: KeyValuePair<string, string>[];
@@ -22,14 +22,14 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	@Input() public required = false;
 	@Input() public placeholder = "";
 
-	@Input() public set masterdataTypes(value: MasterdataType[]) {
-		this.options = value?.map(masterdataType => ({
-			key: masterdataType.id,
-			value: masterdataType.name
+	@Input() public set languages(value: LanguageItem[]) {
+		this.options = value?.map(item => ({
+			key: item.code,
+			value: item.name
 		}));
 	}
 
-	@Output() public typeChanged: EventEmitter<string> = new EventEmitter();
+	@Output() public languageChanged: EventEmitter<string> = new EventEmitter();
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
 	protected onChange = (event: any) => {};
@@ -65,6 +65,6 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	}
 
 	public onTypeChanged(type: string) {
-		this.typeChanged.emit(type);
+		this.languageChanged.emit(type);
 	}
 }

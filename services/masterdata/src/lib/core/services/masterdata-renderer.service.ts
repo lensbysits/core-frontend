@@ -21,4 +21,8 @@ export class MasterdataRendererService {
 	titleCase(str: string) {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
+
+	isDefaultForDisplay(isDefault: boolean) {
+		return isDefault ? "yes" : "no";
+	}
 }
