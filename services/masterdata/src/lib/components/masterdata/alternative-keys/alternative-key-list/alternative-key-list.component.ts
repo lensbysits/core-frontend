@@ -15,7 +15,6 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 	isLoading = false;
 	items: MasterdataAlternativeKey[] = [];
 	totalSize = 0;
-	lang = ""; // interface current language; used as an workaround to refresh the lens-table html template view!
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
@@ -27,9 +26,6 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 		private readonly alternativeKeyService: MasterdataAlternativeKeyService
 	) {
 		this.isLoading = true;
-		this.translateService.onLangChange.subscribe(() => {
-			this.lang = this.translateService.store.currentLang;
-		});
 		this.alternativeKeyService.alternativeKeyAdded$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.loadItems(0, 0);

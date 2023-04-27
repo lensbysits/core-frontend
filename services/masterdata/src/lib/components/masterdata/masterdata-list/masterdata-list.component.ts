@@ -20,7 +20,6 @@ export class MasterdatasListComponent implements OnInit {
 	masterdataType$?: Observable<MasterdataType>;
 	tagsList: string[] = [];
 	tagsSelected: KeyValuePair<string, string>[] = [];
-	lang = ""; // interface current language; used as an workaround to refresh the lens-table html template view!
 
 	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
 	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
@@ -32,9 +31,6 @@ export class MasterdatasListComponent implements OnInit {
 		private readonly translateService: TranslateService
 	) {
 		this.isLoading = true;
-		this.translateService.onLangChange.subscribe(() => {
-			this.lang = this.translateService.store.currentLang;
-		});
 	}
 
 	ngOnInit(): void {

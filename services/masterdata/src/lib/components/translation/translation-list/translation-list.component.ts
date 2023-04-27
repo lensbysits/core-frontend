@@ -9,7 +9,6 @@ import { IMasterdataTranslationFlat } from "../../../core/interfaces";
 })
 export class MasterdataTranslationListComponent {
 	isLoading = false;
-	lang = ""; // interface current language; used as an workaround to refresh the lens-table html template view!
 
 	@Input() public viewOnly = false;
 	@Input() public translationFlat: IMasterdataTranslationFlat[] = [];
@@ -18,11 +17,7 @@ export class MasterdataTranslationListComponent {
 	@Output() public setDefaultLanguage: EventEmitter<IMasterdataTranslationFlat> = new EventEmitter();
 	@Output() public editLanguage: EventEmitter<IMasterdataTranslationFlat> = new EventEmitter();
 
-	constructor(private readonly translateService: TranslateService) {
-		this.translateService.onLangChange.subscribe(() => {
-			this.lang = this.translateService.store.currentLang;
-		});
-	}
+	constructor(private readonly translateService: TranslateService) {}
 
 	getTranslationItems() {
 		return this.translationFlat;
