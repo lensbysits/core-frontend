@@ -131,6 +131,6 @@ export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDes
 
 	private filterMasterdataItems(items: Masterdata[]): Masterdata[] {
 		const currRelatedIds = this.relatedItems.map(item => item.id);
-		return items.filter(item => !currRelatedIds.includes(item.id));
+		return items.filter(item => this.currentMasterdata.masterdataId !== item.id).filter(item => !currRelatedIds.includes(item.id));
 	}
 }

@@ -13,6 +13,8 @@ export const LAZY_LOADED_MULTILINGUAL_MODULES = new InjectionToken<BehaviorSubje
 export class LanguageService {
 	private translationsLoadedSubject = new Subject<void>();
 	private translationsLoaded = false;
+	private config?: LanguageConfiguration;
+	private browserLang = '';
 
 	constructor(private appConfigurationService: AppConfigurationService, private translateService: TranslateService) {}
 
@@ -38,25 +40,36 @@ export class LanguageService {
 		this.translationsLoaded = false;
 		this.translateService.reloadLang("en").subscribe(() => {
 			this.notifyListeners();
+			this.notifyPipesAndDirectives();
+			this.translationsLoaded = true;
+		});
+	}
+	
+	private notifyPipesAndDirectives() {
+		// we need to switch and then switch back to the current language
+		// in order to notify the pipes and directives that the translations have changed
+		// otherwise the rendered translated HTML won't be updated
+		this.translateService.use("en").subscribe(() => {
+			this.translateService.use(this.browserLang);
 		});
 	}
 
 	private initTranslationService() {
-		const config = this.appConfigurationService.getSettings<LanguageConfiguration>("languageConfiguration");
-		this.translateService.addLangs(config.supportedLanguages);
-		this.translateService.setDefaultLang(config.fallbackLanguage);
-		const browserLang = this.translateService.getBrowserLang() ?? "";
+		this.config = this.appConfigurationService.getSettings<LanguageConfiguration>("languageConfiguration");
+		this.translateService.addLangs(this.config.supportedLanguages);
+		this.translateService.setDefaultLang(this.config.fallbackLanguage);
+		this.browserLang = this.translateService.getBrowserLang() ?? "";
 		this.translateService
 			.use(
-				config.supportedLanguages.find(l => l.toLocaleLowerCase() === browserLang.toLocaleLowerCase()) !== undefined
-					? browserLang
-					: config.fallbackLanguage
+				this.config.supportedLanguages.find(l => l.toLocaleLowerCase() === this.browserLang.toLocaleLowerCase()) !== undefined
+					? this.browserLang
+					: this.config.fallbackLanguage
 			)
 			.subscribe(() => {
 				this.notifyListeners();
 			});
 	}
-	
+
 	private notifyListeners() {
 		this.translationsLoaded = true;
 		this.translationsLoadedSubject.next();

@@ -5,7 +5,9 @@
 		<tab-panels> -->
 		<lens-tabs>
 			<tab-panels>
-				<tab-panel header="Masterdata Properties">
+				<tab-panel
+					header="Masterdata Properties"
+					[selected]="true">
 					<div>
 						<div class="details-wrapper">
 							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
@@ -50,9 +52,7 @@
 						</div>
 					</div>
 				</tab-panel>
-				<tab-panel
-					header="Related Items"
-					[selected]="true">
+				<tab-panel header="Related Items">
 					<div>
 						<div class="details-wrapper">
 							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>

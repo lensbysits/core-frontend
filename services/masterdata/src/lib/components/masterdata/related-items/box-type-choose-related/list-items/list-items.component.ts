@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastService } from "@lens/app-abstract";
+import { IListboxOptionTextClick } from "@lens/ui-prime-components";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { MasterdataRelatedItemGroupedByTypeItem } from "../../../../../core/models";
@@ -57,6 +58,10 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 		return this.dataForm.controls;
 	}
 
+	getMasterdataRelatedItems(): MasterdataRelatedItemGroupedByTypeItem[] {
+		return this.relatedItems.filter(item => !(this.currentMasterdata.masterdataId === item.id));
+	}
+
 	btnCancel() {
 		this.resetDataForm();
 		this.relatedItemsService.markResetRelatedItems();
@@ -104,6 +109,19 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 			complete: () => (this.isLoading = false),
 			error: () => (this.isLoading = false)
 		});
+	}
+
+	onOptionTextClick(data: IListboxOptionTextClick) {
+		const {
+			originalEvent: event,
+			option: { link = "" }
+		} = data;
+
+		event.preventDefault();
+		event.stopPropagation();
+		if (link !== "") {
+			window.open(link, "_blank");
+		}
 	}
 
 	private resetDataForm() {

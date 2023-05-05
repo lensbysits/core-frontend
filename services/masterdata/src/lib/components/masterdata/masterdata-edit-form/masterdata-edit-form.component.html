@@ -1,5 +1,5 @@
 <lens-panel
-	header="{{ formHeaderText | translate }} '{{dataForm.get('name')?.value }}'">
+	header="{{ formHeaderText | translate }} '{{ dataForm.get('name')?.value }}'">
 	<ng-container *ngIf="isAddForm">
 		<div class="form-wrapper">
 			<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
@@ -11,7 +11,9 @@
 	<ng-container *ngIf="!isAddForm">
 		<lens-tabs>
 			<tab-panels>
-				<tab-panel header="Masterdata Properties">
+				<tab-panel
+					header="Masterdata Properties"
+					[selected]="true">
 					<div class="form-wrapper masterdata-properties">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
@@ -30,9 +32,7 @@
 						</div>
 					</div>
 				</tab-panel>
-				<tab-panel
-					header="Related Items"
-					[selected]="true">
+				<tab-panel header="Related Items">
 					<div class="form-wrapper related-items">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
