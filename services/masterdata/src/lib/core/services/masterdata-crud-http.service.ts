@@ -65,10 +65,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(this.baseUrl, queryParams.toString());
 
-		return this.client.get<MasterdataTypeResultList>(url).pipe(
-			map(input => masterdataTypeResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<MasterdataTypeResultList>("getAllMasterdataTypes", masterdataTypeResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<MasterdataTypeResultList>(url).pipe(map(input => masterdataTypeResultListModelAdapter.adapt(input)));
 	}
 
 	getMasterdataTypeById(masterdatatype: string): Observable<MasterdataType> {
@@ -77,8 +74,7 @@ export class MasterdataCrudHttpService {
 		return this.client.get<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`).pipe(
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataType>("getMasterdataTypeById", masterdataTypeModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -88,10 +84,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows, tags: tags.join(",") }));
 		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}`, queryParams.toString());
 
-		return this.client.get<MasterdataResultList>(url).pipe(
-			map(input => masterdataResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<MasterdataResultList>("getAllMasterdatas", masterdataResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<MasterdataResultList>(url).pipe(map(input => masterdataResultListModelAdapter.adapt(input)));
 	}
 
 	getMasterdataById(masterdatatype: string, id: string): Observable<Masterdata> {
@@ -100,8 +93,7 @@ export class MasterdataCrudHttpService {
 		return this.client.get<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`).pipe(
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<Masterdata>("getMasterdataById", masterdataModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -116,15 +108,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys`, queryParams.toString());
 
-		return this.client.get<MasterdataAlternativeKeyResultList>(url).pipe(
-			map(input => masterdataAlternativeKeyResultListModelAdapter.adapt(input)),
-			catchError(
-				this.handleError<MasterdataAlternativeKeyResultList>(
-					"getAllMasterdataAlternativeKeys",
-					masterdataAlternativeKeyResultListModelAdapter.adapt(null)
-				)
-			)
-		);
+		return this.client.get<MasterdataAlternativeKeyResultList>(url).pipe(map(input => masterdataAlternativeKeyResultListModelAdapter.adapt(input)));
 	}
 
 	getAllDomains(masterdatatype: string, masterdata: string, offset: number, rows: number): Observable<TagsResultList> {
@@ -133,10 +117,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/domains`, queryParams.toString());
 
-		return this.client.get<TagsResultList>(url).pipe(
-			map(input => domainsResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<TagsResultList>("getAllDomains", domainsResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<TagsResultList>(url).pipe(map(input => domainsResultListModelAdapter.adapt(input)));
 	}
 
 	getAllTags(masterdatatype: string, offset: number, rows: number): Observable<TagsResultList> {
@@ -145,10 +126,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}${!isEmpty(masterdatatype) ? "/" + masterdatatype : ""}/tags`, queryParams.toString());
 
-		return this.client.get<TagsResultList>(url).pipe(
-			map(input => tagsResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<TagsResultList>("getAllTags", tagsResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<TagsResultList>(url).pipe(map(input => tagsResultListModelAdapter.adapt(input)));
 	}
 
 	getRelatedItems(masterdatatype: string, masterdata: string): Observable<MasterdataRelatedItemResultList> {
@@ -157,10 +135,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams();
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, queryParams.toString());
 
-		return this.client.get<MasterdataRelatedItemResultList>(url).pipe(
-			map(input => masterdataRelatedItemResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<MasterdataRelatedItemResultList>("getRelatedItems", masterdataRelatedItemResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<MasterdataRelatedItemResultList>(url).pipe(map(input => masterdataRelatedItemResultListModelAdapter.adapt(input)));
 	}
 
 	getAllLanguages(masterdatatype: string, offset: number, rows: number): Observable<LanguagesResultList> {
@@ -169,10 +144,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/langs`, queryParams.toString());
 
-		return this.client.get<LanguagesResultList>(url).pipe(
-			map(input => languagesResultListModelAdapter.adapt(input)),
-			catchError(this.handleError<LanguagesResultList>("getAllLanguages", languagesResultListModelAdapter.adapt(null)))
-		);
+		return this.client.get<LanguagesResultList>(url).pipe(map(input => languagesResultListModelAdapter.adapt(input)));
 	}
 
 	createMasterdataType(item: IMasterdataTypeCreate): Observable<MasterdataType> {
@@ -181,8 +153,7 @@ export class MasterdataCrudHttpService {
 		return this.client.post<Result<MasterdataType>>(`${this.baseUrl}`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataType>("createMasterdataType", masterdataTypeModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -192,8 +163,7 @@ export class MasterdataCrudHttpService {
 		return this.client.post<Result<Masterdata>>(`${this.baseUrl}/${item.masterdataTypeId}`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<Masterdata>("createMasterdata", masterdataModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -205,9 +175,7 @@ export class MasterdataCrudHttpService {
 			.pipe(
 				map(input => {
 					return masterdataAlternativeKeyModelAdapter.adapt(input.value);
-				}),
-				// eslint-disable-next-line max-len
-				catchError(this.handleError<MasterdataAlternativeKey>("createMasterdataAlternativeKey", masterdataAlternativeKeyModelAdapter.adapt(null)))
+				})
 			);
 	}
 
@@ -219,8 +187,7 @@ export class MasterdataCrudHttpService {
 		return this.client.post<Result<MasterdataRelatedItem>>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataRelatedItemModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataRelatedItem>("createMasterdataAlternativeKey", masterdataRelatedItemModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -230,8 +197,7 @@ export class MasterdataCrudHttpService {
 		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/details`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataType>("updateMasterdataType", masterdataTypeModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -241,8 +207,7 @@ export class MasterdataCrudHttpService {
 		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<Masterdata>("updateMasterdata", masterdataModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -252,8 +217,7 @@ export class MasterdataCrudHttpService {
 		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/translation`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataTypeModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<MasterdataType>("updateMasterdataTypeTranslation", masterdataTypeModelAdapter.adapt(null)))
+			})
 		);
 	}
 
@@ -263,27 +227,20 @@ export class MasterdataCrudHttpService {
 		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}/translation`, item, this.httpOptions).pipe(
 			map(input => {
 				return masterdataModelAdapter.adapt(input.value);
-			}),
-			catchError(this.handleError<Masterdata>("updateMasterdataTranslation", masterdataModelAdapter.adapt(null)))
+			})
 		);
 	}
 
 	deleteMasterdataType(masterdatatype: string): Observable<MasterdataType> {
-		return this.client
-			.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions)
-			.pipe(catchError(this.handleError<MasterdataType>("deleteMasterdataType", undefined)));
+		return this.client.delete<MasterdataType>(`${this.baseUrl}/${masterdatatype}/details`, this.httpOptions);
 	}
 
 	deleteMasterdata(masterdatatype: string, masterdata: string): Observable<Masterdata> {
-		return this.client
-			.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions)
-			.pipe(catchError(this.handleError<Masterdata>("deleteMasterdata", undefined)));
+		return this.client.delete<Masterdata>(`${this.baseUrl}/${masterdatatype}/${masterdata}`, this.httpOptions);
 	}
 
 	deleteMasterdataAlternativeKey(masterdatatype: string, masterdata: string, id: string): Observable<MasterdataAlternativeKey> {
-		return this.client
-			.delete<MasterdataAlternativeKey>(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/${id}`, this.httpOptions)
-			.pipe(catchError(this.handleError<MasterdataAlternativeKey>("deleteMasterdataAlternativeKey", undefined)));
+		return this.client.delete<MasterdataAlternativeKey>(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys/${id}`, this.httpOptions);
 	}
 
 	deleteMasterdataRelatedItems(masterdatatype: string, masterdata: string, guids: string[]): Observable<MasterdataRelatedItem> {
@@ -292,25 +249,7 @@ export class MasterdataCrudHttpService {
 			body: [...guids]
 		};
 
-		return this.client
-			.delete<MasterdataRelatedItem>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, options)
-			.pipe(catchError(this.handleError<MasterdataRelatedItem>("deleteMasterdataRelatedItems", undefined)));
-	}
-
-	/**
-	 * Handle Http operation that failed. Also let the app continue.
-	 *
-	 * @param operation - name of the operation that failed
-	 * @param result - optional value to return as the observable result
-	 */
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	private handleError<T>(operation = "operation", result?: T) {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		return (error: any): Observable<T> => {
-			// TODO: send the error to remote logging infrastructure
-			console.error(`handleError/${operation}`, error); // log to console instead
-			throw error;
-		};
+		return this.client.delete<MasterdataRelatedItem>(`${this.baseUrl}/${masterdatatype}/${masterdata}/related`, options);
 	}
 
 	private buildListUri(baseUrl: string | undefined, queryString?: string) {
