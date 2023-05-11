@@ -13,7 +13,7 @@ import { MasterdataCrudHttpService } from "../../../core/services";
 	styleUrls: ["./masterdata-list.component.scss"]
 })
 export class MasterdatasListComponent implements OnInit {
-	isLoading = false;
+	isLoading = true;
 	items: Masterdata[] = [];
 	totalSize = 0;
 	typeId = "";
@@ -29,9 +29,7 @@ export class MasterdatasListComponent implements OnInit {
 		private readonly router: Router,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly translateService: TranslateService
-	) {
-		this.isLoading = true;
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.typeId = this.activeRoute.snapshot.paramMap.get("masterdatatype") ?? "";

@@ -77,7 +77,6 @@ export class MasterdataRelatedItemsListItemsComponent implements OnInit, OnDestr
 
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 

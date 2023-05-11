@@ -104,7 +104,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 					name: data.name,
 					description: data.description,
 					metadata: data.metadata,
-					tags: data.tags?.map(item => ({ key: item, value: item } as KeyValuePair<string, string>))
+					tags: data.tags?.map(item => new KeyValuePair<string, string>(item, item))
 				});
 				this.item = data || {};
 				this.isLoading = false;
@@ -117,7 +117,6 @@ export class MasterdatasEditFormComponent implements OnInit {
 	onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 
@@ -135,7 +134,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 			const model = {} as IMasterdataCreate;
 			model.key = key;
-			model.masterdataTypeId = masterdataTypeId ?? undefined;
+			model.masterdataTypeId = masterdataTypeId;
 			model.value = value;
 			model.name = name;
 			model.description = description;

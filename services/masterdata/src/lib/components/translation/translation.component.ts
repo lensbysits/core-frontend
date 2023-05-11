@@ -9,7 +9,7 @@ import {
 	IMasterdataTranslationUpdateMdItem,
 	IMasterdataTranslationUpdateMdType
 } from "../../core/interfaces";
-import { LanguageItem, Masterdata, MasterdataType } from "../../core/models";
+import { LanguageItem, Masterdata, MasterdataTranslationDialogData, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
 import { MasterdataTranslationUpsertComponent } from "./upsert-translation-form/upsert-translation.component";
 
@@ -114,14 +114,14 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		const dialogRef = this.dialogService.open(MasterdataTranslationUpsertComponent, {
 			header: headerText,
 			width: "50%",
-			data: {
-				item: null,
-				isTypeModel: this.isTypeModel(),
-				isAddForm: true,
-				translatableFields: this.translatableFields,
-				currentLanguages: this.translationFlat.map(item => item.language),
-				languagesList: this.languagesList
-			}
+			data: new MasterdataTranslationDialogData(
+				null,
+				this.isTypeModel(),
+				true,
+				this.translatableFields,
+				this.translationFlat.map(item => item.language),
+				this.languagesList
+			)
 		});
 
 		dialogRef.onClose.subscribe((model: IMasterdataTranslationFlat) => {
@@ -149,14 +149,14 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 		const dialogRef = this.dialogService.open(MasterdataTranslationUpsertComponent, {
 			header: headerText,
 			width: "50%",
-			data: {
+			data: new MasterdataTranslationDialogData(
 				item,
-				isTypeModel: this.isTypeModel(),
-				isAddForm: false,
-				translatableFields: this.translatableFields,
-				currentLanguages: this.translationFlat.map(item => item.language),
-				languagesList: this.languagesList
-			}
+				this.isTypeModel(),
+				false,
+				this.translatableFields,
+				this.translationFlat.map(item => item.language),
+				this.languagesList
+			)
 		});
 
 		dialogRef.onClose.subscribe((model: IMasterdataTranslationFlat) => {

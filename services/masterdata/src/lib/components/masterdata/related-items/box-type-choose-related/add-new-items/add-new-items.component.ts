@@ -93,7 +93,6 @@ export class MasterdataRelatedItemsAddNewItemsComponent implements OnInit, OnDes
 
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 

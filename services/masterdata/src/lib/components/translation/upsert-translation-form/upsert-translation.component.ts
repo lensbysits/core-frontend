@@ -4,7 +4,7 @@ import { LanguageService } from "@lens/app-abstract";
 import { DialogComponent, DialogConfig, DialogRef } from "@lens/app-abstract-ui";
 import { LanguageExistsValidator } from "../../../core/features";
 import { IMasterdataTranslationFlat } from "../../../core/interfaces";
-import { LanguageItem } from "../../../core/models";
+import { LanguageItem, MasterdataTranslationDialogData } from "../../../core/models";
 import { MasterdataRendererService } from "../../../core/services";
 import { MasterdataMaxLength, getFieldValue, getRequiredFieldValue } from "../../../core/utils";
 
@@ -18,13 +18,8 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 	dataForm!: FormGroup;
 	isFormSubmitted = false;
 	maxLength = MasterdataMaxLength;
-	item!: IMasterdataTranslationFlat;
-	isTypeModel!: boolean;
-	isAddForm!: boolean;
-	translatableFields: string[] = [];
-	currentLanguages: string[] = [];
-	languagesList: LanguageItem[] = [];
 	availableLanguages: LanguageItem[] = [];
+	dialogData!: MasterdataTranslationDialogData;
 
 	constructor(
 		private readonly masterdataRenderer: MasterdataRendererService,
@@ -35,28 +30,17 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 		@Inject("LensDialogConfig") public readonly config: DialogConfig
 	) {
 		super();
-		this.initConfigData(this.config.data);
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	initConfigData(data: any) {
-		const { item, isTypeModel, isAddForm, translatableFields, currentLanguages, languagesList } = data;
-		this.item = item;
-		this.isTypeModel = isTypeModel;
-		this.isAddForm = isAddForm;
-		this.translatableFields = translatableFields;
-		this.currentLanguages = currentLanguages;
-		this.languagesList = languagesList;
+		this.dialogData = this.config.data;
 	}
 
 	ngOnInit(): void {
-		this.availableLanguages = this.languagesList.filter(item => !this.currentLanguages.includes(item.code));
+		this.availableLanguages = this.dialogData.languagesList.filter(item => !this.dialogData.currentLanguages.includes(item.code));
 
-		const whenMdItem = !this.isTypeModel && {
+		const whenMdItem = !this.dialogData.isTypeModel && {
 			value: ["", [Validators.required, Validators.maxLength(this.maxLength.value)]]
 		};
-		const whenAddForm = this.isAddForm && {
-			language: ["", [Validators.required, this.languageExistsValidator.checkIfLanguageExists(this.currentLanguages)]]
+		const whenAddForm = this.dialogData.isAddForm && {
+			language: ["", [Validators.required, this.languageExistsValidator.checkIfLanguageExists(this.dialogData.currentLanguages)]]
 		};
 		this.dataForm = this.formBuilder.group({
 			...whenAddForm,
@@ -66,8 +50,8 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 			description: ["", [Validators.maxLength(this.maxLength.description)]]
 		});
 
-		if (!this.isAddForm) {
-			this.populateFormValues(this.item);
+		if (!this.dialogData.isAddForm) {
+			this.populateFormValues(this.dialogData.item);
 		}
 
 		this.buildTranslationTexts();
@@ -85,14 +69,17 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 	onSaveButtonClicked() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 
 		this.isLoading = true;
 
 		const isDefault = getFieldValue<boolean>(this.dataForm, "isDefault");
-		const language = this.isAddForm ? getRequiredFieldValue<string>(this.dataForm, "language") : this.item.language;
+		const language = this.dialogData.isAddForm
+			? getRequiredFieldValue<string>(this.dataForm, "language")
+			: this.dialogData.item
+			? this.dialogData.item.language
+			: "";
 		const name = getRequiredFieldValue<string>(this.dataForm, "name");
 		const description = getFieldValue<string>(this.dataForm, "description");
 
@@ -100,8 +87,8 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 		model.isDefault = isDefault;
 		model.isDefaultForDisplay = this.masterdataRenderer.isDefaultForDisplay(isDefault);
 		model.language = language;
-		model.languageName = this.languagesList.find(item => item.code === language)?.name ?? "";
-		if (!this.isTypeModel) {
+		model.languageName = this.dialogData.languagesList.find(item => item.code === language)?.name ?? "";
+		if (!this.dialogData.isTypeModel) {
 			const value = getRequiredFieldValue<string>(this.dataForm, "value");
 			model["Value"] = value;
 		}
@@ -112,19 +99,19 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 		this.ref.close(model);
 	}
 
-	private populateFormValues(data?: IMasterdataTranslationFlat) {
+	private populateFormValues(data: IMasterdataTranslationFlat | null) {
 		this.dataForm.patchValue({
 			language: data?.["language"] ?? "",
 			isDefault: data?.["isDefault"] ?? false,
-			value: data?.["value"] ?? "",
-			name: data?.["name"] ?? "",
-			description: data?.["description"] ?? ""
+			value: data?.["Value"] ?? "",
+			name: data?.["Name"] ?? "",
+			description: data?.["Description"] ?? ""
 		});
 	}
 
 	private buildTranslationTexts() {
 		this.languageService.onTranslationsLoaded(() => {
-			const mode = this.isAddForm ? "add" : "edit";
+			const mode = this.dialogData.isAddForm ? "add" : "edit";
 			this.saveFormButtonText = `masterdatamgmt.pages.masterdataTranslationsBox.upsert.${mode}Form.btnSubmit`;
 		});
 	}

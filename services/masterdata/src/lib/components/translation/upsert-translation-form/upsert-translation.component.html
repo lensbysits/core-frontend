@@ -3,7 +3,7 @@
 		<form [formGroup]="dataForm">
 			<div class="p-fluid mb-4">
 				<!-- only for edit form -->
-				<ng-container *ngIf="!isAddForm && item">
+				<ng-container *ngIf="!dialogData.isAddForm && dialogData.item as item">
 					<ng-container
 						*ngTemplateOutlet="
 							editFormBlock;
@@ -12,7 +12,7 @@
 				</ng-container>
 				<!-- end only for edit form -->
 				<!-- only for add form -->
-				<ng-container *ngIf="isAddForm">
+				<ng-container *ngIf="dialogData.isAddForm">
 					<ng-container *ngTemplateOutlet="addFormBlock"></ng-container>
 				</ng-container>
 				<!-- end only for add form -->
@@ -93,7 +93,7 @@
 					<!-- value -->
 					<div
 						class="field"
-						*ngIf="translatableFields.includes('Value')">
+						*ngIf="dialogData.translatableFields.includes('Value')">
 						<label for="value">
 							{{
 								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.value.label"
@@ -127,7 +127,7 @@
 					<!-- name -->
 					<div
 						class="field"
-						*ngIf="translatableFields.includes('Name')">
+						*ngIf="dialogData.translatableFields.includes('Name')">
 						<label for="name">
 							{{
 								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.name.label"
@@ -161,7 +161,7 @@
 					<!-- description -->
 					<div
 						class="field"
-						*ngIf="translatableFields.includes('Description')">
+						*ngIf="dialogData.translatableFields.includes('Description')">
 						<label for="description">
 							{{
 								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.description.label"
