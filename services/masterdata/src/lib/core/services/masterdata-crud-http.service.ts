@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
 import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import {
 	DomainsResultListModelAdapter,
 	LanguagesResultListModelAdapter,
@@ -23,7 +23,8 @@ import {
 	IMasterdataTranslationUpdateMdType,
 	IMasterdataTypeCreate,
 	IMasterdataTypeUpdate,
-	IMasterdataUpdate
+	IMasterdataUpdate,
+	ISourceLanguagesResultList
 } from "../interfaces";
 import {
 	LanguagesResultList,
@@ -144,7 +145,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/langs`, queryParams.toString());
 
-		return this.client.get<LanguagesResultList>(url).pipe(map(input => languagesResultListModelAdapter.adapt(input)));
+		return this.client.get<ISourceLanguagesResultList>(url).pipe(map(input => languagesResultListModelAdapter.adapt(input)));
 	}
 
 	createMasterdataType(item: IMasterdataTypeCreate): Observable<MasterdataType> {
