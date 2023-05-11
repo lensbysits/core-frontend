@@ -103,10 +103,10 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 		model.languageName = this.languagesList.find(item => item.code === language)?.name ?? "";
 		if (!this.isTypeModel) {
 			const value = getRequiredFieldValue<string>(this.dataForm, "value");
-			model["value"] = value;
+			model["Value"] = value;
 		}
-		model["name"] = name;
-		model["description"] = description;
+		model["Name"] = name;
+		model["Description"] = description;
 		//console.log("saveLanguage/model", model);
 
 		this.ref.close(model);
