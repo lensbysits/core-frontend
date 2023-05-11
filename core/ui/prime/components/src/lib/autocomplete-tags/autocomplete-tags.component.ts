@@ -34,57 +34,57 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public override onSearched(event: any): void {
-    // this.filteredOptions = this.options?.filter(option => option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0);
+    this.filteredOptions = this.options?.filter(option => option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0);
 
-    // if (!this.value) {
-    //   return;
-    // }
-    // // don't show already used values in the suggestions list
-    // this.filteredOptions = this.filteredOptions?.filter(option => {
-    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //   return !this.value.find((item: any) => item.value.toLowerCase() === option.value.toLowerCase());
-    // });
+    if (!this.value) {
+      return;
+    }
+    // don't show already used values in the suggestions list
+    this.filteredOptions = this.filteredOptions?.filter(option => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return !this.values.find((item: any) => item.value.toLowerCase() === option.value.toLowerCase());
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, complexity
   public onKeyUp(event: any): void {
-    // if (!this.allowAddNewTag) {
-    //   return;
-    // }
-    // if (event.key.toLowerCase() !== "enter" && event.key !== this.separator) {
-    //   return;
-    // }
-    // const tokenInput = event.target;
-    // if (!tokenInput.value) {
-    //   return;
-    // }
+    if (!this.allowAddNewTag) {
+      return;
+    }
+    if (event.key.toLowerCase() !== "enter" && event.key !== this.separator) {
+      return;
+    }
+    const tokenInput = event.target;
+    if (!tokenInput.value) {
+      return;
+    }
 
-    // // clean the entered value
-    // let _value = tokenInput.value;
-    // _value = tokenInput.value.trim();
-    // _value = this.removeTrailingSeparator(tokenInput.value, this.separator);
-    // _value = this.removeMultipleSpaces(_value);
-    // tokenInput.value = _value;
+    // clean the entered value
+    let _value = tokenInput.value;
+    _value = tokenInput.value.trim();
+    _value = this.removeTrailingSeparator(tokenInput.value, this.separator);
+    _value = this.removeMultipleSpaces(_value);
+    tokenInput.value = _value;
 
-    // if (_value === "") {
-    //   // don't add an empty value
-    //   return;
-    // }
-    // if (_value.charAt(0) === this.separator) {
-    //   // don't add a value which starts with the chosen separator character
-    //   tokenInput.value = "";
-    //   return;
-    // }
-    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // if (this.value && this.value.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
-    //   // don't add a value already used
-    //   return;
-    // }
-    // if (!this.value) {
-    //   this.value = [];
-    // }
-    // this.value.push({ key: _value, value: _value });
-    // tokenInput.value = "";
+    if (_value === "") {
+      // don't add an empty value
+      return;
+    }
+    if (_value.charAt(0) === this.separator) {
+      // don't add a value which starts with the chosen separator character
+      tokenInput.value = "";
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (this.values && this.values.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
+      // don't add a value already used
+      return;
+    }
+    if (!this.values) {
+      this.values = [];
+    }
+    this.values.push({ key: _value, value: _value });
+    tokenInput.value = "";
     this.valueChanged();
   }
 
