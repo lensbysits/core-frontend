@@ -28,7 +28,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	}
 
 	@Output()
-	public inputValueChanged: EventEmitter<string | number | (string | number)[] | undefined> = new EventEmitter();
+	public inputValueChanged: EventEmitter<KeyValuePair<string | number, string>> = new EventEmitter();
+
+	@Output()
+	public inputValuesChanged: EventEmitter<KeyValuePair<string | number, string>[]> = new EventEmitter();
 
 	public disabled = false;
 	public filteredOptions: KeyValuePair<string | number, string>[] = [];
@@ -99,7 +102,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		const result = this.multiple ? this.selectedKeys : this.selectedKey;
 		this.onChange(result);
 		this.onTouched(result);
-		this.inputValueChanged.emit(result);
+
+		if (this.multiple) {
+			this.inputValuesChanged.emit(this.values);
+		} else {
+			this.inputValueChanged.emit(this.value);
+		}
 	}
 
 	private tryResolveKey(key: string | number | undefined) {
