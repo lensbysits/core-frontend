@@ -22,3 +22,4 @@ export * from "./lib/tabs";
 export * from "./lib/toast";
 export * from "./lib/toolbar";
 export * from "./lib/tree";
+export * from "./lib/avatar";

@@ -24,6 +24,7 @@ import { TabsModule } from "./tabs";
 import { ToastModule } from "./toast";
 import { ToolbarModule } from "./toolbar";
 import { TreeModule } from "./tree";
+import { LensAvatarMolule } from "./avatar";
 
 const modules = [
 	AccordionModule,
@@ -48,7 +49,8 @@ const modules = [
 	TabsModule,
 	ToastModule,
 	ToolbarModule,
-	TreeModule
+	TreeModule,
+	LensAvatarMolule
 ];
 @NgModule({
 	imports: [...modules, CommonModule, MultilingualModule.forChild("prime")],
