@@ -13,7 +13,7 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
   @Input() public allowAddNewTag = true; // allows adding of new tags when modeType=tags
   @Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
 
-  public override ngOnInit(): void {
+  public ngOnInit(): void {
     this.filteredOptions = this.options;
 
     // multiple=true only works if you also set dropdown=false
@@ -42,7 +42,7 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
     // don't show already used values in the suggestions list
     this.filteredOptions = this.filteredOptions?.filter(option => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return !this.value.find((item: any) => item.value.toLowerCase() === option.value.toLowerCase());
+      return !this.values.find((item: any) => item.value.toLowerCase() === option.value.toLowerCase());
     });
   }
 
@@ -76,14 +76,14 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (this.value && this.value.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
+    if (this.values && this.values.find((item: any) => item.value.toLowerCase() === _value.toLocaleLowerCase())) {
       // don't add a value already used
       return;
     }
-    if (!this.value) {
-      this.value = [];
+    if (!this.values) {
+      this.values = [];
     }
-    this.value.push({ key: _value, value: _value });
+    this.values.push({ key: _value, value: _value });
     tokenInput.value = "";
     this.valueChanged();
   }

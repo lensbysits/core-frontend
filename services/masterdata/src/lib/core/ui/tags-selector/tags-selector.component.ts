@@ -64,7 +64,20 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		this.disabled = isDisabled;
 	}
 
-	public onTagsChanged(tags: KeyValuePair<string, string>[]) {
+	public onTagsChanged(keys: string | number | (string | number)[] | undefined) {
+		if (!keys) {
+			return;
+		}
+
+		const tagKeys = Array.isArray(keys) ? keys : [keys];
+		const tags: KeyValuePair<string, string>[] = [];
+		tagKeys.forEach(t => {
+			const o = this.options.find(o => o.key === t);
+			if (o) {
+				tags.push(o);
+			}
+		});
+
 		this.tagsChanged.emit(tags);
 	}
 }
