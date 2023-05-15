@@ -19,8 +19,7 @@ import {
 	IMasterdataAlternativeKeyCreate,
 	IMasterdataCreate,
 	IMasterdataRelatedItemCreate,
-	IMasterdataTranslationUpdateMdItem,
-	IMasterdataTranslationUpdateMdType,
+	IMasterdataTranslationUpdate,
 	IMasterdataTypeCreate,
 	IMasterdataTypeUpdate,
 	IMasterdataUpdate,
@@ -109,6 +108,7 @@ export class MasterdataCrudHttpService {
 		const queryParams = this.buildListQueryModelParams(new QueryModel({ offset, limit: rows }));
 		const url = this.buildListUri(`${this.baseUrl}/${masterdatatype}/${masterdata}/keys`, queryParams.toString());
 
+		// eslint-disable-next-line max-len
 		return this.client.get<MasterdataAlternativeKeyResultList>(url).pipe(map(input => masterdataAlternativeKeyResultListModelAdapter.adapt(input)));
 	}
 
@@ -212,7 +212,7 @@ export class MasterdataCrudHttpService {
 		);
 	}
 
-	updateMasterdataTypeTranslation(masterdatatype: string, item: IMasterdataTranslationUpdateMdType): Observable<MasterdataType> {
+	updateMasterdataTypeTranslation(masterdatatype: string, item: IMasterdataTranslationUpdate): Observable<MasterdataType> {
 		const masterdataTypeModelAdapter = new MasterdataTypeModelAdapter();
 
 		return this.client.put<Result<MasterdataType>>(`${this.baseUrl}/${masterdatatype}/translation`, item, this.httpOptions).pipe(
@@ -222,7 +222,7 @@ export class MasterdataCrudHttpService {
 		);
 	}
 
-	updateMasterdataTranslation(masterdatatype: string, id: string, item: IMasterdataTranslationUpdateMdItem): Observable<Masterdata> {
+	updateMasterdataTranslation(masterdatatype: string, id: string, item: IMasterdataTranslationUpdate): Observable<Masterdata> {
 		const masterdataModelAdapter = new MasterdataModelAdapter();
 
 		return this.client.put<Result<Masterdata>>(`${this.baseUrl}/${masterdatatype}/${id}/translation`, item, this.httpOptions).pipe(

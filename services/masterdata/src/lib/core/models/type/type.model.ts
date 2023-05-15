@@ -8,5 +8,5 @@ export class MasterdataType implements IMasterdataTypeCreate, IMasterdataTypeUpd
 	masterdatasCount?: number;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	metadata?: any;
-	translation?: IMasterdataTranslation<"Name" | "Description">[];
+	translation?: IMasterdataTranslation[];
 }

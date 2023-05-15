@@ -1,9 +1,7 @@
 import { IAdapter, ISourceLanguagesResultList } from "../../interfaces";
 import { LanguageItem, LanguagesResultList } from "../../models";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class LanguagesResultListModelAdapter implements IAdapter<any, LanguagesResultList> {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class LanguagesResultListModelAdapter implements IAdapter<ISourceLanguagesResultList, LanguagesResultList> {
 	adapt(source: ISourceLanguagesResultList): LanguagesResultList {
 		if (!source) {
 			return {

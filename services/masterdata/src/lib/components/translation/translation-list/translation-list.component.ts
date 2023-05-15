@@ -19,10 +19,6 @@ export class MasterdataTranslationListComponent {
 
 	constructor(private readonly translateService: TranslateService) {}
 
-	getTranslationItems() {
-		return this.translationFlat;
-	}
-
 	onEditActionClicked(item: IMasterdataTranslationFlat) {
 		this.editLanguage.emit(item);
 	}

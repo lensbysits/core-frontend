@@ -3,12 +3,7 @@ import { ToastService } from "@lens/app-abstract";
 import { DialogService } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
-import {
-	IMasterdataTranslation,
-	IMasterdataTranslationFlat,
-	IMasterdataTranslationUpdateMdItem,
-	IMasterdataTranslationUpdateMdType
-} from "../../core/interfaces";
+import { IMasterdataTranslation, IMasterdataTranslationFlat, IMasterdataTranslationUpdate } from "../../core/interfaces";
 import { LanguageItem, Masterdata, MasterdataTranslationDialogData, MasterdataType } from "../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../core/services";
 import { MasterdataTranslationUpsertComponent } from "./upsert-translation-form/upsert-translation.component";
@@ -31,8 +26,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	@Input() public viewOnly = false;
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	@Input() public translation: IMasterdataTranslation<any>[] = [];
+	@Input() public translation: IMasterdataTranslation[] = [];
 
 	constructor(
 		private readonly dialogService: DialogService,
@@ -81,11 +75,10 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	onSaveChanges() {
 		this.isLoading = true;
 
-		if (this.isTypeModel()) {
-			const model = {} as IMasterdataTranslationUpdateMdType;
-			model.translations = this.mapFlatModel2Translation(this.translationFlat);
-			//console.log("SaveChange/model/type", model);
+		const model = {} as IMasterdataTranslationUpdate;
+		model.translations = this.mapFlatModel2Translation(this.translationFlat);
 
+		if (this.isTypeModel()) {
 			this.service.updateMasterdataTypeTranslation(this.typeId, model).subscribe({
 				next: data => {
 					this.saveChangesComplete(data, true);
@@ -94,10 +87,6 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 				error: () => (this.isLoading = false)
 			});
 		} else {
-			const model = {} as IMasterdataTranslationUpdateMdItem;
-			model.translations = this.mapFlatModel2Translation(this.translationFlat);
-			//console.log("SaveChange/model/masterdata", model);
-
 			this.service.updateMasterdataTranslation(this.typeId, this.masterdataId, model).subscribe({
 				next: data => {
 					this.saveChangesComplete(data, false);
@@ -218,7 +207,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private reloadTranslation(translation: IMasterdataTranslation<any>[]) {
+	private reloadTranslation(translation: IMasterdataTranslation[]) {
 		this.translation = translation;
 		this.initTranslation();
 	}
@@ -226,8 +215,6 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	private initTranslation() {
 		this.translationFlat = this.mapTranslation2FlatModel(this.translation);
 		this.translationFlat = this.addLanguageNameToTranslation(this.translationFlat);
-		//console.log("translation", this.translation);
-		//console.log("translationFlat", this.translationFlat);
 	}
 
 	private addLanguageNameToTranslation(items: IMasterdataTranslationFlat[]): IMasterdataTranslationFlat[] {
@@ -241,9 +228,9 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private mapFlatModel2Translation(items: IMasterdataTranslationFlat[]): IMasterdataTranslation<any>[] {
+	private mapFlatModel2Translation(items: IMasterdataTranslationFlat[]): IMasterdataTranslation[] {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const res: IMasterdataTranslation<any>[] = [];
+		const res: IMasterdataTranslation[] = [];
 		items
 			.filter(item => item.language !== "")
 			.forEach(item => {
@@ -270,7 +257,7 @@ export class MasterdataTranslationComponent implements OnInit, OnDestroy, OnChan
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private mapTranslation2FlatModel(items: IMasterdataTranslation<any>[]): IMasterdataTranslationFlat[] {
+	private mapTranslation2FlatModel(items: IMasterdataTranslation[]): IMasterdataTranslationFlat[] {
 		const res: IMasterdataTranslationFlat[] = [];
 		items
 			.filter(item => item.language !== "")

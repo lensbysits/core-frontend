@@ -94,7 +94,6 @@ export class MasterdataTranslationUpsertComponent extends DialogComponent implem
 		}
 		model["Name"] = name;
 		model["Description"] = description;
-		//console.log("saveLanguage/model", model);
 
 		this.ref.close(model);
 	}

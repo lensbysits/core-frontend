@@ -12,5 +12,5 @@ export class Masterdata implements IMasterdataCreate, IMasterdataUpdate {
 	metadata?: any;
 	tags?: string[];
 	masterdataKeysCount?: number;
-	translation?: IMasterdataTranslation<"Name" | "Description" | "Value">[];
+	translation?: IMasterdataTranslation[];
 }

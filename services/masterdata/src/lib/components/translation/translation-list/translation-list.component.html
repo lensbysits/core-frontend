@@ -1,7 +1,7 @@
 <div class="translation-list-wrapper">
 	<lens-table
-		[source]="getTranslationItems()"
-		[totalRecords]="getTranslationItems().length"
+		[source]="translationFlat"
+		[totalRecords]="translationFlat.length"
 		[loading]="isLoading"
 		[rows]="1000">
 		<columns>
