@@ -6,6 +6,7 @@ import { LanguageService, MenuService, MultilingualModule } from "@lens/app-abst
 import { AppAbstractUiModule, AppComponent } from "@lens/app-abstract-ui";
 import { PrimeComponentsModule } from "@lens/ui-prime-components";
 import { AngJsoneditorModule } from "@maaxgr/ang-jsoneditor";
+import { CheckboxModule } from "primeng/checkbox";
 
 import { menu } from "./app-menu";
 import { masterdataRoutes } from "./app-routes";
@@ -21,15 +22,20 @@ import {
 	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdataRelatedItemsViewOnlyComponent,
-	MasterdatasDetailsComponent,
-	MasterdatasEditFormComponent,
-	MasterdatasListComponent,
+	MasterdataTranslationComponent,
+	MasterdataTranslationListComponent,
+	MasterdataTranslationUpsertComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
-	MasterdataTypeListComponent
+	MasterdataTypeListComponent,
+	MasterdatasDetailsComponent,
+	MasterdatasEditFormComponent,
+	MasterdatasListComponent
 } from "./components";
+import { MasterdataFeaturesModule } from "./core/features";
 import { MasterdataServicesModule } from "./core/services";
 import {
+	LanguageSelectorModule,
 	MasterdataAlternativeKeyDomainSelectorModule,
 	MasterdataItemsSelectorModule,
 	MasterdataTypeSelectorModule,
@@ -48,12 +54,15 @@ const components = [
 	MasterdataRelatedItemsListItemsComponent,
 	MasterdataRelatedItemsSelectTypeComponent,
 	MasterdataRelatedItemsViewOnlyComponent,
-	MasterdatasDetailsComponent,
-	MasterdatasEditFormComponent,
-	MasterdatasListComponent,
+	MasterdataTranslationComponent,
+	MasterdataTranslationListComponent,
+	MasterdataTranslationUpsertComponent,
 	MasterdataTypeDetailsComponent,
 	MasterdataTypeEditFormComponent,
-	MasterdataTypeListComponent
+	MasterdataTypeListComponent,
+	MasterdatasDetailsComponent,
+	MasterdatasEditFormComponent,
+	MasterdatasListComponent
 ];
 
 @NgModule({
@@ -64,11 +73,14 @@ const components = [
 		FormsModule,
 		ReactiveFormsModule,
 		PrimeComponentsModule,
+		CheckboxModule,
+		LanguageSelectorModule,
+		MasterdataAlternativeKeyDomainSelectorModule,
 		MasterdataItemsSelectorModule,
 		MasterdataTypeSelectorModule,
 		TagsSelectorModule,
-		MasterdataAlternativeKeyDomainSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
+		MasterdataFeaturesModule,
 		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata")
 	],

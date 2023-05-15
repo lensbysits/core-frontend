@@ -1,5 +1,5 @@
 .form-wrapper {
-	&:not(.related-items) {
+	&:not(.related-items, .translation) {
 		width: calc((100% - 20px) / 2);
 		display: inline-block;
 		vertical-align: top;

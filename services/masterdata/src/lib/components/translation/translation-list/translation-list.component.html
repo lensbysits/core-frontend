@@ -1,0 +1,61 @@
+<div class="translation-list-wrapper">
+	<lens-table
+		[source]="translationFlat"
+		[totalRecords]="translationFlat.length"
+		[loading]="isLoading"
+		[rows]="1000">
+		<columns>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.language'
+						| translate
+				"
+				field="language"></column>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.languageName'
+						| translate
+				"
+				field="languageName"></column>
+			<column
+				*ngIf="translatableFields.includes('Value')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.value'
+						| translate
+				"
+				field="Value"></column>
+			<column
+				*ngIf="translatableFields.includes('Name')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.name'
+						| translate
+				"
+				field="Name"></column>
+			<column
+				*ngIf="translatableFields.includes('Description')"
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.description'
+						| translate
+				"
+				field="Description"></column>
+			<column
+				[label]="
+					'masterdatamgmt.pages.masterdataTranslationsBox.tableColumns.isDefault'
+						| translate
+				"
+				field="isDefaultForDisplay"></column>
+		</columns>
+		<ng-container *ngIf="!viewOnly">
+			<row-actions>
+				<action
+					icon="pi pi-pencil"
+					translationKey="masterdatamgmt.pages.masterdataTranslationsBox.buttons.btnEdit"
+					(clicked)="onEditActionClicked($event)"></action>
+				<action
+					icon="pi pi-lock"
+					translationKey="masterdatamgmt.pages.masterdataTranslationsBox.buttons.btnSetDefault"
+					(clicked)="onSetDefaultActionClicked($event)"></action>
+			</row-actions>
+		</ng-container>
+	</lens-table>
+</div>

@@ -8,12 +8,14 @@
 			<div class="masterdata-table-toolbar p-fluid">
 				<div class="masterdata-table-toolbar-item">
 					<lens-button
-						[label]="'masterdatamgmt.pages.masterdataList.buttons.btnAddNew' | translate"
+						[label]="
+							'masterdatamgmt.pages.masterdataList.buttons.btnAddNew'
+								| translate
+						"
 						icon="pi pi-plus"
 						type="success"
 						[disabled]="isLoading"
-						(clicked)="onAddAction()">
-					</lens-button>
+						(clicked)="onAddAction()"></lens-button>
 				</div>
 				<div class="masterdata-table-toolbar-item">
 					<masterdata-tags-selector
@@ -22,8 +24,10 @@
 						[tags]="tagsList"
 						(tagsChanged)="onTagsChangedFilter($event)"
 						[allowAddNewTag]="false"
-						[placeholder]="'masterdatamgmt.pages.masterdataList.tagsSelector.placeholder' | translate">
-					</masterdata-tags-selector>
+						[placeholder]="
+							'masterdatamgmt.pages.masterdataList.tagsSelector.placeholder'
+								| translate
+						"></masterdata-tags-selector>
 				</div>
 			</div>
 		</ng-container>
@@ -37,41 +41,46 @@
 		#table>
 		<columns>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.key' | translate"
-				field="key">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.key' | translate
+				"
+				field="key"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.value' | translate"
-				field="value">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.value' | translate
+				"
+				field="value"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.name' | translate"
-				field="name">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.name' | translate
+				"
+				field="name"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.description' | translate"
-				field="description">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.description'
+						| translate
+				"
+				field="description"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.tags' | translate"
-				field="tags">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.tags' | translate
+				"
+				field="tags"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataList.tableColumns.count' | translate"
-				field="masterdataKeysCount">
-			</column>
-			<row-actions>
-				<action
-					icon="pi pi-pencil"
-					translationKey="masterdatamgmt.pages.masterdataList.buttons.btnEdit"
-					(clicked)="onEditActionClicked($event)">
-				</action>
-				<action
-					icon="pi pi-trash"
-					translationKey="masterdatamgmt.pages.masterdataList.buttons.btnDelete"
-					(clicked)="onDeleteActionClicked($event)">
-				</action>
-			</row-actions>
+				[label]="
+					'masterdatamgmt.pages.masterdataList.tableColumns.count' | translate
+				"
+				field="masterdataKeysCount"></column>
 		</columns>
+		<row-actions>
+			<action
+				icon="pi pi-pencil"
+				translationKey="masterdatamgmt.pages.masterdataList.buttons.btnEdit"
+				(clicked)="onEditActionClicked($event)"></action>
+			<action
+				icon="pi pi-trash"
+				translationKey="masterdatamgmt.pages.masterdataList.buttons.btnDelete"
+				(clicked)="onDeleteActionClicked($event)"></action>
+		</row-actions>
 	</lens-table>
 </div>

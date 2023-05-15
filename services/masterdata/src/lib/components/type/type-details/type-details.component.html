@@ -1,32 +1,66 @@
 <div *ngIf="item$ | async; let item">
-	<lens-panel [header]="'masterdatamgmt.pages.masterdataTypeDetails.header' | translate">
-		<div class="details-wrapper">
-			<div
-				class="mb-4"
-				style="color: var(--primary-color)">
-				<lens-icon
-					icon="pi-arrow-left"
-					class="mr-2">
-				</lens-icon>
-				<a routerLink="/">{{"masterdatamgmt.globals.btnBack" | translate}}</a>
-			</div>
-			<div
-				*ngFor="let item of prepareForDisplay(item)"
-				class="grid">
-				<div class="col-6">{{ item?.[0] }}</div>
-				<div class="col-6">
-					{{ item?.[1] }}
-				</div>
-			</div>
-			<div class="grid">
-				<div class="col-12">{{"masterdatamgmt.pages.masterdataTypeDetails.modelFields.metadata" | translate}}</div>
-				<div class="col-12">
-					<json-editor
-						[options]="makeMetadataEditorOptions()"
-						[data]="item.metadata">
-					</json-editor>
-				</div>
-			</div>
-		</div>
+	<lens-panel
+		[header]="'masterdatamgmt.pages.masterdataTypeDetails.header' | translate">
+		<lens-tabs>
+			<tab-panels>
+				<tab-panel header="Type Properties">
+					<div>
+						<div class="details-wrapper type-properties">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<div
+								*ngFor="let item of prepareForDisplay(item)"
+								class="grid">
+								<div class="col-6">{{ item?.[0] }}</div>
+								<div class="col-6">
+									{{ item?.[1] }}
+								</div>
+							</div>
+							<div class="grid">
+								<div class="col-12">
+									{{
+										"masterdatamgmt.pages.masterdataTypeDetails.modelFields.metadata"
+											| translate
+									}}
+								</div>
+								<div class="col-12">
+									<json-editor
+										[options]="makeMetadataEditorOptions()"
+										[data]="item.metadata"></json-editor>
+								</div>
+							</div>
+						</div>
+					</div>
+				</tab-panel>
+				<tab-panel
+					header="Translations"
+					[selected]="true">
+					<div>
+						<div class="details-wrapper translation">
+							<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
+							<masterdata-translation
+								[typeId]="itemId"
+								[showHeader]="false"
+								[viewOnly]="true"
+								[translation]="
+									item?.translation ?? []
+								"></masterdata-translation>
+						</div>
+					</div>
+				</tab-panel>
+			</tab-panels>
+		</lens-tabs>
 	</lens-panel>
 </div>
+
+<ng-template #mainHeader>
+	<div
+		class="mb-4"
+		style="color: var(--primary-color)">
+		<lens-icon
+			icon="pi-arrow-left"
+			class="mr-2"></lens-icon>
+		<a routerLink="/">
+			{{ "masterdatamgmt.globals.btnBack" | translate }}
+		</a>
+	</div>
+</ng-template>

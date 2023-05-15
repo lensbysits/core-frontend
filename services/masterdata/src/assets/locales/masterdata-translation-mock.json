@@ -1,0 +1,56 @@
+[
+	{
+		"language": "en-US",
+		"isDefault": false,
+		"values": [
+			{
+				"field": "value",
+				"value": "value-en"
+			},
+			{
+				"field": "name",
+				"value": "name-en"
+			},
+			{
+				"field": "description",
+				"value": "description-en"
+			}
+		]
+	},
+	{
+		"language": "ro-RO",
+		"isDefault": true,
+		"values": [
+			{
+				"field": "value",
+				"value": "value-ro"
+			},
+			{
+				"field": "name",
+				"value": "name-ro"
+			},
+			{
+				"field": "description",
+				"value": "description-ro"
+			}
+		]
+	},
+	{
+		"language": "es-ES",
+		"isDefault": false,
+		"values": [
+			{
+				"field": "value",
+				"value": "value-es"
+			},
+			{
+				"field": "name",
+				"value": "name-es"
+			},
+			{
+				"field": "description",
+				"value": "description-es"
+			}
+		]
+	}
+]

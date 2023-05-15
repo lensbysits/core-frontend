@@ -250,6 +250,72 @@
 						}
 					}
 				}
+			},
+			"masterdataTranslationsBox": {
+				"header": "Translations",
+				"tableColumns": {
+					"language": "Language Code",
+					"languageName": "Language Name",
+					"value": "Value",
+					"name": "Name",
+					"description": "Description",
+					"isDefault": "Default"
+				},
+				"buttons": {
+					"btnAdd": "Add New Language",
+					"btnEdit": "Edit",
+					"btnSetDefault": "Set as Default"
+				},
+				"notifications": {
+					"saveChanges": {
+						"successMdType": {
+							"title": "Save changes on masterdata type",
+							"message": "The masterdata type translation was succesfully updated."
+						},
+						"successMdItem": {
+							"title": "Save changes on masterdata item",
+							"message": "The masterdata item translation was succesfully updated."
+						}
+					}
+				},
+				"upsert": {
+					"addForm": {
+						"header": "Add New Language",
+						"btnSubmit": "Add Language"
+					},
+					"editForm": {
+						"header": "Edit Language",
+						"btnSubmit": "Update Language"
+					},
+					"language": {
+						"label": "Language",
+						"placeholder": "Choose Language",
+						"required": "Language is required.",
+						"exists": "Language already exists."
+					},
+					"isDefault": {
+						"label": "Set as Default Language",
+						"required": "Default Language is required."
+					},
+					"value": {
+						"label": "Value",
+						"placeholder": "Please enter a valid value",
+						"required": "Value is required.",
+						"maxLength": "Value can be max {{ maxLength }} characters long."
+					},
+					"name": {
+						"label": "Name",
+						"placeholder": "Please enter a valid name",
+						"required": "Name is required.",
+						"maxLength": "Name can be max {{ maxLength }} characters long."
+					},
+					"description": {
+						"label": "Description",
+						"placeholder": "Please enter a valid description",
+						"required": "Description is required.",
+						"maxLength": "Description can be max {{ maxLength }} characters long."
+					}
+				}
 			}
 		}
 	}

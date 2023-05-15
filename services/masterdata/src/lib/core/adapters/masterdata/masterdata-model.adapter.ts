@@ -16,7 +16,8 @@ export class MasterdataModelAdapter implements IAdapter<any, Masterdata> {
 			description: source?.description,
 			metadata: source?.metadata,
 			tags: source?.tags,
-			masterdataKeysCount: source?.masterdataKeysCount
+			masterdataKeysCount: source?.masterdataKeysCount,
+			translation: source?.translations
 		};
 	}
 }

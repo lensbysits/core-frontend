@@ -7,7 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { IMasterdataAlternativeKeyCreate } from "../../../../core/interfaces";
 import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../../../../core/services";
-import { getRequiredFieldValue, MasterdataAlternativeKeyMaxLength } from "../../../../core/utils";
+import { MasterdataAlternativeKeyMaxLength, getRequiredFieldValue } from "../../../../core/utils";
 
 @Component({
 	selector: "masterdata-alternative-key-add",
@@ -74,7 +74,6 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 	onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 

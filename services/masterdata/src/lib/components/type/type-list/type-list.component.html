@@ -15,7 +15,6 @@
 			(clicked)="onAddAction()"></lens-button>
 	</div>
 	<lens-table
-		[lang]="lang"
 		[source]="items"
 		[totalRecords]="totalSize"
 		(lazyLoad)="onLazyLoadData($event)"
@@ -41,31 +40,29 @@
 				"
 				field="masterdatasCount"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataTypeList.tableColumns.description' | translate"
-				field="description">
-			</column>
-			<row-actions>
-				<action
-					icon="pi pi-list"
-					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnView"
-					(clicked)="onViewMasterdatasActionClicked($event)">
-				</action>
-				<action
-					icon="pi pi-calendar-plus"
-					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd"
-					(clicked)="onAddMasterdataActionClicked($event)">
-				</action>
-				<action
-					icon="pi pi-pencil"
-					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit"
-					(clicked)="onEditActionClicked($event)">
-				</action>
-				<action
-					icon="pi pi-trash"
-					translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete"
-					(clicked)="onDeleteActionClicked($event)">
-				</action>
-			</row-actions>
+				[label]="
+					'masterdatamgmt.pages.masterdataTypeList.tableColumns.description'
+						| translate
+				"
+				field="description"></column>
 		</columns>
+		<row-actions>
+			<action
+				icon="pi pi-list"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnView"
+				(clicked)="onViewMasterdatasActionClicked($event)"></action>
+			<action
+				icon="pi pi-calendar-plus"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnAdd"
+				(clicked)="onAddMasterdataActionClicked($event)"></action>
+			<action
+				icon="pi pi-pencil"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnEdit"
+				(clicked)="onEditActionClicked($event)"></action>
+			<action
+				icon="pi pi-trash"
+				translationKey="masterdatamgmt.pages.masterdataTypeList.buttons.btnDelete"
+				(clicked)="onDeleteActionClicked($event)"></action>
+		</row-actions>
 	</lens-table>
 </div>

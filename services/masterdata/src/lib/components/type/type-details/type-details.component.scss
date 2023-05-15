@@ -1,8 +1,21 @@
 .details-wrapper {
-	width: 50%;
+	&:not(.related-items, .translation) {
+		width: calc((100% - 20px) / 2);
+		display: inline-block;
+		vertical-align: top;
+	}
 
 	.grid {
 		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+
+		.col-12.alternative-keys {
+			&:last-child {
+				margin-top: 0;
+				padding: 0;
+			}
+		}
 		&:not(:last-child) {
 			border-bottom: 1px solid #eceff1;
 		}

@@ -1,0 +1,40 @@
+<div class="translation-wrapper">
+	<ng-container *ngIf="showHeader">
+		<div class="translation-header">
+			<div class="field">
+				<label>
+					{{
+						"masterdatamgmt.pages.masterdataTranslationsBox.header" | translate
+					}}
+				</label>
+				<span></span>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="!viewOnly">
+		<div class="list-actions">
+			<div>
+				<lens-button
+					label="Add New Language"
+					icon="pi pi-plus"
+					type="primary"
+					[disabled]="isLoading"
+					(clicked)="onAddNewLanguage()"></lens-button>
+			</div>
+			<div>
+				<lens-button
+					label="Save Changes"
+					icon="pi pi-save"
+					type="success"
+					[disabled]="!isDirtyChanges"
+					(clicked)="onSaveChanges()"></lens-button>
+			</div>
+		</div>
+	</ng-container>
+	<masterdata-translation-list
+		[viewOnly]="viewOnly"
+		[translationFlat]="translationFlat"
+		[translatableFields]="translatableFields"
+		(setDefaultLanguage)="onSetDefaultLanguage($event)"
+		(editLanguage)="onEditLanguage($event)"></masterdata-translation-list>
+</div>

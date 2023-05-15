@@ -1,4 +1,4 @@
-import { IMasterdataCreate, IMasterdataUpdate } from "../../interfaces";
+import { IMasterdataCreate, IMasterdataTranslation, IMasterdataUpdate } from "../../interfaces";
 
 export class Masterdata implements IMasterdataCreate, IMasterdataUpdate {
 	id!: string;
@@ -12,4 +12,5 @@ export class Masterdata implements IMasterdataCreate, IMasterdataUpdate {
 	metadata?: any;
 	tags?: string[];
 	masterdataKeysCount?: number;
+	translation?: IMasterdataTranslation[];
 }

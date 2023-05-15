@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { LanguageService, ToastService } from "@lens/app-abstract";
-import { getRequiredFieldValue, getFieldValue, MasterdataTypeMaxLength } from "../../../core/utils";
-import { MasterdataType } from "../../../core/models";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
+import { TranslateService } from "@ngx-translate/core";
 import { IMasterdataTypeCreate, IMasterdataTypeUpdate } from "../../../core/interfaces";
+import { MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
+import { MasterdataTypeMaxLength, getFieldValue, getRequiredFieldValue } from "../../../core/utils";
 
 @Component({
 	selector: "masterdata-type-edit-form",
@@ -86,15 +86,14 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 				this.item = data || {};
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
 	onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 
@@ -122,8 +121,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successAdd.message")
 					);
 				},
-				complete: () => this.isLoading = false,
-				error: () => this.isLoading = false
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
 			});
 		} else {
 			const model = {} as IMasterdataTypeUpdate;
@@ -140,8 +139,8 @@ export class MasterdataTypeEditFormComponent implements OnInit {
 						this.translateService.instant("masterdatamgmt.pages.masterdataTypeUpsert.notifications.successEdit.message")
 					);
 				},
-				complete: () => this.isLoading = false,
-				error: () => this.isLoading = false
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
 			});
 		}
 	}

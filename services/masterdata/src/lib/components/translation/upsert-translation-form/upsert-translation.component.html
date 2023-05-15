@@ -1,0 +1,214 @@
+<ng-template #body>
+	<div class="translation-upsert-body-wrapper">
+		<form [formGroup]="dataForm">
+			<div class="p-fluid mb-4">
+				<!-- only for edit form -->
+				<ng-container *ngIf="!dialogData.isAddForm && dialogData.item as item">
+					<ng-container
+						*ngTemplateOutlet="
+							editFormBlock;
+							context: { item: item }
+						"></ng-container>
+				</ng-container>
+				<!-- end only for edit form -->
+				<!-- only for add form -->
+				<ng-container *ngIf="dialogData.isAddForm">
+					<ng-container *ngTemplateOutlet="addFormBlock"></ng-container>
+				</ng-container>
+				<!-- end only for add form -->
+				<ng-container *ngTemplateOutlet="sharedFormBlock"></ng-container>
+
+				<ng-template
+					#editFormBlock
+					let-item="item">
+					<div class="field view-only">
+						<label>
+							{{
+								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.language.label"
+									| translate
+							}}
+						</label>
+						<span>{{ item.language + " (" + item.languageName + ")" }}</span>
+					</div>
+				</ng-template>
+
+				<ng-template #addFormBlock>
+					<!-- language selector -->
+					<div class="field">
+						<label for="language">
+							{{
+								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.language.label"
+									| translate
+							}}
+						</label>
+						<masterdata-language-selector
+							id="language"
+							formControlName="language"
+							[languages]="availableLanguages"
+							placeholder="{{
+								'masterdatamgmt.pages.masterdataTranslationsBox.upsert.language.placeholder'
+									| translate
+							}}"></masterdata-language-selector>
+						<div
+							*ngIf="isFormSubmitted && getFormFields['language']!.invalid"
+							class="p-error">
+							<div *ngIf="getFormFields['language']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.language.required"
+										| translate
+								}}
+							</div>
+							<div *ngIf="getFormFields['language']!.errors?.['exists']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.language.exists"
+										| translate
+								}}
+							</div>
+						</div>
+					</div>
+				</ng-template>
+
+				<ng-template #sharedFormBlock>
+					<!-- isDefault -->
+					<div class="field">
+						<p-checkbox
+							formControlName="isDefault"
+							[binary]="true"
+							inputId="isDefault"
+							[label]="
+								'masterdatamgmt.pages.masterdataTranslationsBox.upsert.isDefault.label'
+									| translate
+							"></p-checkbox>
+						<div
+							*ngIf="isFormSubmitted && getFormFields['isDefault']!.invalid"
+							class="p-error">
+							<div *ngIf="getFormFields['isDefault']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.isDefault.required"
+										| translate
+								}}
+							</div>
+						</div>
+					</div>
+					<!-- value -->
+					<div
+						class="field"
+						*ngIf="dialogData.translatableFields.includes('Value')">
+						<label for="value">
+							{{
+								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.value.label"
+									| translate
+							}}
+						</label>
+						<lens-input-text
+							id="value"
+							formControlName="value"
+							placeholder="{{
+								'masterdatamgmt.pages.masterdataTranslationsBox.upsert.value.placeholder'
+									| translate
+							}}"></lens-input-text>
+						<div
+							*ngIf="isFormSubmitted && getFormFields['value']!.invalid"
+							class="p-error">
+							<div *ngIf="getFormFields['value']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.value.required"
+										| translate
+								}}
+							</div>
+							<div *ngIf="getFormFields['value']!.errors?.['maxlength']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.value.maxLength"
+										| translate: { maxLength: maxLength.value }
+								}}
+							</div>
+						</div>
+					</div>
+					<!-- name -->
+					<div
+						class="field"
+						*ngIf="dialogData.translatableFields.includes('Name')">
+						<label for="name">
+							{{
+								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.name.label"
+									| translate
+							}}
+						</label>
+						<lens-input-text
+							id="name"
+							formControlName="name"
+							placeholder="{{
+								'masterdatamgmt.pages.masterdataTranslationsBox.upsert.name.placeholder'
+									| translate
+							}}"></lens-input-text>
+						<div
+							*ngIf="isFormSubmitted && getFormFields['name']!.invalid"
+							class="p-error">
+							<div *ngIf="getFormFields['name']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.name.required"
+										| translate
+								}}
+							</div>
+							<div *ngIf="getFormFields['name']!.errors?.['maxlength']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.name.maxLength"
+										| translate: { maxLength: maxLength.name }
+								}}
+							</div>
+						</div>
+					</div>
+					<!-- description -->
+					<div
+						class="field"
+						*ngIf="dialogData.translatableFields.includes('Description')">
+						<label for="description">
+							{{
+								"masterdatamgmt.pages.masterdataTranslationsBox.upsert.description.label"
+									| translate
+							}}
+						</label>
+						<lens-input-textarea
+							id="description"
+							formControlName="description"
+							placeholder="{{
+								'masterdatamgmt.pages.masterdataTranslationsBox.upsert.description.placeholder'
+									| translate
+							}}"></lens-input-textarea>
+						<div
+							*ngIf="isFormSubmitted && getFormFields['description']!.invalid"
+							class="p-error">
+							<div *ngIf="getFormFields['description']!.errors?.['required']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.description.required"
+										| translate
+								}}
+							</div>
+							<div *ngIf="getFormFields['description']!.errors?.['maxlength']">
+								{{
+									"masterdatamgmt.pages.masterdataTranslationsBox.upsert.description.maxLength"
+										| translate: { maxLength: maxLength.description }
+								}}
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</div>
+		</form>
+	</div>
+</ng-template>
+
+<ng-template #footer>
+	<div class="translation-upsert-footer-wrapper">
+		<lens-button
+			label="{{ saveFormButtonText | translate }}"
+			icon="pi pi-save"
+			type="success"
+			(clicked)="onSaveButtonClicked()"
+			id="saveLanguageForm"></lens-button>
+		<lens-button
+			label="{{ 'masterdatamgmt.globals.btnCancel' | translate }}"
+			icon="pi pi-backward"
+			(clicked)="onCancelButtonClicked()"></lens-button>
+	</div>
+</ng-template>

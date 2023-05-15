@@ -15,7 +15,7 @@ import { MasterdataType } from "../../models";
 	]
 })
 export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
-	private _value?: KeyValuePair<string, string>;
+	private _value?: string;
 
 	public options!: KeyValuePair<string, string>[];
 	@Input() public disabled = false;
@@ -36,17 +36,17 @@ export class MasterdataTypeSelectorComponent implements ControlValueAccessor {
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected onTouched = () => {};
 
-	public set value(value: KeyValuePair<string, string> | undefined) {
+	public set value(value: string | undefined) {
 		this._value = value;
 		this.onChange(value);
 		this.onTouched();
 	}
 
-	public get value(): KeyValuePair<string, string> | undefined {
+	public get value(): string | undefined {
 		return this._value;
 	}
 
-	public writeValue(obj: KeyValuePair<string, string> | undefined): void {
+	public writeValue(obj: string | undefined): void {
 		this._value = obj;
 	}
 

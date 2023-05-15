@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair } from "@lens/app-abstract";
 import { ILazyLoadEvent, TableComponent } from "@lens/ui-prime-components";
 import { TranslateService } from "@ngx-translate/core";
-import { debounceTime, Observable, Subject } from "rxjs";
+import { Observable, Subject, debounceTime } from "rxjs";
 import { Masterdata, MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService } from "../../../core/services";
 

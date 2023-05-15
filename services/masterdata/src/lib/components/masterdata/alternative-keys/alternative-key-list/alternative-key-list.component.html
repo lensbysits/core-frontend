@@ -7,22 +7,25 @@
 		[paginator]="false">
 		<columns>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.domain' | translate"
-				field="domain">
-			</column>
+				[label]="
+					'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.domain'
+						| translate
+				"
+				field="domain"></column>
 			<column
-				[label]="'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key' | translate"
-				field="key">
-			</column>
-			<ng-container *ngIf="!viewOnly">
-				<row-actions>
-					<action
-						icon="pi pi-trash"
-						translationKey="masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete"
-						(clicked)="onDeleteActionClicked($event)">
-					</action>
-				</row-actions>
-			</ng-container>
+				[label]="
+					'masterdatamgmt.pages.masterdataAlternativeKeyList.tableColumns.key'
+						| translate
+				"
+				field="key"></column>
 		</columns>
+		<ng-container *ngIf="!viewOnly">
+			<row-actions>
+				<action
+					icon="pi pi-trash"
+					translationKey="masterdatamgmt.pages.masterdataAlternativeKeyList.buttons.btnDelete"
+					(clicked)="onDeleteActionClicked($event)"></action>
+			</row-actions>
+		</ng-container>
 	</lens-table>
 </div>

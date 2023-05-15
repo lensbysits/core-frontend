@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract";
+import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
-import { JsonEditorComponent, JsonEditorOptions } from "@maaxgr/ang-jsoneditor";
-import { ToastService, LanguageService, KeyValuePair } from "@lens/app-abstract";
-import { getRequiredFieldValue, getFieldValue, MasterdataMaxLength } from "../../../core/utils";
-import { Masterdata, MasterdataType } from "../../../core/models";
 import { IMasterdataCreate, IMasterdataUpdate } from "../../../core/interfaces";
+import { Masterdata, MasterdataType } from "../../../core/models";
 import { MasterdataCrudHttpService, MasterdataRendererService } from "../../../core/services";
+import { MasterdataMaxLength, getFieldValue, getRequiredFieldValue } from "../../../core/utils";
 
 @Component({
 	selector: "masterdata-edit-form",
@@ -104,20 +104,19 @@ export class MasterdatasEditFormComponent implements OnInit {
 					name: data.name,
 					description: data.description,
 					metadata: data.metadata,
-					tags: data.tags?.map(item => ({key: item, value: item} as KeyValuePair<string, string>))
+					tags: data.tags?.map(item => new KeyValuePair<string, string>(item, item))
 				});
 				this.item = data || {};
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
 	onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
-			// stop here if form is invalid
 			return;
 		}
 
@@ -131,12 +130,11 @@ export class MasterdatasEditFormComponent implements OnInit {
 
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
-			const masterdataTypeIdSelector = getRequiredFieldValue<KeyValuePair<string, string>>(this.dataForm, "masterdataTypeId").key;
 			const masterdataTypeId = getRequiredFieldValue<string>(this.dataForm, "masterdataTypeId");
 
 			const model = {} as IMasterdataCreate;
 			model.key = key;
-			model.masterdataTypeId = masterdataTypeIdSelector ?? masterdataTypeId ?? undefined;
+			model.masterdataTypeId = masterdataTypeId;
 			model.value = value;
 			model.name = name;
 			model.description = description;
@@ -152,8 +150,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successAdd.message")
 					);
 				},
-				complete: () => this.isLoading = false,
-				error: () => this.isLoading = false
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
 			});
 		} else {
 			const model = {} as IMasterdataUpdate;
@@ -172,8 +170,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 						this.translateService.instant("masterdatamgmt.pages.masterdataUpsert.notifications.successEdit.message")
 					);
 				},
-				complete: () => this.isLoading = false,
-				error: () => this.isLoading = false
+				complete: () => (this.isLoading = false),
+				error: () => (this.isLoading = false)
 			});
 		}
 	}
@@ -193,8 +191,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 				this.typesList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 
@@ -205,8 +203,8 @@ export class MasterdatasEditFormComponent implements OnInit {
 				this.tagsList = data.value || [];
 				this.isLoading = false;
 			},
-			complete: () => this.isLoading = false,
-			error: () => this.isLoading = false
+			complete: () => (this.isLoading = false),
+			error: () => (this.isLoading = false)
 		});
 	}
 

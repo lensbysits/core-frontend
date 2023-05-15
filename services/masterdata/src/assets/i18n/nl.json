@@ -250,6 +250,72 @@
 						}
 					}
 				}
+			},
+			"masterdataTranslationsBox": {
+				"header": "Vertalingen",
+				"tableColumns": {
+					"language": "Taalcode",
+					"languageName": "Naam van de taal",
+					"value": "Waarde",
+					"name": "Naam",
+					"description": "Beschrijving",
+					"isDefault": "Standaard"
+				},
+				"buttons": {
+					"btnAdd": "Nieuwe taal toevoegen",
+					"btnEdit": "Bewerken",
+					"btnSetDefault": "Als standaard instellen"
+				},
+				"notifications": {
+					"saveChanges": {
+						"successMdType": {
+							"title": "Wijzigingen opslaan in mastertypedata",
+							"message": "De vertaling van de mastertypedata is succesvol bijgewerkt."
+						},
+						"successMdItem": {
+							"title": "Wijzigingen opslaan in masterdata-item",
+							"message": "De vertaling van het masterdata-item is succesvol bijgewerkt."
+						}
+					}
+				},
+				"upsert": {
+					"addForm": {
+						"header": "Nieuwe taal toevoegen",
+						"btnSubmit": "Taal toevoegen"
+					},
+					"editForm": {
+						"header": "Taal bewerken",
+						"btnSubmit": "Taal bijwerken"
+					},
+					"language": {
+						"label": "Taal",
+						"placeholder": "Kies taal",
+						"required": "Taal is verplicht.",
+						"exists": "Taal bestaat al."
+					},
+					"isDefault": {
+						"label": "Stel in als standaardtaal",
+						"required": "Standaardtaal is verplicht."
+					},
+					"value": {
+						"label": "Waarde",
+						"placeholder": "Voer een geldige waarde in",
+						"required": "Waarde is verplicht.",
+						"maxLength": "Waarde kan maximaal {{ maxLength }} tekens lang zijn."
+					},
+					"name": {
+						"label": "Naam",
+						"placeholder": "Voer een geldige naam in",
+						"required": "Naam is verplicht.",
+						"maxLength": "Naam kan maximaal {{ maxLength }} tekens lang zijn."
+					},
+					"description": {
+						"label": "Beschrijving",
+						"placeholder": "Voer een geldige beschrijving in",
+						"required": "Beschrijving is verplicht.",
+						"maxLength": "Beschrijving kan maximaal {{ maxLength }} tekens lang zijn."
+					}
+				}
 			}
 		}
 	}
