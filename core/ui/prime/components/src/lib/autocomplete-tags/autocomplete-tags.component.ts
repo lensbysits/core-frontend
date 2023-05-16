@@ -15,22 +15,10 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
   @Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
 
   public ngOnInit(): void {
-    this.filteredOptions = this.options;
-
     // multiple=true only works if you also set dropdown=false
     this.multiple = true;
     this.dropdown = false;
     this.forceSelection = false;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  public override onItemSelected(value: any): void {
-    this.valueChanged();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  public override onItemUnselected(value: any): void {
-    this.valueChanged();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,8 +70,10 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
       return;
     }
    
-	this.addOption(new KeyValuePair<string, string>(_value, _value))
-	this.writeValue(_value);
+	const value = new KeyValuePair<string, string>(_value, _value)
+	this.values.push(value)
+	this.addOption(value)
+	this.onItemSelected(value);
     tokenInput.value = "";
     this.valueChanged();
   }
