@@ -42,8 +42,7 @@
 					</div>
 				</tab-panel>
 				<tab-panel
-					header="Translations"
-					[selected]="true">
+					header="Translations">
 					<div class="form-wrapper translation">
 						<ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 						<div class="form-body">
@@ -280,7 +279,7 @@
 						[multiple]="true"
 						formControlName="tags"
 						[placeholder]="'masterdatamgmt.pages.masterdataUpsert.tags.placeholder' | translate"
-						[allowAddNewTag]="true"
+						[allowNewValues]="true"
 						separator=",">
 					</lens-autocomplete-tags>
 

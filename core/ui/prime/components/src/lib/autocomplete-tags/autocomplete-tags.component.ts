@@ -8,16 +8,8 @@ import { KeyValuePair } from "@lens/app-abstract";
 	templateUrl: "autocomplete-tags.component.html",
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AutoCompleteTagsComponent), multi: true }]
 })
-export class AutoCompleteTagsComponent extends AutoCompleteComponent implements OnInit {
-	@Input() public allowAddNewTag = true; // allows adding of new tags when modeType=tags
+export class AutoCompleteTagsComponent extends AutoCompleteComponent {
 	@Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
-
-	public ngOnInit(): void {
-		// multiple=true only works if you also set dropdown=false
-		this.multiple = true;
-		this.dropdown = false;
-		this.forceSelection = false;
-	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public override onSearched(event: any): void {
@@ -33,11 +25,8 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, complexity
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onKeyUp(event: any): void {
-		if (!this.allowAddNewTag) {
-			return;
-		}
 		if (event.key.toLowerCase() !== "enter" && event.key !== this.separator) {
 			return;
 		}

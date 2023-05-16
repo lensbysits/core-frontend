@@ -23,9 +23,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		this._options = value;
 		this.filteredOptions = this._options;
 
-		if (this.selectedKey) {
-			this.tryResolveKey(this.selectedKey);
-		}
+		this.initializeComponent();
 	}
 
 	@Output()
@@ -51,11 +49,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	public writeValue(keys: string | number | string[] | number[]): void {
 		if (this.multiple) {
 			this.selectedKeys = Array.isArray(keys) ? keys : [keys];
-			this.selectedKeys.map(k => this.tryResolveKey(k));
 		} else if (!Array.isArray(keys)) {
 			this.selectedKey = keys;
-			this.tryResolveKey(keys);
 		}
+
+		this.initializeComponent();
 	}
 
 	public registerOnChange(fn: (event: unknown) => void): void {
@@ -137,6 +135,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 			this.values.push(obj);
 		} else {
 			this.value = obj;
+		}
+	}
+	
+	private initializeComponent() {
+		if (this.selectedKey) {
+			this.tryResolveKey(this.selectedKey);
+		}
+
+		if (this.selectedKeys.length > 0 ) {
+			this.values = [];
+			this.selectedKeys.forEach(m => this.tryResolveKey(m));
 		}
 	}
 
