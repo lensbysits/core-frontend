@@ -14,17 +14,13 @@ import { KeyValuePair } from "@lens/app-abstract";
 	]
 })
 export class TagsSelectorComponent implements ControlValueAccessor {
-	private _value?: KeyValuePair<string, string>;
+	private _values: KeyValuePair<string, string>[] = [];
 
-	public options!: KeyValuePair<string, string>[];
 	@Input() public disabled = false;
 	@Input() public required = false;
 
 	@Input() public set tags(value: string[]) {
-		this.options = value?.map(item => ({
-			key: item,
-			value: item
-		}));
+		this._values = value?.map(item => new KeyValuePair<string, string>(item, item));
 	}
 
 	@Input() public placeholder = "";
@@ -36,18 +32,18 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	protected onTouched = () => {};
 
-	public set value(value: KeyValuePair<string, string> | undefined) {
-		this._value = value;
-		this.onChange(value);
+	public set values(values: any) {
+		//this._values.push(values.map(v => new KeyValuePair<string | number, string>(v, v)))
+		this.onChange(values);
 		this.onTouched();
 	}
 
-	public get value(): KeyValuePair<string, string> | undefined {
-		return this._value;
+	public get values():any {
+		return this._values;
 	}
 
-	public writeValue(obj: KeyValuePair<string, string> | undefined): void {
-		this._value = obj;
+	public writeValue(obj: KeyValuePair<string, string>[]): void {
+		this._values.push(...obj);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,20 +60,9 @@ export class TagsSelectorComponent implements ControlValueAccessor {
 		this.disabled = isDisabled;
 	}
 
-	public onTagsChanged(keys: string | number | (string | number)[] | undefined) {
-		if (!keys) {
-			return;
-		}
-
-		const tagKeys = Array.isArray(keys) ? keys : [keys];
-		const tags: KeyValuePair<string, string>[] = [];
-		tagKeys.forEach(t => {
-			const o = this.options.find(o => o.key === t);
-			if (o) {
-				tags.push(o);
-			}
-		});
-
-		this.tagsChanged.emit(tags);
+	public onTagsChanged(keys: KeyValuePair<string | number, string>[]) {
+		const t = keys.map(k => new KeyValuePair<string, string>(k.key as string, k.value));
+		this.values = t as any;
+		this.tagsChanged.emit(this.values as any);
 	}
 }

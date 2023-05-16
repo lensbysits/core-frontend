@@ -274,14 +274,16 @@
 					<label for="tags">
 						{{ "masterdatamgmt.pages.masterdataUpsert.tags.label" | translate }}
 					</label>
-					<masterdata-tags-selector
-						id="tags"
+					<lens-autocomplete-tags
+						[options]="tagsList"
+						[dropdown]="false"
+						[multiple]="true"
 						formControlName="tags"
-						[tags]="tagsList"
-						placeholder="{{
-							'masterdatamgmt.pages.masterdataUpsert.tags.placeholder'
-								| translate
-						}}"></masterdata-tags-selector>
+						[placeholder]="'masterdatamgmt.pages.masterdataUpsert.tags.placeholder' | translate"
+						[allowAddNewTag]="true"
+						separator=",">
+					</lens-autocomplete-tags>
+
 					<div
 						*ngIf="isFormSubmitted && getFormFields['tags']!.invalid"
 						class="p-error">

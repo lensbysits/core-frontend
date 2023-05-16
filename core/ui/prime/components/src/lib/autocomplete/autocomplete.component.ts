@@ -36,6 +36,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	public disabled = false;
 	public filteredOptions: KeyValuePair<string | number, string>[] = [];
 
+	// never set the values fields directly from a component the inherits this component
+	// use write value instead and make sure the this.options contains the key you add
 	public values: KeyValuePair<string | number, string>[] = [];
 	public value?: KeyValuePair<string | number, string>;
 
@@ -108,6 +110,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		} else {
 			this.inputValueChanged.emit(this.value);
 		}
+	}
+	protected addOption(option: KeyValuePair<string | number, string>): void {
+		
+		this._options.push(option);
 	}
 
 	private tryResolveKey(key: string | number | undefined) {

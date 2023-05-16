@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input, OnInit } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { AutoCompleteComponent } from "../autocomplete/autocomplete.component";
+import { KeyValuePair } from "@lens/app-abstract";
 
 @Component({
   selector: "lens-autocomplete-tags",
@@ -80,10 +81,9 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
       // don't add a value already used
       return;
     }
-    if (!this.values) {
-      this.values = [];
-    }
-    this.values.push({ key: _value, value: _value });
+   
+	this.addOption(new KeyValuePair<string, string>(_value, _value))
+	this.writeValue(_value);
     tokenInput.value = "";
     this.valueChanged();
   }

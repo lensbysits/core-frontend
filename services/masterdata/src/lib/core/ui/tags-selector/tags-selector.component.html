@@ -1,10 +1,10 @@
 <lens-autocomplete-tags
-	[options]="options"
-	[(ngModel)]="value"
+	[options]="values"
+	[(ngModel)]="values"
 	[disabled]="disabled"
 	[required]="required"
 	[placeholder]="placeholder"
 	[allowAddNewTag]="allowAddNewTag"
 	separator=","
-	(inputValueChanged)="onTagsChanged($event)">
+	(inputValuesChanged)="onTagsChanged($event)">
 </lens-autocomplete-tags>
