@@ -39,7 +39,6 @@ import {
 	MasterdataAlternativeKeyDomainSelectorModule,
 	MasterdataItemsSelectorModule,
 	MasterdataTypeSelectorModule,
-	TagsSelectorModule
 } from "./core/ui";
 
 const components = [
@@ -78,14 +77,13 @@ const components = [
 		MasterdataAlternativeKeyDomainSelectorModule,
 		MasterdataItemsSelectorModule,
 		MasterdataTypeSelectorModule,
-		TagsSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
 		MasterdataFeaturesModule,
 		MasterdataServicesModule.forRoot(),
 		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
-	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, TagsSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
+	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {
