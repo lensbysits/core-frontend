@@ -18,10 +18,10 @@ export class MasterdatasListComponent implements OnInit {
 	totalSize = 0;
 	typeId = "";
 	masterdataType$?: Observable<MasterdataType>;
-	tagsList: string[] = [];
-	tagsSelected: KeyValuePair<string, string>[] = [];
+	tagsList: KeyValuePair<string, string>[] = [];
+	tagsSelected: string[] = [];
 
-	private searchTermChange = new Subject<KeyValuePair<string, string>[]>();
+	private searchTermChange = new Subject<string[]>();
 	@ViewChild("table", { read: TableComponent }) private table!: TableComponent;
 
 	constructor(
@@ -39,7 +39,7 @@ export class MasterdatasListComponent implements OnInit {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		this.searchTermChange.pipe(debounceTime(500)).subscribe({
 			next: selectedTags => {
-				this.loadItems(0, this.table.rows, this.convertTagsToValue(selectedTags));
+				this.loadItems(0, this.table.rows, selectedTags);
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),
@@ -67,7 +67,7 @@ export class MasterdatasListComponent implements OnInit {
 		this.isLoading = true;
 		this.service.getAllTags(this.typeId, 0, 0).subscribe({
 			next: data => {
-				this.tagsList = data.value || [];
+				this.tagsList = (data.value || []).map(v => new KeyValuePair<string, string>(v,v));
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),
@@ -76,7 +76,7 @@ export class MasterdatasListComponent implements OnInit {
 	}
 
 	onLazyLoadData(event: ILazyLoadEvent): void {
-		this.loadItems(event.offset, event.rows, this.convertTagsToValue(this.tagsSelected));
+		this.loadItems(event.offset, event.rows, this.tagsSelected);
 	}
 
 	onRowClicked(item: Masterdata) {
@@ -114,11 +114,7 @@ export class MasterdatasListComponent implements OnInit {
 		this.router.navigate([`${item.id}`, "edit"], { relativeTo: this.activeRoute });
 	}
 
-	onTagsChangedFilter(selectedTags: KeyValuePair<string, string>[]) {
-		this.searchTermChange.next(selectedTags);
-	}
-
-	private convertTagsToValue(tags: KeyValuePair<string, string>[]) {
-		return tags.map(item => item.value);
+	onTagsChangedFilter(selectedTags: KeyValuePair<string | number, string>[]) {
+		this.searchTermChange.next(selectedTags.map(t => t.key as string));
 	}
 }

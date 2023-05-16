@@ -18,16 +18,17 @@
 						(clicked)="onAddAction()"></lens-button>
 				</div>
 				<div class="masterdata-table-toolbar-item">
-					<masterdata-tags-selector
-						id="tags"
-						[(ngModel)]="tagsSelected"
-						[tags]="tagsList"
-						(tagsChanged)="onTagsChangedFilter($event)"
-						[allowAddNewTag]="false"
-						[placeholder]="
-							'masterdatamgmt.pages.masterdataList.tagsSelector.placeholder'
-								| translate
-						"></masterdata-tags-selector>
+
+					<lens-autocomplete-tags
+						[options]="tagsList"
+						[dropdown]="false"
+						[multiple]="true"
+						formControlName="tags"
+						[placeholder]="'masterdatamgmt.pages.masterdataList.tagsSelector.placeholder' | translate"
+						[allowAddNewTag]="true"
+						(inputValuesChanged)="onTagsChangedFilter($event)"
+						separator=",">
+					</lens-autocomplete-tags>
 				</div>
 			</div>
 		</ng-container>

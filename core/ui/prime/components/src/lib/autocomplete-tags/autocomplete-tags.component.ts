@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input, OnInit } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { AutoCompleteComponent } from "../autocomplete/autocomplete.component";
+import { KeyValuePair } from "@lens/app-abstract";
 
 @Component({
   selector: "lens-autocomplete-tags",
@@ -14,22 +15,10 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
   @Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
 
   public ngOnInit(): void {
-    this.filteredOptions = this.options;
-
     // multiple=true only works if you also set dropdown=false
     this.multiple = true;
     this.dropdown = false;
     this.forceSelection = false;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  public override onItemSelected(value: any): void {
-    this.valueChanged();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  public override onItemUnselected(value: any): void {
-    this.valueChanged();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,10 +69,8 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
       // don't add a value already used
       return;
     }
-    if (!this.values) {
-      this.values = [];
-    }
-    this.values.push({ key: _value, value: _value });
+   
+	this.addNewValue(new KeyValuePair<string, string>(_value, _value))
     tokenInput.value = "";
     this.valueChanged();
   }

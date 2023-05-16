@@ -27,7 +27,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 	item?: Masterdata;
 	maxLength = MasterdataMaxLength;
 	typesList: MasterdataType[] = [];
-	tagsList: string[] = [];
+	tagsList: KeyValuePair<string, string>[] = [];
 	saveFormButtonText!: string;
 	formHeaderText!: string;
 
@@ -72,7 +72,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 			name: ["", [Validators.required, Validators.maxLength(this.maxLength.name)]],
 			description: ["", [Validators.maxLength(this.maxLength.description)]],
 			metadata: ["", [Validators.maxLength(this.maxLength.metadata)]],
-			tags: [[] as KeyValuePair<string, string>[]]
+			tags: [[]]
 		});
 
 		this.buildTranslationTexts();
@@ -104,7 +104,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 					name: data.name,
 					description: data.description,
 					metadata: data.metadata,
-					tags: data.tags?.map(item => new KeyValuePair<string, string>(item, item))
+					tags: data.tags
 				});
 				this.item = data || {};
 				this.isLoading = false;
@@ -126,7 +126,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 		const name = getRequiredFieldValue<string>(this.dataForm, "name");
 		const description = getFieldValue<string>(this.dataForm, "description");
 		const metadata = getFieldValue<string>(this.dataForm, "metadata");
-		const tags = getFieldValue<KeyValuePair<string, string>[]>(this.dataForm, "tags").map(item => item.key);
+		const tags = getFieldValue<string[]>(this.dataForm, "tags");
 
 		if (this.isAddForm) {
 			const key = getRequiredFieldValue<string>(this.dataForm, "key");
@@ -200,7 +200,7 @@ export class MasterdatasEditFormComponent implements OnInit {
 		this.isLoading = true;
 		this.service.getAllTags(this.typeId, 0, 0).subscribe({
 			next: data => {
-				this.tagsList = data.value || [];
+				this.tagsList = (data.value || []).map(v => new KeyValuePair<string, string>(v, v));
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),
