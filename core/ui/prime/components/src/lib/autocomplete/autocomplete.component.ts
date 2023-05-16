@@ -18,6 +18,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	@Input() public placeholder = "";
 	@Input() public clearValueOnBlur = true;
 	@Input() public required = false;
+	@Input() public allowNewValues = false;
 	@Input() public set options(value: KeyValuePair<string | number, string>[]) {
 		this._options = value;
 		this.filteredOptions = this._options;
@@ -70,9 +71,22 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	}
 
 	public onItemSelected(value: KeyValuePair<string | number, string>): void {
+		if (this.itemAlreadySelected(value.key)) {
+			return;
+		}
+
+		if (this.isNewValue(value)) {
+			if (this.allowNewValues) {
+				this._options.push(value);
+			} else {
+				return;
+			}
+		}
+
 		if (this.multiple) {
 			this.selectedKeys.push(value.key);
-		} else {
+			this.values.push(value);
+		} else if (!this.multiple) {
 			this.selectedKey = value.key;
 			this.value = value;
 		}
@@ -83,6 +97,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	public onItemUnselected(value: KeyValuePair<string | number, string>): void {
 		if (this.multiple) {
 			this.selectedKeys = this.selectedKeys.filter(k => k !== value.key);
+			this.values = this.values.filter(v => v.key !== value.key);
 		}
 
 		this.valueChanged();
@@ -111,11 +126,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 			this.inputValueChanged.emit(this.value);
 		}
 	}
-	protected addNewValue(value: KeyValuePair<string | number, string>): void {
-		this._options.push(value);
-		this.values.push(value);
-		this.onItemSelected(value);
-	}
 
 	private tryResolveKey(key: string | number | undefined) {
 		const obj = this._options.find(o => o.key === key);
@@ -128,5 +138,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		} else {
 			this.value = obj;
 		}
+	}
+
+	private itemAlreadySelected(key: string | number) {
+		return (this.multiple && this.selectedKeys.includes(key)) || this.selectedKey === key;
+	}
+
+	private isNewValue(value: KeyValuePair<string | number, string>): boolean {
+		return this._options.findIndex(o => o.key === value.key) === -1;
 	}
 }
