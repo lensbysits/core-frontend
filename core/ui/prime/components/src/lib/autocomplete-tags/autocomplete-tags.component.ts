@@ -70,10 +70,7 @@ export class AutoCompleteTagsComponent extends AutoCompleteComponent implements 
       return;
     }
    
-	const value = new KeyValuePair<string, string>(_value, _value)
-	this.values.push(value)
-	this.addOption(value)
-	this.onItemSelected(value);
+	this.addNewValue(new KeyValuePair<string, string>(_value, _value))
     tokenInput.value = "";
     this.valueChanged();
   }

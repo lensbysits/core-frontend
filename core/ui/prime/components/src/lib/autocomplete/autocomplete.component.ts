@@ -111,9 +111,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 			this.inputValueChanged.emit(this.value);
 		}
 	}
-	protected addOption(option: KeyValuePair<string | number, string>): void {
-		
-		this._options.push(option);
+	protected addNewValue(value: KeyValuePair<string | number, string>): void {
+		this._options.push(value);
+		this.values.push(value);
+		this.onItemSelected(value);
 	}
 
 	private tryResolveKey(key: string | number | undefined) {
