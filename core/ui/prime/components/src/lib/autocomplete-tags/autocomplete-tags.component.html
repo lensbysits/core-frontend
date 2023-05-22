@@ -10,8 +10,8 @@
   [(ngModel)]="multiple ? values : value"
   [disabled]="disabled"
   [required]="required"
-  [dropdown]="false"
-  [multiple]="true"
+  [dropdown]="dropdown"
+  [multiple]="multiple"
   [forceSelection]="false"
   (onKeyUp)="onKeyUp($event)"
   [placeholder]="placeholder">

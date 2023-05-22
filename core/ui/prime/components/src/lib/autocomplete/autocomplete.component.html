@@ -6,6 +6,7 @@
   (onUnselect)="onItemUnselected($event)"
   (completeMethod)="onSearched($event)"
   (onClear)="onCleared()"
+  (onBlur)="onBlur($event)"
   dropdownMode="blank"
   [(ngModel)]="multiple ? values : value"
   [forceSelection]="forceSelection"

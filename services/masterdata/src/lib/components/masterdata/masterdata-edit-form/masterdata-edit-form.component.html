@@ -275,11 +275,10 @@
 					</label>
 					<lens-autocomplete-tags
 						[options]="tagsList"
-						[dropdown]="false"
-						[multiple]="true"
+						[dropdown]="true"
 						formControlName="tags"
 						[placeholder]="'masterdatamgmt.pages.masterdataUpsert.tags.placeholder' | translate"
-						[allowNewValues]="true"
+						[forceSelection]="false"
 						separator=",">
 					</lens-autocomplete-tags>
 

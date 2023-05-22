@@ -22,10 +22,15 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 	isFormSubmitted = false;
 	maxLength = MasterdataAlternativeKeyMaxLength;
 	saveFormButtonText!: string;
-	domainsList: string[] = [];
+	domainsList: KeyValuePair<string, string>[] = [];
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
+
+	// convenience getter for easy access to form fields
+	public get getFormFields() {
+		return this.dataForm.controls;
+	}
 
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
@@ -48,12 +53,9 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.dataForm = this.formBuilder.group({
-			domain: [
-				new KeyValuePair<string, string>("", ""),
-				[Validators.required, Validators.maxLength(this.maxLength.domain), DropdownValidator.dropdownNotDefaultOrEmpty]
-			],
+			domain: ["", [Validators.required, Validators.maxLength(this.maxLength.domain)]],
 			key: ["", [Validators.required, Validators.maxLength(this.maxLength.key)]]
 		});
 
@@ -61,17 +63,12 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		this.buildTranslationTexts();
 	}
 
-	ngOnDestroy() {
+	public ngOnDestroy() {
 		this.destroy$.next();
 		this.destroy$.complete();
 	}
 
-	// convenience getter for easy access to form fields
-	get getFormFields() {
-		return this.dataForm.controls;
-	}
-
-	onSubmit() {
+	public onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
 			return;
@@ -79,7 +76,7 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 
 		this.isLoading = true;
 
-		const domain = getRequiredFieldValue<KeyValuePair<string, string>>(this.dataForm, "domain").key;
+		const domain = getRequiredFieldValue<string>(this.dataForm, "domain");
 		const key = getRequiredFieldValue<string>(this.dataForm, "key");
 
 		const model = {} as IMasterdataAlternativeKeyCreate;
@@ -89,7 +86,6 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 
 		this.service.createMasterdataAlternativeKey(this.typeId, model).subscribe({
 			next: () => {
-				this.isLoading = false;
 				this.alternativeKeyService.onAlternativeKeyAdded();
 				this.toastService.success(
 					this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.title"),
@@ -104,11 +100,11 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	loadDomainsList() {
+	private loadDomainsList() {
 		this.isLoading = true;
 		this.service.getAllDomains(this.typeId, this.masterdataId, 0, 0).subscribe({
 			next: data => {
-				this.domainsList = data.value || [];
+				this.domainsList = (data.value || []).map(v => new KeyValuePair<string, string>(v, v));
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),

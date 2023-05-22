@@ -1,12 +1,13 @@
 <div class="masterdata-table-wrapper">
 	<div class="mb-4">
-		<ng-container *ngIf="masterdataType$ | async as masterdataType">
-			<h3>
-				{{ masterdataType?.name }}
-				<small>({{ masterdataType?.masterdatasCount }})</small>
-			</h3>
-			
-		</ng-container>
+		<div class="h-3rem">
+			<ng-container *ngIf="masterdataType$ | async as masterdataType">
+				<h3>
+					{{ masterdataType?.name }}
+					<small>({{ masterdataType?.masterdatasCount }})</small>
+				</h3>
+			</ng-container>
+		</div>
 		<div class="masterdata-table-toolbar p-fluid">
 			<div class="masterdata-table-toolbar-item">
 				<lens-button
@@ -22,8 +23,7 @@
 			<div class="masterdata-table-toolbar-item">
 				<lens-autocomplete-tags
 					[options]="tagsList"
-					[dropdown]="false"
-					[multiple]="true"
+					[dropdown]="true"
 					formControlName="tags"
 					[placeholder]="'masterdatamgmt.pages.masterdataList.tagsSelector.placeholder' | translate"
 					(inputValuesChanged)="onTagsChangedFilter($event)"

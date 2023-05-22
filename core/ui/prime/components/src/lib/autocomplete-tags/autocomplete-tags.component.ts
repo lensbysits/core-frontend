@@ -8,20 +8,22 @@ import { KeyValuePair } from "@lens/app-abstract";
 	templateUrl: "autocomplete-tags.component.html",
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AutoCompleteTagsComponent), multi: true }]
 })
-export class AutoCompleteTagsComponent extends AutoCompleteComponent {
+export class AutoCompleteTagsComponent extends AutoCompleteComponent implements OnInit {
 	@Input() public separator = ""; // separator character to add an item when pressed in addition to the enter key.
+
+	public ngOnInit(): void {
+		// tags is always multiple select
+		this.multiple = true;
+	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public override onSearched(event: any): void {
-		this.filteredOptions = this.options?.filter(option => option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0);
+		this.filteredOptions = this._options?.filter(option => {
+			let showValue = option.value.toLowerCase().indexOf(event.query.toLowerCase()) >= 0;
 
-		if (!this.value) {
-			return;
-		}
-		// don't show already used values in the suggestions list
-		this.filteredOptions = this.filteredOptions?.filter(option => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			return !this.values.find((item: any) => item.value.toLowerCase() === option.value.toLowerCase());
+			// don't show already used values in the suggestions list
+			showValue = showValue && !this.selectedKeys.includes(option.key);
+			return showValue;
 		});
 	}
 

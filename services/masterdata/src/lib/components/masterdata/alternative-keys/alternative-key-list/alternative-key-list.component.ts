@@ -29,19 +29,18 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 		this.alternativeKeyService.alternativeKeyAdded$.pipe(takeUntil(this.destroy$)).subscribe({
 			next: () => {
 				this.loadItems(0, 0);
-				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),
 			error: () => (this.isLoading = false)
 		});
 	}
 
-	ngOnDestroy() {
+	public ngOnDestroy() {
 		this.destroy$.next();
 		this.destroy$.complete();
 	}
 
-	loadItems(offset: number, rows: number) {
+	private loadItems(offset: number, rows: number) {
 		this.isLoading = true;
 		this.service.getAllMasterdataAlternativeKeys(this.typeId, this.masterdataId, offset, rows).subscribe({
 			next: data => {
@@ -55,11 +54,11 @@ export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	onLazyLoadData(event: ILazyLoadEvent): void {
+	public onLazyLoadData(event: ILazyLoadEvent): void {
 		this.loadItems(0, 0);
 	}
 
-	onDeleteActionClicked(item: MasterdataAlternativeKey) {
+	public onDeleteActionClicked(item: MasterdataAlternativeKey) {
 		this.isLoading = true;
 		if (!confirm(this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyList.deleteRowConfirmation")) === true) {
 			this.isLoading = false;

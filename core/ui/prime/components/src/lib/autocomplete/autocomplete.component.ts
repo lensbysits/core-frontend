@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { KeyValuePair } from "@lens/app-abstract";
 
@@ -10,15 +10,12 @@ import { KeyValuePair } from "@lens/app-abstract";
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AutoCompleteComponent), multi: true }]
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
-	private _options: KeyValuePair<string | number, string>[] = [];
-
 	@Input() public multiple = false;
 	@Input() public forceSelection = true;
 	@Input() public dropdown = true;
 	@Input() public placeholder = "";
 	@Input() public clearValueOnBlur = true;
 	@Input() public required = false;
-	@Input() public allowNewValues = false;
 	@Input() public set options(value: KeyValuePair<string | number, string>[]) {
 		this._options = value;
 		this.filteredOptions = this._options;
@@ -36,15 +33,16 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	public filteredOptions: KeyValuePair<string | number, string>[] = [];
 
 	// never set the values fields directly from a component the inherits this component
-	// use write value instead and make sure the this.options contains the key you add
+	// use this.onItemSelected(new KeyValuePair<string, string>(..., ...)); instead.
 	public values: KeyValuePair<string | number, string>[] = [];
 	public value?: KeyValuePair<string | number, string>;
 
-	private selectedKey: string | number | undefined;
-	private selectedKeys: (string | number)[] = [];
+	protected selectedKey: string | number | undefined;
+	protected selectedKeys: (string | number)[] = [];
+	protected _options: KeyValuePair<string | number, string>[] = [];
 
-	private onChange = (event: unknown) => {};
-	private onTouched = (event: unknown) => {};
+	private onChange = (value: unknown) => {};
+	private onTouched = (value: unknown) => {};
 
 	public writeValue(keys: string | number | string[] | number[]): void {
 		if (this.multiple) {
@@ -74,7 +72,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		}
 
 		if (this.isNewValue(value)) {
-			if (this.allowNewValues) {
+			if (!this.forceSelection) {
 				this._options.push(value);
 			} else {
 				return;
@@ -113,6 +111,16 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		this.valueChanged();
 	}
 
+	public onBlur(event: Event) {
+		const inputValue = (event.currentTarget as HTMLInputElement)?.value ?? "";
+		if (!this.forceSelection && !this.multiple && inputValue !== "") {
+			// when new value creation is enabled for a single select auto complete, we need to set the selected key and the value
+			this.value = new KeyValuePair<string, string>(inputValue, inputValue);
+			this.selectedKey = inputValue;
+			this.valueChanged();
+		}
+	}
+
 	protected valueChanged(): void {
 		const result = this.multiple ? this.selectedKeys : this.selectedKey;
 		this.onChange(result);
@@ -137,13 +145,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 			this.value = obj;
 		}
 	}
-	
+
 	private initializeComponent() {
 		if (this.selectedKey) {
 			this.tryResolveKey(this.selectedKey);
 		}
 
-		if (this.selectedKeys.length > 0 ) {
+		if (this.selectedKeys.length > 0) {
 			this.values = [];
 			this.selectedKeys.forEach(m => this.tryResolveKey(m));
 		}
