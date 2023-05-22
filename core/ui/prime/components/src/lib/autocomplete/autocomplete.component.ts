@@ -41,8 +41,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 	protected selectedKeys: (string | number)[] = [];
 	protected _options: KeyValuePair<string | number, string>[] = [];
 
-	private onChange = (value: unknown) => {};
-	private onTouched = (value: unknown) => {};
+	private onChange = (key: string | number | (string | number)[]) => {};
+	private onTouched = (key: string | number | (string | number)[]) => {};
 
 	public writeValue(keys: string | number | string[] | number[]): void {
 		if (this.multiple) {
@@ -54,11 +54,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 		this.initializeComponent();
 	}
 
-	public registerOnChange(fn: (event: unknown) => void): void {
+	public registerOnChange(fn: (key: string | number | (string | number)[]) => void): void {
 		this.onChange = fn;
 	}
 
-	public registerOnTouched(fn: (event: unknown) => void): void {
+	public registerOnTouched(fn: (key: string | number | (string | number)[]) => void): void {
 		this.onTouched = fn;
 	}
 
@@ -123,6 +123,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
 	protected valueChanged(): void {
 		const result = this.multiple ? this.selectedKeys : this.selectedKey;
+		if (!result) {
+			return;
+		}
+		
 		this.onChange(result);
 		this.onTouched(result);
 
