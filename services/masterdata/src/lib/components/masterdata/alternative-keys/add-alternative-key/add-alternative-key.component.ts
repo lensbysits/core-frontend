@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract";
-import { DropdownValidator } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { IMasterdataAlternativeKeyCreate } from "../../../../core/interfaces";
@@ -17,12 +16,12 @@ import { MasterdataAlternativeKeyMaxLength, getRequiredFieldValue } from "../../
 export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 	private destroy$ = new Subject<void>();
 
-	isLoading = false;
-	dataForm!: FormGroup;
-	isFormSubmitted = false;
-	maxLength = MasterdataAlternativeKeyMaxLength;
-	saveFormButtonText!: string;
-	domainsList: KeyValuePair<string, string>[] = [];
+	public isLoading = false;
+	public dataForm!: FormGroup;
+	public isFormSubmitted = false;
+	public maxLength = MasterdataAlternativeKeyMaxLength;
+	public saveFormButtonText!: string;
+	public domainsList: KeyValuePair<string, string>[] = [];
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";

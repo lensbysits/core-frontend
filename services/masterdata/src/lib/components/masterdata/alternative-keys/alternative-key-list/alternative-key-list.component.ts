@@ -12,9 +12,9 @@ import { MasterdataAlternativeKeyService, MasterdataCrudHttpService } from "../.
 export class MasterdataAlternativeKeyListComponent implements OnDestroy {
 	private destroy$ = new Subject<void>();
 
-	isLoading = false;
-	items: MasterdataAlternativeKey[] = [];
-	totalSize = 0;
+	public isLoading = false;
+	public items: MasterdataAlternativeKey[] = [];
+	public totalSize = 0;
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
