@@ -1,7 +1,6 @@
 <p-autoComplete
   [suggestions]="filteredOptions"
   field="value"
-  [dropdown]="dropdown"
   (onSelect)="onItemSelected($event)"
   (onUnselect)="onItemUnselected($event)"
   (onDropdownClick)="onSearched($event)"
@@ -9,10 +8,11 @@
   (onClear)="onCleared()"
   dropdownMode="current"
   [(ngModel)]="multiple ? values : value"
-  [forceSelection]="forceSelection"
   [disabled]="disabled"
   [required]="required"
+  [dropdown]="dropdown"
   [multiple]="multiple"
+  [forceSelection]="false"
   (onKeyUp)="onKeyUp($event)"
   [placeholder]="placeholder">
 </p-autoComplete>

@@ -36,7 +36,6 @@ import { MasterdataFeaturesModule } from "./core/features";
 import { MasterdataServicesModule } from "./core/services";
 import {
 	LanguageSelectorModule,
-	MasterdataAlternativeKeyDomainSelectorModule,
 	MasterdataItemsSelectorModule,
 	MasterdataTypeSelectorModule,
 } from "./core/ui";
@@ -74,7 +73,6 @@ const components = [
 		PrimeComponentsModule,
 		CheckboxModule,
 		LanguageSelectorModule,
-		MasterdataAlternativeKeyDomainSelectorModule,
 		MasterdataItemsSelectorModule,
 		MasterdataTypeSelectorModule,
 		RouterModule.forChild(masterdataRoutes),
@@ -83,7 +81,7 @@ const components = [
 		MultilingualModule.forChild("masterdata")
 	],
 	declarations: [...components],
-	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule, MasterdataAlternativeKeyDomainSelectorModule],
+	exports: [MasterdataItemsSelectorModule, MasterdataTypeSelectorModule],
 	bootstrap: [AppComponent]
 })
 export class MasterdataModule {

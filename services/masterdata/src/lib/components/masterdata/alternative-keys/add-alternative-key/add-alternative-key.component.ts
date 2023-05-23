@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { KeyValuePair, LanguageService, ToastService } from "@lens/app-abstract";
-import { DropdownValidator } from "@lens/app-abstract-ui";
 import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { IMasterdataAlternativeKeyCreate } from "../../../../core/interfaces";
@@ -17,15 +16,20 @@ import { MasterdataAlternativeKeyMaxLength, getRequiredFieldValue } from "../../
 export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 	private destroy$ = new Subject<void>();
 
-	isLoading = false;
-	dataForm!: FormGroup;
-	isFormSubmitted = false;
-	maxLength = MasterdataAlternativeKeyMaxLength;
-	saveFormButtonText!: string;
-	domainsList: string[] = [];
+	public isLoading = false;
+	public dataForm!: FormGroup;
+	public isFormSubmitted = false;
+	public maxLength = MasterdataAlternativeKeyMaxLength;
+	public saveFormButtonText!: string;
+	public domainsList: KeyValuePair<string, string>[] = [];
 
 	@Input() public typeId = "";
 	@Input() public masterdataId = "";
+
+	// convenience getter for easy access to form fields
+	public get getFormFields() {
+		return this.dataForm.controls;
+	}
 
 	constructor(
 		private readonly service: MasterdataCrudHttpService,
@@ -48,12 +52,9 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.dataForm = this.formBuilder.group({
-			domain: [
-				new KeyValuePair<string, string>("", ""),
-				[Validators.required, Validators.maxLength(this.maxLength.domain), DropdownValidator.dropdownNotDefaultOrEmpty]
-			],
+			domain: ["", [Validators.required, Validators.maxLength(this.maxLength.domain)]],
 			key: ["", [Validators.required, Validators.maxLength(this.maxLength.key)]]
 		});
 
@@ -61,17 +62,12 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		this.buildTranslationTexts();
 	}
 
-	ngOnDestroy() {
+	public ngOnDestroy() {
 		this.destroy$.next();
 		this.destroy$.complete();
 	}
 
-	// convenience getter for easy access to form fields
-	get getFormFields() {
-		return this.dataForm.controls;
-	}
-
-	onSubmit() {
+	public onSubmit() {
 		this.isFormSubmitted = true;
 		if (this.dataForm.invalid) {
 			return;
@@ -79,7 +75,7 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 
 		this.isLoading = true;
 
-		const domain = getRequiredFieldValue<KeyValuePair<string, string>>(this.dataForm, "domain").key;
+		const domain = getRequiredFieldValue<string>(this.dataForm, "domain");
 		const key = getRequiredFieldValue<string>(this.dataForm, "key");
 
 		const model = {} as IMasterdataAlternativeKeyCreate;
@@ -89,7 +85,6 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 
 		this.service.createMasterdataAlternativeKey(this.typeId, model).subscribe({
 			next: () => {
-				this.isLoading = false;
 				this.alternativeKeyService.onAlternativeKeyAdded();
 				this.toastService.success(
 					this.translateService.instant("masterdatamgmt.pages.masterdataAlternativeKeyUpsert.notifications.successAdd.title"),
@@ -104,11 +99,11 @@ export class MasterdataAlternativeKeyAddComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	loadDomainsList() {
+	private loadDomainsList() {
 		this.isLoading = true;
 		this.service.getAllDomains(this.typeId, this.masterdataId, 0, 0).subscribe({
 			next: data => {
-				this.domainsList = data.value || [];
+				this.domainsList = (data.value || []).map(v => new KeyValuePair<string, string>(v, v));
 				this.isLoading = false;
 			},
 			complete: () => (this.isLoading = false),

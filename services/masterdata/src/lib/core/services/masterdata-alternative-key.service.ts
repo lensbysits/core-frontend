@@ -4,16 +4,16 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class MasterdataAlternativeKeyService {
 	private alternativeKeyAdded = new Subject<boolean>();
-	alternativeKeyAdded$ = this.alternativeKeyAdded.asObservable();
-
 	private alternativeKeyRemoved = new Subject<boolean>();
-	alternativeKeyRemoved$ = this.alternativeKeyRemoved.asObservable();
 
-	onAlternativeKeyAdded() {
+	public alternativeKeyAdded$ = this.alternativeKeyAdded.asObservable();
+	public alternativeKeyRemoved$ = this.alternativeKeyRemoved.asObservable();
+
+	public onAlternativeKeyAdded() {
 		this.alternativeKeyAdded.next(true);
 	}
 
-	onAlternativeKeyRemoved() {
+	public onAlternativeKeyRemoved() {
 		this.alternativeKeyRemoved.next(true);
 	}
 }

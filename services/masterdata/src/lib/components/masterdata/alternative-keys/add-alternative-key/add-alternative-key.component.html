@@ -7,12 +7,15 @@
 				<!-- domain -->
 				<div class="field">
 					<label for="domain">{{"masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.label" | translate}}</label>
-					<masterdata-alternative-key-domain-selector
-						id="domain"
+					<lens-autocomplete
+						[options]="domainsList"
 						formControlName="domain"
-						[domains]="domainsList"
-						placeholder="{{'masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.placeholder' | translate}}">
-					</masterdata-alternative-key-domain-selector>
+						[placeholder]="'masterdatamgmt.pages.masterdataAlternativeKeyUpsert.domain.placeholder' | translate"
+						[forceSelection]="false"
+						[clearValueOnBlur]="false"
+						[forceSelection]="false">
+					</lens-autocomplete>
+
 					<div
 						*ngIf="isFormSubmitted && getFormFields['domain']!.invalid"
 						class="p-error">
