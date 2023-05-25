@@ -14,9 +14,10 @@ export class LanguageSelectorComponent implements OnInit {
 	public translationsLoaded = false;
 
 	constructor(
-		private readonly translateService: TranslateService, 
+		private readonly translateService: TranslateService,
 		private readonly languageService: LanguageService,
-		private readonly renderer: Renderer2) {}
+		private readonly renderer: Renderer2
+	) {}
 
 	public ngOnInit(): void {
 		this.languageService.onTranslationsLoaded(() => {
@@ -52,8 +53,11 @@ export class LanguageSelectorComponent implements OnInit {
 	}
 
 	private setReadDirection(lang: string) {
-		if(!this.languageService.rtlStylesheetLocation && this.rtlLanguages.includes(lang)){
-			console.error("No RTL stylesheet location is defined in the app configuration");	
+		if (!this.languageService.rtlStylesheetLocation) {
+			if (this.rtlLanguages.includes(lang)) {
+				console.error("No RTL stylesheet location is defined in the app configuration");
+			}
+			
 			return;
 		}
 
@@ -66,7 +70,7 @@ export class LanguageSelectorComponent implements OnInit {
 			const links = document.getElementsByTagName("link");
 			for (let i = 0; i < links.length; i++) {
 				const link = links[i];
-				if (link.href.includes(this.languageService.rtlStylesheetLocation ?? '')) {
+				if (link.href.includes(this.languageService.rtlStylesheetLocation)) {
 					this.renderer.removeChild(document.head, link);
 				}
 			}
