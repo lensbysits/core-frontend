@@ -21,6 +21,7 @@ export class MenuItem {
 	envfilter?: string[];
 	anonymousonly?: boolean;
 	id?: string;
+	order?:number;
 }
 
 export interface MenuItemCommandEvent {
