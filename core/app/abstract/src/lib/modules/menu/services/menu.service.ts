@@ -32,7 +32,9 @@ export class MenuService {
 			this.applyTranslations(menus);
 		}
 
-		this.allMenuItems.push(...menus);
+		for(const item of menus){
+			this.addItem(item, this.allMenuItems)
+		}
 
 		this.menuItems$.next(this.allMenuItems.filter(this.filter, this));
 	}
@@ -132,6 +134,24 @@ export class MenuService {
 			if (item.translationKey) {
 				item.label = this.translateService.instant(item.translationKey);
 			}
+		}
+	}
+
+	private addItem(item: MenuItem, existingCollection: MenuItem[]){
+		// each module can create his own menu structure
+		// we need to make sure that matching structures are merged
+		// instead of duplicating menu structures
+		const id = item.translationKey ?? item.label;
+		const existingItem = existingCollection.find(i => i.translationKey === id || i.label === id)
+
+		if(!existingItem){
+			existingCollection.push(item);
+			// sort the menu items based on the configured order.
+			existingCollection.sort((a,b) => (a.order ?? 0) - (b.order ?? 0))
+		}
+
+		for(const child of item.items ?? []){
+			this.addItem(child, existingItem?.items ?? [])
 		}
 	}
 }

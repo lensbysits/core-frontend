@@ -17,6 +17,10 @@ export class LanguageService {
 	private browserLang = '';
 
 	constructor(private appConfigurationService: AppConfigurationService, private translateService: TranslateService) {}
+	
+	public get rtlStylesheetLocation(): string | undefined {
+		return this.config?.rtlStylesheetLocation;
+	}
 
 	public onTranslationsLoaded(action: () => void) {
 		// Lazy loaded modules loading extra resource files after the translation service is initialized
