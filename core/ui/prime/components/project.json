@@ -1,35 +1,35 @@
 {
-  "name": "framework-core-ui-prime-components",
-  "projectType": "library",
-  "sourceRoot": "libs/framework/core/ui/prime/components/src",
-  "prefix": "lens",
-  "targets": {
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/framework/core/ui/prime/components"],
-      "options": {
-        "jestConfig": "libs/framework/core/ui/prime/components/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/framework/core/ui/prime/components/**/*.ts",
-          "libs/framework/core/ui/prime/components/**/*.html"
-        ]
-      }
-    },
-    "component-test": {
-      "executor": "@nrwl/cypress:cypress",
-      "options": {
-        "cypressConfig": "libs/framework/core/ui/prime/components/cypress.config.ts",
-        "testingType": "component",
-        "skipServe": true,
-        "devServerTarget": "trusted-platform-poc:build"
-      }
-    }
-  },
-  "tags": []
+	"name": "framework-core-ui-prime-components",
+	"projectType": "library",
+	"sourceRoot": "libs/framework/core/ui/prime/components/src",
+	"prefix": "lens",
+	"targets": {
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/libs/framework/core/ui/prime/components"],
+			"options": {
+				"jestConfig": "libs/framework/core/ui/prime/components/jest.config.ts",
+				"passWithNoTests": true
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": [
+					"libs/framework/core/ui/prime/components/**/*.ts",
+					"libs/framework/core/ui/prime/components/**/*.html"
+				]
+			}
+		},
+		"component-test": {
+			"executor": "@nrwl/cypress:cypress",
+			"options": {
+				"cypressConfig": "libs/framework/core/ui/prime/components/cypress.config.ts",
+				"testingType": "component",
+				"skipServe": true,
+				"devServerTarget": "trusted-platform-poc:build"
+			}
+		}
+	},
+	"tags": []
 }
