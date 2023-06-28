@@ -14,7 +14,22 @@
 	[paginatorPosition]="paginatorPosition">
 	<ng-template pTemplate="header">
 		<tr>
-			<th *ngFor="let column of columns.columns">{{ column.label }}</th>
+			<ng-container *ngFor="let column of columns.columns">
+				<th
+					*ngIf="column.sortable"
+					[pSortableColumn]="
+						column.sortField ? column.sortField : column.field
+					">
+					<p-sortIcon
+						[field]="
+							column.sortField ? column.sortField : column.field
+						"></p-sortIcon>
+					{{ column.label }}
+				</th>
+				<th *ngIf="!column.sortable">
+					{{ column.label }}
+				</th>
+			</ng-container>
 			<th
 				*ngIf="hasRowActions()"
 				style="width: 32px"></th>

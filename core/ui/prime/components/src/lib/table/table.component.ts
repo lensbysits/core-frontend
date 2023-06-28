@@ -71,7 +71,8 @@ export class TableComponent implements AfterViewInit {
 	public onLazyLoadData(event: any): void {
 		this.lazyLoad.emit({
 			offset: event.first,
-			rows: event.rows
+			rows: event.rows,
+			orderBy: event.sortField && `${event.sortField} ${event.sortOrder === 1 ? "asc" : "desc"}`
 		});
 	}
 
