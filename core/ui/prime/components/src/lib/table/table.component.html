@@ -6,7 +6,12 @@
 	[paginator]="paginator"
 	[rows]="rows"
 	[totalRecords]="totalRecords"
-	[loading]="loading">
+	[loading]="loading"
+	[styleClass]="styleClass"
+	[rowsPerPageOptions]="rowsPerPageOptions"
+	[showCurrentPageReport]="showCurrentPageReport"
+	[currentPageReportTemplate]="currentPageReportTemplate"
+	[paginatorPosition]="paginatorPosition">
 	<ng-template pTemplate="header">
 		<tr>
 			<th *ngFor="let column of columns.columns">{{ column.label }}</th>
