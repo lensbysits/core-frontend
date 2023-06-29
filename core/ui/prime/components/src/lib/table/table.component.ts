@@ -8,6 +8,8 @@ import { ILazyLoadEvent } from "./lazy-load-event.interface";
 import { RowActionComponent } from "./row-action.component";
 import { RowActionsComponent } from "./row-actions.component";
 
+export type PaginatorPosition = "both" | "top" | "bottom";
+
 @Component({
 	selector: "lens-table",
 	templateUrl: "table.component.html",
@@ -20,6 +22,12 @@ export class TableComponent implements AfterViewInit {
 	@Input() public paginator = true;
 	@Input() public loading!: boolean;
 	@Input() public rows = 10;
+	@Input() public styleClass = "";
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@Input() public rowsPerPageOptions!: any[];
+	@Input() public showCurrentPageReport = false;
+	@Input() public currentPageReportTemplate = "{currentPage} of {totalPages}";
+	@Input() public paginatorPosition: PaginatorPosition = "bottom";
 
 	@Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,7 +71,8 @@ export class TableComponent implements AfterViewInit {
 	public onLazyLoadData(event: any): void {
 		this.lazyLoad.emit({
 			offset: event.first,
-			rows: event.rows
+			rows: event.rows,
+			orderBy: event.sortField && `${event.sortField} ${event.sortOrder === 1 ? "asc" : "desc"}`
 		});
 	}
 
