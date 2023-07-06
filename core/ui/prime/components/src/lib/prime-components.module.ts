@@ -4,6 +4,8 @@ import { MultilingualModule } from "@lens/app-abstract";
 import { AccordionModule } from "./accordion";
 import { AutoCompleteModule } from "./autocomplete";
 import { AutoCompleteTagsModule } from "./autocomplete-tags";
+import { LensAvatarMolule } from "./avatar";
+import { BlockableDivModule } from "./blockable-div";
 import { ButtonModule } from "./button";
 import { DialogModule } from "./dialog";
 import { DropdownModule } from "./dropdown";
@@ -24,12 +26,13 @@ import { TabsModule } from "./tabs";
 import { ToastModule } from "./toast";
 import { ToolbarModule } from "./toolbar";
 import { TreeModule } from "./tree";
-import { LensAvatarMolule } from "./avatar";
 
 const modules = [
 	AccordionModule,
 	AutoCompleteModule,
 	AutoCompleteTagsModule,
+	LensAvatarMolule,
+	BlockableDivModule,
 	ButtonModule,
 	DialogModule,
 	DropdownModule,
@@ -49,8 +52,7 @@ const modules = [
 	TabsModule,
 	ToastModule,
 	ToolbarModule,
-	TreeModule,
-	LensAvatarMolule
+	TreeModule
 ];
 @NgModule({
 	imports: [...modules, CommonModule, MultilingualModule.forChild("prime")],

@@ -17,6 +17,8 @@ export class MultiSelectComponent extends InputBaseComponent {
 	@Input() public optionDisabled = "disabled";
 	@Input() public readonly = false;
 	@Input() public display: "default" | "chip" = "default";
+	@Input() public showHeader = true;
+	@Input() public selectedOptions: any[] = [];
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onMultiSelectChanged(event: any): void {

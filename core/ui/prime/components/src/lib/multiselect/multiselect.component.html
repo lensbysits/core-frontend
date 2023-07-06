@@ -15,7 +15,9 @@
 		[optionLabel]="optionLabel"
 		[optionDisabled]="optionDisabled"
 		[disabled]="disabled"
-		[readonly]="readonly"></p-multiSelect>
+		[readonly]="readonly"
+		[showHeader]="showHeader"
+		[(ngModel)]="selectedOptions"></p-multiSelect>
 </ng-template>
 
 <ng-template #displayChip>
@@ -29,5 +31,7 @@
 		[optionDisabled]="optionDisabled"
 		[disabled]="disabled"
 		[readonly]="readonly"
+		[showHeader]="showHeader"
+		[(ngModel)]="selectedOptions"
 		display="chip"></p-multiSelect>
 </ng-template>

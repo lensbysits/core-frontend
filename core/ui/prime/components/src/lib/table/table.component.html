@@ -4,6 +4,7 @@
 	(onLazyLoad)="onLazyLoadData($event)"
 	selectionMode="single"
 	[paginator]="paginator"
+	[first]="first"
 	[rows]="rows"
 	[totalRecords]="totalRecords"
 	[loading]="loading"
@@ -11,7 +12,10 @@
 	[rowsPerPageOptions]="rowsPerPageOptions"
 	[showCurrentPageReport]="showCurrentPageReport"
 	[currentPageReportTemplate]="currentPageReportTemplate"
-	[paginatorPosition]="paginatorPosition">
+	[paginatorPosition]="paginatorPosition"
+	[sortField]="orderBy.field"
+	[sortOrder]="orderBy.direction === 'asc' ? 1 : -1"
+	#tableRef>
 	<ng-template pTemplate="header">
 		<tr>
 			<ng-container *ngFor="let column of columns.columns">
