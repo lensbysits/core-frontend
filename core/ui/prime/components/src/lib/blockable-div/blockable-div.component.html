@@ -1,0 +1,13 @@
+<div [ngClass]="class">
+	<p-blockUI
+		[blocked]="blocked"
+		[target]="blockableContent">
+		<lens-icon
+			[icon]="icon"
+			[size]="size"></lens-icon>
+	</p-blockUI>
+
+	<content #blockableContent>
+		<ng-content></ng-content>
+	</content>
+</div>

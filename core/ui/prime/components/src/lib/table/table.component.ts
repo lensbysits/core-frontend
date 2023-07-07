@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output } from "@angular/core";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 
 import { LanguageService, MenuItem } from "@lens/app-abstract";
 import { TranslateService } from "@ngx-translate/core";
+import { Table } from "primeng/table";
 import { TieredMenu } from "primeng/tieredmenu";
 import { ColumnsComponent } from "./columns.component";
-import { ILazyLoadEvent } from "./lazy-load-event.interface";
 import { RowActionComponent } from "./row-action.component";
 import { RowActionsComponent } from "./row-actions.component";
-
-export type PaginatorPosition = "both" | "top" | "bottom";
+import { ILazyLoadEvent, IOrderByMeta, PaginatorPosition, RowsPerPageOption } from "./table.interface";
 
 @Component({
 	selector: "lens-table",
@@ -16,18 +15,22 @@ export type PaginatorPosition = "both" | "top" | "bottom";
 	styleUrls: ["table.component.scss"]
 })
 export class TableComponent implements AfterViewInit {
+	private currentState!: ILazyLoadEvent;
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	@Input() public source!: any[];
 	@Input() public totalRecords!: number;
 	@Input() public paginator = true;
 	@Input() public loading!: boolean;
-	@Input() public rows = 10;
+	@Input() public first = 0; // Index of the first row to be displayed
+	@Input() public rows = 10; // Number of rows to display per page
 	@Input() public styleClass = "";
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	@Input() public rowsPerPageOptions!: any[];
+	@Input() public rowsPerPageOptions!: RowsPerPageOption[];
 	@Input() public showCurrentPageReport = false;
 	@Input() public currentPageReportTemplate = "{currentPage} of {totalPages}";
 	@Input() public paginatorPosition: PaginatorPosition = "bottom";
+	@Input() public orderBy: IOrderByMeta = { field: "", direction: "asc" };
 
 	@Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,6 +40,8 @@ export class TableComponent implements AfterViewInit {
 
 	@ContentChild(ColumnsComponent) public columns!: ColumnsComponent;
 	@ContentChild(RowActionsComponent) public rowActions!: RowActionsComponent;
+
+	@ViewChild("tableRef", { read: Table }) public tableRef!: Table;
 
 	constructor(languageService?: LanguageService, private translateService?: TranslateService) {
 		languageService?.onTranslationsLoaded(() => this.initRowActions);
@@ -53,27 +58,17 @@ export class TableComponent implements AfterViewInit {
 		});
 	}
 
-	private initRowActions() {
-		this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => {
-			const label = action.translationKey ? this.translateService?.instant(action.translationKey) : action.label;
-			return {
-				id: action.id,
-				icon: action.icon,
-				label: label,
-				command: () => {
-					action.clicked.emit(this.itemOfContextMenuClickedRow);
-				}
-			};
-		});
-	}
-
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onLazyLoadData(event: any): void {
-		this.lazyLoad.emit({
+		this.currentState = {
 			offset: event.first,
 			rows: event.rows,
-			orderBy: event.sortField && `${event.sortField} ${event.sortOrder === 1 ? "asc" : "desc"}`
-		});
+			orderBy: {
+				field: event.sortField,
+				direction: `${event.sortOrder === 1 ? "asc" : "desc"}`
+			}
+		};
+		this.lazyLoad.emit(this.currentState);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,17 +92,20 @@ export class TableComponent implements AfterViewInit {
 		event.stopPropagation();
 	}
 
-	private loadRowActionItems() {
+	private initRowActions() {
 		setTimeout(() => {
 			// to circumvent the ecaihbce exception https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
-			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => ({
-				id: action.id,
-				icon: action.icon,
-				label: action.label,
-				command: () => {
-					action.clicked.emit(this.itemOfContextMenuClickedRow);
-				}
-			}));
+			this.rowActionItems = this.rowActions?.actions.map((action: RowActionComponent) => {
+				const label = action.translationKey ? this.translateService?.instant(action.translationKey) : action.label;
+				return {
+					id: action.id,
+					icon: action.icon,
+					label: label,
+					command: () => {
+						action.clicked.emit(this.itemOfContextMenuClickedRow);
+					}
+				};
+			});
 		});
 	}
 }

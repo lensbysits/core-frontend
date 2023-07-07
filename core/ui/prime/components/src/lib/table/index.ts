@@ -1,3 +1,3 @@
-export * from "./table.module";
-export * from "./lazy-load-event.interface";
 export * from "./table.component";
+export * from "./table.interface";
+export * from "./table.module";
