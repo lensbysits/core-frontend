@@ -14,9 +14,10 @@ export class DropdownComponent extends InputBaseComponent {
 	@Input() public options!: any[];
 	@Input() public grouped = false;
 	@Input() public editable = false;
-	@Input() public optionValue = "value";
+	@Input() public optionValue!: string;
 	@Input() public optionLabel = "label";
 	@Input() public optionDisabled = "disabled";
+	@Input() public selectedOption!: any;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public onDropdownChanged(event: any): void {
