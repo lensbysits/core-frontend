@@ -1,4 +1,4 @@
-<textarea 
+<textarea
 	pInputTextarea
 	[id]="id"
 	[attr.placeholder]="placeholder"
@@ -8,5 +8,6 @@
 	[autoResize]="autoResize"
 	[cols]="cols"
 	[rows]="rows"
-	[style]="style"> 
-</textarea>
+	[style]="style"
+	(focusin)="onFocusIn($event)"
+	(focusout)="onFocusOut($event)"></textarea>
