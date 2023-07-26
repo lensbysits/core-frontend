@@ -14,6 +14,7 @@ import { InputCheckboxModule } from "./input-checkbox";
 import { InputChipsModule } from "./input-chips";
 import { InputDateModule } from "./input-date";
 import { InputEmailModule } from "./input-email";
+import { InputNumberModule } from "./input-number";
 import { InputTextModule } from "./input-text";
 import { InputTextareaModule } from "./input-textarea";
 import { LanguageSelectorModule } from "./language-selector";
@@ -41,6 +42,7 @@ const modules = [
 	InputChipsModule,
 	InputDateModule,
 	InputEmailModule,
+	InputNumberModule,
 	InputTextModule,
 	InputTextareaModule,
 	LanguageSelectorModule,

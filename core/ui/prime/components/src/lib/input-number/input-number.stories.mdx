@@ -1,0 +1,29 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-number.stories";
+import { Default, WithIcon } from "./input-number.stories";
+
+<Meta
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputNumber
+
+This is a nice way to input number!
+
+<Story story={Default} />
+
+First import `InputNumberModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-number id="foo" placeholder="test"></lens-input-number>
+```
+
+## With icon
+
+<Story story={WithIcon} />
+
+```html
+<lens-input-number id="foo" icon="search" iconAlign="left|right" spinIcon="false|true"></lens-input-number>
+```
