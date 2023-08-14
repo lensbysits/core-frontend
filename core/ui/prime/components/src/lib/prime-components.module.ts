@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MultilingualModule } from "@lens/app-abstract";
-import { TimelineModule } from "primeng/timeline";
 import { AccordionModule } from "./accordion";
 import { AutoCompleteModule } from "./autocomplete";
 import { AutoCompleteTagsModule } from "./autocomplete-tags";
@@ -31,7 +30,6 @@ import { ToolbarModule } from "./toolbar";
 import { TreeModule } from "./tree";
 
 const modules = [
-	TimelineModule,
 	AccordionModule,
 	AutoCompleteModule,
 	AutoCompleteTagsModule,
