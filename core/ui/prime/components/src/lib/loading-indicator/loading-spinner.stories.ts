@@ -1,24 +1,24 @@
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { LoadingSpinnerComponent } from "./loading-spinner.component";
-import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { LoadingSpinnerModule } from "./loading-spinner.module";
 
 export default {
-    component: LoadingSpinnerComponent,
-    title: "Components/LoadingSpinner",
-    decorators: [
-        moduleMetadata({
-            imports: [ ProgressSpinnerModule ]
-        })
-    ]
-} as Meta
+	component: LoadingSpinnerComponent,
+	title: "Components/LoadingSpinner",
+	decorators: [
+		moduleMetadata({
+			imports: [LoadingSpinnerModule]
+		})
+	]
+} as Meta;
 
 const Template: Story = args => ({
-    props: {
-        ...args
-    }
+	props: {
+		...args
+	}
 });
 
 export const Default = Template.bind({});
 Default.args = {
-    isLoading: true
-}
+	isLoading: true
+};

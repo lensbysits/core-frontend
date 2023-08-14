@@ -1,8 +1,8 @@
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { TreeModule } from "primeng/tree";
+import { Meta, Story, moduleMetadata } from "@storybook/angular";
 import { TreeComponent } from "./tree.component";
+import { TreeModule } from "./tree.module";
 
 export default {
 	component: TreeComponent,
@@ -23,8 +23,8 @@ const Template: Story = args => ({
 export const Filterable = Template.bind({});
 Filterable.args = {
 	selectionMode: "single",
-	filterMode:"lenient",
-	filter:true,
+	filterMode: "lenient",
+	filter: true,
 	nodes: [
 		{ key: 1, label: "Item 1" },
 		{ key: 2, label: "Item 2", parent: 1 },
@@ -33,12 +33,11 @@ Filterable.args = {
 	]
 };
 
-
 export const NotFilterable = Template.bind({});
 NotFilterable.args = {
 	selectionMode: "single",
-	filterMode:"lenient",
-	filter:false,
+	filterMode: "lenient",
+	filter: false,
 	nodes: [
 		{ key: 1, label: "Item 1" },
 		{ key: 2, label: "Item 2", parent: 1 },

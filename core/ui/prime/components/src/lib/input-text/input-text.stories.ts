@@ -1,24 +1,24 @@
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { InputTextComponent } from "./input-text.component";
-import { InputTextModule } from "primeng/inputtext";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { InputTextModule } from "./input-text.module";
 
 const form: FormGroup = new FormGroup({
-    text: new FormControl("", []),
+	text: new FormControl("", [])
 });
 
 export default {
-    component: InputTextComponent,
-    title: "Components/InputText",
-    decorators: [
-        moduleMetadata({
-            imports: [ InputTextModule, ReactiveFormsModule ]
-        })
-    ]
-} as Meta
+	component: InputTextComponent,
+	title: "Components/InputText",
+	decorators: [
+		moduleMetadata({
+			imports: [InputTextModule, ReactiveFormsModule]
+		})
+	]
+} as Meta;
 
 const Template: Story = args => ({
-    template:  `<form [formGroup]="form">
+	template: `<form [formGroup]="form">
                 <lens-input-text
                     formControlName="text"
                     name="text"
@@ -29,20 +29,20 @@ const Template: Story = args => ({
                     [spinIcon]="spinIcon">
                 </lens-input-text>
                 </form>`,
-    props: {
-        ...args,
-        form: form
-    }
+	props: {
+		...args,
+		form: form
+	}
 });
 
 export const Default = Template.bind({});
 Default.args = {
-    id: "foo",
-    placeholder: "test"
-}
+	id: "foo",
+	placeholder: "test"
+};
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-    id: "foo",
-    icon: "search"
-}
+	id: "foo",
+	icon: "search"
+};
