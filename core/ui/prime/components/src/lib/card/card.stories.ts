@@ -1,20 +1,20 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { PanelComponent } from "./panel.component";
-import { PanelModule } from "./panel.module";
+import { CardComponent } from "./card.component";
+import { CardModule } from "./card.module";
 
 export default {
-	component: PanelComponent,
-	title: "Components/Panel",
+	component: CardComponent,
+	title: "Components/Card",
 	decorators: [
 		moduleMetadata({
-			imports: [PanelModule, BrowserAnimationsModule]
+			imports: [CardModule, BrowserAnimationsModule]
 		})
 	]
 } as Meta;
 
 const Template: Story = args => ({
-	template: `<lens-panel header="header" collapsed="collapsed">foo</lens-panel>`,
+	template: `<lens-card header="header" subheader="subheader">foo</lens-card>`,
 	props: {
 		...args
 	}
@@ -23,5 +23,5 @@ const Template: Story = args => ({
 export const Default = Template.bind({});
 Default.args = {
 	header: "Header",
-	collapsed: true
+	subheader: "Subheader"
 };

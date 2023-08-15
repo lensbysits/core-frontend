@@ -1,10 +1,8 @@
+import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DropdownComponent } from "./dropdown.component";
-import { DropdownModule } from "primeng/dropdown";
-import { FormControl, FormGroup, FormsModule } from "@angular/forms";
-import { userEvent } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { DropdownModule } from "./dropdown.module";
 
 export default {
 	component: DropdownComponent,
@@ -25,7 +23,7 @@ const form = new FormGroup({
 	dropdown: new FormControl()
 });
 
-const Template: Story = (args) => {
+const Template: Story = args => {
 	return {
 		props: {
 			...args

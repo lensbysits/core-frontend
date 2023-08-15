@@ -7,6 +7,7 @@ import { AutoCompleteTagsModule } from "./autocomplete-tags";
 import { LensAvatarMolule } from "./avatar";
 import { BlockableDivModule } from "./blockable-div";
 import { ButtonModule } from "./button";
+import { CardModule } from "./card";
 import { DialogModule } from "./dialog";
 import { DropdownModule } from "./dropdown";
 import { IconModule } from "./icon";
@@ -19,7 +20,7 @@ import { InputTextModule } from "./input-text";
 import { InputTextareaModule } from "./input-textarea";
 import { LanguageSelectorModule } from "./language-selector";
 import { ListboxModule } from "./listbox";
-import { LoadingSpinnerModule } from "./loading-indicator/loading-spinner.module";
+import { LoadingSpinnerModule } from "./loading-indicator";
 import { MultiSelectModule } from "./multiselect";
 import { PanelModule } from "./panel";
 import { TableModule } from "./table";
@@ -35,6 +36,7 @@ const modules = [
 	LensAvatarMolule,
 	BlockableDivModule,
 	ButtonModule,
+	CardModule,
 	DialogModule,
 	DropdownModule,
 	IconModule,

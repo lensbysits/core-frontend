@@ -1,0 +1,21 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./card.stories";
+import { Default, Spinner } from "./card.stories";
+
+<Meta
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# Card
+
+Card is a flexible container component.
+
+<Story story={Default} />
+
+First import `CardModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-card header="header" subheader="subheader">foo</lens-card>
+```

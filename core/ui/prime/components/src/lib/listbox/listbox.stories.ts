@@ -1,8 +1,8 @@
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { ListboxModule } from "primeng/listbox";
+import { Meta, Story, moduleMetadata } from "@storybook/angular";
 import { ListboxComponent } from "./listbox.component";
+import { ListboxModule } from "./listbox.module";
 
 export default {
 	component: ListboxComponent,

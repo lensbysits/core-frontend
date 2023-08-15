@@ -1,8 +1,8 @@
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Meta, moduleMetadata, Story } from "@storybook/angular";
-import { MultiSelectModule } from "primeng/multiselect";
+import { Meta, Story, moduleMetadata } from "@storybook/angular";
 import { MultiSelectComponent } from "./multiselect.component";
+import { MultiSelectModule } from "./multiselect.module";
 
 export default {
 	component: MultiSelectComponent,
