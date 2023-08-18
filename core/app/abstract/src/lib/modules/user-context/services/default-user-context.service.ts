@@ -1,8 +1,8 @@
 import { Inject, Injectable, InjectionToken, OnDestroy, Optional } from "@angular/core";
-import { UserContextService } from "./user-context.service";
-import { Observable, map, Subject, BehaviorSubject, tap, of } from "rxjs";
+import { BehaviorSubject, Observable, Subject, map, of, tap } from "rxjs";
 import { Claim, UserData } from "../models";
 import { AdditionalClaimsService } from "./additional-claims.service";
+import { UserContextService } from "./user-context.service";
 
 export const DEFAULT_USER = new InjectionToken<{ UserData: UserData; IsAuthenticated: boolean }>("AppInfo");
 
@@ -13,7 +13,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	private readonly changedSubject: Subject<void> = new Subject();
 	private readonly userDataSubject: BehaviorSubject<UserData> = new BehaviorSubject(this.UserData);
 	private readonly isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-	
+
 	private _additionalClaimsObservable?: Observable<Claim[]>;
 	private get additionalClaimsObservable(): Observable<Claim[]> {
 		if (this._additionalClaimsObservable) {
@@ -66,7 +66,7 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	}
 
 	IsInRole$(role: string): Observable<boolean> {
-		return this.userDataSubject.pipe(map((userData) => this.IsInRoleInternal(userData, role)));
+		return this.userDataSubject.pipe(map(userData => this.IsInRoleInternal(userData, role)));
 	}
 
 	IsInRole = (role: string): boolean => this.IsInRoleInternal(this.UserData, role);
@@ -88,18 +88,18 @@ export class DefaultUserContextService extends UserContextService implements OnD
 	public hasClaims(claims: Claim | Claim[]): boolean {
 		let temp: Claim[] = [];
 		if (claims.constructor !== Array) {
-			temp = [ <Claim>claims ];
+			temp = [<Claim>claims];
 		} else {
 			temp = claims;
 		}
-		
+
 		return temp.every(claim => this.hasClaim(claim));
 	}
 
 	hasClaim = (claim: Claim): boolean => this.hasClaimInternal(this.UserData, claim);
 
-	private hasClaimInternal = (userData: UserData, claim: Claim): boolean => 
-		(userData?.Claims?.findIndex((c) => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
+	private hasClaimInternal = (userData: UserData, claim: Claim): boolean =>
+		(userData?.Claims?.findIndex(c => c.name === claim.name && c.value === claim.value) ?? -1) > -1;
 
 	protected Set(userData: UserData, isAuthenticated: boolean): void {
 		this.IsAuthenticated = isAuthenticated;
