@@ -31,6 +31,7 @@ export class TableComponent implements AfterViewInit {
 	@Input() public currentPageReportTemplate = "{currentPage} of {totalPages}";
 	@Input() public paginatorPosition: PaginatorPosition = "bottom";
 	@Input() public orderBy: IOrderByMeta = { field: "", direction: "asc" };
+	@Input() public lazyLoadOnInit = true;
 
 	@Output() public lazyLoad = new EventEmitter<ILazyLoadEvent>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
