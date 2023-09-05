@@ -1,6 +1,7 @@
 <p-table
 	[value]="source"
 	[lazy]="true"
+	[lazyLoadOnInit]="lazyLoadOnInit"
 	(onLazyLoad)="onLazyLoadData($event)"
 	selectionMode="single"
 	[paginator]="paginator"
