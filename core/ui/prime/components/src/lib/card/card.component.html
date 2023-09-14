@@ -1,6 +1,13 @@
-<p-card
-	[header]="header"
-	[subheader]="subheader"
-	[styleClass]="styleClass">
-	<ng-content></ng-content>
+<p-card [styleClass]="styleClass">
+	<ng-template pTemplate="header">{{ header }}</ng-template>
+	<ng-template pTemplate="title">
+		{{ title }}
+		<div class="lens-card-buttons">
+			<ng-content select="[card-buttons]"></ng-content>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="subtitle">{{ subtitle }}</ng-template>
+	<ng-template pTemplate="content">
+		<ng-content></ng-content>
+	</ng-template>
 </p-card>
