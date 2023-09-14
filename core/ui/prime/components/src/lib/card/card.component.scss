@@ -1,0 +1,17 @@
+:host ::ng-deep {
+	.p-card.p-component {
+		.p-card-body {
+			position: relative;
+
+			.p-card-title {
+				position: relative;
+
+				.lens-card-buttons {
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+			}
+		}
+	}
+}
