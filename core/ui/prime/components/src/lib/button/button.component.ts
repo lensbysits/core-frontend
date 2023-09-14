@@ -1,32 +1,45 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-  selector: 'lens-button',
-  templateUrl: './button.component.html'
+	selector: "lens-button",
+	templateUrl: "./button.component.html"
 })
-export class ButtonComponent {
-  @Input() public label = "";
-  @Input() public type: "primary" | "secondary" | "success" | "info" | "warning" | "danger" = "primary";
-  @Input() public appearance: "default" | "raised" | "raised-text" | "rounded" | "rounded-outlined" | "rounded-text" | "text" | "raised-text" = "default";
-  @Input() public size: "small" | "default" | "large" = "default";
-  @Output() public clicked = new EventEmitter<MouseEvent>();
-  @Input() public icon = "";
-  @Input() public disabled = false;
+export class ButtonComponent implements OnInit {
+	protected cssClass: string[] = [];
 
-  public isRaised(): boolean {
-    return this.appearance === "raised"
-           || this.appearance === "raised-text";
-  }
+	@Input() public label = "";
+	@Input() public type: "primary" | "secondary" | "success" | "info" | "warning" | "danger" = "primary";
+	@Input() public appearance: "default" | "raised" | "raised-text" | "rounded" | "rounded-outlined" | "rounded-text" | "text" | "raised-text" =
+		"default";
+	@Input() public size: "small" | "default" | "large" = "default";
+	@Input() public icon = "";
+	@Input() public disabled = false;
+	@Input() public tooltip!: string;
+	@Input() public tooltipPosition: "left" | "top" | "bottom" | "right" = "left";
+	@Input() public class!: string | string[];
 
-  public isRounded(): boolean {
-    return this.appearance === "rounded"
-           || this.appearance === "rounded-outlined"
-           || this.appearance === "rounded-text";
-  }
+	@Output() public clicked = new EventEmitter<MouseEvent>();
 
-  public isText(): boolean {
-    return this.appearance === "text"
-           || this.appearance === "raised-text"
-           || this.appearance === "rounded-text";
-  }
+	public ngOnInit(): void {
+		this.buildCssClass();
+	}
+
+	public isRaised(): boolean {
+		return this.appearance === "raised" || this.appearance === "raised-text";
+	}
+
+	public isRounded(): boolean {
+		return this.appearance === "rounded" || this.appearance === "rounded-outlined" || this.appearance === "rounded-text";
+	}
+
+	public isText(): boolean {
+		return this.appearance === "text" || this.appearance === "raised-text" || this.appearance === "rounded-text";
+	}
+
+	private buildCssClass() {
+		this.cssClass = [`p-button-${this.type}`];
+		if (this.class) {
+			this.cssClass = [...this.cssClass, ...(Array.isArray(this.class) ? this.class : this.class.split(" ").map(v => v.trim()))];
+		}
+	}
 }
