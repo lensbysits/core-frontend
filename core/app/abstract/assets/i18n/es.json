@@ -1,0 +1,6 @@
+{
+	"errorHandling": {
+		"title": "Error",
+		"unexpected": "Se produjo un error inesperado. Por favor, inténtelo nuevamente. Detalles: '{{details}}'"
+	}
+}

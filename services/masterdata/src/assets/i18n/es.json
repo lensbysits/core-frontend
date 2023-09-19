@@ -1,0 +1,322 @@
+{
+	"menu": {
+		"title": "Gestión de Datos Maestros",
+		"items": {
+			"masterdata": "Datos Maestros"
+		}
+	},
+	"masterdatamgmt": {
+		"globals": {
+			"btnBack": "Volver a la lista",
+			"btnCancel": "Cancelar"
+		},
+		"pages": {
+			"dashboard": {
+				"demoText": "Panel de Datos Maestros"
+			},
+			"masterdataTypeList": {
+				"header": "Total de Tipos de Datos Maestros",
+				"deleteRowConfirmation": "¿Está seguro?",
+				"tableColumns": {
+					"code": "Código",
+					"name": "Nombre",
+					"count": "Cantidad",
+					"description": "Descripción"
+				},
+				"buttons": {
+					"btnAddNewType": "Agregar tipo de Datos Maestros",
+					"btnView": "Ver Datos Maestros",
+					"btnAdd": "Agregar Datos Maestros",
+					"btnEdit": "Editar",
+					"btnDelete": "Eliminar"
+				}
+			},
+			"masterdataTypeDetails": {
+				"header": "Detalles del Tipo de Datos Maestros",
+				"modelFields": {
+					"id": "Id",
+					"code": "Código",
+					"name": "Nombre",
+					"description": "Descripción",
+					"metadata": "Metadatos",
+					"masterdatasCount": "Cantidad de Datos Maestros"
+				}
+			},
+			"masterdataTypeUpsert": {
+				"addFormTitle": "Agregar Tipo de Datos Maestros",
+				"editFormTitle": "Editar Tipo de Datos Maestros",
+				"buttons": {
+					"btnSubmitAddForm": "Guardar",
+					"btnSubmitEditForm": "Actualizar"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Agregar tipo de Datos Maestros",
+						"message": "El tipo de Datos Maestros se agregó exitosamente."
+					},
+					"successEdit": {
+						"title": "Actualizar tipo de Datos Maestros",
+						"message": "El tipo de Datos Maestros se actualizó exitosamente."
+					}
+				},
+				"code": {
+					"label": "Código",
+					"placeholder": "Por favor, ingrese un código válido",
+					"required": "El código es obligatorio.",
+					"maxLength": "El código puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"name": {
+					"label": "Nombre",
+					"placeholder": "Por favor, ingrese un nombre válido",
+					"required": "El nombre es obligatorio.",
+					"maxLength": "El nombre puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"description": {
+					"label": "Descripción",
+					"placeholder": "Por favor, ingrese una descripción válida",
+					"required": "La descripción es obligatoria.",
+					"maxLength": "La descripción puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"metadata": {
+					"label": "Metadatos",
+					"helpText": "* Si desea eliminar un par (clave, valor), establezca el valor como nulo",
+					"required": "Los metadatos son obligatorios.",
+					"maxLength": "Los metadatos pueden tener un máximo de {{ maxLength }} caracteres."
+				}
+			},
+			"masterdataList": {
+				"deleteRowConfirmation": "¿Está seguro?",
+				"tableColumns": {
+					"key": "Clave",
+					"value": "Valor",
+					"name": "Nombre",
+					"description": "Descripción",
+					"tags": "Etiquetas",
+					"count": "Cantidad de Claves"
+				},
+				"buttons": {
+					"btnAddNew": "Agregar Datos Maestros",
+					"btnEdit": "Editar",
+					"btnDelete": "Eliminar"
+				},
+				"tagsSelector": {
+					"placeholder": "Aquí puede filtrar por etiquetas"
+				}
+			},
+			"masterdataDetails": {
+				"header": "Detalles de Datos Maestros",
+				"alternativeKey": "Claves Alternativas",
+				"modelFields": {
+					"id": "Id",
+					"masterdataTypeId": "Id del Tipo",
+					"masterdataTypeName": "Nombre del Tipo",
+					"key": "Clave",
+					"value": "Valor",
+					"name": "Nombre",
+					"description": "Descripción",
+					"metadata": "Metadatos",
+					"tags": "Etiquetas"
+				}
+			},
+			"masterdataUpsert": {
+				"addFormTitle": "Agregar Datos Maestros al Tipo",
+				"editFormTitle": "Editar Datos Maestros: ",
+				"buttons": {
+					"btnSubmitAddForm": "Guardar",
+					"btnSubmitEditForm": "Actualizar"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Agregar Datos Maestros",
+						"message": "Los Datos Maestros se agregaron exitosamente."
+					},
+					"successEdit": {
+						"title": "Actualizar Datos Maestros",
+						"message": "Los Datos Maestros se actualizaron exitosamente."
+					}
+				},
+				"type": {
+					"label": "Tipo de Datos Maestros",
+					"required": "El Tipo de Datos Maestros es obligatorio."
+				},
+				"key": {
+					"label": "Clave",
+					"placeholder": "Por favor, ingrese una clave válida",
+					"required": "La clave es obligatoria.",
+					"maxLength": "La clave puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"value": {
+					"label": "Valor",
+					"placeholder": "Por favor, ingrese un valor válido",
+					"required": "El valor es obligatorio.",
+					"maxLength": "El valor puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"name": {
+					"label": "Nombre",
+					"placeholder": "Por favor, ingrese un nombre válido",
+					"required": "El nombre es obligatorio.",
+					"maxLength": "El nombre puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"description": {
+					"label": "Descripción",
+					"placeholder": "Por favor, ingrese una descripción válida",
+					"required": "La descripción es obligatoria.",
+					"maxLength": "La descripción puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"metadata": {
+					"label": "Metadatos",
+					"helpText": "* Si desea eliminar un par (clave, valor), establezca el valor como nulo",
+					"required": "Los metadatos son obligatorios.",
+					"maxLength": "Los metadatos pueden tener un máximo de {{ maxLength }} caracteres."
+				},
+				"tags": {
+					"label": "Etiquetas",
+					"placeholder": "Aquí puede insertar etiquetas",
+					"required": "Las etiquetas son obligatorias."
+				}
+			},
+			"masterdataAlternativeKeyBox": {
+				"header": "Claves Alternativas"
+			},
+			"masterdataAlternativeKeyList": {
+				"deleteRowConfirmation": "¿Está seguro?",
+				"tableColumns": {
+					"domain": "Dominio",
+					"key": "Clave"
+				},
+				"buttons": {
+					"btnDelete": "Eliminar"
+				}
+			},
+			"masterdataAlternativeKeyUpsert": {
+				"buttons": {
+					"btnSubmitAddForm": "Guardar"
+				},
+				"notifications": {
+					"successAdd": {
+						"title": "Agregar clave alternativa para Datos Maestros",
+						"message": "La clave alternativa para Datos Maestros se agregó exitosamente."
+					}
+				},
+				"domain": {
+					"label": "Dominio",
+					"placeholder": "Por favor, ingrese un dominio válido",
+					"required": "El dominio es obligatorio.",
+					"maxLength": "El dominio puede tener un máximo de {{ maxLength }} caracteres."
+				},
+				"key": {
+					"label": "Clave",
+					"placeholder": "Por favor, ingrese una clave válida",
+					"required": "La clave es obligatoria.",
+					"maxLength": "La clave puede tener un máximo de {{ maxLength }} caracteres."
+				}
+			},
+			"masterdataRelatedItemsBox": {
+				"header": "Elementos Relacionados",
+				"selectType": {
+					"label": "Tipo de Datos Maestros",
+					"placeholder": "Por favor, elija un tipo de Datos Maestros",
+					"required": "El Tipo de Datos Maestros es obligatorio."
+				},
+				"boxTypeChooseRelated": {
+					"buttons": {
+						"btnAdd": "Agregar Nuevos Elementos Relacionados de Datos Maestros",
+						"btnSave": "Guardar",
+						"btnDelete": "Eliminar"
+					},
+					"addForm": {
+						"masterdataItems": {
+							"placeholder": "Por favor, elija al menos un elemento de Datos Maestros",
+							"required": "Los Elementos de Datos Maestros son obligatorios."
+						},
+						"notifications": {
+							"successAdd": {
+								"title": "Agregar Nuevos Elementos Relacionados de Datos Maestros",
+								"message": "Asociación exitosa."
+							}
+						}
+					},
+					"deleteForm": {
+						"title": "Elementos Actuales Relacionados de Datos Maestros",
+						"listMasterdataItems": {
+							"filterPlaceholder": "Ingrese texto aquí para filtrar los elementos de Datos Maestros",
+							"required": "Es obligatorio elegir al menos un elemento de Datos Maestros."
+						},
+						"notifications": {
+							"successDelete": {
+								"title": "Eliminar Elementos de Datos Maestros Relacionados Seleccionados",
+								"message": "Eliminación exitosa."
+							}
+						}
+					}
+				}
+			},
+			"masterdataTranslationsBox": {
+				"header": "Traducciones",
+				"tableColumns": {
+					"language": "Código de Idioma",
+					"languageName": "Nombre del Idioma",
+					"value": "Valor",
+					"name": "Nombre",
+					"description": "Descripción",
+					"isDefault": "Predeterminado"
+				},
+				"buttons": {
+					"btnAdd": "Agregar Nuevo Idioma",
+					"btnEdit": "Editar",
+					"btnSetDefault": "Establecer como Predeterminado"
+				},
+				"notifications": {
+					"saveChanges": {
+						"successMdType": {
+							"title": "Guardar cambios en el tipo de Datos Maestros",
+							"message": "La traducción del tipo de Datos Maestros se actualizó exitosamente."
+						},
+						"successMdItem": {
+							"title": "Guardar cambios en el elemento de Datos Maestros",
+							"message": "La traducción del elemento de Datos Maestros se actualizó exitosamente."
+						}
+					}
+				},
+				"upsert": {
+					"addForm": {
+						"header": "Agregar Nuevo Idioma",
+						"btnSubmit": "Agregar Idioma"
+					},
+					"editForm": {
+						"header": "Editar Idioma",
+						"btnSubmit": "Actualizar Idioma"
+					},
+					"language": {
+						"label": "Idioma",
+						"placeholder": "Elija un Idioma",
+						"required": "El Idioma es obligatorio.",
+						"exists": "El Idioma ya existe."
+					},
+					"isDefault": {
+						"label": "Establecer como Idioma Predeterminado",
+						"required": "El Idioma Predeterminado es obligatorio."
+					},
+					"value": {
+						"label": "Valor",
+						"placeholder": "Por favor, ingrese un valor válido",
+						"required": "El valor es obligatorio.",
+						"maxLength": "El valor puede tener un máximo de {{ maxLength }} caracteres."
+					},
+					"name": {
+						"label": "Nombre",
+						"placeholder": "Por favor, ingrese un nombre válido",
+						"required": "El nombre es obligatorio.",
+						"maxLength": "El nombre puede tener un máximo de {{ maxLength }} caracteres."
+					},
+					"description": {
+						"label": "Descripción",
+						"placeholder": "Por favor, ingrese una descripción válida",
+						"required": "La descripción es obligatoria.",
+						"maxLength": "La descripción puede tener un máximo de {{ maxLength }} caracteres."
+					}
+				}
+			}
+		}
+	}
+}
