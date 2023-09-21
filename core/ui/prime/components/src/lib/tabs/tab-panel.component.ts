@@ -9,5 +9,6 @@ export class TabPanelComponent {
 	@Input() header!: string;
 	@Input() selected = false;
 
-	@ViewChild("template") public template!: TemplateRef<any>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	@ViewChild("template", { static: true }) public template!: TemplateRef<any>;
 }
