@@ -1,6 +1,8 @@
 <p-dropdown
 	[inputId]="id"
 	(onChange)="onDropdownChanged($event)"
+	(onFocus)="onFocusIn($event)"
+	(onBlur)="onFocusOut($event)"
 	[options]="options"
 	[placeholder]="placeholder!"
 	[showClear]="!required"
