@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
+
+export type BtnType = "primary" | "secondary" | "success" | "info" | "warning" | "danger";
 
 @Component({
 	selector: "lens-button",
 	templateUrl: "./button.component.html"
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnInit, OnChanges {
 	protected cssClass: string[] = [];
 
 	@Input() public label = "";
-	@Input() public type: "primary" | "secondary" | "success" | "info" | "warning" | "danger" = "primary";
+	@Input() public type: BtnType = "primary";
 	@Input() public appearance: "default" | "raised" | "raised-text" | "rounded" | "rounded-outlined" | "rounded-text" | "text" | "raised-text" =
 		"default";
 	@Input() public size: "small" | "default" | "large" = "default";
@@ -21,6 +23,10 @@ export class ButtonComponent implements OnInit {
 	@Output() public clicked = new EventEmitter<MouseEvent>();
 
 	public ngOnInit(): void {
+		this.buildCssClass();
+	}
+
+	public ngOnChanges(): void {
 		this.buildCssClass();
 	}
 
