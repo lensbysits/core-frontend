@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
-
-export type BtnType = "primary" | "secondary" | "success" | "info" | "warning" | "danger";
+import { ButtonType } from "./button.interface";
 
 @Component({
 	selector: "lens-button",
@@ -10,7 +9,7 @@ export class ButtonComponent implements OnInit, OnChanges {
 	protected cssClass: string[] = [];
 
 	@Input() public label = "";
-	@Input() public type: BtnType = "primary";
+	@Input() public type: ButtonType = "primary";
 	@Input() public appearance: "default" | "raised" | "raised-text" | "rounded" | "rounded-outlined" | "rounded-text" | "text" | "raised-text" =
 		"default";
 	@Input() public size: "small" | "default" | "large" = "default";
