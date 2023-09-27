@@ -1,1 +1,2 @@
-export * from './button.module';
+export * from "./button.interface";
+export * from "./button.module";
