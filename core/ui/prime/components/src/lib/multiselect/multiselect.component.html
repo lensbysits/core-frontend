@@ -6,32 +6,61 @@
 	"></ng-container>
 
 <ng-template #displayDefault>
-	<p-multiSelect
-		(onChange)="onMultiSelectChanged($event)"
-		[inputId]="id"
-		[options]="options"
-		[placeholder]="placeholder!"
-		[optionValue]="optionValue"
-		[optionLabel]="optionLabel"
-		[optionDisabled]="optionDisabled"
-		[disabled]="disabled"
-		[readonly]="readonly"
-		[showHeader]="showHeader"
-		[(ngModel)]="selectedOptions"></p-multiSelect>
+	<ng-container *ngIf="isReactiveForm">
+		<p-multiSelect
+			[formControl]="control"
+			[inputId]="id"
+			[options]="options"
+			[placeholder]="placeholder!"
+			[optionValue]="optionValue"
+			[optionLabel]="optionLabel"
+			[optionDisabled]="optionDisabled"
+			[readonly]="readonly"
+			[showHeader]="showHeader"></p-multiSelect>
+	</ng-container>
+	<ng-container *ngIf="!isReactiveForm">
+		<p-multiSelect
+			[(ngModel)]="selectedOptions"
+			(onChange)="onMultiSelectChanged($event)"
+			[inputId]="id"
+			[options]="options"
+			[placeholder]="placeholder!"
+			[optionValue]="optionValue"
+			[optionLabel]="optionLabel"
+			[optionDisabled]="optionDisabled"
+			[disabled]="disabled"
+			[readonly]="readonly"
+			[showHeader]="showHeader"></p-multiSelect>
+	</ng-container>
 </ng-template>
 
 <ng-template #displayChip>
-	<p-multiSelect
-		(onChange)="onMultiSelectChanged($event)"
-		[inputId]="id"
-		[options]="options"
-		[placeholder]="placeholder!"
-		[optionValue]="optionValue"
-		[optionLabel]="optionLabel"
-		[optionDisabled]="optionDisabled"
-		[disabled]="disabled"
-		[readonly]="readonly"
-		[showHeader]="showHeader"
-		[(ngModel)]="selectedOptions"
-		display="chip"></p-multiSelect>
+	<ng-container *ngIf="isReactiveForm">
+		<p-multiSelect
+			[formControl]="control"
+			[inputId]="id"
+			[options]="options"
+			[placeholder]="placeholder!"
+			[optionValue]="optionValue"
+			[optionLabel]="optionLabel"
+			[optionDisabled]="optionDisabled"
+			[readonly]="readonly"
+			[showHeader]="showHeader"
+			display="chip"></p-multiSelect>
+	</ng-container>
+	<ng-container *ngIf="!isReactiveForm">
+		<p-multiSelect
+			[(ngModel)]="selectedOptions"
+			(onChange)="onMultiSelectChanged($event)"
+			[inputId]="id"
+			[options]="options"
+			[placeholder]="placeholder!"
+			[optionValue]="optionValue"
+			[optionLabel]="optionLabel"
+			[optionDisabled]="optionDisabled"
+			[disabled]="disabled"
+			[readonly]="readonly"
+			[showHeader]="showHeader"
+			display="chip"></p-multiSelect>
+	</ng-container>
 </ng-template>

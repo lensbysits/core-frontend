@@ -1,22 +1,43 @@
-<p-dropdown
-	[inputId]="id"
-	(onChange)="onDropdownChanged($event)"
-	(onFocus)="onFocusIn($event)"
-	(onBlur)="onFocusOut($event)"
-	[options]="options"
-	[placeholder]="placeholder!"
-	[showClear]="!required"
-	[group]="grouped"
-	[editable]="editable"
-	[optionValue]="optionValue"
-	[optionLabel]="optionLabel"
-	[optionDisabled]="optionDisabled"
-	[required]="required"
-	[disabled]="disabled"
-	[(ngModel)]="selectedOption">
-	<ng-template
-		let-option
-		pTemplate="item">
-		{{ option[this.optionLabel] || "&nbsp;" }}
-	</ng-template>
-</p-dropdown>
+<ng-container *ngIf="isReactiveForm">
+	<p-dropdown
+		[formControl]="control"
+		[inputId]="id"
+		[options]="options"
+		[placeholder]="placeholder!"
+		[showClear]="!required"
+		[group]="grouped"
+		[editable]="editable"
+		[optionValue]="optionValue"
+		[optionLabel]="optionLabel"
+		[optionDisabled]="optionDisabled">
+		<ng-template
+			let-option
+			pTemplate="item">
+			{{ option[this.optionLabel] || "&nbsp;" }}
+		</ng-template>
+	</p-dropdown>
+</ng-container>
+<ng-container *ngIf="!isReactiveForm">
+	<p-dropdown
+		[(ngModel)]="selectedOption"
+		[inputId]="id"
+		(onChange)="onDropdownChanged($event)"
+		(onFocus)="onFocusIn($event)"
+		(onBlur)="onFocusOut($event)"
+		[options]="options"
+		[placeholder]="placeholder!"
+		[showClear]="!required"
+		[group]="grouped"
+		[editable]="editable"
+		[optionValue]="optionValue"
+		[optionLabel]="optionLabel"
+		[optionDisabled]="optionDisabled"
+		[required]="required"
+		[disabled]="disabled">
+		<ng-template
+			let-option
+			pTemplate="item">
+			{{ option[this.optionLabel] || "&nbsp;" }}
+		</ng-template>
+	</p-dropdown>
+</ng-container>

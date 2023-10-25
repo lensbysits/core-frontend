@@ -8,6 +8,7 @@ import { InputBaseComponent } from "../input-base/input-base.component";
 	providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DropdownComponent), multi: true }]
 })
 export class DropdownComponent extends InputBaseComponent {
+	@Input() public isReactiveForm = false;
 	@Input() public id!: string;
 	@Input() public placeholder?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
