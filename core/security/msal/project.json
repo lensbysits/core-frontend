@@ -9,8 +9,7 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/libs/framework/core/security/msal"],
 			"options": {
-				"jestConfig": "libs/framework/core/security/msal/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/core/security/msal/jest.config.ts"
 			}
 		},
 		"lint": {

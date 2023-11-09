@@ -11,8 +11,7 @@
 				"{workspaceRoot}/coverage/libs/framework/core/ui/prime/layout/prime-layout"
 			],
 			"options": {
-				"jestConfig": "libs/framework/core/ui/prime/layout/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/core/ui/prime/layout/jest.config.ts"
 			}
 		},
 		"lint": {

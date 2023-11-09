@@ -11,8 +11,7 @@
 				"{workspaceRoot}/coverage/libs/framework/core/security/oauth"
 			],
 			"options": {
-				"jestConfig": "libs/framework/core/security/oauth/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/core/security/oauth/jest.config.ts"
 			}
 		},
 		"lint": {

@@ -11,8 +11,7 @@
 				"{workspaceRoot}/coverage/libs/framework/core/app/abstract-ui"
 			],
 			"options": {
-				"jestConfig": "libs/framework/core/app/abstract-ui/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/core/app/abstract-ui/jest.config.ts"
 			}
 		},
 		"lint": {

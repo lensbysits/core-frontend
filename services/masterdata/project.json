@@ -11,8 +11,7 @@
 				"{workspaceRoot}/coverage/libs/framework/services/masterdata"
 			],
 			"options": {
-				"jestConfig": "libs/framework/services/masterdata/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/services/masterdata/jest.config.ts"
 			}
 		},
 		"lint": {
