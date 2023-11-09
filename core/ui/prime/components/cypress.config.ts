@@ -1,6 +1,6 @@
-import { defineConfig } from 'cypress';
-import { nxComponentTestingPreset } from '@nrwl/angular/plugins/component-testing';
+import { defineConfig } from "cypress";
+import { nxComponentTestingPreset } from "@nx/angular/plugins/component-testing";
 
 export default defineConfig({
-  component: nxComponentTestingPreset(__filename),
+	component: nxComponentTestingPreset(__filename)
 });

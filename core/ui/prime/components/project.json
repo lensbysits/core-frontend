@@ -1,19 +1,22 @@
 {
 	"name": "framework-core-ui-prime-components",
+	"$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "libs/framework/core/ui/prime/components/src",
 	"prefix": "lens",
 	"targets": {
 		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/libs/framework/core/ui/prime/components"],
+			"executor": "@nx/jest:jest",
+			"outputs": [
+				"{workspaceRoot}/coverage/libs/framework/core/ui/prime/components"
+			],
 			"options": {
 				"jestConfig": "libs/framework/core/ui/prime/components/jest.config.ts",
 				"passWithNoTests": true
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/eslint:lint",
 			"options": {
 				"lintFilePatterns": [
 					"libs/framework/core/ui/prime/components/**/*.ts",
@@ -22,7 +25,7 @@
 			}
 		},
 		"component-test": {
-			"executor": "@nrwl/cypress:cypress",
+			"executor": "@nx/cypress:cypress",
 			"options": {
 				"cypressConfig": "libs/framework/core/ui/prime/components/cypress.config.ts",
 				"testingType": "component",

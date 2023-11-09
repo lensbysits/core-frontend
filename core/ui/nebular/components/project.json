@@ -1,19 +1,22 @@
 {
 	"name": "framework-core-ui-nebular-components",
+	"$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "libs/framework/core/ui/nebular/components/src",
 	"prefix": "lens",
 	"targets": {
 		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/libs/framework/core/ui/nebular/components"],
+			"executor": "@nx/jest:jest",
+			"outputs": [
+				"{workspaceRoot}/coverage/libs/framework/core/ui/nebular/components"
+			],
 			"options": {
 				"jestConfig": "libs/framework/core/ui/nebular/components/jest.config.ts",
 				"passWithNoTests": true
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/eslint:lint",
 			"options": {
 				"lintFilePatterns": [
 					"libs/framework/core/ui/nebular/components/**/*.ts",
