@@ -1,19 +1,21 @@
 {
 	"name": "framework-core-ui-prime-layout",
+	"$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "libs/framework/core/ui/prime/layout/src",
 	"prefix": "lens",
 	"targets": {
 		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/libs/framework/core/ui/prime/layout/prime-layout"],
+			"executor": "@nx/jest:jest",
+			"outputs": [
+				"{workspaceRoot}/coverage/libs/framework/core/ui/prime/layout/prime-layout"
+			],
 			"options": {
-				"jestConfig": "libs/framework/core/ui/prime/layout/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/core/ui/prime/layout/jest.config.ts"
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/eslint:lint",
 			"options": {
 				"lintFilePatterns": [
 					"libs/framework/core/ui/prime/layout/**/*.ts",

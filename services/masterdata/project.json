@@ -6,15 +6,16 @@
 	"prefix": "masterdata",
 	"targets": {
 		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/libs/framework/services/masterdata"],
+			"executor": "@nx/jest:jest",
+			"outputs": [
+				"{workspaceRoot}/coverage/libs/framework/services/masterdata"
+			],
 			"options": {
-				"jestConfig": "libs/framework/services/masterdata/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/framework/services/masterdata/jest.config.ts"
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/eslint:lint",
 			"options": {
 				"lintFilePatterns": [
 					"libs/framework/services/masterdata/**/*.ts",
