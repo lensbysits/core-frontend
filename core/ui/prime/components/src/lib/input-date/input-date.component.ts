@@ -1,7 +1,8 @@
 import { Component, forwardRef, Input, ViewChild } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from "@angular/forms";
 import { Calendar } from "primeng/calendar";
-import * as moment from "moment/moment";
+//import * as moment from "moment/moment";
+import { DateTime } from "luxon";
 import { InputBaseComponent } from "../input-base/input-base.component";
 
 @Component({
@@ -49,10 +50,16 @@ export class InputDateComponent extends InputBaseComponent {
                 format = "D-M-YYYY H:mm";
                 break;
         }
-        const date = moment(control.value, format, true); // TODO: localization!
-        if (!date.isValid()) {
-            return { invalidDate: "Invalid date entered" };
-        }
+        //const date = moment(control.value, format, true); // TODO: localization!
+        //if (!date.isValid()) {
+        //    return { invalidDate: "Invalid date entered" };
+        //}
+		//See: https://moment.github.io/luxon/#/parsing?id=fromformat
+		const date = DateTime.fromFormat(control.value, format);
+
+		if (!date.isValid) {
+			return { invalidDate : "Invalid date entered, reason: " + date.invalidReason };
+		}
 
         return null;
     }
