@@ -1,0 +1,29 @@
+import { Meta, Story } from "@storybook/addon-docs";
+import meta from "./input-slider.stories";
+import { Default, WithIcon } from "./input-slider.stories";
+
+<Meta
+    title={meta.title}
+    component={meta.component}
+    decorators={meta.decorators}
+    argTypes={meta.argTypes} />
+
+# InputSlider
+
+This is a nice way to input slider!
+
+<Story story={Default} />
+
+First import `InputSliderModule` from `@lens/ui-prime-components`.
+
+```html
+<lens-input-slider id="foo" placeholder="test"></lens-input-slider>
+```
+
+## With icon
+
+<Story story={WithIcon} />
+
+```html
+<lens-input-slider id="foo" icon="search" iconAlign="left|right" spinIcon="false|true"></lens-input-slider>
+```

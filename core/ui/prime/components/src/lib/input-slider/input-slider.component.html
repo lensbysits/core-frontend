@@ -8,12 +8,9 @@
 </ng-container>
 
 <ng-template #input>
-	<p-inputNumber
+	<p-slider
 		[id]="id"
 		[attr.placeholder]="placeholder"
-		[mode]="mode"
-		[showButtons]="showButtons"
-		[buttonLayout]="buttonLayout"
 		[min]="min"
 		[max]="max"
 		[step]="step"
@@ -21,5 +18,5 @@
 		[attr.required]="required"
 		[formControl]="control"
 		(onFocus)="onFocusIn($event)"
-		(onBlur)="onFocusOut($event)"></p-inputNumber>
+		(onBlur)="onFocusOut($event)"></p-slider>
 </ng-template>
