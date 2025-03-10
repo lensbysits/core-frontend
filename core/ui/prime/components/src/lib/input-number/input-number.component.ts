@@ -16,6 +16,8 @@ export class InputNumberComponent extends InputBaseComponent {
 	@Input() public mode = "decimal";
 	@Input() public min = 0;
 	@Input() public max!: number;
+	@Input() public showButtons = true;
+	@Input() public buttonLayout = "vertical";
 	@Input() public step = 1;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
