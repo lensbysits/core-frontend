@@ -16,6 +16,7 @@ import { InputChipsModule } from "./input-chips";
 import { InputDateModule } from "./input-date";
 import { InputEmailModule } from "./input-email";
 import { InputNumberModule } from "./input-number";
+import { InputSliderModule } from "./input-slider";
 import { InputTextModule } from "./input-text";
 import { InputTextareaModule } from "./input-textarea";
 import { LanguageSelectorModule } from "./language-selector";
@@ -45,6 +46,7 @@ const modules = [
 	InputDateModule,
 	InputEmailModule,
 	InputNumberModule,
+	InputSliderModule,
 	InputTextModule,
 	InputTextareaModule,
 	LanguageSelectorModule,

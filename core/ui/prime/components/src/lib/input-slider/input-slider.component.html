@@ -1,0 +1,22 @@
+<ng-container *ngIf="icon; else input">
+	<span class="p-input-icon-{{ iconAlign }}">
+		<i
+			class="pi pi-{{ icon }}"
+			[class.pi-spin]="spinIcon"></i>
+		<ng-container *ngTemplateOutlet="input"></ng-container>
+	</span>
+</ng-container>
+
+<ng-template #input>
+	<p-slider
+		[id]="id"
+		[attr.placeholder]="placeholder"
+		[min]="min"
+		[max]="max"
+		[step]="step"
+		[attr.disabled]="disabled ? '' : null"
+		[attr.required]="required"
+		[formControl]="control"
+		(onFocus)="onFocusIn($event)"
+		(onBlur)="onFocusOut($event)"></p-slider>
+</ng-template>
