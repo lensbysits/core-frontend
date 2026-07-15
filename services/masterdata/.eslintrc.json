@@ -1,36 +1,66 @@
 {
-  "extends": ["../../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "extends": [
+    "../../../../.eslintrc.json"
+  ],
+  "ignorePatterns": [
+    "!**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "extends": [
-        "plugin:@nrwl/nx/angular",
+        "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "masterdata",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "masterdata",
-            "style": "kebab-case"
-          }
-        ]
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-var-requires": "warn",
+        "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "no-empty": "warn",
+        "prefer-const": "warn",
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
+        "@angular-eslint/no-input-rename": "warn",
+        "@angular-eslint/no-output-native": "warn",
+        "@angular-eslint/component-selector": "warn",
+        "@angular-eslint/directive-selector": "warn",
+        "@typescript-eslint/no-empty-interface": "warn",
+        "no-var": "warn",
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@angular-eslint/no-host-metadata-property": "warn",
+        "@angular-eslint/no-output-on-prefix": "warn",
+        "@angular-eslint/component-class-suffix": "warn",
+        "@typescript-eslint/member-ordering": "warn"
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@nrwl/nx/angular-template"],
-      "rules": {}
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@nx/angular-template"
+      ],
+      "rules": {
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
+        "@angular-eslint/no-input-rename": "warn",
+        "@angular-eslint/no-output-native": "warn",
+        "@angular-eslint/component-selector": "warn",
+        "@angular-eslint/directive-selector": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/no-var-requires": "warn",
+        "no-empty": "warn",
+        "prefer-const": "warn",
+        "@angular-eslint/template/no-negated-async": "warn",
+        "@angular-eslint/template/eqeqeq": "warn",
+        "@angular-eslint/no-host-metadata-property": "warn",
+        "@angular-eslint/no-output-on-prefix": "warn",
+        "@angular-eslint/component-class-suffix": "warn",
+        "@typescript-eslint/member-ordering": "warn"
+      }
     }
   ]
 }

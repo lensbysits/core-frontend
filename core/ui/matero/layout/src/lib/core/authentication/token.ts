@@ -31,7 +31,7 @@ export abstract class BaseToken {
   }
 
   needRefresh(): boolean {
-    return this.exp !== undefined && this.exp >= 0;
+    return typeof this.exp === 'number' && this.exp >= 0;
   }
 
   getRefreshTime(): number {
